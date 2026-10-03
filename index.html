@@ -1,218 +1,374 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="DIDAR — Dialogue, Inclusion, Diversity, Arts & Relations. Community, cultural, educational and intercultural initiatives in Montréal." />
-  <title>DIDAR | Community · Culture · Inclusion</title>
+  <meta name="description" content="DIDAR — Dialogue, Inclusion, Diversité, Arts & Relations. Soutien communautaire, liens culturels, éducation et initiatives interculturelles à Montréal." />
+  <title>DIDAR | Communauté · Culture · Inclusion</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <header class="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="#top" aria-label="DIDAR home">
-        <span class="brand-mark">D</span>
-        <span>
-          <strong>DIDAR</strong>
-          <small>Dialogue · Inclusion · Diversity · Arts · Relations</small>
-        </span>
+
+      <a class="brand" href="#top" aria-label="Accueil DIDAR">
+        <img class="brand-logo" src="assets/logo.png" alt="Logo DIDAR">
+        <strong>DIDAR</strong>
       </a>
-      <nav aria-label="Main navigation">
-        <nav class="languages">
-          <a href="./">FR</a>
+
+      <div class="nav-area">
+        <nav class="languages" aria-label="Choix de langue">
+          <a href="./" aria-current="page">FR</a>
           <a href="en/">EN</a>
           <a href="fa/">فارسی</a>
+        </nav>
 
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
+        <nav class="main-nav" aria-label="Navigation principale">
+          <a href="#about">À propos</a>
+          <a href="#support">Soutien</a>
+          <a href="#programs">Programmes</a>
+          <a href="#pillars">Notre modèle</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+
     </div>
   </header>
 
   <main id="top">
+
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-grid">
+
         <div>
           <p class="eyebrow">Montréal · Québec</p>
-          <h1>A place to meet, connect, learn and participate.</h1>
+
+          <h1>Soutien communautaire, liens culturels et accompagnement pratique.</h1>
+
           <p class="lead">
-            DIDAR is a community, cultural and educational initiative supporting inclusion,
-            intercultural dialogue, access to resources, social participation and cultural transmission.
+            DIDAR aide les personnes à mieux comprendre leurs options, à trouver les ressources appropriées,
+            à s’orienter dans des systèmes parfois complexes et à créer des liens significatifs au sein de la communauté.
+            Nos activités comprennent également des initiatives culturelles, éducatives et interculturelles.
           </p>
+
           <div class="actions">
-            <a class="button primary" href="#services">Explore our services</a>
-            <a class="button secondary" href="#projects">See our projects</a>
+            <a class="button primary" href="#support">Trouver du soutien</a>
+            <a class="button secondary" href="#programs">Découvrir nos programmes</a>
           </div>
         </div>
+
         <aside class="meaning-card">
           <span class="persian">دیدار</span>
-          <h2>What does DIDAR mean?</h2>
+          <h2>Que signifie DIDAR&nbsp;?</h2>
+
           <p>
-            <em>Didâr</em> is a Persian word associated with meeting, encounter and coming together.
+            <em>Didâr</em> est un mot persan associé à la rencontre,
+            aux retrouvailles, au lien et au fait de se rassembler.
           </p>
+
           <p class="acronym">
-            <b>D</b>ialogue · <b>I</b>nclusion · <b>D</b>iversity · <b>A</b>rts · <b>R</b>elations
+            <b>D</b>ialogue ·
+            <b>I</b>nclusion ·
+            <b>D</b>iversité ·
+            <b>A</b>rts ·
+            <b>R</b>elations
           </p>
         </aside>
+
       </div>
     </section>
 
+
+    <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container narrow">
-        <p class="eyebrow">About DIDAR</p>
-        <h2>Community support with a cultural and intercultural approach</h2>
+
+        <p class="eyebrow">À propos de DIDAR</p>
+
+        <h2>Une initiative culturelle, éducative et communautaire fondée sur les liens humains.</h2>
+
         <p>
-          DIDAR develops community-based initiatives that strengthen autonomy, inclusion,
-          social connection and participation. Our work includes service navigation,
-          practical accompaniment, intercultural mediation, education, community activities,
-          cultural programming and documentation of community needs.
+          DIDAR développe des initiatives qui favorisent l’autonomie, l’inclusion, l’apprentissage,
+          les liens sociaux et la participation. Nous aidons les personnes à repérer les ressources pertinentes,
+          à préparer les prochaines étapes, à entrer en contact avec les organismes et professionnels appropriés
+          et, lorsque nécessaire, à bénéficier d’un accompagnement pratique.
         </p>
+
         <p>
-          We work especially with newcomers, international students, seniors, families,
-          women and other people who may face linguistic, cultural, administrative or social barriers.
+          DIDAR crée également des espaces consacrés à la transmission culturelle, à l’éducation,
+          aux échanges intergénérationnels, aux arts, à la participation communautaire et au dialogue interculturel.
         </p>
+
       </div>
     </section>
 
-    <section id="services" class="section alt">
+
+    <!-- COMMUNITY SUPPORT & NAVIGATION -->
+    <section id="support" class="section alt">
       <div class="container">
-        <p class="eyebrow">Services</p>
-        <h2>How DIDAR can help</h2>
-        <div class="cards">
+
+        <p class="eyebrow">Soutien communautaire et orientation vers les ressources</p>
+        <h2>Comment DIDAR peut vous accompagner</h2>
+
+        <p class="lead section-lead">
+          Notre rôle est d’aider les personnes à savoir où s’adresser, à repérer les ressources appropriées,
+          à communiquer avec les institutions, à entrer en contact avec les bonnes personnes
+          et à recevoir un accompagnement pratique lorsque cela est nécessaire.
+        </p>
+
+        <div class="cards support-cards">
+
           <article class="card">
-            <h3>Newcomer & settlement support</h3>
-            <p>Orientation to Québec systems, community resources, public services and everyday life.</p>
+            <span class="card-kicker">01</span>
+            <h3>Orientation et référence</h3>
+            <p>
+              Aider les personnes à comprendre les options disponibles et à être dirigées vers les ressources
+              communautaires, administratives, éducatives, de santé, d’emploi, juridiques
+              ou spécialisées qui correspondent à leur situation.
+            </p>
           </article>
+
           <article class="card">
-            <h3>Service navigation</h3>
-            <p>Help identifying the right community, administrative, legal, health or institutional resources.</p>
+            <span class="card-kicker">02</span>
+            <h3>Accompagnement pratique</h3>
+            <p>
+              Accompagner les personnes lorsqu’un soutien concret est utile pour se rendre à un rendez-vous,
+              comprendre une démarche, interagir avec une institution ou naviguer dans un système peu familier.
+            </p>
           </article>
+
           <article class="card">
-            <h3>Digital inclusion</h3>
-            <p>Support with smartphones, email, online forms, appointment portals and digital public services.</p>
+            <span class="card-kicker">03</span>
+            <h3>Communication et documentation</h3>
+            <p>
+              Aider à organiser l’information, préparer des questions, documenter une situation,
+              rédiger des communications claires et mieux comprendre certaines démarches institutionnelles.
+            </p>
           </article>
+
           <article class="card">
-            <h3>Seniors accompaniment</h3>
-            <p>Practical support for older adults, including digital assistance and accompaniment to medical or administrative appointments.</p>
+            <span class="card-kicker">04</span>
+            <h3>Liens, mentorat et communauté</h3>
+            <p>
+              Mettre les personnes en relation avec des pairs, bénévoles, mentors, professionnels,
+              organismes et réseaux communautaires, tout en créant des occasions de participation
+              et d’entraide.
+            </p>
           </article>
-          <article class="card">
-            <h3>Intercultural & language mediation</h3>
-            <p>Help understanding institutions, communication norms and cultural differences, with linguistic support when appropriate.</p>
-          </article>
-          <article class="card">
-            <h3>Students & researchers</h3>
-            <p>Academic integration, institutional navigation, mentoring and support for international students and researchers.</p>
-          </article>
-          <article class="card">
-            <h3>Employment & professional integration</h3>
-            <p>CVs, professional communication, networking, job-search orientation and workplace resource navigation.</p>
-          </article>
-          <article class="card">
-            <h3>Rights & institutional communication</h3>
-            <p>Support documenting concerns, preparing questions or correspondence, and finding appropriate formal resources.</p>
-          </article>
-          <article class="card">
-            <h3>Community connection</h3>
-            <p>Gatherings, peer support, volunteering, mentoring and activities that reduce isolation and build social networks.</p>
-          </article>
-          <article class="card">
-            <h3>Women & family support</h3>
-            <p>Resource navigation and practical community support for women and families during vulnerable or transitional periods.</p>
-          </article>
-          <article class="card">
-            <h3>Culture, arts & education</h3>
-            <p>Literature, educational activities, cultural events, intercultural exchange and transmission of cultural knowledge.</p>
-          </article>
-          <article class="card">
-            <h3>Community needs & advocacy</h3>
-            <p>Documenting recurring barriers and communicating community needs to institutions and partner organizations.</p>
-          </article>
+
         </div>
+
         <p class="note">
-          DIDAR provides community navigation and accompaniment. It does not replace licensed medical,
-          legal, psychological or other regulated professional services.
+          <strong>Notre rôle :</strong> DIDAR offre de l’orientation communautaire, des références
+          et de l’accompagnement. DIDAR n’offre pas de conseils en immigration, juridiques, médicaux,
+          psychologiques ou de travail social, et ne remplace pas les services de professionnels
+          autorisés ou réglementés. Lorsqu’une expertise spécialisée est nécessaire, nous aidons
+          les personnes à repérer les ressources qualifiées appropriées et à entrer en contact avec elles.
         </p>
+
       </div>
     </section>
 
-    <section id="projects" class="section">
+
+    <!-- WHO WE WORK WITH -->
+    <section id="community" class="section">
+      <div class="container narrow">
+
+        <p class="eyebrow">Avec qui nous travaillons</p>
+        <h2>Une communauté ouverte à des parcours et à des générations variés.</h2>
+
+        <p class="section-intro">
+          DIDAR s’adresse aux personnes qui peuvent bénéficier de liens communautaires plus solides,
+          d’une orientation pratique, d’un meilleur accès aux ressources ou d’occasions de participer
+          et de contribuer à la vie collective.
+        </p>
+
+        <div class="community-tags" aria-label="Communautés auprès desquelles DIDAR intervient">
+          <span>Personnes nouvellement arrivées et réfugiées</span>
+          <span>Étudiantes, étudiants et chercheurs internationaux</span>
+          <span>Personnes aînées</span>
+          <span>Femmes et familles</span>
+          <span>Artistes et membres de la communauté</span>
+          <span>Bénévoles et mentors</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- PROGRAMS -->
+    <section id="programs" class="section alt">
       <div class="container">
-        <p class="eyebrow">Projects</p>
-        <h2>Current and developing initiatives</h2>
+
+        <p class="eyebrow">Programmes et projets</p>
+        <h2>Initiatives actuelles et en développement</h2>
+
         <div class="project-list">
+
           <article class="project">
-            <div class="project-tag">Literature · Heritage · Community</div>
+            <div class="project-tag">Littérature · Patrimoine · Communauté</div>
             <h3>Bibliothèque Nima</h3>
             <p>
-              A community library rooted in decades of Persian literary and cultural activity.
-              Nima is being developed as a space for literature, documentation, cultural memory,
-              reading activities and intergenerational transmission.
+              Une bibliothèque communautaire indépendante qui s’inscrit dans plusieurs décennies
+              d’activités littéraires et culturelles persanes. DIDAR peut collaborer avec Nima autour
+              de la littérature, de la documentation, de la mémoire culturelle, de l’accès aux livres
+              et aux collections, de la numérisation, des expositions et d’activités intergénérationnelles.
             </p>
           </article>
 
           <article class="project">
-            <div class="project-tag">Seniors · Digital inclusion · Accompaniment</div>
+            <div class="project-tag">Aînés · Inclusion numérique · Accompagnement</div>
             <h3>DIDAR Aînés</h3>
             <p>
-              A senior-support initiative offering a free weekly drop-in for digital and service-navigation help,
-              with scheduled accompaniment for more complex administrative and medical appointments.
+              Une initiative de soutien communautaire destinée aux personnes aînées,
+              offrant de l’aide numérique, de l’orientation vers les services
+              et de l’accompagnement pratique pour certaines démarches administratives,
+              communautaires ou certains rendez-vous médicaux.
             </p>
           </article>
 
           <article class="project">
-            <div class="project-tag">Inclusion · Dialogue · Learning</div>
-            <h3>Intercultural workshops & community events</h3>
+            <div class="project-tag">Dialogue · Inclusion · Apprentissage</div>
+            <h3>Dialogues DIDAR</h3>
             <p>
-              Educational and public activities on inclusion, diversity, consent, gender, belonging,
-              migration experiences, rights, coexistence and intercultural understanding.
+              Des ateliers, discussions publiques et activités communautaires portant notamment
+              sur l’inclusion, la diversité, le consentement, le genre, le sentiment d’appartenance,
+              les expériences migratoires, les droits et la compréhension interculturelle.
             </p>
           </article>
 
           <article class="project">
-            <div class="project-tag">Research · Documentation · Community needs</div>
-            <h3>Community documentation & advocacy</h3>
+            <div class="project-tag">Documentation · Besoins communautaires · Représentation</div>
+            <h3>Voix communautaires DIDAR</h3>
             <p>
-              Collecting recurring community concerns, documenting barriers and building evidence
-              that can support better services, partnerships and institutional responses.
+              Documenter les préoccupations récurrentes de la communauté, repérer les obstacles
+              et développer des données et constats pouvant contribuer à de meilleurs services,
+              partenariats et réponses institutionnelles.
             </p>
           </article>
+
         </div>
+
       </div>
     </section>
 
+
+    <!-- THREE PILLARS -->
+    <section id="pillars" class="section pillars-section">
+      <div class="container">
+
+        <div class="pillars-heading">
+          <p class="eyebrow">Notre modèle</p>
+          <h2>Trois piliers, une même communauté</h2>
+          <p>
+            Les racines préservent et transmettent. La croissance crée des occasions d’apprendre
+            et de créer. Les liens rapprochent les personnes, les ressources et les communautés.
+          </p>
+        </div>
+
+        <div class="pillar-grid">
+
+          <article class="pillar-card risheh-card">
+            <img
+              src="assets/risheh.png"
+              alt="Logo DIDAR Risheh"
+              class="pillar-logo"
+            >
+            <span class="pillar-persian">ریشه</span>
+            <h3>Racines</h3>
+            <p class="pillar-keywords">Patrimoine · Mémoire · Langue · Générations</p>
+            <p>
+              Relier les générations afin que les connaissances, les récits, les langues
+              et la mémoire culturelle puissent être partagés, documentés et transmis.
+            </p>
+          </article>
+
+          <article class="pillar-card rouyesh-card">
+            <img
+              src="assets/rouyesh.png"
+              alt="Logo DIDAR Rouyesh"
+              class="pillar-logo"
+            >
+            <span class="pillar-persian">رویش</span>
+            <h3>Croissance</h3>
+            <p class="pillar-keywords">Éducation · Arts · Compétences · Créativité</p>
+            <p>
+              Créer des occasions d’apprendre, de créer, de découvrir et de se développer
+              à différents âges et à différentes étapes de la vie.
+            </p>
+          </article>
+
+          <article class="pillar-card peyvand-card">
+            <img
+              src="assets/peyvand.png"
+              alt="Logo DIDAR Peyvand"
+              class="pillar-logo"
+            >
+            <span class="pillar-persian">پیوند</span>
+            <h3>Liens</h3>
+            <p class="pillar-keywords">Communauté · Participation · Échange · Appartenance</p>
+            <p>
+              Relier les personnes entre elles, aux services et aux occasions qui leur sont accessibles,
+              ainsi qu’à la société québécoise dans son ensemble.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CONTACT -->
     <section id="contact" class="section contact">
       <div class="container narrow">
+
         <p class="eyebrow">Contact</p>
-        <h2>Connect with DIDAR</h2>
+        <h2>Communiquez avec DIDAR</h2>
+
         <p>
-          For services, volunteering, partnerships, events or community projects, contact us.
+          Contactez-nous pour du soutien communautaire, du bénévolat, des partenariats,
+          des activités culturelles, des événements ou des projets collaboratifs.
         </p>
+
         <div class="contact-box">
-          <p><strong>Email:</strong> <a href="mailto:YOUR-EMAIL@example.com">YOUR-EMAIL@example.com</a></p>
+          <p>
+            <strong>Courriel :</strong>
+            <a href="mailto:cce.didar@gmail.com">cce.didar@gmail.com</a>
+          </p>
+
           <p>
             <strong>Instagram :</strong>
-            <a href="https://www.instagram.com/didar_mtl/" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/didar_mtl/"
+               target="_blank"
+               rel="noopener noreferrer">
               @didar_mtl
             </a>
           </p>
-          <p><strong>Location:</strong> Montréal, Québec</p>
+
+          <p>
+            <strong>Lieu :</strong> Montréal, Québec
+          </p>
         </div>
-        <p class="small">Replace the placeholders above before publishing.</p>
+
       </div>
     </section>
+
   </main>
+
 
   <footer>
     <div class="container footer-wrap">
-      <p>© <span id="year"></span> DIDAR. All rights reserved.</p>
-      <p>Dialogue · Inclusion · Diversity · Arts · Relations</p>
+      <p>© <span id="year"></span> DIDAR. Tous droits réservés.</p>
+      <p>Dialogue · Inclusion · Diversité · Arts · Relations</p>
     </div>
   </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
