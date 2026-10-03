@@ -242,6 +242,30 @@ footer {
   flex-wrap: wrap;
 }
 
+/* DIDAR pillar logos */
+.pillar-logo {
+  display: block;
+  width: 90px;
+  height: 90px;
+  max-width: 90px;
+  max-height: 90px;
+  object-fit: contain;
+  margin: 0 auto 18px;
+}
+
+.pillar-card {
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .pillar-logo {
+    width: 75px;
+    height: 75px;
+    max-width: 75px;
+    max-height: 75px;
+  }
+}
+
 @media (max-width: 860px) {
   .nav-wrap { align-items: flex-start; padding: 16px 0; }
   nav { display: none; }
