@@ -1,21 +1,89 @@
-<!doctype html>
+from pathlib import Path
+
+fa_html = r'''<!doctype html>
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="دیدار — گفت‌وگو، مشارکت، تنوع، هنر و ارتباط. فعالیت‌های اجتماعی، فرهنگی، آموزشی و بین‌فرهنگی در مونترآل." />
+  <meta name="description" content="دیدار — گفت‌وگو، مشارکت، تنوع، هنر و ارتباط. راهنمایی و همراهی اجتماعی، پیوند فرهنگی، آموزش و فعالیت‌های بین‌فرهنگی در مونترآل." />
   <title>دیدار | جامعه · فرهنگ · مشارکت</title>
   <link rel="stylesheet" href="../styles.css" />
+
+  <!-- Persian / RTL adjustments -->
+  <style>
+    html[lang="fa"] body {
+      text-align: right;
+    }
+
+    html[lang="fa"] .brand {
+      direction: ltr;
+    }
+
+    html[lang="fa"] .languages {
+      direction: ltr;
+    }
+
+    html[lang="fa"] .main-nav {
+      direction: rtl;
+    }
+
+    html[lang="fa"] .meaning-card::before {
+      left: auto;
+      right: 0;
+      border-radius: 0 28px 28px 0;
+    }
+
+    html[lang="fa"] .note {
+      border-left: 1px solid #ecd8bb;
+      border-right: 5px solid var(--orange);
+      border-radius: 14px 0 0 14px;
+    }
+
+    html[lang="fa"] .acronym,
+    html[lang="fa"] .latin,
+    html[lang="fa"] .contact-ltr,
+    html[lang="fa"] footer .latin {
+      direction: ltr;
+      text-align: left;
+    }
+
+    html[lang="fa"] .community-tags {
+      justify-content: flex-start;
+    }
+
+    html[lang="fa"] .pillar-card,
+    html[lang="fa"] .project,
+    html[lang="fa"] .card {
+      text-align: right;
+    }
+
+    html[lang="fa"] .pillar-card {
+      text-align: center;
+    }
+
+    html[lang="fa"] .pillar-persian {
+      direction: ltr;
+    }
+
+    html[lang="fa"] .actions {
+      justify-content: flex-start;
+    }
+
+    @media (max-width: 920px) {
+      html[lang="fa"] .nav-area {
+        direction: ltr;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <header class="site-header">
     <div class="container nav-wrap">
+
       <a class="brand" href="#top" aria-label="صفحه اصلی دیدار">
-        <span class="brand-mark">D</span>
-        <span>
-          <strong>DIDAR</strong>
-          <small>Dialogue · Inclusion · Diversity · Arts · Relations</small>
-        </span>
+        <img class="brand-logo" src="../assets/logo.png" alt="لوگوی دیدار">
+        <strong>DIDAR</strong>
       </a>
 
       <div class="nav-area">
@@ -27,214 +95,364 @@
 
         <nav class="main-nav" aria-label="منوی اصلی">
           <a href="#about">درباره دیدار</a>
-          <a href="#services">خدمات</a>
-          <a href="#projects">پروژه‌ها</a>
+          <a href="#support">راهنمایی و همراهی</a>
+          <a href="#programs">برنامه‌ها</a>
+          <a href="#pillars">مدل دیدار</a>
           <a href="#contact">تماس</a>
         </nav>
       </div>
+
     </div>
   </header>
 
   <main id="top">
+
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-grid">
+
         <div>
           <p class="eyebrow">مونترآل · کبک</p>
-          <h1>فضایی برای دیدار، ارتباط، یادگیری و مشارکت.</h1>
+
+          <h1>همراهی اجتماعی، پیوند فرهنگی و حمایت عملی.</h1>
+
           <p class="lead">
-            دیدار یک ابتکار اجتماعی، فرهنگی و آموزشی است که با هدف تقویت مشارکت اجتماعی،
-            گفت‌وگوی بین‌فرهنگی، دسترسی به منابع، پیوندهای اجتماعی و انتقال فرهنگی فعالیت می‌کند.
+            دیدار به افراد کمک می‌کند گزینه‌های پیش روی خود را بهتر بشناسند،
+            به منابع مناسب متصل شوند، در مسیرهای ناآشنا و پیچیده بهتر راه خود را پیدا کنند
+            و ارتباط‌های معنادارتری در جامعه بسازند.
+            فعالیت‌های ما همچنین شامل برنامه‌های فرهنگی، آموزشی و بین‌فرهنگی است.
           </p>
 
           <div class="actions">
-            <a class="button primary" href="#services">خدمات ما</a>
-            <a class="button secondary" href="#projects">پروژه‌های ما</a>
+            <a class="button primary" href="#support">دریافت راهنمایی</a>
+            <a class="button secondary" href="#programs">آشنایی با برنامه‌ها</a>
           </div>
         </div>
 
         <aside class="meaning-card">
           <span class="persian">دیدار</span>
-          <h2>دیدار یعنی چه؟</h2>
+          <h2>«دیدار» یعنی چه؟</h2>
+
           <p>
-            «دیدار» به معنای ملاقات، روبه‌رو شدن و کنار هم آمدن است و روح فعالیت‌های این مجموعه را بازتاب می‌دهد.
+            «دیدار» واژه‌ای فارسی است که با ملاقات، روبه‌رو شدن،
+            پیوند و کنار هم آمدن معنا پیدا می‌کند.
           </p>
+
           <p class="acronym" dir="ltr">
-            <b>D</b>ialogue · <b>I</b>nclusion · <b>D</b>iversity · <b>A</b>rts · <b>R</b>elations
+            <b>D</b>ialogue ·
+            <b>I</b>nclusion ·
+            <b>D</b>iversity ·
+            <b>A</b>rts ·
+            <b>R</b>elations
           </p>
         </aside>
+
       </div>
     </section>
 
+
+    <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container narrow">
+
         <p class="eyebrow">درباره دیدار</p>
-        <h2>حمایت اجتماعی با رویکردی فرهنگی و بین‌فرهنگی</h2>
+
+        <h2>یک ابتکار فرهنگی، آموزشی و اجتماعی با محوریت ارتباط و پیوند انسانی.</h2>
+
         <p>
-          دیدار برنامه‌ها و فعالیت‌هایی را توسعه می‌دهد که استقلال، مشارکت، ارتباط اجتماعی و احساس تعلق را تقویت می‌کنند.
-          فعالیت‌های ما شامل راهنمایی برای دسترسی به خدمات، همراهی عملی، میانجی‌گری بین‌فرهنگی، آموزش،
-          برنامه‌های اجتماعی و فرهنگی و مستندسازی نیازهای جامعه است.
+          دیدار برنامه‌هایی را توسعه می‌دهد که استقلال، مشارکت، یادگیری،
+          ارتباط اجتماعی و حضور فعال در جامعه را تقویت می‌کنند.
+          ما به افراد کمک می‌کنیم منابع مناسب را پیدا کنند، گام‌های بعدی را مشخص کنند،
+          با سازمان‌ها و افراد حرفه‌ای مرتبط در تماس قرار بگیرند
+          و در صورت نیاز از همراهی عملی برخوردار شوند.
         </p>
+
         <p>
-          ما به‌ویژه با تازه‌واردان، دانشجویان و پژوهشگران بین‌المللی، سالمندان، خانواده‌ها، زنان
-          و افرادی کار می‌کنیم که ممکن است با موانع زبانی، فرهنگی، اداری یا اجتماعی روبه‌رو باشند.
+          دیدار همچنین فضاهایی برای انتقال فرهنگی، آموزش، تبادل بین‌نسلی،
+          هنر، مشارکت اجتماعی و گفت‌وگوی بین‌فرهنگی ایجاد می‌کند.
         </p>
+
       </div>
     </section>
 
-    <section id="services" class="section alt">
+
+    <!-- COMMUNITY SUPPORT & NAVIGATION -->
+    <section id="support" class="section alt">
       <div class="container">
-        <p class="eyebrow">خدمات</p>
+
+        <p class="eyebrow">راهنمایی، ارجاع و همراهی اجتماعی</p>
         <h2>دیدار چگونه می‌تواند همراه شما باشد؟</h2>
 
-        <div class="cards">
+        <p class="lead section-lead">
+          نقش ما این است که به افراد کمک کنیم بدانند برای هر موضوع به کجا مراجعه کنند،
+          منابع مناسب را پیدا کنند، با نهادها و افراد مرتبط ارتباط بگیرند
+          و در صورت نیاز از همراهی عملی برخوردار شوند.
+        </p>
+
+        <div class="cards support-cards">
+
           <article class="card">
-            <h3>حمایت از تازه‌واردان و سازگاری با محیط جدید</h3>
-            <p>راهنمایی برای شناخت سیستم‌های کبک، منابع اجتماعی، خدمات عمومی و امور روزمره.</p>
+            <span class="card-kicker">۰۱</span>
+            <h3>راهنمایی و ارجاع</h3>
+            <p>
+              کمک به افراد برای شناخت گزینه‌های موجود و ارتباط با منابع مناسب
+              اجتماعی، اداری، آموزشی، درمانی، شغلی، حقوقی
+              یا سایر خدمات تخصصی.
+            </p>
           </article>
 
           <article class="card">
-            <h3>راهنمایی برای دسترسی به خدمات</h3>
-            <p>کمک برای پیدا کردن منابع اجتماعی، اداری، حقوقی، درمانی یا سازمانی مناسب.</p>
+            <span class="card-kicker">۰۲</span>
+            <h3>همراهی عملی</h3>
+            <p>
+              همراهی افراد در موقعیت‌هایی که برای مراجعه به قرارها،
+              ارتباط با نهادها، انجام امور اداری یا شناخت یک سیستم ناآشنا
+              به حمایت عملی نیاز دارند.
+            </p>
           </article>
 
           <article class="card">
-            <h3>دسترسی و توانمندی دیجیتال</h3>
-            <p>کمک در استفاده از تلفن هوشمند، ایمیل، فرم‌های آنلاین، سامانه‌های نوبت‌دهی و خدمات دیجیتال دولتی.</p>
+            <span class="card-kicker">۰۳</span>
+            <h3>ارتباط و مستندسازی</h3>
+            <p>
+              کمک به مرتب‌سازی اطلاعات، آماده‌کردن پرسش‌ها،
+              مستندسازی یک وضعیت، نوشتن مکاتبات روشن
+              و درک بهتر روندهای اداری و نهادی.
+            </p>
           </article>
 
           <article class="card">
-            <h3>همراهی سالمندان</h3>
-            <p>حمایت عملی از سالمندان، از جمله کمک دیجیتال و همراهی برای مراجعه‌های پزشکی یا امور اداری.</p>
+            <span class="card-kicker">۰۴</span>
+            <h3>ارتباط، منتورینگ و مشارکت اجتماعی</h3>
+            <p>
+              ایجاد ارتباط میان افراد و همتایان، داوطلبان، منتورها،
+              متخصصان، سازمان‌ها و شبکه‌های اجتماعی،
+              همراه با ایجاد فرصت برای مشارکت و حمایت متقابل.
+            </p>
           </article>
 
-          <article class="card">
-            <h3>میانجی‌گری بین‌فرهنگی و زبانی</h3>
-            <p>کمک برای درک بهتر نهادها، شیوه‌های ارتباطی و تفاوت‌های فرهنگی، همراه با پشتیبانی زبانی در صورت نیاز.</p>
-          </article>
-
-          <article class="card">
-            <h3>دانشجویان و پژوهشگران</h3>
-            <p>حمایت در سازگاری دانشگاهی، شناخت ساختارهای دانشگاه، منتورینگ و همراهی دانشجویان و پژوهشگران بین‌المللی.</p>
-          </article>
-
-          <article class="card">
-            <h3>اشتغال و ادغام حرفه‌ای</h3>
-            <p>رزومه، مکاتبات حرفه‌ای، شبکه‌سازی، راهنمایی برای جست‌وجوی کار و دسترسی به منابع مرتبط با محیط کار.</p>
-          </article>
-
-          <article class="card">
-            <h3>آگاهی از حقوق و ارتباط با نهادها</h3>
-            <p>کمک برای مستندسازی مسائل، آماده‌سازی سؤال یا مکاتبه و پیدا کردن منابع رسمی مناسب.</p>
-          </article>
-
-          <article class="card">
-            <h3>ارتباط و مشارکت اجتماعی</h3>
-            <p>گردهمایی‌ها، حمایت همتا، فعالیت داوطلبانه، منتورینگ و برنامه‌هایی برای کاهش انزوا و گسترش شبکه‌های اجتماعی.</p>
-          </article>
-
-          <article class="card">
-            <h3>حمایت از زنان و خانواده‌ها</h3>
-            <p>راهنمایی برای دسترسی به منابع و حمایت عملی اجتماعی در دوره‌های آسیب‌پذیر یا گذار.</p>
-          </article>
-
-          <article class="card">
-            <h3>فرهنگ، هنر و آموزش</h3>
-            <p>ادبیات، فعالیت‌های آموزشی، رویدادهای فرهنگی، تبادل بین‌فرهنگی و انتقال دانش و میراث فرهنگی.</p>
-          </article>
-
-          <article class="card">
-            <h3>نیازهای جامعه و پیگیری مسائل ساختاری</h3>
-            <p>مستندسازی موانع تکرارشونده و انتقال نیازهای جامعه به نهادها و سازمان‌های همکار.</p>
-          </article>
         </div>
 
         <p class="note">
-          دیدار خدمات راهنمایی اجتماعی و همراهی ارائه می‌دهد. این خدمات جایگزین خدمات حرفه‌ای و دارای مجوز
-          در حوزه‌هایی مانند پزشکی، حقوق، روان‌شناسی یا سایر حرفه‌های نظام‌مند نیست.
+          <strong>نقش ما:</strong>
+          دیدار خدمات راهنمایی، ارجاع و همراهی اجتماعی ارائه می‌دهد.
+          دیدار مشاوره تخصصی مهاجرتی، حقوقی، پزشکی، روان‌شناختی
+          یا مددکاری اجتماعی ارائه نمی‌کند و جایگزین خدمات متخصصان
+          دارای مجوز یا حرفه‌های نظام‌مند نیست.
+          هر جا به تخصص حرفه‌ای نیاز باشد، ما به افراد کمک می‌کنیم
+          منابع واجد صلاحیت را پیدا کرده و با آن‌ها ارتباط بگیرند.
         </p>
+
       </div>
     </section>
 
-    <section id="projects" class="section">
+
+    <!-- WHO WE WORK WITH -->
+    <section id="community" class="section">
+      <div class="container narrow">
+
+        <p class="eyebrow">با چه کسانی کار می‌کنیم</p>
+        <h2>جامعه‌ای باز برای تجربه‌ها و نسل‌های متفاوت.</h2>
+
+        <p class="section-intro">
+          دیدار با افرادی کار می‌کند که می‌توانند از ارتباط اجتماعی قوی‌تر،
+          راهنمایی عملی، دسترسی بهتر به منابع
+          یا فرصت‌های بیشتر برای مشارکت و نقش‌آفرینی در جامعه بهره‌مند شوند.
+        </p>
+
+        <div class="community-tags" aria-label="گروه‌هایی که دیدار با آن‌ها کار می‌کند">
+          <span>تازه‌واردان و پناهندگان</span>
+          <span>دانشجویان و پژوهشگران بین‌المللی</span>
+          <span>سالمندان</span>
+          <span>زنان و خانواده‌ها</span>
+          <span>هنرمندان و اعضای جامعه</span>
+          <span>داوطلبان و منتورها</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- PROGRAMS -->
+    <section id="programs" class="section alt">
       <div class="container">
-        <p class="eyebrow">پروژه‌ها</p>
+
+        <p class="eyebrow">برنامه‌ها و پروژه‌ها</p>
         <h2>برنامه‌های جاری و در حال توسعه</h2>
 
         <div class="project-list">
+
           <article class="project">
             <div class="project-tag">ادبیات · میراث · جامعه</div>
             <h3>کتابخانه نیما</h3>
             <p>
-              یک کتابخانه اجتماعی با سابقه چند دهه فعالیت ادبی و فرهنگی فارسی.
-              نیما به‌عنوان فضایی برای ادبیات، مستندسازی، حافظه فرهنگی، فعالیت‌های کتاب‌خوانی
-              و انتقال بین‌نسلی دانش و تجربه در حال توسعه است.
+              یک کتابخانه مستقل اجتماعی با چند دهه سابقه در فعالیت‌های ادبی و فرهنگی فارسی.
+              دیدار می‌تواند با کتابخانه نیما در زمینه ادبیات، مستندسازی،
+              حافظه فرهنگی، دسترسی به کتاب‌ها و مجموعه‌ها،
+              دیجیتال‌سازی، نمایشگاه‌ها و فعالیت‌های بین‌نسلی همکاری کند.
             </p>
           </article>
 
           <article class="project">
             <div class="project-tag">سالمندان · توانمندی دیجیتال · همراهی</div>
-            <h3>سالمندان دیدار</h3>
+            <h3>دیدار سالمندان</h3>
             <p>
-              برنامه‌ای برای حمایت از سالمندان که شامل یک حضور هفتگی رایگان برای کمک دیجیتال
-              و راهنمایی در دسترسی به خدمات است و برای امور اداری یا مراجعه‌های پزشکی پیچیده‌تر،
-              امکان همراهی با وقت قبلی را نیز فراهم می‌کند.
+              برنامه‌ای برای حمایت اجتماعی از سالمندان که شامل کمک در امور دیجیتال،
+              راهنمایی برای دسترسی به خدمات و همراهی عملی
+              در برخی امور اداری، اجتماعی و مراجعه‌های پزشکی است.
             </p>
           </article>
 
           <article class="project">
-            <div class="project-tag">مشارکت · گفت‌وگو · یادگیری</div>
-            <h3>کارگاه‌های بین‌فرهنگی و رویدادهای اجتماعی</h3>
+            <div class="project-tag">گفت‌وگو · مشارکت · یادگیری</div>
+            <h3>گفت‌وگوهای دیدار</h3>
             <p>
-              فعالیت‌های آموزشی و عمومی درباره مشارکت اجتماعی، تنوع، رضایت، جنسیت، احساس تعلق،
-              تجربه مهاجرت، حقوق، همزیستی و درک بین‌فرهنگی.
+              کارگاه‌ها، گفت‌وگوهای عمومی و رویدادهای اجتماعی
+              درباره موضوعاتی مانند مشارکت، تنوع، رضایت، جنسیت،
+              احساس تعلق، تجربه مهاجرت، حقوق و درک بین‌فرهنگی.
             </p>
           </article>
 
           <article class="project">
-            <div class="project-tag">پژوهش · مستندسازی · نیازهای جامعه</div>
-            <h3>مستندسازی جامعه و پیگیری مسائل</h3>
+            <div class="project-tag">مستندسازی · نیازهای جامعه · پیگیری</div>
+            <h3>صدای جامعه در دیدار</h3>
             <p>
-              گردآوری مسائل تکرارشونده، مستندسازی موانع و ایجاد شواهدی که بتواند به بهبود خدمات،
-              همکاری‌های سازمانی و پاسخ بهتر نهادها کمک کند.
+              مستندسازی مسائل تکرارشونده جامعه، شناسایی موانع
+              و ایجاد داده و شواهدی که بتواند به بهبود خدمات،
+              همکاری‌ها و پاسخ نهادها کمک کند.
             </p>
           </article>
+
         </div>
+
       </div>
     </section>
 
+
+    <!-- THREE PILLARS -->
+    <section id="pillars" class="section pillars-section">
+      <div class="container">
+
+        <div class="pillars-heading">
+          <p class="eyebrow">مدل دیدار</p>
+          <h2>سه ستون، یک جامعه</h2>
+          <p>
+            ریشه حفظ می‌کند و انتقال می‌دهد.
+            رویش فرصت یادگیری و آفرینش ایجاد می‌کند.
+            پیوند افراد، منابع و جامعه‌ها را به هم نزدیک می‌کند.
+          </p>
+        </div>
+
+        <div class="pillar-grid">
+
+          <article class="pillar-card risheh-card">
+            <img
+              src="../assets/risheh.png"
+              alt="لوگوی ریشه دیدار"
+              class="pillar-logo"
+            >
+            <span class="pillar-persian" dir="ltr">RISHEH</span>
+            <h3>ریشه</h3>
+            <p class="pillar-keywords">میراث · حافظه · زبان · نسل‌ها</p>
+            <p>
+              پیوند دادن نسل‌ها تا دانش، داستان‌ها، زبان
+              و حافظه فرهنگی بتوانند به اشتراک گذاشته شوند،
+              مستند شوند و به نسل‌های بعد منتقل شوند.
+            </p>
+          </article>
+
+          <article class="pillar-card rouyesh-card">
+            <img
+              src="../assets/rouyesh.png"
+              alt="لوگوی رویش دیدار"
+              class="pillar-logo"
+            >
+            <span class="pillar-persian" dir="ltr">ROUYESH</span>
+            <h3>رویش</h3>
+            <p class="pillar-keywords">آموزش · هنر · مهارت · خلاقیت</p>
+            <p>
+              ایجاد فرصت برای یادگیری، آفرینش، کشف و رشد
+              در سنین مختلف و در مراحل گوناگون زندگی.
+            </p>
+          </article>
+
+          <article class="pillar-card peyvand-card">
+            <img
+              src="../assets/peyvand.png"
+              alt="لوگوی پیوند دیدار"
+              class="pillar-logo"
+            >
+            <span class="pillar-persian" dir="ltr">PEYVAND</span>
+            <h3>پیوند</h3>
+            <p class="pillar-keywords">جامعه · مشارکت · تبادل · تعلق</p>
+            <p>
+              پیوند دادن افراد با یکدیگر، با خدمات و فرصت‌ها
+              و با جامعه گسترده‌تر کبک.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CONTACT -->
     <section id="contact" class="section contact">
       <div class="container narrow">
+
         <p class="eyebrow">تماس</p>
         <h2>با دیدار در ارتباط باشید</h2>
+
         <p>
-          برای دریافت خدمات، همکاری داوطلبانه، مشارکت سازمانی، رویدادها یا پروژه‌های اجتماعی با ما تماس بگیرید.
+          برای راهنمایی و همراهی اجتماعی، همکاری داوطلبانه،
+          مشارکت سازمانی، فعالیت‌های فرهنگی، رویدادها
+          یا پروژه‌های مشترک با ما تماس بگیرید.
         </p>
 
         <div class="contact-box">
-          <p><strong>ایمیل:</strong> <a href="mailto:YOUR-EMAIL@example.com">YOUR-EMAIL@example.com</a></p>
-          <p>
-            <strong>اینستاگرام:</strong>
-            <a href="https://www.instagram.com/didar_mtl/" target="_blank" rel="noopener noreferrer">
+
+          <p class="contact-ltr">
+            <strong>Email:</strong>
+            <a href="mailto:cce.didar@gmail.com">cce.didar@gmail.com</a>
+          </p>
+
+          <p class="contact-ltr">
+            <strong>Instagram:</strong>
+            <a href="https://www.instagram.com/didar_mtl/"
+               target="_blank"
+               rel="noopener noreferrer">
               @didar_mtl
             </a>
           </p>
-          <p><strong>مکان:</strong> مونترآل، کبک</p>
+
+          <p>
+            <strong>مکان:</strong> مونترآل، کبک
+          </p>
+
         </div>
 
-        <p class="small">پیش از انتشار، موارد نمونه بالا را با اطلاعات واقعی جایگزین کنید.</p>
       </div>
     </section>
+
   </main>
+
 
   <footer>
     <div class="container footer-wrap">
       <p>© <span id="year"></span> DIDAR. تمامی حقوق محفوظ است.</p>
-      <p dir="ltr">Dialogue · Inclusion · Diversity · Arts · Relations</p>
+      <p class="latin" dir="ltr">Dialogue · Inclusion · Diversity · Arts · Relations</p>
     </div>
   </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
+'''
+
+path = Path("/mnt/data/DIDAR_fa_index_final.html")
+path.write_text(fa_html, encoding="utf-8")
+print(path)
