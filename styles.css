@@ -690,6 +690,61 @@ footer {
   }
 }
 
+/* =========================================
+   French hero layout fix
+   ========================================= */
+
+html[lang="fr"] .hero .container {
+  width: min(calc(100% - 36px), 1240px);
+}
+
+html[lang="fr"] .hero-grid {
+  grid-template-columns: minmax(0, 1.4fr) minmax(430px, .9fr);
+  gap: 56px;
+  align-items: center;
+}
+
+/* Prevent text from overflowing its grid column */
+html[lang="fr"] .hero-grid > * {
+  min-width: 0;
+}
+
+html[lang="fr"] .hero h1 {
+  font-size: clamp(2.7rem, 4.5vw, 4.25rem);
+  max-width: 760px;
+  text-wrap: balance;
+}
+
+html[lang="fr"] .meaning-card {
+  width: 100%;
+  max-width: 465px;
+  justify-self: end;
+}
+
+html[lang="fr"] .acronym {
+  white-space: nowrap;
+  font-size: .88rem;
+}
+
+
+/* Stack earlier when there is not enough horizontal space */
+@media (max-width: 1100px) {
+
+  html[lang="fr"] .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  html[lang="fr"] .meaning-card {
+    max-width: 620px;
+    justify-self: start;
+  }
+
+  html[lang="fr"] .acronym {
+    white-space: normal;
+  }
+}
+
 @media (max-width: 620px) {
   .container {
     width: min(calc(100% - 26px), var(--max));
