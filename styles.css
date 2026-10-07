@@ -994,7 +994,32 @@ html[lang="fr"] .acronym {
   font-size: .88rem;
 }
 
+/* Story preview on homepage */
 
+.story-preview {
+  background:
+    radial-gradient(circle at 90% 20%, rgba(238,149,33,.10), transparent 25%),
+    var(--teal-soft);
+}
+
+.story-lead {
+  font-size: 1.13rem;
+  color: var(--text);
+}
+
+.story-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--teal-dark);
+  text-decoration: none;
+  font-weight: 800;
+  border-bottom: 2px solid var(--orange);
+  padding-bottom: 3px;
+}
+
+.story-link:hover {
+  color: var(--orange-dark);
+}
 /* Stack earlier when there is not enough horizontal space */
 @media (max-width: 1100px) {
 
