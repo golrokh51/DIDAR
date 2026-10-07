@@ -691,6 +691,274 @@ footer {
 }
 
 /* =========================================
+   DIDAR Story Preview
+   ========================================= */
+
+.story-preview {
+  background:
+    radial-gradient(circle at 90% 20%, rgba(238,149,33,.10), transparent 25%),
+    var(--teal-soft);
+}
+
+.story-preview .narrow {
+  position: relative;
+}
+
+.story-lead {
+  font-size: 1.13rem;
+  color: var(--text);
+}
+
+.story-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--teal-dark);
+  text-decoration: none;
+  font-weight: 800;
+  border-bottom: 2px solid var(--orange);
+  padding-bottom: 3px;
+}
+
+.story-link:hover {
+  color: var(--orange-dark);
+}
+
+
+/* =========================================
+   Experience Behind DIDAR
+   ========================================= */
+
+.experience-section {
+  background: white;
+}
+
+.experience-intro {
+  max-width: 800px;
+  margin-bottom: 34px;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.experience-item {
+  position: relative;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--cream-light);
+}
+
+.experience-item::before {
+  content: "";
+  display: block;
+  width: 38px;
+  height: 4px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--teal),
+    var(--green),
+    var(--orange)
+  );
+}
+
+.experience-item h3 {
+  color: var(--teal-dark);
+}
+
+.experience-item p {
+  color: var(--text);
+  margin-bottom: 0;
+}
+
+.experience-more {
+  margin-top: 28px;
+}
+
+@media (max-width: 920px) {
+  .experience-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.community-focus {
+  margin-top: 24px;
+  padding: 18px 20px;
+  border-left: 4px solid var(--orange);
+  border-radius: 0 14px 14px 0;
+  background: var(--cream-light);
+  color: var(--text);
+}
+
+/* =========================================
+   SABZ — cross-cutting environmental commitment
+   ========================================= */
+
+.sabz-block {
+  margin-top: 40px;
+  padding: 28px 30px;
+  border: 1px solid rgba(47,111,61,.22);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(47,111,61,.12), transparent 35%),
+    var(--green-soft);
+}
+
+.sabz-label {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: var(--green);
+  color: white;
+  font-size: .75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.sabz-content {
+  display: grid;
+  grid-template-columns: 1.5fr .7fr;
+  gap: 35px;
+  align-items: center;
+}
+
+.sabz-content h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.7rem;
+  color: var(--green);
+}
+
+.sabz-content p {
+  color: var(--text);
+}
+
+.sabz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.sabz-actions span {
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid rgba(47,111,61,.22);
+  color: var(--green);
+  font-size: .88rem;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .sabz-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================
+   Guiding Values
+   ========================================= */
+
+.values-section {
+  background: white;
+}
+
+.values-intro {
+  max-width: 800px;
+  margin-bottom: 34px;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.value-card {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--cream-light);
+}
+
+.value-card::before {
+  content: "";
+  display: block;
+  width: 34px;
+  height: 4px;
+  margin-bottom: 17px;
+  border-radius: 999px;
+  background: var(--teal);
+}
+
+.value-card h3 {
+  color: var(--teal-dark);
+}
+
+.value-card p {
+  margin-bottom: 0;
+  color: var(--text);
+}
+
+.value-reciprocity::before {
+  background: var(--green);
+}
+
+.value-reciprocity h3 {
+  color: var(--green);
+}
+
+.value-environment::before {
+  background: var(--green);
+}
+
+.values-closing {
+  margin-top: 42px;
+  text-align: center;
+}
+
+.values-mantra {
+  margin-bottom: 10px;
+  color: var(--purple);
+  font-weight: 800;
+  font-size: 1.08rem;
+}
+
+.values-quote {
+  margin: 0;
+  color: var(--muted);
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+}
+
+@media (max-width: 920px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================
    French hero layout fix
    ========================================= */
 
