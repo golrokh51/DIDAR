@@ -38,7 +38,6 @@
       border-radius: 14px 0 0 14px;
     }
 
-    html[lang="fa"] .acronym,
     html[lang="fa"] .latin,
     html[lang="fa"] .contact-ltr,
     html[lang="fa"] footer .latin {
@@ -100,6 +99,7 @@
   <a href="#contact">تماس</a>
 </nav>
 
+      </div>
     </div>
   </header>
 
@@ -134,14 +134,6 @@
           <p>
             «دیدار» واژه‌ای فارسی است که با ملاقات، روبه‌رو شدن،
             پیوند و کنار هم آمدن معنا پیدا می‌کند
-          </p>
-
-          <p class="acronym" dir="ltr">
-            <b>D</b>ialogue ·
-            <b>I</b>nclusion ·
-            <b>D</b>iversity ·
-            <b>A</b>rts ·
-            <b>R</b>elations
           </p>
         </aside>
 
@@ -394,10 +386,12 @@
   </main>
 
 
-<div class="container footer-wrap">
-  <p>© <span id="year"></span> DIDAR. تمامی حقوق محفوظ است.</p>
-  <p>مونترآل · کبک</p>
-</div>
+  <footer>
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> DIDAR. تمامی حقوق محفوظ است.</p>
+      <p>مونترآل · کبک</p>
+    </div>
+  </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
