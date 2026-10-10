@@ -204,7 +204,11 @@
       completed: "انجام‌شده"
     };
 
-    const statuses = ["all", ...new Set(PROJECTS.map(p => p.status))];
+    const statuses = [
+      "all",
+      ...new Set(PROJECTS.flatMap(p => p.status))
+    ];
+    
 
     function renderFilters() {
       toolbar.innerHTML = statuses.map((status, i) => `
@@ -230,16 +234,18 @@
     function renderProjects(filter = "all") {
       const projects = filter === "all"
         ? PROJECTS
-        : PROJECTS.filter(p => p.status === filter);
+        : PROJECTS.filter(p => p.status.includes(filter));
 
       empty.style.display = projects.length ? "none" : "block";
 
       grid.innerHTML = projects.map(project => `
         <article class="project-card">
           <div class="project-meta">
-            <span class="project-status">
-              ${statusLabels[project.status] || project.status}
-            </span>
+            ${project.status.map(status => `
+              <span class="project-status">
+                ${statusLabels[status] || status}
+              </span>
+            `).join("")}
             ${(project.tags || []).map(tag =>
               `<span class="project-tag">${tag}</span>`
             ).join("")}
