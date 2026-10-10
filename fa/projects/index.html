@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="پروژه‌ها و برنامه‌های دیدار در مونترآل" />
+  <title>پروژه‌ها | دیدار</title>
+
+  <!-- When placed in /fa/projects/index.html -->
+  <link rel="stylesheet" href="../../styles.css" />
+
+  <style>
+    html[lang="fa"] body { text-align: right; }
+    html[lang="fa"] .brand,
+    html[lang="fa"] .languages { direction: ltr; }
+    html[lang="fa"] .main-nav { direction: rtl; }
+    html[lang="fa"] .contact-ltr { direction: ltr; text-align: left; }
+
+    .projects-hero {
+      padding: 4.5rem 0 2.5rem;
+    }
+
+    .projects-hero .lead {
+      max-width: 780px;
+    }
+
+    .project-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .project-filter {
+      border: 1px solid rgba(23, 50, 77, .16);
+      background: #fff;
+      border-radius: 999px;
+      padding: .55rem .9rem;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .project-filter[aria-pressed="true"] {
+      background: var(--ink, #17324D);
+      color: #fff;
+      border-color: var(--ink, #17324D);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .project-card {
+      background: #fff;
+      border: 1px solid rgba(23, 50, 77, .10);
+      border-radius: 18px;
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+      min-height: 100%;
+    }
+
+    .project-card h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    .project-status,
+    .project-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: .32rem .7rem;
+      font-size: .86rem;
+      line-height: 1.4;
+    }
+
+    .project-status {
+      background: #eef4f3;
+      color: #2D6F6D;
+      font-weight: 700;
+    }
+
+    .project-tag {
+      background: #f7f3eb;
+      color: #6c5530;
+    }
+
+    .project-card p {
+      margin: 0;
+    }
+
+    .project-link {
+      margin-top: auto;
+      padding-top: .35rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .projects-empty {
+      display: none;
+      padding: 2rem 0;
+    }
+
+    .projects-note {
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 760px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+
+      <a class="brand" href="../" aria-label="صفحه اصلی دیدار">
+        <img class="brand-logo" src="../../assets/logo.png" alt="لوگوی دیدار">
+        <strong>DIDAR</strong>
+      </a>
+
+      <div class="nav-area">
+        <nav class="languages" aria-label="انتخاب زبان">
+          <a href="../../">FR</a>
+          <a href="../../en/">EN</a>
+          <a href="../" aria-current="page">فارسی</a>
+        </nav>
+
+        <nav class="main-nav" aria-label="منوی اصلی">
+          <a href="../">خانه</a>
+          <a href="../story/">داستان ما</a>
+          <a href="../#support">راهنمایی و همراهی</a>
+          <a href="./" aria-current="page">پروژه‌ها</a>
+          <a href="../#contact">تماس</a>
+        </nav>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="top">
+
+    <section class="projects-hero">
+      <div class="container narrow">
+        <p class="eyebrow">پروژه‌ها و برنامه‌ها</p>
+        <h1>پروژه‌های دیدار</h1>
+
+        <p class="lead">
+          پروژه‌های دیدار در حوزه‌های فرهنگی، آموزشی، اجتماعی و بین‌فرهنگی شکل می‌گیرند.
+          بعضی پروژه‌ها در حال اجرا هستند، بعضی در مرحله توسعه‌اند و بعضی به‌صورت
+          همکاری با گروه‌ها و سازمان‌های دیگر پیش می‌روند.
+        </p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+
+        <div id="project-filters" class="project-toolbar" aria-label="فیلتر پروژه‌ها"></div>
+
+        <div id="projects-grid" class="projects-grid" aria-live="polite"></div>
+
+        <p id="projects-empty" class="projects-empty">
+          پروژه‌ای با این فیلتر پیدا نشد.
+        </p>
+
+        <p class="note projects-note">
+          این صفحه از یک فایل داده جداگانه ساخته می‌شود. برای اضافه‌کردن یا ویرایش پروژه‌ها،
+          فقط فایل <span dir="ltr">projects-data.js</span> را تغییر دهید؛
+          نیازی به ویرایش ساختار این صفحه نیست.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> DIDAR. تمامی حقوق محفوظ است.</p>
+      <p class="latin" dir="ltr">Dialogue · Inclusion · Diversity · Arts · Relations</p>
+    </div>
+  </footer>
+
+  <script src="projects-data.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const grid = document.getElementById("projects-grid");
+    const toolbar = document.getElementById("project-filters");
+    const empty = document.getElementById("projects-empty");
+
+    const statusLabels = {
+      all: "همه",
+      active: "در حال اجرا",
+      development: "در حال توسعه",
+      collaboration: "همکاری",
+      completed: "انجام‌شده"
+    };
+
+    const statuses = ["all", ...new Set(PROJECTS.map(p => p.status))];
+
+    function renderFilters() {
+      toolbar.innerHTML = statuses.map((status, i) => `
+        <button
+          class="project-filter"
+          type="button"
+          data-filter="${status}"
+          aria-pressed="${i === 0 ? "true" : "false"}">
+          ${statusLabels[status] || status}
+        </button>
+      `).join("");
+
+      toolbar.querySelectorAll(".project-filter").forEach(button => {
+        button.addEventListener("click", () => {
+          toolbar.querySelectorAll(".project-filter")
+            .forEach(b => b.setAttribute("aria-pressed", "false"));
+          button.setAttribute("aria-pressed", "true");
+          renderProjects(button.dataset.filter);
+        });
+      });
+    }
+
+    function renderProjects(filter = "all") {
+      const projects = filter === "all"
+        ? PROJECTS
+        : PROJECTS.filter(p => p.status === filter);
+
+      empty.style.display = projects.length ? "none" : "block";
+
+      grid.innerHTML = projects.map(project => `
+        <article class="project-card">
+          <div class="project-meta">
+            <span class="project-status">
+              ${statusLabels[project.status] || project.status}
+            </span>
+            ${(project.tags || []).map(tag =>
+              `<span class="project-tag">${tag}</span>`
+            ).join("")}
+          </div>
+
+          <h2>${project.title}</h2>
+
+          ${project.subtitle ? `<p><strong>${project.subtitle}</strong></p>` : ""}
+
+          <p>${project.summary}</p>
+
+          ${project.link ? `
+            <a class="project-link" href="${project.link}">
+              اطلاعات بیشتر ←
+            </a>
+          ` : ""}
+        </article>
+      `).join("");
+    }
+
+    renderFilters();
+    renderProjects();
+  </script>
+</body>
+</html>
