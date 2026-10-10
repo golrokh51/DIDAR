@@ -958,6 +958,41 @@ footer {
 }
 
 
+html[lang="fa"] .support-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+html[lang="fa"] .support-item {
+  background: #fff;
+  border: 1px solid rgba(23, 50, 77, 0.10);
+  border-radius: 16px;
+  padding: 1.25rem 1.4rem;
+  text-align: right;
+}
+
+html[lang="fa"] .support-item h3 {
+  margin-top: 0;
+  margin-bottom: .6rem;
+}
+
+html[lang="fa"] .support-item-wide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 760px) {
+  html[lang="fa"] .support-list {
+    grid-template-columns: 1fr;
+  }
+
+  html[lang="fa"] .support-item-wide {
+    grid-column: auto;
+  }
+}
+
+
 /* =========================================
    French hero layout fix
    ========================================= */
