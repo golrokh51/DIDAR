@@ -96,8 +96,7 @@
   <a href="#about">درباره دیدار</a>
   <a href="story/index.html">داستان ما</a>
   <a href="#support">راهنمایی و همراهی</a>
-  <a href="#programs">برنامه‌ها</a>
-  <a href="#pillars">مدل دیدار</a>
+  <a href="projects/">پروژه‌ها</a>
   <a href="#contact">تماس</a>
 </nav>
 
@@ -124,7 +123,7 @@
 
           <div class="actions">
             <a class="button primary" href="#support">دریافت راهنمایی</a>
-            <a class="button secondary" href="#programs">آشنایی با برنامه‌ها</a>
+            <a class="button secondary" href="projects/">مشاهده پروژه‌ها</a>
           </div>
         </div>
 
@@ -285,58 +284,25 @@
 
     <!-- PROGRAMS -->
     <section id="programs" class="section alt">
-      <div class="container">
+  <div class="container narrow">
 
-        <p class="eyebrow">برنامه‌ها و پروژه‌ها</p>
-        <h2>برنامه‌های جاری و در حال توسعه</h2>
+    <p class="eyebrow">پروژه‌ها و برنامه‌ها</p>
+    <h2>پروژه‌های دیدار</h2>
 
-        <div class="project-list">
+    <p class="section-intro">
+      دیدار پروژه‌ها و برنامه‌های فرهنگی، آموزشی، اجتماعی و بین‌فرهنگی مختلفی را توسعه می‌دهد.
+      این فعالیت‌ها از برنامه‌های اجتماعی و آموزشی تا همکاری‌های فرهنگی،
+      حمایت از سالمندان و مستندسازی نیازهای جامعه را در بر می‌گیرند.
+    </p>
 
-          <article class="project">
-            <div class="project-tag">ادبیات · میراث · جامعه</div>
-            <h3>کتابخانه نیما</h3>
-            <p>
-              یک کتابخانه مستقل اجتماعی با چند دهه سابقه در فعالیت‌های ادبی و فرهنگی فارسی.
-              دیدار می‌تواند با کتابخانه نیما در زمینه ادبیات، مستندسازی،
-              حافظه فرهنگی، دسترسی به کتاب‌ها و مجموعه‌ها،
-              دیجیتال‌سازی، نمایشگاه‌ها و فعالیت‌های بین‌نسلی همکاری کند.
-            </p>
-          </article>
+    <div class="actions">
+      <a class="button primary" href="projects/">
+        مشاهده همه پروژه‌ها
+      </a>
+    </div>
 
-          <article class="project">
-            <div class="project-tag">سالمندان · توانمندی دیجیتال · همراهی</div>
-            <h3>دیدار سالمندان</h3>
-            <p>
-              برنامه‌ای برای حمایت اجتماعی از سالمندان که شامل کمک در امور دیجیتال،
-              راهنمایی برای دسترسی به خدمات و همراهی عملی
-              در برخی امور اداری، اجتماعی و مراجعه‌های پزشکی است.
-            </p>
-          </article>
-
-          <article class="project">
-            <div class="project-tag">گفت‌وگو · مشارکت · یادگیری</div>
-            <h3>گفت‌وگوهای دیدار</h3>
-            <p>
-              کارگاه‌ها، گفت‌وگوهای عمومی و رویدادهای اجتماعی
-              درباره موضوعاتی مانند مشارکت، تنوع، رضایت، جنسیت،
-              احساس تعلق، تجربه مهاجرت، حقوق و درک بین‌فرهنگی.
-            </p>
-          </article>
-
-          <article class="project">
-            <div class="project-tag">مستندسازی · نیازهای جامعه · پیگیری</div>
-            <h3>صدای جامعه در دیدار</h3>
-            <p>
-              مستندسازی مسائل تکرارشونده جامعه، شناسایی موانع
-              و ایجاد داده و شواهدی که بتواند به بهبود خدمات،
-              همکاری‌ها و پاسخ نهادها کمک کند.
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
+  </div>
+</section>
 
 
     <!-- CONTACT -->
@@ -393,8 +359,3 @@
 
 </body>
 </html>
-'''
-
-path = Path("/mnt/data/DIDAR_fa_index_final.html")
-path.write_text(fa_html, encoding="utf-8")
-print(path)
