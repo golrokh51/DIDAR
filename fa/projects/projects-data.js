@@ -6,11 +6,12 @@
   2) Change title, status, summary, tags and link.
   3) Save the file.
 
-  Available status values:
-    active         = در حال اجرا
-    development    = در حال توسعه
-    collaboration  = همکاری
-    completed      = انجام‌شده
+  Status can contain one or more values:
+    ["active"]                   = در حال اجرا
+    ["development"]              = در حال توسعه
+    ["active", "development"]    = در حال اجرا + در حال توسعه
+    ["collaboration"]            = همکاری
+    ["completed"]                = انجام‌شده
 
   "link" can be:
     ""                         -> no "more info" button

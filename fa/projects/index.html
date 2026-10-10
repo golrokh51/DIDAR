@@ -137,7 +137,7 @@
         <nav class="languages" aria-label="انتخاب زبان">
           <a href="../../">FR</a>
           <a href="../../en/">EN</a>
-          <a href="../" aria-current="page">فارسی</a>
+          <a href="./" aria-current="page">فارسی</a>
         </nav>
 
         <nav class="main-nav" aria-label="منوی اصلی">
@@ -183,10 +183,12 @@
 
   </main>
 
-<div class="container footer-wrap">
-  <p>© <span id="year"></span> DIDAR. تمامی حقوق محفوظ است.</p>
-  <p>مونترآل · کبک</p>
-</div>
+  <footer>
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> DIDAR. تمامی حقوق محفوظ است.</p>
+      <p>مونترآل · کبک</p>
+    </div>
+  </footer>
 
   <script src="projects-data.js"></script>
   <script>
@@ -204,9 +206,15 @@
       completed: "انجام‌شده"
     };
 
+    const getStatuses = (project) => {
+      if (Array.isArray(project.status)) return project.status;
+      if (project.status) return [project.status];
+      return [];
+    };
+
     const statuses = [
       "all",
-      ...new Set(PROJECTS.flatMap(p => p.status))
+      ...new Set(PROJECTS.flatMap(getStatuses))
     ];
     
 
@@ -234,14 +242,14 @@
     function renderProjects(filter = "all") {
       const projects = filter === "all"
         ? PROJECTS
-        : PROJECTS.filter(p => p.status.includes(filter));
+        : PROJECTS.filter(p => getStatuses(p).includes(filter));
 
       empty.style.display = projects.length ? "none" : "block";
 
       grid.innerHTML = projects.map(project => `
         <article class="project-card">
           <div class="project-meta">
-            ${project.status.map(status => `
+            ${getStatuses(project).map(status => `
               <span class="project-status">
                 ${statusLabels[status] || status}
               </span>
