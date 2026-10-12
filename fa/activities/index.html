@@ -298,119 +298,267 @@
   </footer>
 
 
-  <!-- DATA -->
+<!-- DATA -->
 
-  <script src="activities-data.js"></script>
-
-
-  <script>
-
-    <script src="activities/activities-data.js"></script>
+<script src="activities-data.js"></script>
 
 <script>
-  (function () {
 
-    const container =
-      document.getElementById("latest-activities");
-
-    if (!container) return;
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
 
 
-    if (
-      typeof ACTIVITIES === "undefined" ||
-      !Array.isArray(ACTIVITIES) ||
-      ACTIVITIES.length === 0
-    ) {
-      container.innerHTML =
-        "<p>فعالیتی هنوز ثبت نشده است.</p>";
+  const container =
+    document.getElementById("activities-container");
+
+  const toolbar =
+    document.getElementById("activity-filters");
+
+  const empty =
+    document.getElementById("activities-empty");
+
+
+  const typeLabels = {
+    all: "همه",
+    workshop: "کارگاه",
+    event: "رویداد",
+    talk: "نشست و گفت‌وگو",
+    cultural: "فعالیت فرهنگی",
+    community: "فعالیت اجتماعی",
+    collaboration: "همکاری",
+    training: "آموزش"
+  };
+
+
+  function formatDate(dateString) {
+
+    if (!dateString) return "";
+
+    const date =
+      new Date(dateString + "T12:00:00");
+
+    return new Intl.DateTimeFormat(
+      "fa-CA",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      }
+    ).format(date);
+
+  }
+
+
+  function getYear(activity) {
+
+    if (!activity.date) return "بدون تاریخ";
+
+    return activity.date.slice(0, 4);
+
+  }
+
+
+  const availableTypes = [
+    "all",
+    ...new Set(
+      ACTIVITIES
+        .map(activity => activity.type)
+        .filter(Boolean)
+    )
+  ];
+
+
+  function renderFilters() {
+
+    toolbar.innerHTML =
+      availableTypes.map((type, index) => `
+
+        <button
+          class="activity-filter"
+          type="button"
+          data-filter="${type}"
+          aria-pressed="${index === 0 ? "true" : "false"}"
+        >
+          ${typeLabels[type] || type}
+        </button>
+
+      `).join("");
+
+
+    toolbar
+      .querySelectorAll(".activity-filter")
+      .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          toolbar
+            .querySelectorAll(".activity-filter")
+            .forEach(item =>
+              item.setAttribute(
+                "aria-pressed",
+                "false"
+              )
+            );
+
+          button.setAttribute(
+            "aria-pressed",
+            "true"
+          );
+
+          renderActivities(
+            button.dataset.filter
+          );
+
+        });
+
+      });
+
+  }
+
+
+  function renderActivities(filter = "all") {
+
+    let activities = [...ACTIVITIES];
+
+
+    if (filter !== "all") {
+
+      activities =
+        activities.filter(
+          activity =>
+            activity.type === filter
+        );
+
+    }
+
+
+    activities.sort(
+      (a, b) =>
+        (b.date || "")
+          .localeCompare(a.date || "")
+    );
+
+
+    if (!activities.length) {
+
+      container.innerHTML = "";
+      empty.style.display = "block";
 
       return;
-    }
-
-
-    const typeLabels = {
-      workshop: "کارگاه",
-      event: "رویداد",
-      talk: "نشست و گفت‌وگو",
-      cultural: "فعالیت فرهنگی",
-      community: "فعالیت اجتماعی",
-      collaboration: "همکاری",
-      training: "آموزش"
-    };
-
-
-    function formatDate(dateString) {
-
-      if (!dateString) return "";
-
-      const date =
-        new Date(dateString + "T12:00:00");
-
-      return new Intl.DateTimeFormat(
-        "fa-CA",
-        {
-          year: "numeric",
-          month: "long",
-          day: "numeric"
-        }
-      ).format(date);
 
     }
 
 
-    const latest =
-      [...ACTIVITIES]
+    empty.style.display = "none";
 
-        .sort(
-          (a, b) =>
-            (b.date || "")
-              .localeCompare(a.date || "")
-        )
 
-        .slice(0, 3);
+    const groups = {};
+
+
+    activities.forEach(activity => {
+
+      const year =
+        getYear(activity);
+
+      if (!groups[year]) {
+        groups[year] = [];
+      }
+
+      groups[year].push(activity);
+
+    });
 
 
     container.innerHTML =
-      latest.map(activity => `
+      Object.entries(groups)
+        .map(([year, yearActivities]) => `
 
-        <article class="latest-activity">
+          <section class="activity-year">
 
-          <div class="latest-activity-date">
+            <div class="activity-year-heading">
+              <h2>${year}</h2>
+            </div>
 
-            ${formatDate(activity.date)}
+            <div class="activities-grid">
 
-            ${
-              activity.type
-                ? ` · ${typeLabels[activity.type] || activity.type}`
-                : ""
-            }
+              ${yearActivities
+                .map(renderActivityCard)
+                .join("")}
 
-          </div>
+            </div>
+
+          </section>
+
+        `).join("");
+
+  }
 
 
-          <h3>
-            ${activity.title || ""}
-          </h3>
+  function renderActivityCard(activity) {
 
+    const tags =
+      activity.tags || [];
+
+
+    return `
+
+      <article class="activity-card">
+
+        <div class="activity-date">
+          ${formatDate(activity.date)}
+        </div>
+
+
+        <div>
 
           ${
-            activity.subtitle
+            activity.type
               ? `
-                <p>
-                  <strong>
-                    ${activity.subtitle}
-                  </strong>
-                </p>
+                <span class="activity-type">
+                  ${typeLabels[activity.type] || activity.type}
+                </span>
               `
               : ""
           }
 
+        </div>
+
+
+        <h3>
+          ${activity.title}
+        </h3>
+
+
+        ${
+          activity.subtitle
+            ? `
+              <p class="activity-subtitle">
+                ${activity.subtitle}
+              </p>
+            `
+            : ""
+        }
+
+
+        ${
+          activity.summary
+            ? `
+              <p class="activity-summary">
+                ${activity.summary}
+              </p>
+            `
+            : ""
+        }
+
+
+        <div class="activity-details">
 
           ${
-            activity.summary
+            activity.project
               ? `
                 <p>
-                  ${activity.summary}
+                  <strong>در چارچوب:</strong>
+                  ${activity.project}
                 </p>
               `
               : ""
@@ -420,7 +568,7 @@
           ${
             activity.partner
               ? `
-                <p class="latest-activity-meta">
+                <p>
                   <strong>با همکاری:</strong>
                   ${activity.partner}
                 </p>
@@ -428,395 +576,74 @@
               : ""
           }
 
-        </article>
 
-      `).join("");
-
-  })();
-
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-
-
-    const container =
-      document.getElementById("activities-container");
-
-    const toolbar =
-      document.getElementById("activity-filters");
-
-    const empty =
-      document.getElementById("activities-empty");
-
-
-    const typeLabels = {
-      all: "همه",
-      workshop: "کارگاه",
-      event: "رویداد",
-      talk: "نشست و گفت‌وگو",
-      cultural: "فعالیت فرهنگی",
-      community: "فعالیت اجتماعی",
-      collaboration: "همکاری",
-      training: "آموزش"
-    };
-
-
-    /*
-      Convert 2026-10-11 to a Persian-readable date
-    */
-
-    function formatDate(dateString) {
-
-      if (!dateString) return "";
-
-      const date =
-        new Date(dateString + "T12:00:00");
-
-      return new Intl.DateTimeFormat(
-        "fa-CA",
-        {
-          year: "numeric",
-          month: "long",
-          day: "numeric"
-        }
-      ).format(date);
-
-    }
-
-
-    /*
-      Return year from activity date
-    */
-
-    function getYear(activity) {
-
-      if (!activity.date) return "بدون تاریخ";
-
-      return activity.date.slice(0, 4);
-
-    }
-
-
-    /*
-      Determine which activity types exist
-    */
-
-    const availableTypes = [
-      "all",
-      ...new Set(
-        ACTIVITIES
-          .map(activity => activity.type)
-          .filter(Boolean)
-      )
-    ];
-
-
-    /*
-      Create filter buttons
-    */
-
-    function renderFilters() {
-
-      toolbar.innerHTML =
-        availableTypes.map((type, index) => `
-
-          <button
-            class="activity-filter"
-            type="button"
-            data-filter="${type}"
-            aria-pressed="${index === 0 ? "true" : "false"}"
-          >
-            ${typeLabels[type] || type}
-          </button>
-
-        `).join("");
-
-
-      toolbar
-        .querySelectorAll(".activity-filter")
-        .forEach(button => {
-
-          button.addEventListener("click", () => {
-
-            toolbar
-              .querySelectorAll(".activity-filter")
-              .forEach(item =>
-                item.setAttribute(
-                  "aria-pressed",
-                  "false"
-                )
-              );
-
-            button.setAttribute(
-              "aria-pressed",
-              "true"
-            );
-
-            renderActivities(
-              button.dataset.filter
-            );
-
-          });
-
-        });
-
-    }
-
-
-    /*
-      Render activities
-    */
-
-    function renderActivities(filter = "all") {
-
-      let activities = [...ACTIVITIES];
-
-
-      /*
-        Filter
-      */
-
-      if (filter !== "all") {
-
-        activities =
-          activities.filter(
-            activity =>
-              activity.type === filter
-          );
-
-      }
-
-
-      /*
-        Newest first
-      */
-
-      activities.sort(
-        (a, b) =>
-          (b.date || "")
-            .localeCompare(a.date || "")
-      );
-
-
-      if (!activities.length) {
-
-        container.innerHTML = "";
-        empty.style.display = "block";
-
-        return;
-
-      }
-
-
-      empty.style.display = "none";
-
-
-      /*
-        Group by year
-      */
-
-      const groups = {};
-
-      activities.forEach(activity => {
-
-        const year =
-          getYear(activity);
-
-        if (!groups[year]) {
-          groups[year] = [];
-        }
-
-        groups[year].push(activity);
-
-      });
-
-
-      /*
-        Render year sections
-      */
-
-      container.innerHTML =
-        Object.entries(groups)
-          .map(([year, yearActivities]) => `
-
-            <section class="activity-year">
-
-              <div class="activity-year-heading">
-                <h2>${year}</h2>
-              </div>
-
-              <div class="activities-grid">
-
-                ${yearActivities
-                  .map(renderActivityCard)
-                  .join("")}
-
-              </div>
-
-            </section>
-
-          `).join("");
-
-    }
-
-
-    /*
-      Individual activity card
-    */
-
-    function renderActivityCard(activity) {
-
-      const tags =
-        activity.tags || [];
-
-
-      return `
-
-        <article class="activity-card">
-
-          <div class="activity-date">
-            ${formatDate(activity.date)}
-          </div>
-
-
-          <div>
-
-            ${
-              activity.type
-                ? `
-                  <span class="activity-type">
-                    ${typeLabels[activity.type] || activity.type}
+          ${
+            activity.location
+              ? `
+                <p>
+                  <strong>مکان:</strong>
+                  ${activity.location}
+                </p>
+              `
+              : ""
+          }
+
+
+          ${
+            activity.role
+              ? `
+                <p>
+                  <strong>نقش دیدار:</strong>
+                  ${activity.role}
+                </p>
+              `
+              : ""
+          }
+
+        </div>
+
+
+        ${
+          tags.length
+            ? `
+              <div class="activity-tags">
+
+                ${tags.map(tag => `
+                  <span class="activity-tag">
+                    ${tag}
                   </span>
-                `
-                : ""
-            }
+                `).join("")}
 
-          </div>
-
-
-          <h3>
-            ${activity.title}
-          </h3>
+              </div>
+            `
+            : ""
+        }
 
 
-          ${
-            activity.subtitle
-              ? `
-                <p class="activity-subtitle">
-                  ${activity.subtitle}
-                </p>
-              `
-              : ""
-          }
+        ${
+          activity.link
+            ? `
+              <a
+                class="activity-link"
+                href="${activity.link}"
+              >
+                اطلاعات بیشتر ←
+              </a>
+            `
+            : ""
+        }
+
+      </article>
+
+    `;
+
+  }
 
 
-          ${
-            activity.summary
-              ? `
-                <p class="activity-summary">
-                  ${activity.summary}
-                </p>
-              `
-              : ""
-          }
+  renderFilters();
+  renderActivities();
 
-
-          <div class="activity-details">
-
-            ${
-              activity.project
-                ? `
-                  <p>
-                    <strong>در چارچوب:</strong>
-                    ${activity.project}
-                  </p>
-                `
-                : ""
-            }
-
-
-            ${
-              activity.partner
-                ? `
-                  <p>
-                    <strong>با همکاری:</strong>
-                    ${activity.partner}
-                  </p>
-                `
-                : ""
-            }
-
-
-            ${
-              activity.location
-                ? `
-                  <p>
-                    <strong>مکان:</strong>
-                    ${activity.location}
-                  </p>
-                `
-                : ""
-            }
-
-
-            ${
-              activity.role
-                ? `
-                  <p>
-                    <strong>نقش دیدار:</strong>
-                    ${activity.role}
-                  </p>
-                `
-                : ""
-            }
-
-          </div>
-
-
-          ${
-            tags.length
-              ? `
-                <div class="activity-tags">
-
-                  ${tags.map(tag => `
-                    <span class="activity-tag">
-                      ${tag}
-                    </span>
-                  `).join("")}
-
-                </div>
-              `
-              : ""
-          }
-
-
-          ${
-            activity.link
-              ? `
-                <a
-                  class="activity-link"
-                  href="${activity.link}"
-                >
-                  اطلاعات بیشتر ←
-                </a>
-              `
-              : ""
-          }
-
-        </article>
-
-      `;
-
-    }
-
-
-    /*
-      Start page
-    */
-
-    renderFilters();
-    renderActivities();
-
-  </script>
+</script>
 
 </body>
 </html>
