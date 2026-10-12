@@ -305,6 +305,135 @@
 
   <script>
 
+    <script src="activities/activities-data.js"></script>
+
+<script>
+  (function () {
+
+    const container =
+      document.getElementById("latest-activities");
+
+    if (!container) return;
+
+
+    if (
+      typeof ACTIVITIES === "undefined" ||
+      !Array.isArray(ACTIVITIES) ||
+      ACTIVITIES.length === 0
+    ) {
+      container.innerHTML =
+        "<p>فعالیتی هنوز ثبت نشده است.</p>";
+
+      return;
+    }
+
+
+    const typeLabels = {
+      workshop: "کارگاه",
+      event: "رویداد",
+      talk: "نشست و گفت‌وگو",
+      cultural: "فعالیت فرهنگی",
+      community: "فعالیت اجتماعی",
+      collaboration: "همکاری",
+      training: "آموزش"
+    };
+
+
+    function formatDate(dateString) {
+
+      if (!dateString) return "";
+
+      const date =
+        new Date(dateString + "T12:00:00");
+
+      return new Intl.DateTimeFormat(
+        "fa-CA",
+        {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }
+      ).format(date);
+
+    }
+
+
+    const latest =
+      [...ACTIVITIES]
+
+        .sort(
+          (a, b) =>
+            (b.date || "")
+              .localeCompare(a.date || "")
+        )
+
+        .slice(0, 3);
+
+
+    container.innerHTML =
+      latest.map(activity => `
+
+        <article class="latest-activity">
+
+          <div class="latest-activity-date">
+
+            ${formatDate(activity.date)}
+
+            ${
+              activity.type
+                ? ` · ${typeLabels[activity.type] || activity.type}`
+                : ""
+            }
+
+          </div>
+
+
+          <h3>
+            ${activity.title || ""}
+          </h3>
+
+
+          ${
+            activity.subtitle
+              ? `
+                <p>
+                  <strong>
+                    ${activity.subtitle}
+                  </strong>
+                </p>
+              `
+              : ""
+          }
+
+
+          ${
+            activity.summary
+              ? `
+                <p>
+                  ${activity.summary}
+                </p>
+              `
+              : ""
+          }
+
+
+          ${
+            activity.partner
+              ? `
+                <p class="latest-activity-meta">
+                  <strong>با همکاری:</strong>
+                  ${activity.partner}
+                </p>
+              `
+              : ""
+          }
+
+        </article>
+
+      `).join("");
+
+  })();
+
     document.getElementById("year").textContent =
       new Date().getFullYear();
 
