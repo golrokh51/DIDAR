@@ -1,27 +1,47 @@
+
 const ACTIVITIES = [
+  {
+    date: "2026-10-05",
+    title: "هنر گفت‌وگو در بحران",
+    subtitle: "همدلی، اختلاف و حمایت بدون بازتولید خشونت",
 
-{
-  date: "2026-10-11",
-  title: "...",
-  subtitle: "...",
+    type: "workshop",
+    project: "گفت‌وگوهای دیدار",
 
-  type: "workshop",
-  project: "گفت‌وگوهای دیدار",
+    partner: "انجمن زنان ایرانی مونترآل (AFI)",
+    location: "مونترآل",
+    language: ["فارسی"],
 
-  partner: "انجمن زنان ایرانی مونترآل (AFI)",
-  location: "مونترآل",
-  language: ["فارسی"],
+    role: "طراحی و تسهیل کارگاه",
+    audience: "اعضای جامعه",
+    participants: 10,
+    durationMinutes: 90,
 
-  role: "طراحی و تسهیل کارگاه",
-  audience: "اعضای جامعه",
-  participants: null,
+    summary: `A 90-minute participatory workshop brought together
+10 participants to explore constructive communication, empathy,
+and mutual support during crises and disagreements.
 
-  summary: "...",
+Through facilitated discussions and practical exercises,
+participants reflected on how to express disagreement respectfully,
+recognize different experiences and emotional needs, establish
+healthy boundaries, and offer support without reproducing harmful
+behaviours such as judgment, humiliation, exclusion, or coercion.
 
-  tags: ["گفت‌وگو", "همدلی", "آموزش"],
+The session emphasized active listening, respect for personal
+autonomy, and the importance of creating safer, more inclusive
+spaces for dialogue and collective support.`,
 
-  photos: [],
-  documents: [],
-  link: ""
-}
+    tags: [
+      "گفت‌وگو",
+      "همدلی",
+      "مدیریت اختلاف",
+      "حمایت اجتماعی",
+      "عدم خشونت",
+      "آموزش مشارکتی"
+    ],
+
+    photos: [],
+    documents: [],
+    link: ""
+  }
 ];
