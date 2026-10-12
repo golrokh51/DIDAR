@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta
+    name="description"
+    content="کارگاه‌ها، رویدادها، نشست‌ها و فعالیت‌های اجتماعی دیدار در مونترآل."
+  />
+
+  <title>فعالیت‌ها | دیدار</title>
+
+  <link rel="stylesheet" href="../../styles.css" />
+
+  <style>
+    html[lang="fa"] body {
+      text-align: right;
+    }
+
+    html[lang="fa"] .brand,
+    html[lang="fa"] .languages {
+      direction: ltr;
+    }
+
+    html[lang="fa"] .main-nav {
+      direction: rtl;
+    }
+
+    /* HERO */
+
+    .activities-hero {
+      padding: 4.5rem 0 2.5rem;
+    }
+
+    .activities-hero .lead {
+      max-width: 780px;
+    }
+
+    /* FILTERS */
+
+    .activity-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .activity-filter {
+      border: 1px solid rgba(23, 50, 77, .16);
+      background: #fff;
+      border-radius: 999px;
+      padding: .55rem .9rem;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .activity-filter[aria-pressed="true"] {
+      background: var(--ink, #17324D);
+      color: #fff;
+      border-color: var(--ink, #17324D);
+    }
+
+    /* YEARS */
+
+    .activity-year {
+      margin-top: 3.5rem;
+    }
+
+    .activity-year:first-child {
+      margin-top: 0;
+    }
+
+    .activity-year-heading {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .activity-year-heading h2 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .activity-year-heading::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: rgba(23, 50, 77, .12);
+    }
+
+    /* CARDS */
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .activity-card {
+      background: #fff;
+      border: 1px solid rgba(23, 50, 77, .10);
+      border-radius: 18px;
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+
+    .activity-date {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--teal, #2D6F6D);
+    }
+
+    .activity-card h3 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .activity-subtitle {
+      margin: -.25rem 0 0;
+      font-weight: 600;
+    }
+
+    .activity-summary {
+      margin: 0;
+    }
+
+    .activity-details {
+      display: grid;
+      gap: .4rem;
+      margin-top: .25rem;
+      font-size: .94rem;
+    }
+
+    .activity-details p {
+      margin: 0;
+    }
+
+    .activity-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-top: .25rem;
+    }
+
+    .activity-tag,
+    .activity-type {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: .3rem .7rem;
+      font-size: .84rem;
+      line-height: 1.4;
+    }
+
+    .activity-type {
+      background: #eef4f3;
+      color: #2D6F6D;
+      font-weight: 700;
+    }
+
+    .activity-tag {
+      background: #f7f3eb;
+      color: #6c5530;
+    }
+
+    .activity-link {
+      margin-top: auto;
+      padding-top: .4rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .activities-empty {
+      display: none;
+      padding: 2rem 0;
+    }
+
+    @media (max-width: 760px) {
+      .activities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .activities-hero {
+        padding-top: 3rem;
+      }
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+  <!-- HEADER -->
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+
+      <a class="brand" href="../" aria-label="صفحه اصلی دیدار">
+        <img
+          class="brand-logo"
+          src="../../assets/logo.png"
+          alt="لوگوی دیدار"
+        >
+        <strong>DIDAR</strong>
+      </a>
+
+      <div class="nav-area">
+
+        <nav class="languages" aria-label="انتخاب زبان">
+          <a href="../../">FR</a>
+          <a href="../../en/">EN</a>
+          <a href="../" aria-current="page">فارسی</a>
+        </nav>
+
+        <nav class="main-nav" aria-label="منوی اصلی">
+          <a href="../">خانه</a>
+          <a href="../story/">داستان ما</a>
+          <a href="../#support">راهنمایی و همراهی</a>
+          <a href="../projects/">پروژه‌ها</a>
+          <a href="./" aria-current="page">فعالیت‌ها</a>
+          <a href="../#contact">تماس</a>
+        </nav>
+
+      </div>
+
+    </div>
+  </header>
+
+
+  <main id="top">
+
+    <!-- HERO -->
+
+    <section class="activities-hero">
+      <div class="container narrow">
+
+        <p class="eyebrow">کارگاه‌ها · رویدادها · نشست‌ها · همکاری‌ها</p>
+
+        <h1>فعالیت‌های دیدار</h1>
+
+        <p class="lead">
+          در این صفحه فعالیت‌های انجام‌شده دیدار، از جمله کارگاه‌ها،
+          رویدادهای فرهنگی و اجتماعی، نشست‌ها و همکاری با سازمان‌ها
+          و گروه‌های مختلف ثبت می‌شوند.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ACTIVITIES -->
+
+    <section class="section alt">
+      <div class="container">
+
+        <div
+          id="activity-filters"
+          class="activity-toolbar"
+          aria-label="فیلتر فعالیت‌ها"
+        ></div>
+
+        <div id="activities-container"></div>
+
+        <p
+          id="activities-empty"
+          class="activities-empty"
+        >
+          فعالیتی با این فیلتر پیدا نشد.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+    <div class="container footer-wrap">
+
+      <p>
+        © <span id="year"></span> DIDAR.
+        تمامی حقوق محفوظ است.
+      </p>
+
+      <p>
+        مونترآل · کبک
+      </p>
+
+    </div>
+  </footer>
+
+
+  <!-- DATA -->
+
+  <script src="activities-data.js"></script>
+
+
+  <script>
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+
+    const container =
+      document.getElementById("activities-container");
+
+    const toolbar =
+      document.getElementById("activity-filters");
+
+    const empty =
+      document.getElementById("activities-empty");
+
+
+    const typeLabels = {
+      all: "همه",
+      workshop: "کارگاه",
+      event: "رویداد",
+      talk: "نشست و گفت‌وگو",
+      cultural: "فعالیت فرهنگی",
+      community: "فعالیت اجتماعی",
+      collaboration: "همکاری",
+      training: "آموزش"
+    };
+
+
+    /*
+      Convert 2026-10-11 to a Persian-readable date
+    */
+
+    function formatDate(dateString) {
+
+      if (!dateString) return "";
+
+      const date =
+        new Date(dateString + "T12:00:00");
+
+      return new Intl.DateTimeFormat(
+        "fa-CA",
+        {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }
+      ).format(date);
+
+    }
+
+
+    /*
+      Return year from activity date
+    */
+
+    function getYear(activity) {
+
+      if (!activity.date) return "بدون تاریخ";
+
+      return activity.date.slice(0, 4);
+
+    }
+
+
+    /*
+      Determine which activity types exist
+    */
+
+    const availableTypes = [
+      "all",
+      ...new Set(
+        ACTIVITIES
+          .map(activity => activity.type)
+          .filter(Boolean)
+      )
+    ];
+
+
+    /*
+      Create filter buttons
+    */
+
+    function renderFilters() {
+
+      toolbar.innerHTML =
+        availableTypes.map((type, index) => `
+
+          <button
+            class="activity-filter"
+            type="button"
+            data-filter="${type}"
+            aria-pressed="${index === 0 ? "true" : "false"}"
+          >
+            ${typeLabels[type] || type}
+          </button>
+
+        `).join("");
+
+
+      toolbar
+        .querySelectorAll(".activity-filter")
+        .forEach(button => {
+
+          button.addEventListener("click", () => {
+
+            toolbar
+              .querySelectorAll(".activity-filter")
+              .forEach(item =>
+                item.setAttribute(
+                  "aria-pressed",
+                  "false"
+                )
+              );
+
+            button.setAttribute(
+              "aria-pressed",
+              "true"
+            );
+
+            renderActivities(
+              button.dataset.filter
+            );
+
+          });
+
+        });
+
+    }
+
+
+    /*
+      Render activities
+    */
+
+    function renderActivities(filter = "all") {
+
+      let activities = [...ACTIVITIES];
+
+
+      /*
+        Filter
+      */
+
+      if (filter !== "all") {
+
+        activities =
+          activities.filter(
+            activity =>
+              activity.type === filter
+          );
+
+      }
+
+
+      /*
+        Newest first
+      */
+
+      activities.sort(
+        (a, b) =>
+          (b.date || "")
+            .localeCompare(a.date || "")
+      );
+
+
+      if (!activities.length) {
+
+        container.innerHTML = "";
+        empty.style.display = "block";
+
+        return;
+
+      }
+
+
+      empty.style.display = "none";
+
+
+      /*
+        Group by year
+      */
+
+      const groups = {};
+
+      activities.forEach(activity => {
+
+        const year =
+          getYear(activity);
+
+        if (!groups[year]) {
+          groups[year] = [];
+        }
+
+        groups[year].push(activity);
+
+      });
+
+
+      /*
+        Render year sections
+      */
+
+      container.innerHTML =
+        Object.entries(groups)
+          .map(([year, yearActivities]) => `
+
+            <section class="activity-year">
+
+              <div class="activity-year-heading">
+                <h2>${year}</h2>
+              </div>
+
+              <div class="activities-grid">
+
+                ${yearActivities
+                  .map(renderActivityCard)
+                  .join("")}
+
+              </div>
+
+            </section>
+
+          `).join("");
+
+    }
+
+
+    /*
+      Individual activity card
+    */
+
+    function renderActivityCard(activity) {
+
+      const tags =
+        activity.tags || [];
+
+
+      return `
+
+        <article class="activity-card">
+
+          <div class="activity-date">
+            ${formatDate(activity.date)}
+          </div>
+
+
+          <div>
+
+            ${
+              activity.type
+                ? `
+                  <span class="activity-type">
+                    ${typeLabels[activity.type] || activity.type}
+                  </span>
+                `
+                : ""
+            }
+
+          </div>
+
+
+          <h3>
+            ${activity.title}
+          </h3>
+
+
+          ${
+            activity.subtitle
+              ? `
+                <p class="activity-subtitle">
+                  ${activity.subtitle}
+                </p>
+              `
+              : ""
+          }
+
+
+          ${
+            activity.summary
+              ? `
+                <p class="activity-summary">
+                  ${activity.summary}
+                </p>
+              `
+              : ""
+          }
+
+
+          <div class="activity-details">
+
+            ${
+              activity.project
+                ? `
+                  <p>
+                    <strong>در چارچوب:</strong>
+                    ${activity.project}
+                  </p>
+                `
+                : ""
+            }
+
+
+            ${
+              activity.partner
+                ? `
+                  <p>
+                    <strong>با همکاری:</strong>
+                    ${activity.partner}
+                  </p>
+                `
+                : ""
+            }
+
+
+            ${
+              activity.location
+                ? `
+                  <p>
+                    <strong>مکان:</strong>
+                    ${activity.location}
+                  </p>
+                `
+                : ""
+            }
+
+
+            ${
+              activity.role
+                ? `
+                  <p>
+                    <strong>نقش دیدار:</strong>
+                    ${activity.role}
+                  </p>
+                `
+                : ""
+            }
+
+          </div>
+
+
+          ${
+            tags.length
+              ? `
+                <div class="activity-tags">
+
+                  ${tags.map(tag => `
+                    <span class="activity-tag">
+                      ${tag}
+                    </span>
+                  `).join("")}
+
+                </div>
+              `
+              : ""
+          }
+
+
+          ${
+            activity.link
+              ? `
+                <a
+                  class="activity-link"
+                  href="${activity.link}"
+                >
+                  اطلاعات بیشتر ←
+                </a>
+              `
+              : ""
+          }
+
+        </article>
+
+      `;
+
+    }
+
+
+    /*
+      Start page
+    */
+
+    renderFilters();
+    renderActivities();
+
+  </script>
+
+</body>
+</html>
