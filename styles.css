@@ -945,6 +945,50 @@ footer {
   font-size: clamp(1.7rem, 4vw, 2.7rem);
 }
 
+
+/* Latest activities preview */
+
+.latest-activities {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.latest-activity {
+  background: #fff;
+  border: 1px solid rgba(23, 50, 77, 0.10);
+  border-radius: 16px;
+  padding: 1.25rem;
+  text-align: right;
+}
+
+.latest-activity-date {
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--teal, #2D6F6D);
+  margin-bottom: .5rem;
+}
+
+.latest-activity h3 {
+  margin: 0 0 .5rem;
+}
+
+.latest-activity p {
+  margin: .4rem 0 0;
+}
+
+.latest-activity-meta {
+  font-size: .9rem;
+  opacity: .8;
+}
+
+@media (max-width: 900px) {
+  .latest-activities {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 920px) {
   .values-grid {
     grid-template-columns: repeat(2, 1fr);
