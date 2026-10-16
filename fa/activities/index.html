@@ -88,6 +88,23 @@
     .program-topics { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: auto; }
     .program-topics span { background: #f7f3eb; border-radius: 99px; padding: .25rem .6rem; font-size: .83rem; }
     .program-more { font-weight: 700; text-decoration: none; margin-top: .5rem; }
+    .collaborator-links { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .4rem .65rem; }
+    .collaborator-links a { color: var(--teal, #2D6F6D); font-weight: 600; text-decoration: underline; text-underline-offset: .18rem; }
+    .collaborator-links span { font-weight: 600; }
+    .program-collaborators { margin-top: .2rem; font-size: .94rem; }
+    .program-sessions { margin-top: .3rem; padding-top: .8rem; border-top: 1px solid rgba(23, 50, 77, .12); }
+    .program-sessions summary { cursor: pointer; font-weight: 700; color: var(--ink, #17324D); }
+    .program-session-list { padding: .6rem 0 0; list-style: none; margin: 0; display: grid; gap: .7rem; }
+    .program-session-item { border-radius: 10px; background: #f7f9f8; padding: .7rem; display: grid; gap: .35rem; font-size: .9rem; }
+    .program-session-item a { color: var(--ink, #17324D); font-weight: 650; text-decoration: underline; text-underline-offset: .2rem; }
+    .session-topline { display: flex; flex-wrap: wrap; gap: .45rem .6rem; align-items: center; }
+    .session-status { display: inline-flex; border-radius: 99px; padding: .2rem .65rem; font-size: .8rem; font-weight: 700; background: #e9f1ef; color: #235e55; }
+    .session-status[data-status="completed"] { background: #eef4f3; color: #245f60; }
+    .session-status[data-status="scheduled"], .session-status[data-status="upcoming"] { background: #f8f0df; color: #7c5d17; }
+    .session-status[data-status="cancelled"] { background: #f9e9e9; color: #9c3535; }
+    .session-status[data-status="postponed"] { background: #f0eef8; color: #62508c; }
+    .session-collaborators { font-size: .86rem; }
+
 
     /* YEARS */
 
@@ -278,7 +295,7 @@
 
         <p class="lead">
           در این صفحه با برنامه‌های آموزشی و اجتماعی دیدار آشنا می‌شوید
-          و می‌توانید نشست‌های برگزارشده و همکاری‌های گذشته را دنبال کنید.
+          و می‌توانید نشست‌های برنامه‌ریزی‌شده و برگزارشده را دنبال کنید.
           هر برنامه ممکن است در تاریخ‌های مختلف و با همکاری گروه‌های متفاوت تکرار شود.
         </p>
 
@@ -301,7 +318,7 @@
     <section class="section alt" id="sessions">
       <div class="container">
         <h2>نشست‌ها و فعالیت‌های ثبت‌شده</h2>
-        <p>گزارش هر نوبت برگزاری، به‌همراه تاریخ و همکاران همان نشست، به‌صورت جداگانه ثبت می‌شود.</p>
+        <p>هر نشست با تاریخ، وضعیت برگزاری و همکاران خودش ثبت می‌شود؛ هم نشست‌های آینده و هم نشست‌های برگزارشده.</p>
 
         <div
           id="activity-filters"
@@ -379,27 +396,88 @@
     }[char]));
   }
 
+  const sessionStatusLabels = {
+    completed: "برگزارشده",
+    scheduled: "برنامه‌ریزی‌شده",
+    upcoming: "برنامه‌ریزی‌شده",
+    cancelled: "لغوشده",
+    postponed: "به تعویق افتاده"
+  };
+
+  function renderStatus(status) {
+    const allowed = ["completed", "scheduled", "upcoming", "cancelled", "postponed"];
+    const safeStatus = allowed.includes(status) ? status : "scheduled";
+    return `<span class="session-status" data-status="${safeStatus}">${sessionStatusLabels[safeStatus]}</span>`;
+  }
+
+  function collaboratorItems(record) {
+    if (Array.isArray(record.collaborators) && record.collaborators.length) {
+      return record.collaborators.filter(item => item && item.name);
+    }
+    // Backwards-compatible: existing Sessions tab may only have partner_fa.
+    return record.partner ? [{ name: record.partner, url: "" }] : [];
+  }
+
+  function renderCollaborators(record, className = "") {
+    const items = collaboratorItems(record);
+    if (!items.length) return "";
+    return `<span class="collaborator-links ${className}">${items.map(item => {
+      const link = secureLink(item.url);
+      const name = escapeHtml(item.name);
+      return link
+        ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">${name} ↗</a>`
+        : `<span>${name}</span>`;
+    }).join("")}</span>`;
+  }
+
+  function sessionsOfProgram(programId) {
+    return currentActivities
+      .filter(activity => activity.programId === programId && activity.visible !== false)
+      .sort((a,b) => {
+        const aScheduled = ["upcoming", "scheduled"].includes(a.status);
+        const bScheduled = ["upcoming", "scheduled"].includes(b.status);
+        if (aScheduled !== bScheduled) return aScheduled ? -1 : 1;
+        return aScheduled
+          ? (a.date || "9999").localeCompare(b.date || "9999")
+          : (b.date || "").localeCompare(a.date || "");
+      });
+  }
+
+  function renderProgramSessions(sessions) {
+    if (!sessions.length) return "";
+    return `<details class="program-sessions" ${sessions.length <= 3 ? "open" : ""}>
+      <summary>نشست‌های این برنامه (${sessions.length.toLocaleString("fa-IR")})</summary>
+      <ul class="program-session-list">${sessions.map(session => `
+        <li class="program-session-item">
+          <div class="session-topline">
+            ${renderStatus(session.status)}
+            <span>${escapeHtml(formatDate(session.date) || "تاریخ متعاقباً اعلام می‌شود")}</span>
+          </div>
+          <a href="#session-${escapeHtml(session.id)}">${escapeHtml(session.title)}</a>
+          ${collaboratorItems(session).length ? `<div class="session-collaborators"><strong>با همکاری:</strong> ${renderCollaborators(session)}</div>` : ""}
+        </li>`).join("")}</ul>
+    </details>`;
+  }
+
   function renderPrograms() {
     const programs = currentPrograms.filter(p => p.visible !== false)
       .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
     programsGrid.innerHTML = programs.map(p => {
-      const priorSessions = currentActivities.filter(s =>
-        s.programId === p.id && s.status === "completed" && s.visible !== false
-      ).length;
+      const programSessions = sessionsOfProgram(p.id);
       const topicBadges = (p.topics || [])
         .map(topic => `<span>${escapeHtml(topic)}</span>`).join("");
       return `
         <article class="program-card" id="program-${escapeHtml(p.id)}">
-          <div class="program-status">${escapeHtml(p.status)}</div>
+          ${p.status ? `<div class="program-status">${escapeHtml(p.status)}</div>` : ""}
           <h3>${escapeHtml(p.title)}</h3>
-          <p class="program-subtitle">${escapeHtml(p.subtitle)}</p>
-          <p>${escapeHtml(p.description)}</p>
-          <p class="program-meta"><strong>برای:</strong> ${escapeHtml(p.audience)}</p>
-          <p class="program-meta"><strong>زبان:</strong> ${escapeHtml((p.languages || []).join("، "))}</p>
-          <p class="program-meta"><strong>زمان‌بندی:</strong> ${escapeHtml(p.schedule)}</p>
-          ${priorSessions ? `<p class="program-meta"><strong>نوبت‌های برگزارشده:</strong> ${priorSessions.toLocaleString("fa-IR")}</p>` : ""}
-          <div class="program-topics">${topicBadges}</div>
-          ${priorSessions ? `<a class="program-more" href="#sessions">مشاهدهٔ نشست‌های برگزارشده ←</a>` : ""}
+          ${p.subtitle ? `<p class="program-subtitle">${escapeHtml(p.subtitle)}</p>` : ""}
+          ${p.description ? `<p>${escapeHtml(p.description)}</p>` : ""}
+          ${p.audience ? `<p class="program-meta"><strong>برای:</strong> ${escapeHtml(p.audience)}</p>` : ""}
+          ${(p.languages || []).length ? `<p class="program-meta"><strong>زبان:</strong> ${escapeHtml(p.languages.join("، "))}</p>` : ""}
+          ${p.schedule ? `<p class="program-meta"><strong>زمان‌بندی:</strong> ${escapeHtml(p.schedule)}</p>` : ""}
+          ${collaboratorItems(p).length ? `<p class="program-collaborators"><strong>همکاران برنامه:</strong> ${renderCollaborators(p)}</p>` : ""}
+          ${topicBadges ? `<div class="program-topics">${topicBadges}</div>` : ""}
+          ${renderProgramSessions(programSessions)}
         </article>`;
     }).join("");
   }
@@ -600,11 +678,12 @@
 
     return `
 
-      <article class="activity-card">
+      <article class="activity-card" id="session-${escapeHtml(activity.id)}">
 
         <div class="activity-date">
-          ${escapeHtml(formatDate(activity.date))}
+          ${escapeHtml(formatDate(activity.date) || "تاریخ متعاقباً اعلام می‌شود")}
         </div>
+        <div>${renderStatus(activity.status)}</div>
 
 
         <div>
@@ -670,13 +749,8 @@
 
 
           ${
-            activity.partner
-              ? `
-                <p>
-                  <strong>با همکاری:</strong>
-                  ${escapeHtml(activity.partner)}
-                </p>
-              `
+            collaboratorItems(activity).length
+              ? `<p><strong>با همکاری:</strong> ${renderCollaborators(activity)}</p>`
               : ""
           }
 

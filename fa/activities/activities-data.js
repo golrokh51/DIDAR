@@ -20,7 +20,8 @@ const PROGRAMS = [
     description: "فرصتی برای یادگیری و تمرین شنیدن فعال، بیان محترمانهٔ اختلاف‌نظر، همدلی، مراقبت از یکدیگر و حمایت بدون قضاوت، تحقیر، طرد یا بازتولید خشونت.",
     topics: ["گفت‌وگو", "همدلی", "مدیریت اختلاف‌نظر", "حمایت متقابل"],
     visible: true,
-    sortOrder: 1
+    sortOrder: 1,
+    collaborators: [] // Add named program-level collaborators only if applicable.
   },
   {
     id: "harassment-consent",
@@ -34,7 +35,8 @@ const PROGRAMS = [
     description: "سه کارگاه با محوریت شناخت مرز میان اختلاف و آزار، مفهوم رضایت و مسئولیت‌پذیری، اختیار فردی و مرزهای شخصی. این برنامه شامل گفت‌وگو و تمرین‌های مشارکتی است.",
     topics: ["مرز میان اختلاف، آزار و خشونت", "رضایت، احترام و مسئولیت‌پذیری", "رضایت، اختیار و مرزهای شخصی"],
     visible: true,
-    sortOrder: 2
+    sortOrder: 2,
+    collaborators: []
   },
   {
     id: "digital-cafe",
@@ -48,7 +50,8 @@ const PROGRAMS = [
     description: "راهنمایی عملی دربارهٔ تلفن همراه، تبلت و لپ‌تاپ، اپلیکیشن‌ها، ایمیل، فرم‌های آنلاین، تنظیمات و تماس‌های تصویری. می‌توانید دستگاه خودتان را همراه بیاورید.",
     topics: ["فناوری روزمره", "آموزش دیجیتال", "کمک و همراهی"],
     visible: true,
-    sortOrder: 3
+    sortOrder: 3,
+    collaborators: []
   }
 ];
 
@@ -63,6 +66,7 @@ const ACTIVITIES = [
     type: "workshop",
     project: "گفت‌وگوهای دیدار",
     partner: "انجمن زنان ایرانی مونترآل (AFI)",
+    collaborators: [{ name: "انجمن زنان ایرانی مونترآل (AFI)", url: "" }],
     location: "مونترآل",
     language: ["فارسی"],
     role: "طراحی و تسهیل کارگاه، به دعوت و با همکاری انجمن زنان ایرانی مونترآل",

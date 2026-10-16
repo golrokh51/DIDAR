@@ -29,7 +29,8 @@
           "schedule": "زمان نشست‌های بعدی متعاقباً اعلام می‌شود",
           "audience": "بزرگسالان فارسی‌زبان مونترآل، به‌ویژه مهاجران و تازه‌واردان",
           "languages": "فارسی",
-          "topics": "گفت‌وگو | همدلی | روابط سالم | آموزش مشارکتی"
+          "topics": "گفت‌وگو | همدلی | روابط سالم | آموزش مشارکتی",
+          "collaborators": []
         },
         "en": {
           "title": "",
@@ -39,7 +40,8 @@
           "schedule": "",
           "audience": "",
           "languages": "",
-          "topics": ""
+          "topics": "",
+          "collaborators": []
         },
         "fr": {
           "title": "",
@@ -49,14 +51,16 @@
           "schedule": "",
           "audience": "",
           "languages": "",
-          "topics": ""
+          "topics": "",
+          "collaborators": []
         }
       },
       "translationReview": {
         "fa": "In progress",
         "en": "Not started",
         "fr": "Not started"
-      }
+      },
+      "collaborators": []
     },
     {
       "id": "harassment-consent",
@@ -87,7 +91,8 @@
           "schedule": "تاریخ و ثبت‌نام متعاقباً اعلام می‌شود",
           "audience": "بزرگسالان مونترآل، به‌ویژه مهاجران و تازه‌واردان؛ گروه مخاطبان هر کارگاه به‌صورت جداگانه اعلام می‌شود",
           "languages": "فارسی",
-          "topics": "رضایت | پیشگیری از آزار | مرزهای شخصی | آموزش"
+          "topics": "رضایت | پیشگیری از آزار | مرزهای شخصی | آموزش",
+          "collaborators": []
         },
         "en": {
           "title": "",
@@ -97,7 +102,8 @@
           "schedule": "",
           "audience": "",
           "languages": "",
-          "topics": ""
+          "topics": "",
+          "collaborators": []
         },
         "fr": {
           "title": "",
@@ -107,14 +113,16 @@
           "schedule": "",
           "audience": "",
           "languages": "",
-          "topics": ""
+          "topics": "",
+          "collaborators": []
         }
       },
       "translationReview": {
         "fa": "In progress",
         "en": "Not started",
         "fr": "Not started"
-      }
+      },
+      "collaborators": []
     },
     {
       "id": "digital-cafe",
@@ -145,7 +153,8 @@
           "schedule": "دوشنبه‌ها، ساعت ۱۶ تا ۱۹",
           "audience": "برای همه؛ هیچ سؤالی بیش از حد ساده نیست",
           "languages": "فارسی، فرانسوی و انگلیسی",
-          "topics": "دسترسی دیجیتال | یادگیری عملی | کمک متقابل"
+          "topics": "دسترسی دیجیتال | یادگیری عملی | کمک متقابل",
+          "collaborators": []
         },
         "en": {
           "title": "",
@@ -155,7 +164,8 @@
           "schedule": "",
           "audience": "",
           "languages": "",
-          "topics": ""
+          "topics": "",
+          "collaborators": []
         },
         "fr": {
           "title": "",
@@ -165,14 +175,16 @@
           "schedule": "",
           "audience": "",
           "languages": "",
-          "topics": ""
+          "topics": "",
+          "collaborators": []
         }
       },
       "translationReview": {
         "fa": "In progress",
         "en": "Not started",
         "fr": "Not started"
-      }
+      },
+      "collaborators": []
     }
   ],
   "sessions": [
@@ -202,7 +214,13 @@
           "location": "مونترآل",
           "role": "طراحی و تسهیل کارگاه، به دعوت و با همکاری انجمن زنان ایرانی مونترآل",
           "summary": "در این نشست مشارکتی، شرکت‌کنندگان دربارهٔ گفت‌وگوی سازنده در شرایط بحران، شنیدن فعال، بیان محترمانهٔ اختلاف‌نظر، مرزهای سالم و حمایت از یکدیگر بدون بازتولید خشونت گفت‌وگو و تمرین کردند.",
-          "module": ""
+          "module": "",
+          "collaborators": [
+            {
+              "name": "انجمن زنان ایرانی مونترآل (AFI)",
+              "url": ""
+            }
+          ]
         },
         "en": {
           "title": "",
@@ -211,7 +229,8 @@
           "location": "",
           "role": "",
           "summary": "",
-          "module": ""
+          "module": "",
+          "collaborators": []
         },
         "fr": {
           "title": "",
@@ -220,14 +239,21 @@
           "location": "",
           "role": "",
           "summary": "",
-          "module": ""
+          "module": "",
+          "collaborators": []
         }
       },
       "translationReview": {
         "fa": "In progress",
         "en": "Not started",
         "fr": "Not started"
-      }
+      },
+      "collaborators": [
+        {
+          "name": "انجمن زنان ایرانی مونترآل (AFI)",
+          "url": ""
+        }
+      ]
     }
   ]
 }
