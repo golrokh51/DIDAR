@@ -226,6 +226,7 @@
       }
     }
   </style></head><body><a class="skip-link" href="#top">Skip to main content</a><header class="site-header"><div class="container nav-wrap"><a aria-label="DIDAR home" class="brand" href="../"><img alt="DIDAR logo" class="brand-logo" src="../../assets/logo.png"/><strong>DIDAR</strong></a><div class="nav-area"><nav aria-label="Choose language" class="languages"><a href="../../activities/">FR</a><a aria-current="page" href="../../en/activities/">EN</a><a href="../../fa/activities/">فارسی</a></nav><nav aria-label="Main navigation" class="main-nav"><a href="../">Home</a><a href="../story/">Our story</a><a href="../#support">Support &amp; referrals</a><a href="../projects/">Projects</a><a aria-current="page" href="../activities/">Activities</a><a href="../#contact">Contact</a></nav><details class="mobile-navigation"><summary aria-label="Menu">☰ Menu</summary><nav aria-label="Menu"><a href="../">Home</a><a href="../story/">Our story</a><a href="../#support">Support &amp; referrals</a><a href="../projects/">Projects</a><a href="../activities/">Activities</a><a href="../#contact">Contact</a></nav></details></div></div></header><main id="top"><section class="activities-hero"><div class="container narrow"><p class="eyebrow">Workshops · conversations · gatherings · partnerships</p><h1>DIDAR activities</h1><p class="lead">See what’s happening at DIDAR. Each ongoing program can have several sessions, held on different dates and with different community partners.</p></div></section><section class="section" id="programs"><div class="container"><h2>Explore our programs</h2><p class="programs-intro">Get to know the programs. Details and dates for individual sessions are listed separately.</p><div class="programs-grid" id="programs-grid"></div></div></section><section class="section alt" id="sessions"><div class="container"><h2>Sessions &amp; events</h2><p>Browse what’s coming up and what has already taken place. Every session has its own date, status and collaborators.</p><div class="activity-toolbar-group"><p class="activity-toolbar-label">Session status</p><div aria-label="Session status" class="activity-toolbar" id="status-filters" role="group"></div></div><div class="activity-toolbar-group"><p class="activity-toolbar-label">Type of activity</p><div aria-label="Type of activity" class="activity-toolbar" id="activity-filters" role="group"></div></div><div id="activities-container"></div><p class="activities-empty" id="activities-empty">No activities match these filters.</p></div></section></main><footer><div class="container footer-wrap"><p>© <span id="year"></span> DIDAR. All rights reserved.</p><p>Montréal · Québec</p></div></footer><script>document.getElementById("year").textContent=new Date().getFullYear();</script><script src="activities-data.js"></script>
+<script src="../../assets/activity-i18n.js"></script>
 <script>
 
 
@@ -257,19 +258,8 @@
 
 
   function localize(record, kind) {
-    const translated=record.translations?.['en']||{};
-    const obj={...record};
-    const fields=kind==='program'
-       ? ['title','subtitle','description','status','schedule','audience']
-       : ['title','subtitle','partner','location','role','summary','module'];
-    for (const key of fields) if (translated[key]) obj[key]=translated[key];
-    if(kind==='program'){
-      for (const key of ['topics','languages']) {
-        if (translated[key]) obj[key]=String(translated[key]).split('|').map(x=>x.trim()).filter(Boolean);
-      }
-    }
-    if (Array.isArray(translated.collaborators) && translated.collaborators.length) obj.collaborators=translated.collaborators;
-    return obj;
+    const savedCopy = kind === "program" ? PROGRAMS : ACTIVITIES;
+    return window.DIDAR_localizeRecord(record, "en", kind, savedCopy);
   }
 
   // Escape user-editable text before placing it inside HTML.
@@ -330,7 +320,7 @@
   function renderProgramSessions(sessions) {
     if (!sessions.length) return "";
     return `<details class="program-sessions" ${sessions.length <= 3 ? "open" : ""}>
-      <summary>Sessions in this program (${sessions.length.toLocaleString("fa-IR")})</summary>
+      <summary>Sessions in this program (${sessions.length.toLocaleString("en-CA")})</summary>
       <ul class="program-session-list">${sessions.map(session => `
         <li class="program-session-item">
           <div class="session-topline">
@@ -648,7 +638,7 @@
       currentPrograms = result.programs.map(p => localize(p, "program"));
       currentActivities = result.sessions.map(p => localize(p, "session"));
     } catch (error) {
-      console.warn("DIDAR: loading Persian fallback activity data:", error);
+      console.warn("DIDAR: loading EN fallback activity data:", error);
     }
     renderPrograms();
     renderFilters();
