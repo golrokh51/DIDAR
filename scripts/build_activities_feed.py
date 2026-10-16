@@ -81,6 +81,25 @@ def split_list(value: str) -> list[str]:
     return [part.strip() for part in value.split("|") if part.strip()]
 
 
+def parse_collaborators(value: str) -> list[dict[str, str]]:
+    """Parse a human-friendly Sheets cell: Name :: https://url | Another :: https://url.
+
+    Each translated column contains names and links; links can be omitted.
+    No third published tab is required. Other separators are not inferred.
+    """
+    collaborators = []
+    for item in split_list(value):
+        name, sep, url = item.partition("::")
+        name = name.strip()
+        if not name:
+            continue
+        candidate = url.strip() if sep else ""
+        if candidate and not safe_url(candidate):
+            warning(f"Invalid collaborator URL for {name}; showing the name without a link")
+        collaborators.append({"name": name, "url": safe_url(candidate)})
+    return collaborators
+
+
 def visible(value: str) -> bool:
     return value.strip().casefold() not in ("false", "no", "0", "hidden", "off")
 
@@ -116,12 +135,14 @@ def program_from_row(row: dict[str, str]) -> dict:
         "audience": get_value(row, "audience", fa),
         "languages": [x.strip() for x in re.split("[،|]", get_value(row, "languages", fa)) if x.strip()],
         "topics": split_list(get_value(row, "topics", fa)),
+        "collaborators": parse_collaborators(get_value(row, "collaborators", fa)),
         "visible": visible(row.get("visible", "")),
         "sortOrder": int(row.get("sort_order") or "999"),
         "translations": {language: {
             key: get_value(row, key, language)
             for key in ("title", "subtitle", "description", "status", "schedule", "audience", "languages", "topics")
-        } for language in LOCALES},
+        } | {"collaborators": parse_collaborators(get_value(row, "collaborators", language))}
+        for language in LOCALES},
         "translationReview": {language: row.get(f"review_{language}", "") for language in LOCALES},
     }
     if not result["title"]:
@@ -132,7 +153,7 @@ def program_from_row(row: dict[str, str]) -> dict:
 def session_from_row(row: dict[str, str]) -> dict:
     fa = "fa"
     status = row.get("status") or "upcoming"
-    if status not in ("upcoming", "completed", "cancelled", "postponed"):
+    if status not in ("upcoming", "scheduled", "completed", "cancelled", "postponed"):
         raise ValueError(f"Session {row['id']}: invalid status {status!r}")
     result = {
         "id": row["id"], "programId": row.get("program_id", ""),
@@ -141,6 +162,8 @@ def session_from_row(row: dict[str, str]) -> dict:
         "subtitle": get_value(row, "subtitle", fa),
         "type": row.get("type", "event"),
         "partner": get_value(row, "partner", fa),
+        "collaborators": parse_collaborators(get_value(row, "collaborators", fa)) or
+            parse_collaborators(get_value(row, "partner", fa)),
         "location": get_value(row, "location", fa),
         "role": get_value(row, "role", fa),
         "summary": get_value(row, "summary", fa),
@@ -153,7 +176,9 @@ def session_from_row(row: dict[str, str]) -> dict:
         "translations": {language: {
             key: get_value(row, key, language)
             for key in ("title", "subtitle", "partner", "location", "role", "summary", "module")
-        } for language in LOCALES},
+        } | {"collaborators": parse_collaborators(get_value(row, "collaborators", language)) or
+             parse_collaborators(get_value(row, "partner", language))}
+        for language in LOCALES},
         "translationReview": {language: row.get(f"review_{language}", "") for language in LOCALES},
     }
     if not result["title"]:

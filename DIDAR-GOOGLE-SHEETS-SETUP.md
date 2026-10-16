@@ -69,3 +69,42 @@ python3 -m http.server 8000
 ```
 
 Then open `http://localhost:8000/fa/activities/`. Opening the HTML directly as a `file://` page can block JSON `fetch`; use a local server for this test.
+
+## Repeatable sessions and collaborator links (NEW)
+
+**Each program may have any number of dated sessions.** Reuse `Sessions.program_id` (e.g. `dialogue-crisis`) and give each occurrence a unique `Sessions.id`. `status` is independent for each occurrence:
+
+| Value in Sessions.status | Persian badge |
+| --- | --- |
+| `scheduled` or `upcoming` | برنامه‌ریزی‌شده |
+| `completed` | برگزارشده |
+| `postponed` | به تعویق افتاده |
+| `cancelled` | لغوشده |
+
+### Add three columns to EACH of your existing, live Google Sheets tabs
+
+`collaborators_fa`, `collaborators_en`, `collaborators_fr`
+
+**Do not create a third published tab and do not change the published CSV URLs.** In your existing `Programs` tab, add these headers in empty columns (e.g. `AF:AH` in the original template). In `Sessions`, add the same three headers (e.g. `AH:AJ`). Columns may be placed anywhere: the importer matches column *names*, not positions.
+
+**Cell format** for a list of collaborators, each optionally with a public link:
+
+```
+انجمن اول :: https://example.org | انجمن دوم :: https://example.com
+```
+
+- Separate collaborators with a vertical bar `|`.
+- Separate a collaborator's name from their URL with `::` (two colons).
+- Use an `https://` URL. Names without URLs are shown as plain text, not broken links.
+- Add **program-level** collaborators under `Programs` only when they collaborated on the overall program; session-specific hosts or collaborators belong in that row of `Sessions` only.
+- Existing `partner_fa` continues to display as a name if `collaborators_fa` is empty, preserving older records. You can keep `partner_fa` for reference even when `collaborators_fa` is populated.
+- English/French (`collaborators_en` / `_fr`) can remain blank until those translations are ready.
+- Never put a made-up website link for an organization; use the URL they provided or a link you verified.
+
+Example, *not an actual scheduled event*:
+
+| id | program_id | date | status | collaborators_fa |
+| --- | --- | --- | --- | --- |
+| `example-dialogue-2026-11-15` | `dialogue-crisis` | `2026-11-15` | `scheduled` | `نهاد نمونه :: https://example.org` |
+
+The Persian Programs cards now show a collapsible **نشست‌های این برنامه** list containing *both* upcoming/scheduled and completed occurrences, each linked to its detailed session card and showing its own collaborators. Program collaborators (if any) show on the program card; individual collaborators show on the dated event card. Updates appear after Google's public CSV is republished and the next successful GitHub Pages deployment.
