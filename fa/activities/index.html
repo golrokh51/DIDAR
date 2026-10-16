@@ -62,6 +62,33 @@
       border-color: var(--ink, #17324D);
     }
 
+    /* REPEATABLE GENERAL PROGRAMS */
+
+    .programs-intro { max-width: 850px; margin: 0 0 1.5rem; }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .program-card {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      padding: 1.35rem;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(23, 50, 77, .11);
+    }
+    .program-card h3 { margin: 0; font-size: 1.3rem; }
+    .program-card p { margin: 0; }
+    .program-status { color: #2D6F6D; font-weight: 700; font-size: .93rem; }
+    .program-subtitle { font-weight: 600; }
+    .program-meta { font-size: .92rem; }
+    .program-meta strong { color: var(--ink, #17324D); }
+    .program-topics { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: auto; }
+    .program-topics span { background: #f7f3eb; border-radius: 99px; padding: .25rem .6rem; font-size: .83rem; }
+    .program-more { font-weight: 700; text-decoration: none; margin-top: .5rem; }
+
     /* YEARS */
 
     .activity-year {
@@ -180,7 +207,12 @@
       padding: 2rem 0;
     }
 
+    @media (max-width: 1000px) {
+      .programs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
     @media (max-width: 760px) {
+      .programs-grid { grid-template-columns: 1fr; }
       .activities-grid {
         grid-template-columns: 1fr;
       }
@@ -245,19 +277,31 @@
         <h1>فعالیت‌های دیدار</h1>
 
         <p class="lead">
-          در این صفحه فعالیت‌های انجام‌شده دیدار، از جمله کارگاه‌ها،
-          رویدادهای فرهنگی و اجتماعی، نشست‌ها و همکاری با سازمان‌ها
-          و گروه‌های مختلف ثبت می‌شوند.
+          در این صفحه با برنامه‌های آموزشی و اجتماعی دیدار آشنا می‌شوید
+          و می‌توانید نشست‌های برگزارشده و همکاری‌های گذشته را دنبال کنید.
+          هر برنامه ممکن است در تاریخ‌های مختلف و با همکاری گروه‌های متفاوت تکرار شود.
         </p>
 
       </div>
     </section>
 
 
-    <!-- ACTIVITIES -->
+    <!-- GENERAL PROGRAMS -->
 
-    <section class="section alt">
+    <section class="section" id="programs">
       <div class="container">
+        <h2>برنامه‌های دیدار</h2>
+        <p class="programs-intro">معرفی کلی برنامه‌ها؛ تاریخ هر نشست یا کارگاه به‌صورت جداگانه اعلام و ثبت می‌شود.</p>
+        <div id="programs-grid" class="programs-grid"></div>
+      </div>
+    </section>
+
+    <!-- INDIVIDUAL SESSIONS -->
+
+    <section class="section alt" id="sessions">
+      <div class="container">
+        <h2>نشست‌ها و فعالیت‌های ثبت‌شده</h2>
+        <p>گزارش هر نوبت برگزاری، به‌همراه تاریخ و همکاران همان نشست، به‌صورت جداگانه ثبت می‌شود.</p>
 
         <div
           id="activity-filters"
@@ -318,6 +362,42 @@
     document.getElementById("activities-empty");
 
 
+  const programsGrid =
+    document.getElementById("programs-grid");
+
+  // Escape user-editable text before placing it inside HTML.
+  function escapeHtml(value = "") {
+    return String(value).replace(/[&<>"']/g, char => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;",
+      '"': "&quot;", "'": "&#39;"
+    }[char]));
+  }
+
+  function renderPrograms() {
+    const programs = PROGRAMS.filter(p => p.visible !== false)
+      .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+    programsGrid.innerHTML = programs.map(p => {
+      const priorSessions = ACTIVITIES.filter(s =>
+        s.programId === p.id && s.status === "completed" && s.visible !== false
+      ).length;
+      const topicBadges = (p.topics || [])
+        .map(topic => `<span>${escapeHtml(topic)}</span>`).join("");
+      return `
+        <article class="program-card" id="program-${escapeHtml(p.id)}">
+          <div class="program-status">${escapeHtml(p.status)}</div>
+          <h3>${escapeHtml(p.title)}</h3>
+          <p class="program-subtitle">${escapeHtml(p.subtitle)}</p>
+          <p>${escapeHtml(p.description)}</p>
+          <p class="program-meta"><strong>برای:</strong> ${escapeHtml(p.audience)}</p>
+          <p class="program-meta"><strong>زبان:</strong> ${escapeHtml((p.languages || []).join("، "))}</p>
+          <p class="program-meta"><strong>زمان‌بندی:</strong> ${escapeHtml(p.schedule)}</p>
+          ${priorSessions ? `<p class="program-meta"><strong>نوبت‌های برگزارشده:</strong> ${priorSessions.toLocaleString("fa-IR")}</p>` : ""}
+          <div class="program-topics">${topicBadges}</div>
+          ${priorSessions ? `<a class="program-more" href="#sessions">مشاهدهٔ نشست‌های برگزارشده ←</a>` : ""}
+        </article>`;
+    }).join("");
+  }
+
   const typeLabels = {
     all: "همه",
     workshop: "کارگاه",
@@ -362,6 +442,7 @@
     "all",
     ...new Set(
       ACTIVITIES
+        .filter(activity => activity.visible !== false)
         .map(activity => activity.type)
         .filter(Boolean)
     )
@@ -418,7 +499,7 @@
 
   function renderActivities(filter = "all") {
 
-    let activities = [...ACTIVITIES];
+    let activities = ACTIVITIES.filter(activity => activity.visible !== false);
 
 
     if (filter !== "all") {
@@ -525,8 +606,12 @@
 
 
         <h3>
-          ${activity.title}
+          ${escapeHtml(activity.title)}
         </h3>
+
+        ${activity.programId && PROGRAMS.some(p => p.id === activity.programId)
+          ? `<p><a href="#program-${escapeHtml(activity.programId)}">مشاهدهٔ برنامهٔ اصلی ↑</a></p>`
+          : ""}
 
 
         ${
@@ -640,6 +725,7 @@
   }
 
 
+  renderPrograms();
   renderFilters();
   renderActivities();
 
