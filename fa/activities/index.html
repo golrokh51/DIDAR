@@ -365,6 +365,12 @@
   const programsGrid =
     document.getElementById("programs-grid");
 
+  // Site uses the generated, language-ready JSON feed. The original Persian
+  // activities-data.js remains a safety fallback for local previews and errors.
+  let currentPrograms = PROGRAMS;
+  let currentActivities = ACTIVITIES;
+
+
   // Escape user-editable text before placing it inside HTML.
   function escapeHtml(value = "") {
     return String(value).replace(/[&<>"']/g, char => ({
@@ -374,10 +380,10 @@
   }
 
   function renderPrograms() {
-    const programs = PROGRAMS.filter(p => p.visible !== false)
+    const programs = currentPrograms.filter(p => p.visible !== false)
       .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
     programsGrid.innerHTML = programs.map(p => {
-      const priorSessions = ACTIVITIES.filter(s =>
+      const priorSessions = currentActivities.filter(s =>
         s.programId === p.id && s.status === "completed" && s.visible !== false
       ).length;
       const topicBadges = (p.topics || [])
@@ -414,8 +420,9 @@
 
     if (!dateString) return "";
 
-    const date =
-      new Date(dateString + "T12:00:00");
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return "";
+    const date = new Date(dateString + "T12:00:00");
+    if (Number.isNaN(date.getTime())) return "";
 
     return new Intl.DateTimeFormat(
       "fa-CA",
@@ -438,29 +445,31 @@
   }
 
 
-  const availableTypes = [
+  function availableTypes() {
+    return [
     "all",
     ...new Set(
-      ACTIVITIES
+      currentActivities
         .filter(activity => activity.visible !== false)
         .map(activity => activity.type)
         .filter(Boolean)
     )
   ];
+  }
 
 
   function renderFilters() {
 
     toolbar.innerHTML =
-      availableTypes.map((type, index) => `
+      availableTypes().map((type, index) => `
 
         <button
           class="activity-filter"
           type="button"
-          data-filter="${type}"
+          data-filter="${escapeHtml(type)}"
           aria-pressed="${index === 0 ? "true" : "false"}"
         >
-          ${typeLabels[type] || type}
+          ${escapeHtml(typeLabels[type] || type)}
         </button>
 
       `).join("");
@@ -499,7 +508,7 @@
 
   function renderActivities(filter = "all") {
 
-    let activities = ACTIVITIES.filter(activity => activity.visible !== false);
+    let activities = currentActivities.filter(activity => activity.visible !== false);
 
 
     if (filter !== "all") {
@@ -575,8 +584,16 @@
   }
 
 
+  function secureLink(link) {
+    try {
+      const url = new URL(String(link || ""), window.location.href);
+      return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+    } catch { return ""; }
+  }
+
   function renderActivityCard(activity) {
 
+    const link = secureLink(activity.link);
     const tags =
       activity.tags || [];
 
@@ -586,7 +603,7 @@
       <article class="activity-card">
 
         <div class="activity-date">
-          ${formatDate(activity.date)}
+          ${escapeHtml(formatDate(activity.date))}
         </div>
 
 
@@ -596,7 +613,7 @@
             activity.type
               ? `
                 <span class="activity-type">
-                  ${typeLabels[activity.type] || activity.type}
+                  ${escapeHtml(typeLabels[activity.type] || activity.type)}
                 </span>
               `
               : ""
@@ -609,7 +626,7 @@
           ${escapeHtml(activity.title)}
         </h3>
 
-        ${activity.programId && PROGRAMS.some(p => p.id === activity.programId)
+        ${activity.programId && currentPrograms.some(p => p.id === activity.programId)
           ? `<p><a href="#program-${escapeHtml(activity.programId)}">مشاهدهٔ برنامهٔ اصلی ↑</a></p>`
           : ""}
 
@@ -618,7 +635,7 @@
           activity.subtitle
             ? `
               <p class="activity-subtitle">
-                ${activity.subtitle}
+                ${escapeHtml(activity.subtitle)}
               </p>
             `
             : ""
@@ -629,7 +646,7 @@
           activity.summary
             ? `
               <p class="activity-summary">
-                ${activity.summary}
+                ${escapeHtml(activity.summary)}
               </p>
             `
             : ""
@@ -638,12 +655,14 @@
 
         <div class="activity-details">
 
+          ${activity.module ? `<p><strong>بخش:</strong> ${escapeHtml(activity.module)}</p>` : ""}
+
           ${
             activity.project
               ? `
                 <p>
                   <strong>در چارچوب:</strong>
-                  ${activity.project}
+                  ${escapeHtml(activity.project)}
                 </p>
               `
               : ""
@@ -655,7 +674,7 @@
               ? `
                 <p>
                   <strong>با همکاری:</strong>
-                  ${activity.partner}
+                  ${escapeHtml(activity.partner)}
                 </p>
               `
               : ""
@@ -667,7 +686,7 @@
               ? `
                 <p>
                   <strong>مکان:</strong>
-                  ${activity.location}
+                  ${escapeHtml(activity.location)}
                 </p>
               `
               : ""
@@ -679,7 +698,7 @@
               ? `
                 <p>
                   <strong>نقش دیدار:</strong>
-                  ${activity.role}
+                  ${escapeHtml(activity.role)}
                 </p>
               `
               : ""
@@ -695,7 +714,7 @@
 
                 ${tags.map(tag => `
                   <span class="activity-tag">
-                    ${tag}
+                    ${escapeHtml(tag)}
                   </span>
                 `).join("")}
 
@@ -706,11 +725,11 @@
 
 
         ${
-          activity.link
+          link
             ? `
               <a
                 class="activity-link"
-                href="${activity.link}"
+                href="${escapeHtml(link)}" rel="noopener noreferrer"
               >
                 اطلاعات بیشتر ←
               </a>
@@ -725,9 +744,26 @@
   }
 
 
-  renderPrograms();
-  renderFilters();
-  renderActivities();
+  async function initActivities() {
+    try {
+      const response = await fetch("./activities-feed.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const result = await response.json();
+      if (!Array.isArray(result.programs) || !result.programs.length ||
+          !Array.isArray(result.sessions)) {
+        throw new Error("Unexpected activities feed format");
+      }
+      currentPrograms = result.programs;
+      currentActivities = result.sessions;
+    } catch (error) {
+      console.warn("DIDAR: loading Persian fallback activity data:", error);
+    }
+    renderPrograms();
+    renderFilters();
+    renderActivities();
+  }
+
+  initActivities();
 
 </script>
 
