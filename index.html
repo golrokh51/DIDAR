@@ -1,41 +1,117 @@
 <!doctype html>
-<html lang="fr">
-  
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="DIDAR — Dialogue, Inclusion, Diversité, Arts & Relations. Soutien communautaire, liens culturels, éducation et initiatives interculturelles à Montréal." />
-  <title>DIDAR | Communauté · Culture · Inclusion</title>
-  <link rel="stylesheet" href="styles.css" />
   <meta name="google-site-verification" content="apy_wgrPtX-vxADYgwuL5d1JtKJXR4p_lk1IvAiZL9Q" />
+  <meta name="description" content="دیدار — گفت‌وگو، مشارکت، تنوع، هنر و ارتباط. راهنمایی و همراهی اجتماعی، پیوند فرهنگی، آموزش و فعالیت‌های بین‌فرهنگی در مونترآل." />
+  <title>دیدار | جامعه · فرهنگ · مشارکت</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="persian-enhancements.css" />
+
+  <!-- Persian / RTL adjustments -->
+  <style>
+    html[lang="fa"] body {
+      text-align: right;
+    }
+
+    html[lang="fa"] .brand {
+      direction: ltr;
+    }
+
+    html[lang="fa"] .languages {
+      direction: ltr;
+    }
+
+    html[lang="fa"] .main-nav {
+      direction: rtl;
+    }
+
+    html[lang="fa"] .meaning-card::before {
+      left: auto;
+      right: 0;
+      border-radius: 0 28px 28px 0;
+    }
+
+    html[lang="fa"] .note {
+      border-left: 1px solid #ecd8bb;
+      border-right: 5px solid var(--orange);
+      border-radius: 14px 0 0 14px;
+    }
+
+    html[lang="fa"] .latin,
+    html[lang="fa"] .contact-ltr,
+    html[lang="fa"] footer .latin {
+      direction: ltr;
+      text-align: left;
+    }
+
+    html[lang="fa"] .community-tags {
+      justify-content: flex-start;
+    }
+
+    html[lang="fa"] .pillar-card,
+    html[lang="fa"] .project,
+    html[lang="fa"] .card {
+      text-align: right;
+    }
+
+    html[lang="fa"] .pillar-card {
+      text-align: center;
+    }
+
+    html[lang="fa"] .pillar-persian {
+      direction: ltr;
+    }
+
+    html[lang="fa"] .actions {
+      justify-content: flex-start;
+    }
+
+    @media (max-width: 920px) {
+      html[lang="fa"] .nav-area {
+        direction: ltr;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#top">رفتن به محتوای اصلی</a>
   <header class="site-header">
     <div class="container nav-wrap">
 
-      <a class="brand" href="#top" aria-label="Accueil DIDAR">
-        <img class="brand-logo" src="assets/logo.png" alt="Logo DIDAR">
+      <a class="brand" href="#top" aria-label="صفحه اصلی دیدار">
+        <img class="brand-logo" src="../assets/logo.png" alt="لوگوی دیدار">
         <strong>DIDAR</strong>
       </a>
 
       <div class="nav-area">
-        <nav class="languages" aria-label="Choix de langue">
-          <a href="./" aria-current="page">FR</a>
-          <a href="en/">EN</a>
-          <a href="fa/">فارسی</a>
+        <nav class="languages" aria-label="انتخاب زبان">
+          <a href="../">FR</a>
+          <a href="../en/">EN</a>
+          <a href="./" aria-current="page">فارسی</a>
         </nav>
 
-<nav class="main-nav" aria-label="Navigation principale">
-  <a href="#about">À propos</a>
-  <a href="story/index.html">Notre histoire</a>
-  <a href="#support">Soutien</a>
-  <a href="#programs">Programmes</a>
-  <a href="#pillars">Notre modèle</a>
-  <a href="#contact">Contact</a>
+<nav class="main-nav" aria-label="منوی اصلی">
+  <a href="#about">درباره دیدار</a>
+  <a href="story/index.html">داستان ما</a>
+  <a href="#support">راهنمایی و همراهی</a>
+  <a href="projects/">پروژه‌ها</a>
+  <a href="activities/">فعالیت‌ها</a>
+  <a href="#contact">تماس</a>
 </nav>
+<details class="mobile-navigation"><summary aria-label="باز کردن منوی اصلی">☰ منو</summary>
+  <nav aria-label="منوی موبایل">
+    <a href="#top">خانه</a>
+    <a href="story/">داستان ما</a>
+    <a href="#support">راهنمایی و همراهی</a>
+    <a href="projects/">پروژه‌ها</a>
+    <a href="activities/">فعالیت‌ها</a>
+    <a href="#contact">تماس</a>
+  </nav>
+</details>
       </div>
-
     </div>
   </header>
 
@@ -46,37 +122,31 @@
       <div class="container hero-grid">
 
         <div>
-          <p class="eyebrow">Montréal · Québec</p>
+          <p class="eyebrow">مونترآل · کبک</p>
 
-          <h1>Soutien communautaire, liens culturels et accompagnement pratique.</h1>
+          <h1>دیدار؛ مرکز فرهنگی، آموزشی و اجتماعی در مونترآل</h1>
+          <p class="hero-tagline"><strong>فضایی برای گفت‌وگو، یادگیری، همیاری و ساختن پیوندهای انسانی</strong></p>
 
           <p class="lead">
-            DIDAR aide les personnes à mieux comprendre leurs options, à trouver les ressources appropriées,
-            à s’orienter dans des systèmes parfois complexes et à créer des liens significatifs au sein de la communauté.
-            Nos activités comprennent également des initiatives culturelles, éducatives et interculturelles.
+            دیدار با برگزاری برنامه‌های فرهنگی و آموزشی، ایجاد فرصت‌های مشارکت اجتماعی
+            و کمک به شناخت منابع و خدمات موجود، فضایی برای ارتباط، یادگیری و حمایت متقابل فراهم می‌کند.
+            ما افراد را به یکدیگر و به منابع مناسب پیوند می‌دهیم، بدون آنکه جایگزین خدمات تخصصی باشیم.
           </p>
 
           <div class="actions">
-            <a class="button primary" href="#support">Trouver du soutien</a>
-            <a class="button secondary" href="#programs">Découvrir nos programmes</a>
+            <a class="button primary" href="#contact">درخواست راهنمایی</a>
+            <a class="button secondary" href="#featured-programs">برنامه‌های دیدار</a>
+            <a class="button secondary" href="projects/">پروژه‌ها</a>
           </div>
         </div>
 
         <aside class="meaning-card">
           <span class="persian">دیدار</span>
-          <h2>Que signifie DIDAR&nbsp;?</h2>
+          <h2>«دیدار» یعنی چه؟</h2>
 
           <p>
-            <em>Didâr</em> est un mot persan associé à la rencontre,
-            aux retrouvailles, au lien et au fait de se rassembler.
-          </p>
-
-          <p class="acronym">
-            <b>D</b>ialogue ·
-            <b>I</b>nclusion ·
-            <b>D</b>iversité ·
-            <b>A</b>rts ·
-            <b>R</b>elations
+            «دیدار» واژه‌ای فارسی است که با ملاقات، روبه‌رو شدن،
+            پیوند و کنار هم آمدن معنا پیدا می‌کند
           </p>
         </aside>
 
@@ -88,142 +158,188 @@
     <section id="about" class="section">
       <div class="container narrow">
 
-        <p class="eyebrow">À propos de DIDAR</p>
+        <p class="eyebrow">درباره دیدار</p>
 
-        <h2>Une initiative culturelle, éducative et communautaire fondée sur les liens humains.</h2>
+        <h2>یک ابتکار فرهنگی، آموزشی و اجتماعی با محوریت ارتباط و پیوند انسانی</h2>
 
         <p>
-          DIDAR développe des initiatives qui favorisent l’autonomie, l’inclusion, l’apprentissage,
-          les liens sociaux et la participation. Nous aidons les personnes à repérer les ressources pertinentes,
-          à préparer les prochaines étapes, à entrer en contact avec les organismes et professionnels appropriés
-          et, lorsque nécessaire, à bénéficier d’un accompagnement pratique.
+          دیدار برنامه‌هایی را توسعه می‌دهد که استقلال، مشارکت، یادگیری،
+          ارتباط اجتماعی و حضور فعال در جامعه را تقویت می‌کنند.
+          ما به افراد کمک می‌کنیم منابع مناسب را پیدا کنند، گام‌های بعدی را مشخص کنند،
+          با سازمان‌ها و افراد حرفه‌ای مرتبط در تماس قرار بگیرند
+          و در صورت نیاز از همراهی عملی برخوردار شوند.
         </p>
 
         <p>
-          DIDAR crée également des espaces consacrés à la transmission culturelle, à l’éducation,
-          aux échanges intergénérationnels, aux arts, à la participation communautaire et au dialogue interculturel.
+          دیدار همچنین فضاهایی برای انتقال فرهنگی، آموزش، تبادل بین‌نسلی،
+          هنر، مشارکت اجتماعی و گفت‌وگوی بین‌فرهنگی ایجاد می‌کند.
         </p>
 
       </div>
     </section>
-
 <!-- WHY DIDAR -->
 <section id="why-didar" class="section story-preview">
   <div class="container narrow">
 
-    <p class="eyebrow">Pourquoi DIDAR ?</p>
+    <p class="eyebrow">چرا دیدار؟</p>
 
-    <h2>D’un engagement communautaire à une structure collective.</h2>
+    <h2>از همراهی اجتماعی تا شکل‌گیری یک ساختار جمعی</h2>
 
     <p class="story-lead">
-      DIDAR est né de plusieurs années d’accompagnement communautaire à Montréal.
-      Au fil du temps, j’ai constaté que les difficultés ne venaient pas toujours
-      de l’absence de ressources, mais souvent du fait de ne pas savoir où aller,
-      comment fonctionnent les systèmes, à qui faire confiance ou comment demander de l’aide.
+      دیدار از سال‌ها همراهی اجتماعی در مونترآل شکل گرفت.
+      این تجربه‌ها نشان دادند که مشکل همیشه نبودن منابع نیست؛
+      گاهی افراد نمی‌دانند باید به کجا مراجعه کنند،
+      سیستم‌ها چگونه کار می‌کنند، به چه کسی می‌توانند اعتماد کنند
+      یا چطور برای دریافت کمک اقدام کنند.
     </p>
 
     <p>
-      Ce qui a commencé par des gestes individuels de soutien est progressivement devenu
-      un réseau de mentorat, de références, d’accompagnement pratique, d’entraide,
-      d’activités culturelles et de liens communautaires.
-      DIDAR cherche à donner à cette expérience une structure plus durable,
-      collective et accessible.
+      چیزی که با همراهی‌های فردی آغاز شد، به‌تدریج به شبکه‌ای از راهنمایی و انتقال تجربه،
+      ارجاع، همراهی عملی، همیاری، فعالیت‌های فرهنگی و ارتباط اجتماعی تبدیل شد.
+      دیدار تلاشی است برای اینکه این تجربه به شکلی پایدارتر،
+      جمعی‌تر و در دسترس‌تر ادامه پیدا کند.
     </p>
 
     <a class="story-link" href="story/index.html">
-      Découvrir notre histoire →
+      داستان ما را بخوانید ←
     </a>
 
   </div>
 </section>
-    
-    <!-- COMMUNITY SUPPORT & NAVIGATION -->
-    <section id="support" class="section alt">
-      <div class="container">
 
-        <p class="eyebrow">Soutien communautaire et orientation vers les ressources</p>
-        <h2>Comment DIDAR peut vous accompagner</h2>
+  <!-- The three programs are read from the SAME generated feed as Activities. -->
+  <section id="featured-programs" class="section featured-programs" aria-labelledby="featured-heading">
+    <div class="container">
+      <p class="eyebrow">کارگاه‌ها و برنامه‌های آموزشی</p>
+      <h2 id="featured-heading">برنامه‌های دیدار</h2>
+      <p class="featured-intro">برنامه‌های دیدار ممکن است در تاریخ‌های مختلف و با همکاران گوناگون برگزار شوند. برای دیدن نشست‌های آینده و رویدادهای برگزارشده، وارد صفحهٔ هر برنامه شوید.</p>
+      <div class="featured-grid" id="featured-programs-grid" aria-live="polite"></div>
+      <div class="actions featured-actions"><a class="button secondary" href="activities/">مشاهدهٔ همهٔ برنامه‌ها و نشست‌ها ←</a></div>
+    </div>
+  </section>
 
-        <p class="lead section-lead">
-          Notre rôle est d’aider les personnes à savoir où s’adresser, à repérer les ressources appropriées,
-          à communiquer avec les institutions, à entrer en contact avec les bonnes personnes
-          et à recevoir un accompagnement pratique lorsque cela est nécessaire.
+  <!-- COMMUNITY SUPPORT & NAVIGATION -->
+<section id="support" class="section alt">
+  <div class="container">
+
+    <p class="eyebrow">راهنمایی، ارجاع و همراهی اجتماعی</p>
+    <h2>دیدار چگونه می‌تواند همراه شما باشد؟</h2>
+
+    <div class="support-intro narrow">
+      <p>
+        گاهی مشکل اصلی این نیست که خدمتی وجود ندارد؛ بلکه نمی‌دانیم
+        <strong>
+          از کجا شروع کنیم، به چه کسی مراجعه کنیم،
+          چه سؤالی بپرسیم یا چگونه با یک نهاد ارتباط بگیریم.
+        </strong>
+      </p>
+
+      <p>
+        دیدار کمک می‌کند مسیرهای ممکن را بشناسید، منابع و افراد مناسب را پیدا کنید
+        و در صورت نیاز، در بخشی از این مسیر همراهی عملی و ارتباطی دریافت کنید.
+      </p>
+    </div>
+
+    <div class="support-list">
+
+      <article class="support-item">
+        <h3>راهنمایی و دسترسی به خدمات</h3>
+        <p>
+          کمک به یافتن منابع و خدمات مرتبط با دانشگاه، سلامت، اشتغال،
+          مسائل اداری و اجتماعی، زنان، سالمندان و تازه‌واردان؛
+          همچنین شناخت مراحل، پیدا کردن فرد یا واحد مناسب
+          و آماده‌کردن سؤال‌ها، درخواست‌ها و مکاتبات.
+        </p>
+      </article>
+
+
+      <article class="support-item">
+        <h3>همراهی و تسهیل ارتباط</h3>
+        <p>
+          در برخی شرایط، امکان همراهی در مراجعه به بیمارستان، دانشگاه،
+          اداره یا سازمان‌های اجتماعی وجود دارد.
+          همچنین می‌توانیم برای توضیح موضوع، آماده‌کردن پرسش‌ها،
+          فهم اطلاعات و کاهش موانع زبانی یا فرهنگی کمک کنیم.
         </p>
 
-        <div class="cards support-cards">
+        <p>
+          در شرایط حساس مانند آزار، خشونت یا تبعیض نیز
+          دیدار می‌تواند در پیدا کردن منابع تخصصی،
+          شناخت گزینه‌ها و در صورت امکان همراهی در بخشی از مسیر کمک کند.
+        </p>
+      </article>
 
-          <article class="card">
-            <span class="card-kicker">01</span>
-            <h3>Orientation et référence</h3>
-            <p>
-              Aider les personnes à comprendre les options disponibles et à être dirigées vers les ressources
-              communautaires, administratives, éducatives, de santé, d’emploi, juridiques
-              ou spécialisées qui correspondent à leur situation.
-            </p>
-          </article>
 
-          <article class="card">
-            <span class="card-kicker">02</span>
-            <h3>Accompagnement pratique</h3>
-            <p>
-              Accompagner les personnes lorsqu’un soutien concret est utile pour se rendre à un rendez-vous,
-              comprendre une démarche, interagir avec une institution ou naviguer dans un système peu familier.
-            </p>
-          </article>
+      <article class="support-item">
+        <h3>تازه‌واردان، تحصیل و کار</h3>
+        <p>
+          کمک به تازه‌واردان، دانشجویان و پژوهشگران برای شناخت سیستم‌های دانشگاهی
+          و اجتماعی، یافتن راهنما (منتور) یا فرد باتجربه،
+          دریافت کمک درسی در حوزه‌های مرتبط،
+          تهیه و بهبود رزومه، جست‌وجوی کار
+          و ایجاد ارتباط‌های حرفه‌ای و اجتماعی.
+        </p>
+      </article>
 
-          <article class="card">
-            <span class="card-kicker">03</span>
-            <h3>Communication et documentation</h3>
-            <p>
-              Aider à organiser l’information, préparer des questions, documenter une situation,
-              rédiger des communications claires et mieux comprendre certaines démarches institutionnelles.
-            </p>
-          </article>
 
-          <article class="card">
-            <span class="card-kicker">04</span>
-            <h3>Liens, mentorat et communauté</h3>
-            <p>
-              Mettre les personnes en relation avec des pairs, bénévoles, mentors, professionnels,
-              organismes et réseaux communautaires, tout en créant des occasions de participation
-              et d’entraide.
-            </p>
-          </article>
+      <article class="support-item">
+        <h3>ارتباط افراد و تبادل خدمات و منابع</h3>
 
-        </div>
-
-        <p class="note">
-          <strong>Notre rôle :</strong> DIDAR offre de l’orientation communautaire, des références
-          et de l’accompagnement. DIDAR n’offre pas de conseils en immigration, juridiques, médicaux,
-          psychologiques ou de travail social, et ne remplace pas les services de professionnels
-          autorisés ou réglementés. Lorsqu’une expertise spécialisée est nécessaire, nous aidons
-          les personnes à repérer les ressources qualifiées appropriées et à entrer en contact avec elles.
+        <p>
+          دیدار افراد را بر اساس
+          <strong>نیازها، مهارت‌ها، تجربه‌ها و امکاناتشان</strong>
+          به یکدیگر متصل می‌کند تا بتوانند مستقیماً
+          خدمات، تجربه، اطلاعات یا منابع را با یکدیگر به اشتراک بگذارند.
         </p>
 
-      </div>
-    </section>
+        <p class="support-examples">
+          برای مثال: کمک در اسباب‌کشی، کمک درسی،
+          تبادل یا واگذاری وسایل و لوازم خانه،
+          پیدا کردن اتاق یا خانه برای اجاره،
+          تبادل اطلاعات حرفه‌ای و شغلی،
+          معرفی خدماتی مانند عکاسی،
+          منتورینگ، مشورت و همفکری
+          یا ارتباط با افرادی که تجربه مشابهی داشته‌اند.
+        </p>
+      </article>
+
+    </div>
+
+
+    <p class="note">
+      <strong>نقش ما:</strong>
+      دیدار خدمات راهنمایی، ارجاع، تسهیل ارتباط و همراهی اجتماعی ارائه می‌دهد
+      و جایگزین خدمات تخصصی پزشکی، روان‌شناختی، حقوقی،
+      مهاجرتی یا مددکاری اجتماعی نیست.
+      هر جا به تخصص حرفه‌ای نیاز باشد،
+      به افراد کمک می‌کنیم منبع مناسب را پیدا کرده و با آن ارتباط بگیرند.
+    </p>
+
+  </div>
+</section>
+
 
 
     <!-- WHO WE WORK WITH -->
     <section id="community" class="section">
       <div class="container narrow">
 
-        <p class="eyebrow">Avec qui nous travaillons</p>
-        <h2>Une communauté ouverte à des parcours et à des générations variés.</h2>
+        <p class="eyebrow">با چه کسانی کار می‌کنیم</p>
+        <h2>جامعه‌ای باز برای تجربه‌ها و نسل‌های متفاوت</h2>
 
         <p class="section-intro">
-          DIDAR s’adresse aux personnes qui peuvent bénéficier de liens communautaires plus solides,
-          d’une orientation pratique, d’un meilleur accès aux ressources ou d’occasions de participer
-          et de contribuer à la vie collective.
+          دیدار با افرادی کار می‌کند که می‌توانند از ارتباط اجتماعی قوی‌تر،
+          راهنمایی عملی، دسترسی بهتر به منابع
+          یا فرصت‌های بیشتر برای مشارکت و نقش‌آفرینی در جامعه بهره‌مند شوند
         </p>
 
-        <div class="community-tags" aria-label="Communautés auprès desquelles DIDAR intervient">
-          <span>Personnes nouvellement arrivées et réfugiées</span>
-          <span>Étudiantes, étudiants et chercheurs internationaux</span>
-          <span>Personnes aînées</span>
-          <span>Femmes et familles</span>
-          <span>Artistes et membres de la communauté</span>
-          <span>Bénévoles et mentors</span>
+        <div class="community-tags" aria-label="گروه‌هایی که دیدار با آن‌ها کار می‌کند">
+          <span>تازه‌واردان و پناهندگان</span>
+          <span>دانشجویان و پژوهشگران بین‌المللی</span>
+          <span>سالمندان</span>
+          <span>زنان و خانواده‌ها</span>
+          <span>هنرمندان و اعضای جامعه</span>
+          <span>داوطلبان و منتورها</span>
         </div>
 
       </div>
@@ -232,168 +348,50 @@
 
     <!-- PROGRAMS -->
     <section id="programs" class="section alt">
-      <div class="container">
+  <div class="container narrow">
 
-        <p class="eyebrow">Programmes et projets</p>
-        <h2>Initiatives actuelles et en développement</h2>
+    <p class="eyebrow">پروژه‌ها و برنامه‌ها</p>
+    <h2>پروژه‌های دیدار</h2>
 
-        <div class="project-list">
+    <p class="section-intro">
+      دیدار پروژه‌ها و برنامه‌های فرهنگی، آموزشی، اجتماعی و بین‌فرهنگی مختلفی را توسعه می‌دهد.
+      این فعالیت‌ها از برنامه‌های اجتماعی و آموزشی تا همکاری‌های فرهنگی،
+      حمایت از سالمندان و مستندسازی نیازهای جامعه را در بر می‌گیرند.
+    </p>
 
-          <article class="project">
-            <div class="project-tag">Littérature · Patrimoine · Communauté</div>
-            <h3>Bibliothèque Nima</h3>
-            <p>
-              Une bibliothèque communautaire indépendante qui s’inscrit dans plusieurs décennies
-              d’activités littéraires et culturelles persanes. DIDAR peut collaborer avec Nima autour
-              de la littérature, de la documentation, de la mémoire culturelle, de l’accès aux livres
-              et aux collections, de la numérisation, des expositions et d’activités intergénérationnelles.
-            </p>
-          </article>
+    <div class="actions">
+      <a class="button primary" href="projects/">
+        مشاهده همه پروژه‌ها
+      </a>
+    </div>
 
-          <article class="project">
-            <div class="project-tag">Aînés · Inclusion numérique · Accompagnement</div>
-            <h3>DIDAR Aînés</h3>
-            <p>
-              Une initiative de soutien communautaire destinée aux personnes aînées,
-              offrant de l’aide numérique, de l’orientation vers les services
-              et de l’accompagnement pratique pour certaines démarches administratives,
-              communautaires ou certains rendez-vous médicaux.
-            </p>
-          </article>
-
-          <article class="project">
-            <div class="project-tag">Dialogue · Inclusion · Apprentissage</div>
-            <h3>Dialogues DIDAR</h3>
-            <p>
-              Des ateliers, discussions publiques et activités communautaires portant notamment
-              sur l’inclusion, la diversité, le consentement, le genre, le sentiment d’appartenance,
-              les expériences migratoires, les droits et la compréhension interculturelle.
-            </p>
-          </article>
-
-          <article class="project">
-            <div class="project-tag">Documentation · Besoins communautaires · Représentation</div>
-            <h3>Voix communautaires DIDAR</h3>
-            <p>
-              Documenter les préoccupations récurrentes de la communauté, repérer les obstacles
-              et développer des données et constats pouvant contribuer à de meilleurs services,
-              partenariats et réponses institutionnelles.
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ACTIVITIES -->
-    <section id="activities-preview" class="section">
-      <div class="container narrow">
-    
-        <p class="eyebrow">فعالیت‌ها</p>
-        <h2>آخرین فعالیت‌های دیدار</h2>
-    
-        <p class="section-intro">
-          کارگاه‌ها، رویدادها، نشست‌ها و همکاری‌های دیدار در این بخش ثبت می‌شوند.
-          آخرین فعالیت‌های دیدار را می‌توانید در اینجا ببینید.
-        </p>
-    
-        <div id="latest-activities" class="latest-activities"></div>
-    
-        <div class="actions">
-          <a class="button secondary" href="activities/">
-            مشاهده همه فعالیت‌ها
-          </a>
-        </div>
-    
-      </div>
-    </section>
-    <!-- THREE PILLARS -->
-    <section id="pillars" class="section pillars-section">
-      <div class="container">
-
-        <div class="pillars-heading">
-          <p class="eyebrow">Notre modèle</p>
-          <h2>Trois piliers, une même communauté</h2>
-          <p>
-            Les racines préservent et transmettent. La croissance crée des occasions d’apprendre
-            et de créer. Les liens rapprochent les personnes, les ressources et les communautés.
-          </p>
-        </div>
-
-        <div class="pillar-grid">
-
-          <article class="pillar-card risheh-card">
-            <img
-              src="assets/risheh.png"
-              alt="Logo DIDAR Risheh"
-              class="pillar-logo"
-            >
-            <span class="pillar-persian">ریشه</span>
-            <h3>Racines</h3>
-            <p class="pillar-keywords">Patrimoine · Mémoire · Langue · Générations</p>
-            <p>
-              Relier les générations afin que les connaissances, les récits, les langues
-              et la mémoire culturelle puissent être partagés, documentés et transmis.
-            </p>
-          </article>
-
-          <article class="pillar-card rouyesh-card">
-            <img
-              src="assets/rouyesh.png"
-              alt="Logo DIDAR Rouyesh"
-              class="pillar-logo"
-            >
-            <span class="pillar-persian">رویش</span>
-            <h3>Croissance</h3>
-            <p class="pillar-keywords">Éducation · Arts · Compétences · Créativité</p>
-            <p>
-              Créer des occasions d’apprendre, de créer, de découvrir et de se développer
-              à différents âges et à différentes étapes de la vie.
-            </p>
-          </article>
-
-          <article class="pillar-card peyvand-card">
-            <img
-              src="assets/peyvand.png"
-              alt="Logo DIDAR Peyvand"
-              class="pillar-logo"
-            >
-            <span class="pillar-persian">پیوند</span>
-            <h3>Liens</h3>
-            <p class="pillar-keywords">Communauté · Participation · Échange · Appartenance</p>
-            <p>
-              Relier les personnes entre elles, aux services et aux occasions qui leur sont accessibles,
-              ainsi qu’à la société québécoise dans son ensemble.
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
+  </div>
+</section>
 
 
     <!-- CONTACT -->
     <section id="contact" class="section contact">
       <div class="container narrow">
 
-        <p class="eyebrow">Contact</p>
-        <h2>Communiquez avec DIDAR</h2>
+        <p class="eyebrow">تماس</p>
+        <h2>با دیدار در ارتباط باشید</h2>
 
         <p>
-          Contactez-nous pour du soutien communautaire, du bénévolat, des partenariats,
-          des activités culturelles, des événements ou des projets collaboratifs.
+          برای راهنمایی و همراهی اجتماعی، همکاری داوطلبانه،
+          مشارکت سازمانی، فعالیت‌های فرهنگی، رویدادها
+          یا پروژه‌های مشترک با ما تماس بگیرید.
         </p>
 
+        <p class="contact-prompt">برای درخواست راهنمایی، پیشنهاد همکاری یا پرسیدن دربارهٔ برنامه‌ها، از راه‌های زیر پیام دهید.</p>
         <div class="contact-box">
-          <p>
-            <strong>Courriel :</strong>
+
+          <p class="contact-ltr">
+            <strong>ایمیل:</strong>
             <a href="mailto:cce.didar@gmail.com">cce.didar@gmail.com</a>
           </p>
 
-          <p>
-            <strong>Instagram :</strong>
+          <p class="contact-ltr">
+            <strong>Instagram:</strong>
             <a href="https://www.instagram.com/didar_mtl/"
                target="_blank"
                rel="noopener noreferrer">
@@ -402,10 +400,13 @@
           </p>
 
           <p>
-            <strong>Lieu :</strong> Montréal, Québec
+            <strong>مکان:</strong> مونترآل، کبک
           </p>
-        </div>
 
+        </div>
+        <div class="actions contact-cta">
+          <a class="button primary" href="mailto:cce.didar@gmail.com?subject=DIDAR%20-%20Request">ارسال ایمیل به دیدار</a>
+        </div>
       </div>
     </section>
 
@@ -414,14 +415,43 @@
 
   <footer>
     <div class="container footer-wrap">
-      <p>© <span id="year"></span> DIDAR. Tous droits réservés.</p>
-      <p>Dialogue · Inclusion · Diversité · Arts · Relations</p>
+      <p>© <span id="year"></span> DIDAR. تمامی حقوق محفوظ است.</p>
+      <p>مونترآل · کبک</p>
     </div>
   </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+<script src="activities/activities-data.js"></script>
+<script>
+  // Featured programs use the same Persian feed generated from the published Google Sheet.
+  (function () {
+    const target = document.getElementById('featured-programs-grid');
+    const fav = ['dialogue-crisis','harassment-consent','digital-cafe'];
+    const safe = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    function render(programs) {
+      const byId = new Map(programs.filter(p => p.visible !== false).map(p => [p.id,p]));
+      target.innerHTML = fav.filter(id => byId.has(id)).map((id,i) => {
+        const p=byId.get(id);
+        const fallback={ 'dialogue-crisis':'نشست‌های تکرارشونده', 'harassment-consent':'مجموعهٔ سه کارگاه آموزشی', 'digital-cafe':'کافهٔ دیجیتال؛ همراهی هفتگی' };
+        return `<article class="featured-card">
+          <p class="featured-kicker">${safe(fallback[id])}</p>
+          <h3>${safe(p.title)}</h3>
+          <p class="featured-subtitle">${safe(p.subtitle || p.description || '')}</p>
+          ${p.schedule ? `<p class="featured-schedule"><strong>زمان:</strong> ${safe(p.schedule)}</p>` : ''}
+          <a class="featured-link" href="activities/#program-${encodeURIComponent(id)}">معرفی برنامه و نشست‌ها ←</a>
+        </article>`;
+      }).join('');
+    }
+    render(Array.isArray(PROGRAMS) ? PROGRAMS : []);
+    fetch('activities/activities-feed.json', { cache: 'no-store' })
+      .then(response => { if(!response.ok) throw new Error(response.status); return response.json(); })
+      .then(data => { if (Array.isArray(data.programs) && data.programs.length) render(data.programs); })
+      .catch(() => { /* fallback cards are already displayed */ });
+  }());
+</script>
+
 
 </body>
 </html>

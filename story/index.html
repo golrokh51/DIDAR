@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="L’histoire derrière DIDAR — de l’accompagnement communautaire et d’un réseau de soutien étudiant à une culture d’entraide, de liens et de participation à Montréal." />
-  <title>Notre histoire | DIDAR</title>
-  <link rel="stylesheet" href="../styles.css" />
+  <meta name="description" content="داستان شکل‌گیری دیدار — از همراهی اجتماعی و شبکه حمایت از دانشجویان تا فرهنگ همیاری، ارتباط و مشارکت در مونترآل." />
+  <title>داستان ما | دیدار</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../persian-enhancements.css" />
   <style>
 
     /* =========================================
@@ -291,32 +292,84 @@
       }
     }
 
+
+    html[lang="fa"] body { text-align: right; }
+    html[lang="fa"] .brand,
+    html[lang="fa"] .languages { direction: ltr; }
+    html[lang="fa"] .main-nav { direction: rtl; }
+
+    html[lang="fa"] .story-highlight,
+    html[lang="fa"] .pay-forward-quote {
+      border-left: 0;
+      border-right: 5px solid var(--orange);
+      border-radius: 18px 0 0 18px;
+    }
+
+    html[lang="fa"] .support-list {
+      padding-left: 0;
+      padding-right: 22px;
+    }
+
+    html[lang="fa"] .timeline-item,
+    html[lang="fa"] .story-area,
+    html[lang="fa"] .principle,
+    html[lang="fa"] .story-copy {
+      text-align: right;
+    }
+
+    html[lang="fa"] .network-stat { direction: rtl; }
+    html[lang="fa"] .milestone { text-align: center; }
+
+    html[lang="fa"] .story-cta {
+      text-align: center;
+    }
+
+    html[lang="fa"] .story-cta .actions {
+      justify-content: center;
+    }
+
+    html[lang="fa"] .latin {
+      direction: ltr;
+      text-align: left;
+    }
+
   </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#top">رفتن به محتوای اصلی</a>
   <header class="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="../index.html" aria-label="Accueil DIDAR">
-        <img class="brand-logo" src="../assets/logo.png" alt="Logo DIDAR">
+      <a class="brand" href="../index.html" aria-label="صفحه اصلی دیدار">
+        <img class="brand-logo" src="../../assets/logo.png" alt="لوگوی دیدار">
         <strong>DIDAR</strong>
       </a>
 
       <div class="nav-area">
-        <nav class="languages" aria-label="Choix de langue">
-          <a href="./" aria-current="page">FR</a>
-          <a href="../en/story/">EN</a>
-          <a href="../fa/story/">فارسی</a>
+        <nav class="languages" aria-label="انتخاب زبان">
+          <a href="../../story/">FR</a>
+          <a href="../../en/story/">EN</a>
+          <a href="./" aria-current="page">فارسی</a>
         </nav>
 
-        <nav class="main-nav" aria-label="Navigation principale">
-          <a href="../index.html#about">À propos</a>
-          <a href="./" aria-current="page">Notre histoire</a>
-          <a href="../index.html#support">Soutien</a>
-          <a href="../index.html#programs">Programmes</a>
-          <a href="../index.html#pillars">Notre modèle</a>
-          <a href="../index.html#contact">Contact</a>
+        <nav class="main-nav" aria-label="منوی اصلی">
+          <a href="../#about">درباره دیدار</a>
+          <a href="./" aria-current="page">داستان ما</a>
+          <a href="../#support">راهنمایی و همراهی</a>
+          <a href="../projects/">پروژه‌ها</a>
+          <a href="../activities/">فعالیت‌ها</a>
+          <a href="../#contact">تماس</a>
         </nav>
+<details class="mobile-navigation"><summary aria-label="باز کردن منوی اصلی">☰ منو</summary>
+  <nav aria-label="منوی موبایل">
+    <a href="../">خانه</a>
+    <a href="../story/">داستان ما</a>
+    <a href="../#support">راهنمایی و همراهی</a>
+    <a href="../projects/">پروژه‌ها</a>
+    <a href="../activities/">فعالیت‌ها</a>
+    <a href="../#contact">تماس</a>
+  </nav>
+</details>
       </div>
     </div>
   </header>
@@ -326,113 +379,127 @@
     <section class="story-hero">
       <div class="container">
         <div class="story-hero-inner">
-          <p class="eyebrow">Notre histoire</p>
-          <h1>Comment DIDAR a commencé.</h1>
+          <p class="eyebrow">داستان ما</p>
+          <h1>دیدار چگونه شکل گرفت؟</h1>
 
           <p class="lead">
-            DIDAR est né de plusieurs années d’accompagnement communautaire, de soutien aux étudiants,
-            d’entraide et d’une conviction qui est devenue de plus en plus importante pour moi :
-            personne ne devrait avoir à traverser seul une situation difficile ou un système qu’il ne connaît pas.
+            دیدار از سال‌ها همراهی اجتماعی، حمایت از دانشجویان، همیاری و یک باور شکل گرفت
+            که برای من هر روز مهم‌تر شد: آدم‌ها نباید مجبور باشند موقعیت‌های دشوار
+            یا سیستم‌های ناآشنا را به‌تنهایی پشت سر بگذارند.
           </p>
 
           <p class="lead">
-            Ce qui a commencé par des gestes individuels de soutien est progressivement devenu un réseau
-            dans lequel les personnes partagent information, expérience, temps et aide pratique.
+            چیزی که با کمک‌های فردی شروع شد، کم‌کم به شبکه‌ای تبدیل شد
+            که در آن افراد اطلاعات، تجربه، وقت و حمایت عملی خود را با یکدیگر به اشتراک می‌گذارند.
           </p>
+
+          <div class="story-at-glance">
+            <h2>داستان ما، در یک نگاه</h2>
+            <p>این روایت از تجربه‌های فردی همراهی آغاز می‌شود و به شکل‌گیری دیدار به‌عنوان فضایی برای همیاری، فرهنگ و یادگیری می‌رسد. می‌توانید خلاصهٔ مسیر را ببینید یا داستان کامل را بخوانید.</p>
+            <nav class="story-quicklinks" aria-label="پرش به بخش‌های داستان">
+              <a href="#starting-point">حدود ۲۰۱۷؛ آغاز همراهی</a>
+              <a href="#growing-network">گسترش شبکهٔ همیاری</a>
+              <a href="#story-timeline">مسیر شکل‌گیری دیدار</a>
+              <a href="#story-purpose">چشم‌انداز دیدار</a>
+            </nav>
+          </div>
+          <p class="story-content-note" role="note">یادداشت محتوا: در بخشی از این روایت به تجربه‌های آزار جنسی اشاره شده است؛ بدون ذکر جزئیات آسیب‌زا.</p>
+
         </div>
       </div>
     </section>
 
 
-    <section class="story-section">
+    <section class="story-section" id="starting-point">
       <div class="container story-copy">
-        <p class="eyebrow">Le point tournant</p>
-        <h2>Vers 2017, ma relation avec la communauté a changé</h2>
+        <p class="eyebrow">نقطه عطف</p>
+        <h2>حدود سال ۲۰۱۷، رابطه من با جامعه تغییر کرد</h2>
 
         <p>
-          Jusqu’aux environs de 2017, j’avais relativement peu de liens avec la communauté iranienne de Montréal.
-          Mon cercle social et professionnel était surtout composé d’amis et de collègues québécois et maghrébins,
-          et je ne me considérais pas comme une membre active de la communauté iranienne.
+          تا حدود سال ۲۰۱۷ ارتباط چندانی با جامعه ایرانی مونترآل نداشتم.
+          شبکه اجتماعی و حرفه‌ای من عمدتاً از دوستان و همکاران کبکی و مغربی تشکیل می‌شد
+          و خودم را بخشی فعال از جامعه ایرانی نمی‌دانستم.
         </p>
 
         <p>
-          Cela a changé lorsque je me suis impliquée auprès de personnes touchées par une situation de harcèlement
-          sexuel de longue date à l’UQAM. J’ai contribué au déclenchement et au suivi des démarches de plainte,
-          retrouvé des personnes ayant vécu des expériences similaires ainsi que des témoins,
-          et accompagné les personnes concernées pendant le processus.
+          این وضعیت زمانی تغییر کرد که در حمایت از افرادی که درگیر یک وضعیت دیرینه آزار جنسی
+          در دانشگاه یوکم بودند، وارد شدم. در آغاز و پیگیری روند شکایت مشارکت کردم،
+          افرادی را که تجربه‌های مشابه داشتند و همچنین شاهدان را پیدا کردم
+          و در طول روند رسیدگی، افراد آسیب‌دیده را همراهی کردم.
         </p>
 
         <p>
-          Cette expérience m’a fait prendre conscience du nombre d’étudiants iraniens qui avaient étudié à l’UQAM
-          au fil des années sans que je les connaisse. Cette prise de conscience m’est restée.
+          این تجربه ناگهان باعث شد متوجه شوم در تمام آن سال‌ها چه تعداد دانشجوی ایرانی
+          در یوکم تحصیل کرده بودند و من تقریباً هیچ‌کدام از آن‌ها را نمی‌شناختم.
+          این موضوع برای من ماندگار شد.
         </p>
 
         <div class="story-highlight">
-          Je me suis alors posé une question simple :
+          یک سؤال ساده برایم شکل گرفت:
           <strong>
-            si ces étudiants avaient su qu’une personne iranienne plus expérimentée était présente à l’université
-            et pouvait être approchée dans un moment difficile, certains se seraient-ils sentis moins seuls?
+            اگر آن دانشجویان می‌دانستند یک ایرانی باسابقه‌تر در دانشگاه حضور دارد
+            که می‌توانند در شرایط دشوار به او مراجعه کنند،
+            آیا بعضی از آن‌ها مجبور نبودند مشکلاتشان را این‌قدر تنها پشت سر بگذارند؟
           </strong>
         </div>
 
         <p>
-          À partir de ce moment, j’ai décidé d’être plus visible et plus accessible comme membre iranienne
-          de la communauté universitaire, particulièrement pour les étudiants qui découvraient l’université
-          ou la vie au Canada.
+          از آن زمان تصمیم گرفتم حضورم را به‌عنوان یک عضو ایرانی جامعه دانشگاهی آشکارتر
+          و در دسترس‌تر کنم، به‌خصوص برای دانشجویانی که تازه وارد دانشگاه یا زندگی در کانادا شده بودند.
         </p>
       </div>
     </section>
 
 
-    <section class="story-section alt">
+    <section class="story-section alt" id="growing-network">
       <div class="container story-copy">
-        <p class="eyebrow">Créer un réseau de soutien</p>
-        <h2>Un problème précis est devenu un réseau communautaire plus large</h2>
+        <p class="eyebrow">شکل‌گیری شبکه حمایتی</p>
+        <h2>یک مشکل مشخص، به یک شبکه اجتماعی گسترده‌تر تبدیل شد</h2>
 
         <p>
-          Avant le mouvement Femme, Vie, Liberté, une forte chute de la valeur du rial iranien
-          a soudainement placé de nombreux étudiants internationaux iraniens dans une situation financière difficile.
+          پیش از جنبش «زن، زندگی، آزادی»، کاهش شدید ارزش ریال در مدت کوتاهی
+          بسیاری از دانشجویان بین‌المللی ایرانی را ناگهان با فشار مالی جدی روبه‌رو کرد.
         </p>
 
         <p>
-          Un étudiant iranien avait déjà commencé à discuter avec l’université afin que la situation particulière
-          des étudiants iraniens soit prise en considération. C’est à partir de là que je me suis impliquée davantage.
+          یکی از دانشجویان ایرانی پیش‌تر با دانشگاه صحبت کرده بود تا شرایط خاص
+          دانشجویان ایرانی در نظر گرفته شود. از همان‌جا من هم بیشتر وارد موضوع شدم.
         </p>
 
         <p>
-          J’ai commencé progressivement à retrouver les étudiants internationaux iraniens un par un,
-          à entrer en contact avec eux et à les relier entre eux. Ce qui avait commencé pour répondre
-          à un problème précis est peu à peu devenu un réseau de soutien plus large.
+          کم‌کم دانشجویان بین‌المللی ایرانی را یکی‌یکی پیدا کردم، با آن‌ها ارتباط گرفتم
+          و آن‌ها را به یکدیگر وصل کردم. چیزی که برای حل یک مشکل مشخص آغاز شده بود،
+          به‌تدریج به یک شبکه حمایتی گسترده‌تر تبدیل شد.
         </p>
 
-        <p>Le soutien n’a jamais été limité à un seul domaine. Selon la personne et la situation, il pouvait comprendre :</p>
+        <p>کمک‌ها به یک حوزه محدود نبود و بسته به نیاز هر فرد می‌توانست شامل این موارد باشد:</p>
 
         <ul class="support-list">
-          <li>les démarches administratives universitaires et la communication institutionnelle</li>
-          <li>les difficultés financières et les demandes d’allègement ou d’exemption de frais</li>
-          <li>la mise en relation avec les services et ressources de l’université</li>
-          <li>le soutien face à la discrimination ou à des difficultés dans le milieu universitaire</li>
-          <li>les questions liées au travail et à la vie quotidienne au Canada</li>
-          <li>des difficultés familiales ou personnelles</li>
-          <li>la recherche de ressources de santé ou communautaires appropriées</li>
-          <li>une présence et un soutien dans les périodes difficiles</li>
-          <li>de l’aide académique lorsque le domaine d’études était proche de mon expertise</li>
-          <li>parfois, simplement écouter lorsqu’une personne avait besoin de ne pas se sentir seule</li>
+          <li>امور اداری دانشگاه و ارتباط با نهادهای دانشگاهی</li>
+          <li>مشکلات مالی و درخواست تخفیف، معافیت یا کاهش شهریه</li>
+          <li>اتصال دانشجویان به خدمات و منابع دانشگاه</li>
+          <li>همراهی در مسائل تبعیض یا مشکلات محیط دانشگاه</li>
+          <li>مسائل مربوط به کار و زندگی روزمره در کانادا</li>
+          <li>مسائل خانوادگی یا شخصی</li>
+          <li>پیدا کردن منابع درمانی یا اجتماعی مناسب</li>
+          <li>حضور و حمایت در دوره‌های دشوار</li>
+          <li>کمک تحصیلی وقتی رشته دانشجو به حوزه تخصصی من نزدیک بود</li>
+          <li>و گاهی فقط گوش دادن، وقتی کسی نیاز داشت احساس کند تنها نیست</li>
         </ul>
 
         <div class="network-stat">
-          <strong>90+</strong>
+          <strong>۹۰+</strong>
           <p>
-            Aujourd’hui, ce réseau compte plus de 90 personnes d’âges, de domaines d’études
-            et de réalités sociales, culturelles et économiques très variés.
+            امروز این شبکه بیش از ۹۰ عضو با سن‌ها، رشته‌ها و شرایط اجتماعی،
+            فرهنگی و اقتصادی بسیار متنوع دارد.
           </p>
         </div>
 
         <p>
-          Pour moi, il ne s’agit plus simplement d’un groupe étudiant. Encore aujourd’hui,
-          lorsque je rencontre par hasard un nouvel arrivant ou un étudiant iranien récemment arrivé,
-          j’essaie généralement de le relier à ce réseau afin qu’il puisse profiter de l’expérience
-          et des informations collectives plutôt que de devoir tout apprendre seul à partir de zéro.
+          برای من، این دیگر فقط یک گروه دانشجویی نیست. حتی امروز اگر به‌طور اتفاقی
+          با یک دانشجوی ایرانی یا تازه‌وارد جدید آشنا شوم، معمولاً سعی می‌کنم او را
+          به این شبکه وصل کنم تا بتواند از تجربه و اطلاعات جمعی استفاده کند
+          و مجبور نباشد همه‌چیز را از صفر و به‌تنهایی یاد بگیرد.
         </p>
       </div>
     </section>
@@ -440,43 +507,46 @@
 
     <section class="story-section">
       <div class="container story-copy">
-        <p class="eyebrow">Femme, Vie, Liberté</p>
-        <h2>Le réseau s’est élargi pendant une autre période difficile</h2>
+        <p class="eyebrow">زن، زندگی، آزادی</p>
+        <h2>در یک دوره دشوار دیگر، شبکه گسترده‌تر شد</h2>
 
         <p>
-          Après la mort de Jina Mahsa Amini et le début du mouvement Femme, Vie, Liberté,
-          la nature de mon engagement communautaire a de nouveau évolué.
+          پس از مرگ ژینا امینی و آغاز جنبش «زن، زندگی، آزادی»،
+          شکل فعالیت اجتماعی من دوباره تغییر کرد.
         </p>
 
         <p>
-          Durant cette période, j’ai essayé, dans la mesure de mes moyens, de soutenir les personnes directement
-          touchées par les événements en Iran, la répression, l’inquiétude pour leur famille
-          et les conséquences psychologiques et sociales de ce qui se passait.
+          در آن دوره تلاش کردم در حد توانم از افرادی حمایت کنم که مستقیماً
+          از وقایع ایران، سرکوب، نگرانی برای اعضای خانواده و پیامدهای روانی
+          و اجتماعی آن شرایط تأثیر گرفته بودند.
         </p>
 
         <p>
-          À l’université, j’ai contribué à organiser deux événements. Le premier était
-          <strong>Campus Rally for Iran</strong>, dans le cadre d’une mobilisation internationale
-          organisée simultanément dans plus de 200 universités à travers le monde.
-          Le second était un événement organisé à l’occasion de la Journée internationale des femmes
-          dans le contexte du mouvement Femme, Vie, Liberté.
+  در دانشگاه دو برنامه را سازمان‌دهی کردم. نخست
+  <strong>Campus Rally for Iran</strong> بود؛ بخشی از یک حرکت بین‌المللی
+  که هم‌زمان در بیش از ۲۰۰ دانشگاه در سراسر جهان برگزار شد.
+  برنامه دوم را به مناسبت روز جهانی زنان و در فضای پس از شکل‌گیری جنبش
+  «زن، زندگی، آزادی» برگزار کردم.
+</p>
+ <p>
+        این برنامه‌ها را با هدف ایجاد فضایی برای همدلی و همبستگی میان دانشجویان ایرانی ساکن مونترآل برگزار کردم؛ فضایی که در آن بتوانند در آن روزهای سخت احساس تنهایی نکنند، کنار یکدیگر باشند و نگرانی‌ها، فشارها و رنج دوری از خانواده و اتفاقات ایران را با دیگرانی که شرایط مشابهی داشتند، به اشتراک بگذارند.
+ </p>
+        <p>
+          این فعالیت‌ها باعث شد با تعداد بیشتری از دانشجویان بین‌المللی آشنا شوم
+          و شبکه حمایتی باز هم گسترده‌تر شود.
         </p>
 
         <p>
-          Ces activités m’ont permis de rencontrer davantage d’étudiants internationaux
-          et d’élargir encore le réseau de soutien.
-        </p>
-
-        <p>
-          Avec le temps, l’université a également pris connaissance du réseau et de l’expérience qui s’était développée.
-          J’ai ensuite été invitée à appliquer certains de ces apprentissages plus largement auprès
-          d’étudiants internationaux non iraniens : repérer leurs besoins, contribuer à créer des réseaux de soutien
-          et les mettre en relation avec des ressources ou des pistes de solution pertinentes.
+          به‌مرور دانشگاه نیز با این شبکه و تجربه‌ای که پیرامون آن شکل گرفته بود آشنا شد.
+          بعدتر از من خواسته شد بخشی از این تجربه را در مقیاسی گسترده‌تر
+          برای دانشجویان بین‌المللی غیرایرانی نیز به کار ببرم:
+          شناسایی نیازها، کمک به شکل‌گیری شبکه‌های حمایتی
+          و اتصال دانشجویان به منابع و راه‌حل‌های مناسب.
         </p>
 
         <div class="story-highlight">
-          Ce qui avait commencé de façon entièrement bénévole, à partir d’un besoin humain,
-          était progressivement devenu un modèle pouvant être utile au-delà d’une seule communauté.
+          چیزی که کاملاً داوطلبانه و از یک نیاز انسانی شروع شده بود،
+          کم‌کم به الگویی تبدیل شد که می‌توانست فراتر از یک جامعه هم کاربرد داشته باشد.
         </div>
       </div>
     </section>
@@ -484,129 +554,111 @@
 
     <section class="story-section alt">
       <div class="container story-copy">
-        <p class="eyebrow">Passer le relais</p>
-        <h2>Le principe qui a façonné le réseau</h2>
+        <p class="eyebrow">کمک را به نفر بعدی برسان</p>
+        <h2>اصل مهمی که فرهنگ این شبکه را شکل داد</h2>
 
         <p>
-          Dès le début, lorsqu’une personne voulait me remercier pour une aide reçue,
-          je lui disais qu’elle n’avait rien à faire pour moi en retour.
+          از همان ابتدا، هر وقت کسی می‌خواست بابت کمکی که دریافت کرده بود از من تشکر کند،
+          به او می‌گفتم لازم نیست در مقابل کاری برای من انجام بدهد.
         </p>
 
         <p>
-          Je lui disais que le prix de cette aide était simple :
-          le jour où quelqu’un d’autre aurait besoin d’elle, elle devrait à son tour aider cette personne.
+          می‌گفتم هزینه دریافت این کمک ساده است:
+          روزی که فرد دیگری به کمک او احتیاج داشت، او هم به آن فرد کمک کند.
         </p>
 
         <div class="pay-forward">
-          <h3>D’où vient cette idée</h3>
+          <h3>این نگاه از کجا آمد</h3>
 
           <p>
-            J’ai appris cette façon de voir les choses plusieurs années auparavant auprès de l’un de mes amis les plus proches,
-            lorsque je vivais en Inde. Il m’avait énormément aidée, avec générosité et sans rien attendre en retour.
-          </p>
-
+            این طرز فکر را سال‌ها پیش، زمانی که در هند زندگی می‌کردم، از کسی یاد گرفتم که امروز یکی از نزدیک‌ترین دوستانم و عضوی از خانواده‌ای است که در طول زندگی برای خودم ساخته‌ام. او در آن زمان، بدون هیچ چشمداشتی، کمک‌های زیادی به من کرد.
+</p>
           <p>
-            Lorsque je lui ai demandé pourquoi il m’aidait autant, il m’a expliqué que quelqu’un lui avait autrefois apporté
-            une aide importante et qu’il n’avait jamais pu la rendre directement à cette même personne.
-            Il avait donc décidé de transmettre cette aide à la prochaine personne qui en aurait besoin.
+            وقتی از او پرسیدم چرا این‌قدر به من کمک می‌کند، توضیح داد که خودش زمانی
+            کمک بزرگی از شخص دیگری گرفته بوده و هیچ‌وقت نتوانسته آن را مستقیماً به همان فرد برگرداند.
+            بنابراین تصمیم گرفته بود آن کمک را به نفر بعدی که به آن نیاز دارد منتقل کند.
           </p>
 
           <div class="pay-forward-quote">
-            Il n’est pas toujours nécessaire de rendre une aide à la personne qui nous l’a donnée.
-            On peut la transmettre et la faire circuler dans la communauté.
+            لازم نیست همیشه کمک را به همان کسی که به تو کمک کرده برگردانی.
+            می‌توانی آن را به نفر بعدی منتقل کنی و در جامعه به گردش دربیاوری.
           </div>
         </div>
 
         <p>
-          J’ai essayé d’intégrer cette culture au réseau étudiant. Aujourd’hui,
-          ce que je trouve peut-être encore plus précieux que la création du réseau lui-même,
-          c’est que ses membres ne sont pas simplement des personnes qui reçoivent de l’aide.
+          سعی کردم همین فرهنگ را در شبکه دانشجویی هم جا بیندازم.
+          امروز چیزی که شاید حتی از خود شکل‌گیری شبکه برایم ارزشمندتر است،
+          این است که اعضای آن فقط دریافت‌کننده کمک نیستند.
         </p>
 
         <p>
-          Beaucoup sont prêts à aider quelqu’un d’autre — parfois une personne qui n’est ni leur amie,
-          ni dans leur domaine d’études, ni même de la même langue.
+          بسیاری از آن‌ها آماده‌اند به شخص دیگری کمک کنند —
+          گاهی حتی به کسی که نه دوستشان است، نه هم‌رشته‌شان
+          و نه حتی هم‌زبانشان.
         </p>
 
         <p>
-          Le réseau est devenu un espace où les personnes partagent leur expérience, leurs informations,
-          leur temps, leurs contacts et leur soutien pratique, en transmettant l’aide d’une personne à l’autre.
+          این شبکه به فضایی تبدیل شده که در آن افراد تجربه، اطلاعات،
+          زمان، ارتباطات و حمایت عملی خود را با یکدیگر تقسیم می‌کنند
+          و کمک را از یک نفر به نفر بعدی می‌رسانند.
         </p>
 
-        <p>Je suis profondément fière de ce réseau et des personnes qui le font vivre.</p>
+        <p>من واقعاً به این شبکه و آدم‌هایی که آن را ساخته‌اند افتخار می‌کنم.</p>
       </div>
     </section>
 
 
-    <section class="story-section">
+    <section class="story-section" id="story-timeline">
       <div class="container">
-        <p class="eyebrow">Le chemin vers DIDAR</p>
-        <h2>D’une expérience d’accompagnement à une vision communautaire plus large</h2>
+        <p class="eyebrow">مسیر رسیدن به دیدار</p>
+        <h2>از یک تجربه همراهی تا یک چشم‌انداز گسترده‌تر اجتماعی</h2>
 
         <div class="timeline">
           <article class="timeline-item">
-            <div class="timeline-date">Vers 2017</div>
+            <div class="timeline-date">حدود ۲۰۱۷</div>
             <div>
-              <h3>Un point tournant à l’UQAM</h3>
-              <p>
-                Mon implication dans une situation difficile de harcèlement m’a amenée à réfléchir autrement
-                à la présence communautaire, à l’accessibilité et à l’importance d’un soutien de confiance.
-              </p>
+              <h3>  یک نقطه عطف در یوکم </h3>
+              <p>درگیر شدن در یک پرونده دشوار آزار باعث شد نگاه من به حضور اجتماعی، در دسترس بودن و اهمیت یک حمایت قابل اعتماد تغییر کند.</p>
             </div>
           </article>
 
           <article class="timeline-item">
-            <div class="timeline-date">Par la suite</div>
+            <div class="timeline-date">بعدتر</div>
             <div>
-              <h3>Une crise financière touchant les étudiants</h3>
-              <p>
-                La chute rapide du rial iranien a créé de sérieuses difficultés pour des étudiants internationaux
-                et est devenue le point de départ d’un réseau de soutien plus organisé.
-              </p>
+              <h3>بحران مالی دانشجویان</h3>
+              <p>کاهش سریع ارزش ریال مشکلات جدی برای دانشجویان بین‌المللی ایجاد کرد و نقطه آغاز یک شبکه حمایتی منسجم‌تر شد.</p>
             </div>
           </article>
 
           <article class="timeline-item">
-            <div class="timeline-date">90+ membres</div>
+            <div class="timeline-date">۹۰+ عضو</div>
             <div>
-              <h3>Un réseau croissant d’entraide</h3>
-              <p>
-                Des étudiants aux parcours très différents ont commencé à partager informations,
-                ressources, expériences et soutien pratique.
-              </p>
+              <h3>رشد شبکه‌ای از همیاری</h3>
+              <p>دانشجویانی با پیشینه‌های متفاوت شروع کردند اطلاعات، منابع، تجربه و حمایت عملی خود را با یکدیگر به اشتراک بگذارند.</p>
             </div>
           </article>
 
           <article class="timeline-item">
-            <div class="timeline-date">Depuis 2022</div>
+            <div class="timeline-date">از ۲۰۲۲</div>
             <div>
-              <h3>Femme, Vie, Liberté</h3>
-              <p>
-                Des événements communautaires, des actions de solidarité et un cercle plus large
-                d’étudiants internationaux ont enrichi le réseau et les apprentissages qui en découlaient.
-              </p>
+              <h3>زن، زندگی، آزادی</h3>
+              <p>رویدادهای اجتماعی، فعالیت‌های همبستگی و ارتباط با طیف گسترده‌تری از دانشجویان بین‌المللی، شبکه و تجربه‌های حاصل از آن را گسترش داد.</p>
             </div>
           </article>
 
           <article class="timeline-item">
-            <div class="timeline-date">Au-delà d’un groupe</div>
+            <div class="timeline-date">فراتر از یک گروه</div>
             <div>
-              <h3>Un soutien élargi aux étudiants internationaux</h3>
-              <p>
-                L’expérience développée au sein de la communauté étudiante iranienne
-                a commencé à informer un travail auprès d’étudiants d’autres origines.
-              </p>
+              <h3>حمایت گسترده‌تر از دانشجویان بین‌المللی</h3>
+              <p>تجربه‌ای که در جامعه دانشجویان ایرانی شکل گرفته بود، کم‌کم در کار با دانشجویانی از پیشینه‌های دیگر هم به کار آمد.</p>
             </div>
           </article>
 
           <article class="timeline-item">
-            <div class="timeline-date">DIDAR</div>
+            <div class="timeline-date">دیدار</div>
             <div>
-              <h3>Donner à cette idée une structure durable</h3>
-              <p>
-                DIDAR repose sur l’idée que les connaissances, le soutien, la culture et les liens communautaires
-                deviennent plus forts lorsqu’ils circulent plutôt que de rester centrés sur une seule personne.
-              </p>
+              <h3>دادن یک ساختار پایدار به این ایده</h3>
+              <p>دیدار بر این ایده بنا شده که دانش، حمایت، فرهنگ و ارتباط اجتماعی زمانی قوی‌تر می‌شوند که در جامعه جریان داشته باشند و به یک فرد وابسته نمانند.</p>
             </div>
           </article>
         </div>
@@ -616,48 +668,48 @@
 
     <section class="story-section alt">
       <div class="container">
-        <p class="eyebrow">Le travail communautaire en pratique</p>
-        <h2>L’expérience qui a contribué à façonner DIDAR</h2>
+        <p class="eyebrow">فعالیت اجتماعی در عمل</p>
+        <h2>تجربه‌هایی که به شکل‌گیری دیدار کمک کردند</h2>
 
         <div class="story-areas">
           <article class="story-area">
-            <h3>Nouveaux arrivants et étudiants internationaux</h3>
-            <p>Orientation dans les systèmes québécois et canadiens, navigation académique et institutionnelle, mentorat, accès aux ressources et soutien pratique.</p>
+            <h3>تازه‌واردان و دانشجویان بین‌المللی</h3>
+            <p>راهنمایی در سیستم‌های کبک و کانادا، امور دانشگاهی و نهادی، منتورینگ، دسترسی به منابع و حمایت عملی در دوره سازگاری با محیط جدید.</p>
           </article>
 
           <article class="story-area">
-            <h3>Mentorat et réseaux de confiance</h3>
-            <p>Mise en relation avec des étudiants expérimentés, chercheurs, professionnels, bénévoles, mentors et membres de la communauté.</p>
+            <h3>راهنمایی (منتورینگ) و شبکه‌های قابل اعتماد</h3>
+            <p>اتصال افراد به دانشجویان باتجربه، پژوهشگران، متخصصان، داوطلبان، منتورها و اعضای جامعه که می‌توانند تجربه یا دانش مرتبط ارائه دهند.</p>
           </article>
 
           <article class="story-area">
-            <h3>Emploi et intégration professionnelle</h3>
-            <p>Soutien pour les CV et candidatures, communication professionnelle, réseautage, recherche d’emploi et orientation vers des ressources professionnelles.</p>
+            <h3>اشتغال و توسعهٔ حرفه‌ای</h3>
+            <p>کمک در رزومه و درخواست‌های شغلی، ارتباط حرفه‌ای، شبکه‌سازی، جست‌وجوی کار و اتصال به منابع اشتغال و حرفه‌ای.</p>
           </article>
 
           <article class="story-area">
-            <h3>Accompagnement pratique</h3>
-            <p>Soutien dans des démarches administratives, institutionnelles ou de santé, préparation de questions, compréhension des procédures et présence lorsqu’un accompagnement de confiance est nécessaire.</p>
+            <h3>همراهی عملی</h3>
+            <p>حمایت در روندهای اداری، نهادی و درمانی، آماده‌کردن پرسش‌ها، درک روندها و همراهی در مواقعی که حضور یک فرد مورد اعتماد لازم است.</p>
           </article>
 
           <article class="story-area">
-            <h3>Entraide et partage de ressources</h3>
-            <p>Mise en relation de personnes pouvant s’entraider, partage d’informations pratiques et redistribution de biens et de ressources utiles.</p>
+            <h3>همیاری و اشتراک منابع</h3>
+            <p>اتصال افرادی که می‌توانند به یکدیگر کمک کنند، اشتراک اطلاعات عملی و توزیع دوباره وسایل و منابع مفید میان اعضای جامعه.</p>
           </article>
 
           <article class="story-area">
-            <h3>Culture et liens communautaires</h3>
-            <p>Activités culturelles, rencontres communautaires, foires du livre et événements de solidarité favorisant l’appartenance, les liens et l’entraide.</p>
+            <h3>فرهنگ و ارتباط اجتماعی</h3>
+            <p>فعالیت‌های فرهنگی، گردهمایی‌های اجتماعی، نمایشگاه‌های کتاب و برنامه‌های همبستگی برای تقویت احساس تعلق، ارتباط و حمایت متقابل.</p>
           </article>
 
           <article class="story-area">
-            <h3>Soutien dans les situations difficiles</h3>
-            <p>Accompagnement pratique, soutien à la communication et orientation pour les personnes confrontées au harcèlement, à la discrimination, à la violence ou à d’autres situations de vulnérabilité.</p>
+            <h3>حمایت در موقعیت‌های دشوار</h3>
+            <p>همراهی عملی، حمایت ارتباطی و ارجاع افرادی که با آزار، تبعیض، خشونت یا شرایط آسیب‌پذیر روبه‌رو هستند، همراه با اتصال آن‌ها به خدمات تخصصی مناسب.</p>
           </article>
 
           <article class="story-area">
-            <h3>Besoins communautaires et représentation</h3>
-            <p>Repérage des obstacles récurrents, documentation des préoccupations communautaires et communication de ces tendances aux institutions et organisations concernées.</p>
+            <h3>نیازهای جامعه و پیگیری مسائل</h3>
+            <p>شناسایی موانع تکرارشونده، مستندسازی نگرانی‌های جامعه و انتقال این الگوها به نهادها، سازمان‌ها و تصمیم‌گیران مرتبط.</p>
           </article>
         </div>
       </div>
@@ -666,21 +718,23 @@
 
     <section class="story-section">
       <div class="container">
-        <p class="eyebrow">Quelques jalons</p>
-        <h2>Quelques activités qui ont contribué à façonner l’idée</h2>
+        <p class="eyebrow">چند نقطه مهم</p>
+        <h2>بخشی از فعالیت‌هایی که این ایده را شکل دادند</h2>
 
         <div class="milestone-grid">
-          <div class="milestone"><strong>90+</strong><span>membres dans le réseau de soutien étudiant</span></div>
-          <div class="milestone"><strong>4</strong><span>événements communautaires de Norouz</span></div>
-          <div class="milestone"><strong>2</strong><span>foires du livre communautaires</span></div>
-          <div class="milestone"><strong>2</strong><span>rencontres de solidarité étudiante</span></div>
+          <div class="milestone"><strong>۹۰+</strong><span>عضو در شبکه حمایت دانشجویی</span></div>
+          <div class="milestone"><strong>۴</strong><span>رویداد اجتماعی نوروز</span></div>
+          <div class="milestone"><strong>۱</strong><span>رویداد اجتماعی یلدا</span></div>
+          <div class="milestone"><strong>۲</strong><span>نمایشگاه کتاب اجتماعی</span></div>
+          <div class="milestone"><strong>۴</strong><span>گردهمایی همبستگی دانشجویی</span></div>
         </div>
 
         <div class="story-copy" style="margin-top: 34px;">
           <p>
-            Les activités culturelles et sociales n’ont jamais été séparées du soutien communautaire.
-            Elles sont souvent devenues des espaces où les personnes se rencontrent, bâtissent la confiance,
-            partagent de l’information, trouvent des mentors et développent des relations durables.
+            فعالیت‌های فرهنگی و اجتماعی هیچ‌وقت از حمایت اجتماعی جدا نبودند.
+            این فضاها اغلب به جایی تبدیل شدند که افراد یکدیگر را پیدا کردند،
+            اعتماد ساختند، اطلاعات ردوبدل کردند، منتور پیدا کردند
+            و ارتباط‌هایی شکل دادند که مدت‌ها بعد از خود رویداد ادامه پیدا کرد.
           </p>
         </div>
       </div>
@@ -689,33 +743,33 @@
 
     <section class="story-section alt">
       <div class="container">
-        <p class="eyebrow">Ce que ce travail m’a appris</p>
-        <h2>Le soutien communautaire va au-delà de l’information</h2>
+        <p class="eyebrow">چیزی که این تجربه به من آموخت</p>
+        <h2>حمایت اجتماعی چیزی فراتر از دادن اطلاعات است</h2>
 
         <div class="story-principles">
           <article class="principle">
-            <h3>Les personnes ont besoin de liens de confiance</h3>
-            <p>L’information devient plus utile lorsqu’on sait aussi vers qui se tourner et qui peut aider à comprendre la prochaine étape.</p>
+            <h3>آدم‌ها به ارتباط‌های قابل اعتماد نیاز دارند</h3>
+            <p>اطلاعات زمانی مفیدتر می‌شود که فرد بداند از چه کسی می‌تواند سؤال کند، کجا می‌تواند مراجعه کند و چه کسی می‌تواند گام بعدی را برایش روشن‌تر کند.</p>
           </article>
 
           <article class="principle">
-            <h3>Le soutien doit renforcer l’autonomie</h3>
-            <p>Le but n’est pas de créer une dépendance envers une personne ou une organisation, mais d’aider chacun à comprendre les systèmes et à bâtir son propre réseau.</p>
+            <h3>حمایت باید استقلال را تقویت کند</h3>
+            <p>هدف ایجاد وابستگی به یک شخص یا سازمان نیست؛ هدف این است که افراد سیستم‌ها را بهتر بشناسند و شبکه خودشان را بسازند.</p>
           </article>
 
           <article class="principle">
-            <h3>Le soutien doit circuler</h3>
-            <p>Une personne qui reçoit de l’aide aujourd’hui peut demain devenir mentor, bénévole, personne-ressource ou contact de confiance pour quelqu’un d’autre.</p>
+            <h3>حمایت باید در جامعه جریان داشته باشد</h3>
+            <p>کسی که امروز کمک دریافت می‌کند، ممکن است فردا منتور، داوطلب، فرد مرجع یا همراه قابل اعتماد شخص دیگری باشد.</p>
           </article>
         </div>
 
         <div class="story-connections">
-          <h3>Au cœur de cette approche se trouvent les liens :</h3>
-          <span class="connection-line">relier les <strong>personnes à l’information</strong></span>
-          <span class="connection-line">relier les <strong>personnes aux services</strong></span>
-          <span class="connection-line">relier les <strong>personnes aux institutions</strong></span>
-          <span class="connection-line">relier les <strong>personnes aux possibilités</strong></span>
-          <span class="connection-line">et surtout, relier les <strong>personnes entre elles</strong></span>
+          <h3>در مرکز این نگاه، ارتباط قرار دارد</h3>
+          <span class="connection-line">ارتباط <strong>آدم‌ها با اطلاعات</strong></span>
+          <span class="connection-line">ارتباط <strong>آدم‌ها با خدمات</strong></span>
+          <span class="connection-line">ارتباط <strong>آدم‌ها با نهادها</strong></span>
+          <span class="connection-line">ارتباط <strong>آدم‌ها با فرصت‌ها</strong></span>
+          <span class="connection-line">و مهم‌تر از همه، ارتباط <strong>آدم‌ها با یکدیگر</strong></span>
         </div>
       </div>
     </section>
@@ -723,59 +777,60 @@
 
     <section class="story-section">
       <div class="container story-copy">
-        <p class="eyebrow">Notre rôle</p>
-        <h2>Créer des liens, orienter et accompagner — sans remplacer les services professionnels</h2>
+        <p class="eyebrow">نقش ما</p>
+        <h2>ارتباط، راهنمایی و همراهی — نه جایگزینی برای خدمات تخصصی</h2>
 
         <p>
-          Le travail communautaire derrière DIDAR se situe à l’intersection de l’information,
-          de l’accompagnement, du mentorat, du réseautage, de l’organisation communautaire,
-          de la communication interculturelle et de l’entraide pratique.
+          فعالیت اجتماعی پشت دیدار در فضایی میان اطلاع‌رسانی، همراهی، منتورینگ،
+          شبکه‌سازی، سازمان‌دهی اجتماعی، ارتباط بین‌فرهنگی و همیاری عملی قرار می‌گیرد.
         </p>
 
         <p>
-          DIDAR ne se présente pas comme un fournisseur de conseils professionnels en immigration,
-          en droit, en médecine, en psychologie ou en travail social.
+          دیدار خود را ارائه‌دهنده مشاوره تخصصی مهاجرتی، حقوقی، پزشکی،
+          روان‌شناختی یا مددکاری اجتماعی معرفی نمی‌کند.
         </p>
 
         <p>
-          Lorsqu’une intervention spécialisée est nécessaire, le rôle de DIDAR est d’aider les personnes
-          à repérer les professionnels et organismes qualifiés appropriés et à entrer en contact avec eux.
+          هر زمان مداخله تخصصی لازم باشد، نقش دیدار کمک به افراد برای پیدا کردن
+          و ارتباط با متخصصان و سازمان‌های واجد صلاحیت است.
         </p>
 
         <div class="note">
-          <strong>Ce que DIDAR peut offrir :</strong>
-          orientation, repérage de ressources, références, mentorat, aide pratique,
-          soutien à la communication, liens communautaires, accompagnement et suivi.
+          <strong>دیدار چه چیزهایی می‌تواند ارائه دهد:</strong>
+          راهنمایی، شناسایی منابع، ارجاع، منتورینگ، کمک عملی،
+          حمایت ارتباطی، پیوندهای اجتماعی، همراهی و پیگیری.
         </div>
       </div>
     </section>
 
 
-    <section class="story-section alt">
+    <section class="story-section alt" id="story-purpose">
       <div class="container story-copy">
-        <p class="eyebrow">Pourquoi DIDAR</p>
-        <h2>Donner une structure plus durable à une culture d’entraide</h2>
+        <p class="eyebrow">چرا دیدار</p>
+        <h2>دادن یک ساختار پایدارتر به فرهنگ همیاری</h2>
 
         <p>
-          Avec le temps, les gestes individuels d’aide ont révélé quelque chose de plus large :
-          une communauté possède déjà des connaissances, des expériences, des compétences,
-          des relations et des ressources qui deviennent beaucoup plus puissantes lorsqu’elles sont reliées.
+          با گذشت زمان، کمک‌های فردی چیز بزرگ‌تری را نشان دادند:
+          یک جامعه از قبل دانش، تجربه، مهارت، ارتباط و منابعی در خود دارد
+          که وقتی به یکدیگر متصل می‌شوند بسیار قدرتمندتر می‌شوند.
         </p>
 
         <p>
-          DIDAR cherche à faire grandir ces liens : créer un espace où les personnes peuvent trouver du soutien
-          lorsqu’elles en ont besoin, contribuer lorsqu’elles le peuvent, préserver culture et mémoire,
-          apprendre, créer et participer plus pleinement aux communautés qui les entourent.
+          دیدار تلاشی است برای رشد دادن این ارتباط‌ها:
+          فضایی که افراد بتوانند هنگام نیاز حمایت پیدا کنند،
+          وقتی توانش را دارند مشارکت کنند، فرهنگ و حافظه را حفظ کنند،
+          یاد بگیرند، خلق کنند و حضور فعال‌تری در جامعه داشته باشند.
         </p>
 
         <p>
-          Le but n’est pas de placer une seule personne au centre de tous les besoins.
-          Il s’agit plutôt de construire des structures dans lesquelles connaissances, soutien et relations peuvent circuler,
-          de sorte qu’une personne aidée aujourd’hui puisse devenir demain une source de soutien pour quelqu’un d’autre.
+          هدف این نیست که یک نفر در مرکز همه نیازها قرار بگیرد.
+          هدف ساختن ساختارهایی است که در آن دانش، حمایت و ارتباط بتواند گردش کند؛
+          به‌گونه‌ای که کسی که امروز کمک دریافت می‌کند،
+          فردا بتواند منبع حمایت برای شخص دیگری باشد.
         </p>
 
         <div class="story-highlight">
-          <strong>DIDAR repose sur un principe simple : le soutien doit circuler.</strong>
+          <strong>دیدار بر یک اصل ساده بنا شده است: حمایت باید در جامعه جریان داشته باشد.</strong>
         </div>
       </div>
     </section>
@@ -783,20 +838,18 @@
 
     <section class="story-section story-cta">
       <div class="container">
-        <p class="eyebrow">DIDAR</p>
-        <h2>Racines · Croissance · Liens</h2>
+        <p class="eyebrow">دیدار</p>
+  
 
-        <p>
-          Découvrez le soutien communautaire de DIDAR, ses programmes actuels
-          et les trois piliers qui orientent son développement.
-        </p>
+        <p>با خدمات، پروژه‌ها و برنامه‌های جاری دیدار آشنا شوید و در صورت تمایل به ما بپیوندید.</p>
 
         <div class="actions" style="justify-content:center;">
-          <a class="button primary" href="../index.html#support">Soutien communautaire</a>
-          <a class="button secondary" href="../index.html#programs">Programmes et projets</a>
+          <a class="button primary" href="../index.html#support">راهنمایی و همراهی</a>
+          <a class="button secondary" href="../projects/">پروژه‌ها</a>
+          <a class="button secondary" href="../activities/">برنامه‌ها و فعالیت‌ها</a>
         </div>
 
-        <a class="back-link" href="../index.html">← Retour à DIDAR</a>
+        <a class="back-link" href="../index.html">بازگشت به دیدار ←</a>
       </div>
     </section>
 
@@ -804,8 +857,7 @@
 
   <footer>
     <div class="container footer-wrap">
-      <p>© <span id="year"></span> DIDAR. Tous droits réservés.</p>
-      <p>Dialogue · Inclusion · Diversité · Arts · Relations</p>
+      <p>© <span id="year"></span> DIDAR. تمامی حقوق محفوظ است.</p>
     </div>
   </footer>
 
