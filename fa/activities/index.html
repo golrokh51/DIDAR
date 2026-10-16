@@ -13,6 +13,7 @@
   <title>فعالیت‌ها | دیدار</title>
 
   <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../persian-enhancements.css" />
 
   <style>
     html[lang="fa"] body {
@@ -56,6 +57,8 @@
       font: inherit;
     }
 
+    .activity-toolbar-group { margin-top:1rem; }
+    .activity-toolbar-label { margin:0 0 -.6rem; font-weight:700; font-size:.94rem; }
     .activity-filter[aria-pressed="true"] {
       background: var(--ink, #17324D);
       color: #fff;
@@ -244,6 +247,7 @@
 
 
 <body>
+  <a class="skip-link" href="#top">رفتن به محتوای اصلی</a>
 
   <!-- HEADER -->
 
@@ -275,6 +279,16 @@
           <a href="./" aria-current="page">فعالیت‌ها</a>
           <a href="../#contact">تماس</a>
         </nav>
+<details class="mobile-navigation"><summary aria-label="باز کردن منوی اصلی">☰ منو</summary>
+  <nav aria-label="منوی موبایل">
+    <a href="../">خانه</a>
+    <a href="../story/">داستان ما</a>
+    <a href="../#support">راهنمایی و همراهی</a>
+    <a href="../projects/">پروژه‌ها</a>
+    <a href="../activities/">فعالیت‌ها</a>
+    <a href="../#contact">تماس</a>
+  </nav>
+</details>
 
       </div>
 
@@ -320,11 +334,14 @@
         <h2>نشست‌ها و فعالیت‌های ثبت‌شده</h2>
         <p>هر نشست با تاریخ، وضعیت برگزاری و همکاران خودش ثبت می‌شود؛ هم نشست‌های آینده و هم نشست‌های برگزارشده.</p>
 
-        <div
-          id="activity-filters"
-          class="activity-toolbar"
-          aria-label="فیلتر فعالیت‌ها"
-        ></div>
+        <div class="activity-toolbar-group">
+          <p class="activity-toolbar-label">وضعیت نشست</p>
+          <div id="status-filters" class="activity-toolbar" role="group" aria-label="فیلتر براساس وضعیت"></div>
+        </div>
+        <div class="activity-toolbar-group">
+          <p class="activity-toolbar-label">نوع فعالیت</p>
+          <div id="activity-filters" class="activity-toolbar" role="group" aria-label="فیلتر براساس نوع فعالیت"></div>
+        </div>
 
         <div id="activities-container"></div>
 
@@ -374,6 +391,9 @@
 
   const toolbar =
     document.getElementById("activity-filters");
+  const statusToolbar = document.getElementById("status-filters");
+  let chosenType = "all";
+  let chosenStatus = "all";
 
   const empty =
     document.getElementById("activities-empty");
@@ -536,131 +556,65 @@
   }
 
 
+  const statusLabelsFilter = {
+    all: "همهٔ وضعیت‌ها",
+    upcoming: "آینده و برنامه‌ریزی‌شده",
+    completed: "برگزارشده",
+    other: "لغوشده و به‌تعویق‌افتاده"
+  };
+
   function renderFilters() {
-
-    toolbar.innerHTML =
-      availableTypes().map((type, index) => `
-
-        <button
-          class="activity-filter"
-          type="button"
-          data-filter="${escapeHtml(type)}"
-          aria-pressed="${index === 0 ? "true" : "false"}"
-        >
-          ${escapeHtml(typeLabels[type] || type)}
-        </button>
-
-      `).join("");
-
-
-    toolbar
-      .querySelectorAll(".activity-filter")
-      .forEach(button => {
-
-        button.addEventListener("click", () => {
-
-          toolbar
-            .querySelectorAll(".activity-filter")
-            .forEach(item =>
-              item.setAttribute(
-                "aria-pressed",
-                "false"
-              )
-            );
-
-          button.setAttribute(
-            "aria-pressed",
-            "true"
-          );
-
-          renderActivities(
-            button.dataset.filter
-          );
-
-        });
-
-      });
-
+    const types=availableTypes();
+    toolbar.innerHTML = types.map(type => `
+      <button class="activity-filter" type="button" data-filter="${escapeHtml(type)}"
+        aria-pressed="${chosenType === type}">${escapeHtml(typeLabels[type] || type)}</button>`).join("");
+    statusToolbar.innerHTML = Object.entries(statusLabelsFilter).map(([key, label]) => `
+      <button class="activity-filter" type="button" data-status="${key}"
+        aria-pressed="${chosenStatus === key}">${label}</button>`).join("");
+    toolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+      chosenType = button.dataset.filter;
+      renderFilters(); renderActivities();
+    }));
+    statusToolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+      chosenStatus = button.dataset.status;
+      renderFilters(); renderActivities();
+    }));
   }
 
-
-  function renderActivities(filter = "all") {
-
-    let activities = currentActivities.filter(activity => activity.visible !== false);
-
-
-    if (filter !== "all") {
-
-      activities =
-        activities.filter(
-          activity =>
-            activity.type === filter
-        );
-
-    }
-
-
-    activities.sort(
-      (a, b) =>
-        (b.date || "")
-          .localeCompare(a.date || "")
-    );
-
-
+  function renderActivities() {
+    let activities=currentActivities.filter(activity => activity.visible !== false);
+    if (chosenType !== "all") activities=activities.filter(activity => activity.type===chosenType);
+    if (chosenStatus === "upcoming") activities=activities.filter(activity => ["upcoming","scheduled"].includes(activity.status));
+    if (chosenStatus === "completed") activities=activities.filter(activity => activity.status === "completed");
+    if (chosenStatus === "other") activities=activities.filter(activity => ["cancelled","postponed"].includes(activity.status));
     if (!activities.length) {
-
-      container.innerHTML = "";
-      empty.style.display = "block";
-
+      container.innerHTML="";
+      empty.textContent = chosenStatus === "upcoming"
+        ? "هنوز نشستی با تاریخ مشخص ثبت نشده است. زمان‌بندی کلی برنامه‌ها را در بخش بالا ببینید."
+        : "فعالیتی با این فیلتر پیدا نشد.";
+      empty.style.display="block";
       return;
-
     }
-
-
-    empty.style.display = "none";
-
-
-    const groups = {};
-
-
-    activities.forEach(activity => {
-
-      const year =
-        getYear(activity);
-
-      if (!groups[year]) {
-        groups[year] = [];
-      }
-
-      groups[year].push(activity);
-
-    });
-
-
-    container.innerHTML =
-      Object.entries(groups)
-        .map(([year, yearActivities]) => `
-
-          <section class="activity-year">
-
-            <div class="activity-year-heading">
-              <h2>${year}</h2>
-            </div>
-
-            <div class="activities-grid">
-
-              ${yearActivities
-                .map(renderActivityCard)
-                .join("")}
-
-            </div>
-
-          </section>
-
-        `).join("");
-
+    empty.style.display="none";
+    // Highlight upcoming sessions first; keep completed events in newest-first order.
+    const rank=a => ["scheduled","upcoming"].includes(a.status) ? 0 : a.status === "completed" ? 1 : 2;
+    activities.sort((a,b) => rank(a)-rank(b) || (rank(a) === 0
+      ? (a.date || "9999").localeCompare(b.date || "9999")
+      : (b.date || "").localeCompare(a.date || "")));
+    const groups=[];
+    for (const activity of activities) {
+      const groupName = rank(activity) === 0 ? "نشست‌های آینده" : rank(activity) === 1
+        ? "برگزارشده · " + getYear(activity).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[+d])
+        : "لغوشده یا به‌تعویق‌افتاده";
+      let group=groups.find(item => item.title === groupName);
+      if (!group) { group={title:groupName,items:[]}; groups.push(group); }
+      group.items.push(activity);
+    }
+    container.innerHTML=groups.map(group => `<section class="activity-year">
+      <div class="activity-year-heading"><h2>${escapeHtml(group.title)}</h2></div>
+      <div class="activities-grid">${group.items.map(renderActivityCard).join("")}</div>
+    </section>`).join("");
   }
-
 
   function secureLink(link) {
     try {
@@ -835,6 +789,12 @@
     renderPrograms();
     renderFilters();
     renderActivities();
+    // Cards are generated asynchronously: scroll to a linked program/session after rendering.
+    if (location.hash) {
+      const id = decodeURIComponent(location.hash.slice(1));
+      const target = document.getElementById(id);
+      if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+    }
   }
 
   initActivities();
