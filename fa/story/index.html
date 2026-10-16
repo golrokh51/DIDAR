@@ -6,6 +6,7 @@
   <meta name="description" content="داستان شکل‌گیری دیدار — از همراهی اجتماعی و شبکه حمایت از دانشجویان تا فرهنگ همیاری، ارتباط و مشارکت در مونترآل." />
   <title>داستان ما | دیدار</title>
   <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../persian-enhancements.css" />
   <style>
 
     /* =========================================
@@ -336,6 +337,7 @@
 </head>
 
 <body>
+  <a class="skip-link" href="#top">رفتن به محتوای اصلی</a>
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="../index.html" aria-label="صفحه اصلی دیدار">
@@ -355,8 +357,19 @@
           <a href="./" aria-current="page">داستان ما</a>
           <a href="../#support">راهنمایی و همراهی</a>
           <a href="../projects/">پروژه‌ها</a>
+          <a href="../activities/">فعالیت‌ها</a>
           <a href="../#contact">تماس</a>
         </nav>
+<details class="mobile-navigation"><summary aria-label="باز کردن منوی اصلی">☰ منو</summary>
+  <nav aria-label="منوی موبایل">
+    <a href="../">خانه</a>
+    <a href="../story/">داستان ما</a>
+    <a href="../#support">راهنمایی و همراهی</a>
+    <a href="../projects/">پروژه‌ها</a>
+    <a href="../activities/">فعالیت‌ها</a>
+    <a href="../#contact">تماس</a>
+  </nav>
+</details>
       </div>
     </div>
   </header>
@@ -379,12 +392,25 @@
             چیزی که با کمک‌های فردی شروع شد، کم‌کم به شبکه‌ای تبدیل شد
             که در آن افراد اطلاعات، تجربه، وقت و حمایت عملی خود را با یکدیگر به اشتراک می‌گذارند.
           </p>
+
+          <div class="story-at-glance">
+            <h2>داستان ما، در یک نگاه</h2>
+            <p>این روایت از تجربه‌های فردی همراهی آغاز می‌شود و به شکل‌گیری دیدار به‌عنوان فضایی برای همیاری، فرهنگ و یادگیری می‌رسد. می‌توانید خلاصهٔ مسیر را ببینید یا داستان کامل را بخوانید.</p>
+            <nav class="story-quicklinks" aria-label="پرش به بخش‌های داستان">
+              <a href="#starting-point">حدود ۲۰۱۷؛ آغاز همراهی</a>
+              <a href="#growing-network">گسترش شبکهٔ همیاری</a>
+              <a href="#story-timeline">مسیر شکل‌گیری دیدار</a>
+              <a href="#story-purpose">چشم‌انداز دیدار</a>
+            </nav>
+          </div>
+          <p class="story-content-note" role="note">یادداشت محتوا: در بخشی از این روایت به تجربه‌های آزار جنسی اشاره شده است؛ بدون ذکر جزئیات آسیب‌زا.</p>
+
         </div>
       </div>
     </section>
 
 
-    <section class="story-section">
+    <section class="story-section" id="starting-point">
       <div class="container story-copy">
         <p class="eyebrow">نقطه عطف</p>
         <h2>حدود سال ۲۰۱۷، رابطه من با جامعه تغییر کرد</h2>
@@ -425,7 +451,7 @@
     </section>
 
 
-    <section class="story-section alt">
+    <section class="story-section alt" id="growing-network">
       <div class="container story-copy">
         <p class="eyebrow">شکل‌گیری شبکه حمایتی</p>
         <h2>یک مشکل مشخص، به یک شبکه اجتماعی گسترده‌تر تبدیل شد</h2>
@@ -454,7 +480,7 @@
           <li>اتصال دانشجویان به خدمات و منابع دانشگاه</li>
           <li>همراهی در مسائل تبعیض یا مشکلات محیط دانشگاه</li>
           <li>مسائل مربوط به کار و زندگی روزمره در کانادا</li>
-          <li>مشکلات خانوادگی یا شخصی</li>
+          <li>مسائل خانوادگی یا شخصی</li>
           <li>پیدا کردن منابع درمانی یا اجتماعی مناسب</li>
           <li>حضور و حمایت در دوره‌های دشوار</li>
           <li>کمک تحصیلی وقتی رشته دانشجو به حوزه تخصصی من نزدیک بود</li>
@@ -582,7 +608,7 @@
     </section>
 
 
-    <section class="story-section">
+    <section class="story-section" id="story-timeline">
       <div class="container">
         <p class="eyebrow">مسیر رسیدن به دیدار</p>
         <h2>از یک تجربه همراهی تا یک چشم‌انداز گسترده‌تر اجتماعی</h2>
@@ -652,12 +678,12 @@
           </article>
 
           <article class="story-area">
-            <h3>منتورینگ و شبکه‌های قابل اعتماد</h3>
+            <h3>راهنمایی (منتورینگ) و شبکه‌های قابل اعتماد</h3>
             <p>اتصال افراد به دانشجویان باتجربه، پژوهشگران، متخصصان، داوطلبان، منتورها و اعضای جامعه که می‌توانند تجربه یا دانش مرتبط ارائه دهند.</p>
           </article>
 
           <article class="story-area">
-            <h3>اشتغال و ادغام حرفه‌ای</h3>
+            <h3>اشتغال و توسعهٔ حرفه‌ای</h3>
             <p>کمک در رزومه و درخواست‌های شغلی، ارتباط حرفه‌ای، شبکه‌سازی، جست‌وجوی کار و اتصال به منابع اشتغال و حرفه‌ای.</p>
           </article>
 
@@ -778,7 +804,7 @@
     </section>
 
 
-    <section class="story-section alt">
+    <section class="story-section alt" id="story-purpose">
       <div class="container story-copy">
         <p class="eyebrow">چرا دیدار</p>
         <h2>دادن یک ساختار پایدارتر به فرهنگ همیاری</h2>
@@ -815,14 +841,12 @@
         <p class="eyebrow">دیدار</p>
   
 
-        <p>
-          با حمایت اجتماعی دیدار، برنامه‌های جاری
-         که مسیر توسعه آن را شکل می‌دهند آشنا شوید.
-        </p>
+        <p>با خدمات، پروژه‌ها و برنامه‌های جاری دیدار آشنا شوید و در صورت تمایل به ما بپیوندید.</p>
 
         <div class="actions" style="justify-content:center;">
           <a class="button primary" href="../index.html#support">راهنمایی و همراهی</a>
           <a class="button secondary" href="../projects/">پروژه‌ها</a>
+          <a class="button secondary" href="../activities/">برنامه‌ها و فعالیت‌ها</a>
         </div>
 
         <a class="back-link" href="../index.html">بازگشت به دیدار ←</a>
