@@ -58,18 +58,31 @@
       // Do not pass Persian tags through to the English/French interface.
       result.tags = list(local.tags, /\|/);
     }
+    result.hosts = collaborators(fromSheet.hosts);
+    if (!result.hosts.length) result.hosts = collaborators(localTranslation.hosts);
+    if (!result.hosts.length) result.hosts = collaborators(local.hosts);
+    // The order of host names is shared across language columns in the Sheet.
+    const originalHosts = collaborators(record.hosts);
+    result.hosts = result.hosts.map((item, index) => ({
+      ...item,
+      url: item.url || originalHosts[index]?.url || ""
+    }));
+
     result.collaborators = collaborators(fromSheet.collaborators);
     if (!result.collaborators.length) result.collaborators = collaborators(localTranslation.collaborators);
     if (!result.collaborators.length) result.collaborators = collaborators(local.collaborators);
     if (kind === "session" && !result.collaborators.length && result.partner) {
-      result.collaborators = [{ name: result.partner, url: "" }];
+      result.collaborators = result.hosts.length
+        ? [] // A named host should not also appear as a duplicate partner.
+        : [{ name: result.partner, url: str(record.partnerUrl) }];
     }
     // Preserve shared collaborator URLs even when the translated names are
     // supplied by a saved local copy rather than a populated Sheet column.
     const originalPartners = collaborators(record.collaborators);
     result.collaborators = result.collaborators.map((item, index) => ({
       ...item,
-      url: item.url || originalPartners[index]?.url || ""
+      url: item.url || originalPartners[index]?.url ||
+        (kind === "session" && item.name === result.partner ? str(record.partnerUrl) : "")
     }));
     return result;
   }

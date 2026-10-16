@@ -78,6 +78,9 @@
     .collaborator-links { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .4rem .65rem; }
     .collaborator-links a { color: var(--teal, #2D6F6D); font-weight: 600; text-decoration: underline; text-underline-offset: .18rem; }
     .collaborator-links span { font-weight: 600; }
+    .collaborator-links a:hover { color: var(--ink, #17324D); }
+    .collaborator-links a:focus-visible { outline: 2px solid #B9913B; outline-offset: 3px; border-radius: 2px; }
+
     .program-collaborators { margin-top: .2rem; font-size: .94rem; }
     .program-sessions { margin-top: .3rem; padding-top: .8rem; border-top: 1px solid rgba(23, 50, 77, .12); }
     .program-sessions summary { cursor: pointer; font-weight: 700; color: var(--ink, #17324D); }
@@ -284,24 +287,46 @@
     return `<span class="session-status" data-status="${safeStatus}">${sessionStatusLabels[safeStatus]}</span>`;
   }
 
+  function hostItems(record) {
+    return Array.isArray(record.hosts)
+      ? record.hosts.filter(item => item && item.name)
+      : [];
+  }
+
   function collaboratorItems(record) {
+    const hosts = hostItems(record);
+    const isHost = item => hosts.some(host =>
+      host.name.trim().toLocaleLowerCase() === item.name.trim().toLocaleLowerCase() ||
+      (host.url && item.url && host.url === item.url));
     if (Array.isArray(record.collaborators) && record.collaborators.length) {
-      return record.collaborators.filter(item => item && item.name);
+      return record.collaborators.filter(item => item && item.name && !isHost(item));
     }
-    // Backwards-compatible: existing Sessions tab may only have partner_fa.
-    return record.partner ? [{ name: record.partner, url: "" }] : [];
+    // Backwards compatibility: partner_fa/en/fr plus shared partner_url.
+    const fallback = record.partner
+      ? { name: record.partner, url: record.partnerUrl || "" }
+      : null;
+    return fallback && !isHost(fallback) ? [fallback] : [];
+  }
+
+  function renderOrganizationLinks(items, className = "") {
+    if (!items.length) return "";
+    return `<span class="collaborator-links ${className}">${items.map(item => {
+      const link = /^https?:\/\//i.test(String(item.url || "").trim())
+        ? secureLink(item.url) : "";
+      const name = escapeHtml(item.name);
+      const label = "Visit {name} website (opens in a new tab)".replace("{name}", item.name);
+      return link
+        ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(label)}">${name} <span aria-hidden="true">↗</span></a>`
+        : `<span>${name}</span>`;
+    }).join("")}</span>`;
   }
 
   function renderCollaborators(record, className = "") {
-    const items = collaboratorItems(record);
-    if (!items.length) return "";
-    return `<span class="collaborator-links ${className}">${items.map(item => {
-      const link = secureLink(item.url);
-      const name = escapeHtml(item.name);
-      return link
-        ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">${name} ↗</a>`
-        : `<span>${name}</span>`;
-    }).join("")}</span>`;
+    return renderOrganizationLinks(collaboratorItems(record), className);
+  }
+
+  function renderHosts(record, className = "") {
+    return renderOrganizationLinks(hostItems(record), className);
   }
 
   function sessionsOfProgram(programId) {
@@ -328,6 +353,7 @@
             <span>${escapeHtml(formatDate(session.date) || "Date to be announced")}</span>
           </div>
           <a href="#session-${escapeHtml(session.id)}">${escapeHtml(session.title)}</a>
+          ${hostItems(session).length ? `<div class="session-collaborators"><strong>Hosted by:</strong> ${renderHosts(session)}</div>` : ""}
           ${collaboratorItems(session).length ? `<div class="session-collaborators"><strong>In collaboration with:</strong> ${renderCollaborators(session)}</div>` : ""}
         </li>`).join("")}</ul>
     </details>`;
@@ -349,6 +375,7 @@
           ${p.audience ? `<p class="program-meta"><strong>Audience:</strong> ${escapeHtml(p.audience)}</p>` : ""}
           ${(p.languages || []).length ? `<p class="program-meta"><strong>Languages:</strong> ${escapeHtml(p.languages.join(", "))}</p>` : ""}
           ${p.schedule ? `<p class="program-meta"><strong>Schedule:</strong> ${escapeHtml(p.schedule)}</p>` : ""}
+          ${hostItems(p).length ? `<p class="program-collaborators"><strong>Program hosts:</strong> ${renderHosts(p)}</p>` : ""}
           ${collaboratorItems(p).length ? `<p class="program-collaborators"><strong>Program partners:</strong> ${renderCollaborators(p)}</p>` : ""}
           ${topicBadges ? `<div class="program-topics">${topicBadges}</div>` : ""}
           ${renderProgramSessions(programSessions)}
@@ -554,6 +581,10 @@
               `
               : ""
           }
+          ${hostItems(activity).length
+            ? `<p><strong>Hosted by:</strong> ${renderHosts(activity)}</p>`
+            : ""}
+
 
 
           ${

@@ -100,6 +100,25 @@ def parse_collaborators(value: str) -> list[dict[str, str]]:
     return collaborators
 
 
+def event_collaborators(row: dict[str, str], language: str) -> list[dict[str, str]]:
+    """Prefer explicit named collaborators; retain legacy partner text and URL."""
+    named = parse_collaborators(get_value(row, "collaborators", language))
+    partner = get_value(row, "partner", language).strip()
+    partner_url = safe_url(row.get("partner_url", ""))
+    if named:
+        # Existing worksheets often repeat the partner name in collaborators_XX
+        # without a URL. A shared partner_url should link that same name.
+        for item in named:
+            if partner and item["name"].casefold() == partner.casefold() and not item["url"]:
+                item["url"] = partner_url
+        return named
+    fallback = parse_collaborators(partner)
+    # partner_url is a shared, language-independent URL, not a translated string.
+    if len(fallback) == 1 and not fallback[0]["url"]:
+        fallback[0]["url"] = safe_url(row.get("partner_url", ""))
+    return fallback
+
+
 def visible(value: str) -> bool:
     return value.strip().casefold() not in ("false", "no", "0", "hidden", "off")
 
@@ -136,12 +155,16 @@ def program_from_row(row: dict[str, str]) -> dict:
         "languages": [x.strip() for x in re.split("[،|]", get_value(row, "languages", fa)) if x.strip()],
         "topics": split_list(get_value(row, "topics", fa)),
         "collaborators": parse_collaborators(get_value(row, "collaborators", fa)),
+        "hosts": parse_collaborators(get_value(row, "hosts", fa)),
         "visible": visible(row.get("visible", "")),
         "sortOrder": int(row.get("sort_order") or "999"),
         "translations": {language: {
             key: get_value(row, key, language)
             for key in ("title", "subtitle", "description", "status", "schedule", "audience", "languages", "topics")
-        } | {"collaborators": parse_collaborators(get_value(row, "collaborators", language))}
+        } | {
+            "collaborators": parse_collaborators(get_value(row, "collaborators", language)),
+            "hosts": parse_collaborators(get_value(row, "hosts", language)),
+        }
         for language in LOCALES},
         "translationReview": {language: row.get(f"review_{language}", "") for language in LOCALES},
     }
@@ -162,8 +185,9 @@ def session_from_row(row: dict[str, str]) -> dict:
         "subtitle": get_value(row, "subtitle", fa),
         "type": row.get("type", "event"),
         "partner": get_value(row, "partner", fa),
-        "collaborators": parse_collaborators(get_value(row, "collaborators", fa)) or
-            parse_collaborators(get_value(row, "partner", fa)),
+        "partnerUrl": safe_url(row.get("partner_url", "")),
+        "collaborators": event_collaborators(row, fa),
+        "hosts": parse_collaborators(get_value(row, "hosts", fa)),
         "location": get_value(row, "location", fa),
         "role": get_value(row, "role", fa),
         "summary": get_value(row, "summary", fa),
@@ -176,8 +200,10 @@ def session_from_row(row: dict[str, str]) -> dict:
         "translations": {language: {
             key: get_value(row, key, language)
             for key in ("title", "subtitle", "partner", "location", "role", "summary", "module")
-        } | {"collaborators": parse_collaborators(get_value(row, "collaborators", language)) or
-             parse_collaborators(get_value(row, "partner", language))}
+        } | {
+            "collaborators": event_collaborators(row, language),
+            "hosts": parse_collaborators(get_value(row, "hosts", language)),
+        }
         for language in LOCALES},
         "translationReview": {language: row.get(f"review_{language}", "") for language in LOCALES},
     }
