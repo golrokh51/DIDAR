@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>DIDAR projects | DIDAR</title><meta content="Explore the projects we’re growing with our community. Some are active, others are taking shape, and some are developed alongside partner organizations." name="description"/><link href="../../styles.css" rel="stylesheet"/><link href="../../assets/localized-experience.css" rel="stylesheet"/><style>
+    html[lang="fa"] body { text-align: right; }
+    html[lang="fa"] .brand,
+    html[lang="fa"] .languages { direction: ltr; }
+    html[lang="fa"] .main-nav { direction: rtl; }
+    html[lang="fa"] .contact-ltr { direction: ltr; text-align: left; }
+
+    .projects-hero {
+      padding: 4.5rem 0 2.5rem;
+    }
+
+    .projects-hero .lead {
+      max-width: 780px;
+    }
+
+    .project-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .project-filter {
+      border: 1px solid rgba(23, 50, 77, .16);
+      background: #fff;
+      border-radius: 999px;
+      padding: .55rem .9rem;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .project-filter[aria-pressed="true"] {
+      background: var(--ink, #17324D);
+      color: #fff;
+      border-color: var(--ink, #17324D);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .project-card {
+      background: #fff;
+      border: 1px solid rgba(23, 50, 77, .10);
+      border-radius: 18px;
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+      min-height: 100%;
+    }
+
+    .project-card h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    .project-status,
+    .project-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: .32rem .7rem;
+      font-size: .86rem;
+      line-height: 1.4;
+    }
+
+    .project-status {
+      background: #eef4f3;
+      color: #2D6F6D;
+      font-weight: 700;
+    }
+
+    .project-tag {
+      background: #f7f3eb;
+      color: #6c5530;
+    }
+
+    .project-card p {
+      margin: 0;
+    }
+
+    .project-related { margin-top:auto; padding-top:.75rem; border-top:1px solid rgba(23,50,77,.12); display:grid; gap:.3rem; }
+    .project-related strong {font-size:.93rem;}
+    .project-related a {font-weight:700;}
+    .project-link {
+      margin-top: auto;
+      padding-top: .35rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .projects-empty {
+      display: none;
+      padding: 2rem 0;
+    }
+
+    .projects-note {
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 760px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style></head><body><a class="skip-link" href="#top">Skip to main content</a><header class="site-header"><div class="container nav-wrap"><a aria-label="DIDAR home" class="brand" href="../"><img alt="DIDAR logo" class="brand-logo" src="../../assets/logo.png"/><strong>DIDAR</strong></a><div class="nav-area"><nav aria-label="Choose language" class="languages"><a href="../../projects/">FR</a><a aria-current="page" href="../../en/projects/">EN</a><a href="../../fa/projects/">فارسی</a></nav><nav aria-label="Main navigation" class="main-nav"><a href="../">Home</a><a href="../story/">Our story</a><a href="../#support">Support &amp; referrals</a><a aria-current="page" href="../projects/">Projects</a><a href="../activities/">Activities</a><a href="../#contact">Contact</a></nav><details class="mobile-navigation"><summary aria-label="Menu">☰ Menu</summary><nav aria-label="Menu"><a href="../">Home</a><a href="../story/">Our story</a><a href="../#support">Support &amp; referrals</a><a href="../projects/">Projects</a><a href="../activities/">Activities</a><a href="../#contact">Contact</a></nav></details></div></div></header><main id="top"><section class="projects-hero"><div class="container narrow"><p class="eyebrow">Culture · education · community action</p><h1>DIDAR projects</h1><p class="lead">Explore the projects we’re growing with our community. Some are active, others are taking shape, and some are developed alongside partner organizations.</p></div></section><section class="section alt"><div class="container"><div aria-label="DIDAR projects" class="project-toolbar" id="project-filters"></div><div aria-live="polite" class="projects-grid" id="projects-grid"></div><p class="projects-empty" id="projects-empty">No projects match this filter.</p></div></section></main><footer><div class="container footer-wrap"><p>© <span id="year"></span> DIDAR. All rights reserved.</p><p>Montréal · Québec</p></div></footer><script>document.getElementById("year").textContent=new Date().getFullYear();</script><script src="projects-data.js"></script><script>
+const grid=document.getElementById('projects-grid'),toolbar=document.getElementById('project-filters'),empty=document.getElementById('projects-empty');
+const labels={"all": "All", "active": "Active", "development": "In development", "collaboration": "Collaboration", "completed": "Completed"};
+const safe=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const statuses=['all',...new Set(PROJECTS.flatMap(p=>p.status||[]))];
+let selected='all';
+function filters(){toolbar.innerHTML=statuses.map(s=>`<button class="project-filter" type="button" data-filter="${safe(s)}" aria-pressed="${selected===s}">${safe(labels[s]||s)}</button>`).join('');toolbar.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{selected=b.dataset.filter;filters();render()}));}
+function render(){const projects=selected==='all'?PROJECTS:PROJECTS.filter(p=>p.status.includes(selected));empty.style.display=projects.length?'none':'block';grid.innerHTML=projects.map(p=>`<article class="project-card"><div class="project-meta">${p.status.map(s=>`<span class="project-status">${safe(labels[s]||s)}</span>`).join('')}${p.tags.map(x=>`<span class="project-tag">${safe(x)}</span>`).join('')}</div><h2>${safe(p.title)}</h2><p><strong>${safe(p.subtitle)}</strong></p><p>${safe(p.summary)}</p>${p.relatedPrograms?.length?`<div class="project-related"><strong>Related programs:</strong>${p.relatedPrograms.map(item=>`<a href="../activities/#program-${encodeURIComponent(item.id)}">${safe(item.title)} →</a>`).join('')}</div>`:''}</article>`).join('');}
+filters();render();
+</script></body></html>

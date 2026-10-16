@@ -1,0 +1,63 @@
+.skip-link {
+  position: fixed; top: -100px; right: 16px; z-index: 1000;
+  padding: .8rem 1.2rem; border-radius: 12px;
+  background: #17324d; color: #fff; font-weight: 700;
+}
+.skip-link:focus { top: 12px; }
+.mobile-navigation { display: none; }
+.mobile-navigation summary { cursor:pointer; list-style:none; font-weight: 750; border:1px solid #b8c9cc; border-radius:10px; padding:.4rem .75rem; }
+.mobile-navigation summary::-webkit-details-marker { display:none; }
+.mobile-navigation nav { display:grid; gap:0; padding:.5rem; border:1px solid #dce5e4; border-radius:12px; background:#fff; box-shadow:0 16px 32px rgba(3,56,75,.12); }
+.mobile-navigation nav a { padding:.7rem 1rem; border-radius:9px; white-space:nowrap; }
+.mobile-navigation nav a:hover { background:#eef4f3; }
+/* Public programs, kept in sync with Activities JSON */
+.featured-programs { background:linear-gradient(155deg,#f5f9f8,#fff 54%,#fff7ea); }
+.featured-intro { max-width:820px; margin-bottom:1.5rem; }
+.featured-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; align-items:stretch; }
+.featured-card { min-width:0; padding:1.4rem; border-radius:20px; border:1px solid #dbe6e6; background:#fff; display:flex; flex-direction:column; gap:.65rem; box-shadow:0 4px 20px rgba(3,56,75,.04); border-top:5px solid #0c6075; }
+.featured-card:nth-child(2) { border-top-color:#bf7837; }
+.featured-card:nth-child(3) { border-top-color:#2d6f5d; }
+.featured-card h3 { font-size:1.25rem; margin:0; }
+.featured-card p { margin:0; }
+.featured-card .featured-kicker { font-size:.87rem; font-weight:700; color:#57716f; }
+.featured-card .featured-subtitle { font-size:.94rem; color:var(--text); }
+.featured-card .featured-schedule { font-size:.92rem; margin-top:.1rem; color:#174d58; }
+.featured-card .featured-link { margin-top:auto; padding-top:.8rem; font-weight:800; }
+.featured-actions { margin-top:1.5rem; }
+.contact-cta { margin-top:1.3rem; }
+.contact-prompt { font-weight:700; }
+/* Navigable introduction to the long-form story */
+.story-at-glance { margin:1.5rem 0 0; padding:1.25rem; border:1px solid #d5e4e2; background:#f4f9f7; border-radius:18px; }
+.story-at-glance h2 { font-size:1.25rem; margin:0 0 .5rem; }
+.story-quicklinks { display:flex; flex-wrap:wrap; gap:.55rem; }
+.story-quicklinks a { display:inline-flex; padding:.35rem .8rem; background:#fff; border:1px solid #c8dad8; border-radius:999px; font-weight:700; text-decoration:none; }
+.story-content-note { padding:.85rem 1rem; border-right:4px solid #b9913b; margin:1.3rem 0 0; background:#fff7e9; border-radius:10px; color:#4e4a42; }
+:is(html[lang="fr"],html[lang="en"]) .story-highlight, :is(html[lang="fr"],html[lang="en"]) .pay-forward-quote { border-left:0; border-right:5px solid var(--orange); border-radius:16px 0 0 16px; }
+@media(max-width: 920px) {
+  :is(html[lang="fr"],html[lang="en"]) .main-nav { display:none; }
+  :is(html[lang="fr"],html[lang="en"]) .mobile-navigation { display:block; position:relative; }
+  :is(html[lang="fr"],html[lang="en"]) .mobile-navigation[open] nav { position:absolute; top:100%; left:0; min-width:230px; max-height:min(60vh,410px); overflow-y:auto; z-index:35; }
+  :is(html[lang="fr"],html[lang="en"]) .nav-area { flex-direction:row; direction:ltr; align-items:center; gap:.8rem; }
+  :is(html[lang="fr"],html[lang="en"]) .languages { flex-wrap:nowrap; }
+  :is(html[lang="fr"],html[lang="en"]) .brand strong { display:none; }
+  .featured-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width: 660px) {
+  .featured-grid { grid-template-columns:1fr; }
+  :is(html[lang="fr"],html[lang="en"]) .site-header .brand-logo { width:48px; height:48px; }
+  :is(html[lang="fr"],html[lang="en"]) .nav-wrap { gap:8px; }
+  :is(html[lang="fr"],html[lang="en"]) .languages { gap:3px; }
+  :is(html[lang="fr"],html[lang="en"]) .languages a { min-width:auto; padding:.25rem .4rem; }
+  :is(html[lang="fr"],html[lang="en"]) .hero { padding:3.5rem 0; }
+  :is(html[lang="fr"],html[lang="en"]) h1 { font-size:clamp(1.9rem,8vw,2.8rem); }
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+}
+
+/* English and Québec French: readable focus, logical left-to-right layout. */
+:is(html[lang="fr"],html[lang="en"]) :where(a,button,summary,[tabindex]):focus-visible{outline:3px solid #bd8127;outline-offset:4px}
+:is(html[lang="fr"],html[lang="en"]) [id]{scroll-margin-top:110px}
+:is(html[lang="fr"],html[lang="en"]) .story-content-note{border-left:4px solid #b9913b;border-right:0}
+@media(max-width:920px){:is(html[lang="fr"],html[lang="en"]) .main-nav{display:none}:is(html[lang="fr"],html[lang="en"]) .mobile-navigation{display:block;position:relative}:is(html[lang="fr"],html[lang="en"]) .mobile-navigation[open] nav{position:absolute;top:100%;right:0;min-width:235px;max-height:min(60vh,410px);overflow-y:auto;z-index:35}:is(html[lang="fr"],html[lang="en"]) .nav-area{flex-direction:row;align-items:center;gap:.8rem}:is(html[lang="fr"],html[lang="en"]) .languages{flex-wrap:nowrap}:is(html[lang="fr"],html[lang="en"]) .brand strong{display:none}}
+@media(max-width:660px){:is(html[lang="fr"],html[lang="en"]) .site-header .brand-logo{width:48px;height:48px}:is(html[lang="fr"],html[lang="en"]) .nav-wrap{gap:8px}:is(html[lang="fr"],html[lang="en"]) .languages{gap:3px}:is(html[lang="fr"],html[lang="en"]) .languages a{min-width:auto;padding:.25rem .4rem}:is(html[lang="fr"],html[lang="en"]) .hero{padding:3.5rem 0}}

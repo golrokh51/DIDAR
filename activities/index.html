@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Activités de DIDAR | DIDAR</title><meta content="Découvrez nos programmes et leurs différentes séances. Un même atelier peut être offert à plusieurs dates, parfois avec des organismes partenaires différents." name="description"/><link href="../styles.css" rel="stylesheet"/><link href="../assets/localized-experience.css" rel="stylesheet"/><style>
+    html[lang="xx"] body {
+      text-align: left;
+    }
+
+    html[lang="fa"] .brand,
+    html[lang="fa"] .languages {
+      direction: ltr;
+    }
+
+    html[lang="fa"] .main-nav {
+      direction: rtl;
+    }
+
+    /* HERO */
+
+    .activities-hero {
+      padding: 4.5rem 0 2.5rem;
+    }
+
+    .activities-hero .lead {
+      max-width: 780px;
+    }
+
+    /* FILTERS */
+
+    .activity-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .activity-filter {
+      border: 1px solid rgba(23, 50, 77, .16);
+      background: #fff;
+      border-radius: 999px;
+      padding: .55rem .9rem;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .activity-toolbar-group { margin-top:1rem; }
+    .activity-toolbar-label { margin:0 0 -.6rem; font-weight:700; font-size:.94rem; }
+    .activity-filter[aria-pressed="true"] {
+      background: var(--ink, #17324D);
+      color: #fff;
+      border-color: var(--ink, #17324D);
+    }
+
+    /* REPEATABLE GENERAL PROGRAMS */
+
+    .programs-intro { max-width: 850px; margin: 0 0 1.5rem; }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .program-card {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      padding: 1.35rem;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(23, 50, 77, .11);
+    }
+    .program-card h3 { margin: 0; font-size: 1.3rem; }
+    .program-card p { margin: 0; }
+    .program-status { color: #2D6F6D; font-weight: 700; font-size: .93rem; }
+    .program-subtitle { font-weight: 600; }
+    .program-meta { font-size: .92rem; }
+    .program-meta strong { color: var(--ink, #17324D); }
+    .program-topics { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: auto; }
+    .program-topics span { background: #f7f3eb; border-radius: 99px; padding: .25rem .6rem; font-size: .83rem; }
+    .program-more { font-weight: 700; text-decoration: none; margin-top: .5rem; }
+    .collaborator-links { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .4rem .65rem; }
+    .collaborator-links a { color: var(--teal, #2D6F6D); font-weight: 600; text-decoration: underline; text-underline-offset: .18rem; }
+    .collaborator-links span { font-weight: 600; }
+    .program-collaborators { margin-top: .2rem; font-size: .94rem; }
+    .program-sessions { margin-top: .3rem; padding-top: .8rem; border-top: 1px solid rgba(23, 50, 77, .12); }
+    .program-sessions summary { cursor: pointer; font-weight: 700; color: var(--ink, #17324D); }
+    .program-session-list { padding: .6rem 0 0; list-style: none; margin: 0; display: grid; gap: .7rem; }
+    .program-session-item { border-radius: 10px; background: #f7f9f8; padding: .7rem; display: grid; gap: .35rem; font-size: .9rem; }
+    .program-session-item a { color: var(--ink, #17324D); font-weight: 650; text-decoration: underline; text-underline-offset: .2rem; }
+    .session-topline { display: flex; flex-wrap: wrap; gap: .45rem .6rem; align-items: center; }
+    .session-status { display: inline-flex; border-radius: 99px; padding: .2rem .65rem; font-size: .8rem; font-weight: 700; background: #e9f1ef; color: #235e55; }
+    .session-status[data-status="completed"] { background: #eef4f3; color: #245f60; }
+    .session-status[data-status="scheduled"], .session-status[data-status="upcoming"] { background: #f8f0df; color: #7c5d17; }
+    .session-status[data-status="cancelled"] { background: #f9e9e9; color: #9c3535; }
+    .session-status[data-status="postponed"] { background: #f0eef8; color: #62508c; }
+    .session-collaborators { font-size: .86rem; }
+
+
+    /* YEARS */
+
+    .activity-year {
+      margin-top: 3.5rem;
+    }
+
+    .activity-year:first-child {
+      margin-top: 0;
+    }
+
+    .activity-year-heading {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .activity-year-heading h2 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .activity-year-heading::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: rgba(23, 50, 77, .12);
+    }
+
+    /* CARDS */
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .activity-card {
+      background: #fff;
+      border: 1px solid rgba(23, 50, 77, .10);
+      border-radius: 18px;
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+
+    .activity-date {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--teal, #2D6F6D);
+    }
+
+    .activity-card h3 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .activity-subtitle {
+      margin: -.25rem 0 0;
+      font-weight: 600;
+    }
+
+    .activity-summary {
+      margin: 0;
+    }
+
+    .activity-details {
+      display: grid;
+      gap: .4rem;
+      margin-top: .25rem;
+      font-size: .94rem;
+    }
+
+    .activity-details p {
+      margin: 0;
+    }
+
+    .activity-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-top: .25rem;
+    }
+
+    .activity-tag,
+    .activity-type {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: .3rem .7rem;
+      font-size: .84rem;
+      line-height: 1.4;
+    }
+
+    .activity-type {
+      background: #eef4f3;
+      color: #2D6F6D;
+      font-weight: 700;
+    }
+
+    .activity-tag {
+      background: #f7f3eb;
+      color: #6c5530;
+    }
+
+    .activity-link {
+      margin-top: auto;
+      padding-top: .4rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .activities-empty {
+      display: none;
+      padding: 2rem 0;
+    }
+
+    @media (max-width: 1000px) {
+      .programs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .programs-grid { grid-template-columns: 1fr; }
+      .activities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .activities-hero {
+        padding-top: 3rem;
+      }
+    }
+  </style></head><body><a class="skip-link" href="#top">Passer au contenu principal</a><header class="site-header"><div class="container nav-wrap"><a aria-label="DIDAR home" class="brand" href="../"><img alt="DIDAR logo" class="brand-logo" src="../assets/logo.png"/><strong>DIDAR</strong></a><div class="nav-area"><nav aria-label="Choisir la langue" class="languages"><a aria-current="page" href="../activities/">FR</a><a href="../en/activities/">EN</a><a href="../fa/activities/">فارسی</a></nav><nav aria-label="Navigation principale" class="main-nav"><a href="../">Accueil</a><a href="../story/">Notre histoire</a><a href="../#support">Soutien et orientation</a><a href="../projects/">Projets</a><a aria-current="page" href="../activities/">Activités</a><a href="../#contact">Nous joindre</a></nav><details class="mobile-navigation"><summary aria-label="Menu">☰ Menu</summary><nav aria-label="Menu"><a href="../">Accueil</a><a href="../story/">Notre histoire</a><a href="../#support">Soutien et orientation</a><a href="../projects/">Projets</a><a href="../activities/">Activités</a><a href="../#contact">Nous joindre</a></nav></details></div></div></header><main id="top"><section class="activities-hero"><div class="container narrow"><p class="eyebrow">Ateliers · rencontres · événements · collaborations</p><h1>Activités de DIDAR</h1><p class="lead">Découvrez nos programmes et leurs différentes séances. Un même atelier peut être offert à plusieurs dates, parfois avec des organismes partenaires différents.</p></div></section><section class="section" id="programs"><div class="container"><h2>Nos programmes</h2><p class="programs-intro">Chaque programme possède sa propre description. Les dates et les détails sont précisés pour chaque séance.</p><div class="programs-grid" id="programs-grid"></div></div></section><section class="section alt" id="sessions"><div class="container"><h2>Rencontres et activités</h2><p>Consultez les activités à venir et celles qui ont déjà eu lieu. Chaque séance présente sa date, son statut et ses partenaires.</p><div class="activity-toolbar-group"><p class="activity-toolbar-label">Statut de la séance</p><div aria-label="Statut de la séance" class="activity-toolbar" id="status-filters" role="group"></div></div><div class="activity-toolbar-group"><p class="activity-toolbar-label">Type d’activité</p><div aria-label="Type d’activité" class="activity-toolbar" id="activity-filters" role="group"></div></div><div id="activities-container"></div><p class="activities-empty" id="activities-empty">Aucune activité ne correspond aux filtres choisis.</p></div></section></main><footer><div class="container footer-wrap"><p>© <span id="year"></span> DIDAR. Tous droits réservés.</p><p>Montréal · Québec</p></div></footer><script>document.getElementById("year").textContent=new Date().getFullYear();</script><script src="activities-data.js"></script>
+<script>
+
+
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+
+  const container =
+    document.getElementById("activities-container");
+
+  const toolbar =
+    document.getElementById("activity-filters");
+  const statusToolbar = document.getElementById("status-filters");
+  let chosenType = "all";
+  let chosenStatus = "all";
+
+  const empty =
+    document.getElementById("activities-empty");
+
+
+  const programsGrid =
+    document.getElementById("programs-grid");
+
+  // Site uses the generated, language-ready JSON feed. The original Persian
+  // activities-data.js remains a safety fallback for local previews and errors.
+  let currentPrograms = PROGRAMS;
+  let currentActivities = ACTIVITIES;
+
+
+
+  function localize(record, kind) {
+    const translated=record.translations?.['fr']||{};
+    const obj={...record};
+    const fields=kind==='program'
+       ? ['title','subtitle','description','status','schedule','audience']
+       : ['title','subtitle','partner','location','role','summary','module'];
+    for (const key of fields) if (translated[key]) obj[key]=translated[key];
+    if(kind==='program'){
+      for (const key of ['topics','languages']) {
+        if (translated[key]) obj[key]=String(translated[key]).split('|').map(x=>x.trim()).filter(Boolean);
+      }
+    }
+    if (Array.isArray(translated.collaborators) && translated.collaborators.length) obj.collaborators=translated.collaborators;
+    return obj;
+  }
+
+  // Escape user-editable text before placing it inside HTML.
+  function escapeHtml(value = "") {
+    return String(value).replace(/[&<>"']/g, char => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;",
+      '"': "&quot;", "'": "&#39;"
+    }[char]));
+  }
+
+  const sessionStatusLabels = {
+    completed: "Tenue",
+    scheduled: "Planifiée",
+    upcoming: "Planifiée",
+    cancelled: "Annulée",
+    postponed: "Reportée"
+  };
+
+  function renderStatus(status) {
+    const allowed = ["completed", "scheduled", "upcoming", "cancelled", "postponed"];
+    const safeStatus = allowed.includes(status) ? status : "scheduled";
+    return `<span class="session-status" data-status="${safeStatus}">${sessionStatusLabels[safeStatus]}</span>`;
+  }
+
+  function collaboratorItems(record) {
+    if (Array.isArray(record.collaborators) && record.collaborators.length) {
+      return record.collaborators.filter(item => item && item.name);
+    }
+    // Backwards-compatible: existing Sessions tab may only have partner_fa.
+    return record.partner ? [{ name: record.partner, url: "" }] : [];
+  }
+
+  function renderCollaborators(record, className = "") {
+    const items = collaboratorItems(record);
+    if (!items.length) return "";
+    return `<span class="collaborator-links ${className}">${items.map(item => {
+      const link = secureLink(item.url);
+      const name = escapeHtml(item.name);
+      return link
+        ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">${name} ↗</a>`
+        : `<span>${name}</span>`;
+    }).join("")}</span>`;
+  }
+
+  function sessionsOfProgram(programId) {
+    return currentActivities
+      .filter(activity => activity.programId === programId && activity.visible !== false)
+      .sort((a,b) => {
+        const aScheduled = ["upcoming", "scheduled"].includes(a.status);
+        const bScheduled = ["upcoming", "scheduled"].includes(b.status);
+        if (aScheduled !== bScheduled) return aScheduled ? -1 : 1;
+        return aScheduled
+          ? (a.date || "9999").localeCompare(b.date || "9999")
+          : (b.date || "").localeCompare(a.date || "");
+      });
+  }
+
+  function renderProgramSessions(sessions) {
+    if (!sessions.length) return "";
+    return `<details class="program-sessions" ${sessions.length <= 3 ? "open" : ""}>
+      <summary>Séances du programme (${sessions.length.toLocaleString("fa-IR")})</summary>
+      <ul class="program-session-list">${sessions.map(session => `
+        <li class="program-session-item">
+          <div class="session-topline">
+            ${renderStatus(session.status)}
+            <span>${escapeHtml(formatDate(session.date) || "Date à confirmer")}</span>
+          </div>
+          <a href="#session-${escapeHtml(session.id)}">${escapeHtml(session.title)}</a>
+          ${collaboratorItems(session).length ? `<div class="session-collaborators"><strong>En collaboration avec :</strong> ${renderCollaborators(session)}</div>` : ""}
+        </li>`).join("")}</ul>
+    </details>`;
+  }
+
+  function renderPrograms() {
+    const programs = currentPrograms.filter(p => p.visible !== false)
+      .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+    programsGrid.innerHTML = programs.map(p => {
+      const programSessions = sessionsOfProgram(p.id);
+      const topicBadges = (p.topics || [])
+        .map(topic => `<span>${escapeHtml(topic)}</span>`).join("");
+      return `
+        <article class="program-card" id="program-${escapeHtml(p.id)}">
+          ${p.status ? `<div class="program-status">${escapeHtml(p.status)}</div>` : ""}
+          <h3>${escapeHtml(p.title)}</h3>
+          ${p.subtitle ? `<p class="program-subtitle">${escapeHtml(p.subtitle)}</p>` : ""}
+          ${p.description ? `<p>${escapeHtml(p.description)}</p>` : ""}
+          ${p.audience ? `<p class="program-meta"><strong>Public visé :</strong> ${escapeHtml(p.audience)}</p>` : ""}
+          ${(p.languages || []).length ? `<p class="program-meta"><strong>Langues :</strong> ${escapeHtml(p.languages.join(", "))}</p>` : ""}
+          ${p.schedule ? `<p class="program-meta"><strong>Horaire :</strong> ${escapeHtml(p.schedule)}</p>` : ""}
+          ${collaboratorItems(p).length ? `<p class="program-collaborators"><strong>Partenaires du programme :</strong> ${renderCollaborators(p)}</p>` : ""}
+          ${topicBadges ? `<div class="program-topics">${topicBadges}</div>` : ""}
+          ${renderProgramSessions(programSessions)}
+        </article>`;
+    }).join("");
+  }
+
+  const typeLabels = {
+    all: "Toutes",
+    workshop: "Atelier",
+    event: "Événement",
+    talk: "Rencontre et discussion",
+    cultural: "Activité culturelle",
+    community: "Activité communautaire",
+    collaboration: "Collaboration",
+    training: "Formation"
+  };
+
+
+  function formatDate(dateString) {
+
+    if (!dateString) return "";
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return "";
+    const date = new Date(dateString + "T12:00:00");
+    if (Number.isNaN(date.getTime())) return "";
+
+    return new Intl.DateTimeFormat(
+      "fr-CA",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      }
+    ).format(date);
+
+  }
+
+
+  function getYear(activity) {
+
+    if (!activity.date) return "Sans date";
+
+    return activity.date.slice(0, 4);
+
+  }
+
+
+  function availableTypes() {
+    return [
+    "all",
+    ...new Set(
+      currentActivities
+        .filter(activity => activity.visible !== false)
+        .map(activity => activity.type)
+        .filter(Boolean)
+    )
+  ];
+  }
+
+
+  const statusLabelsFilter = {
+    all: "Tous les statuts",
+    upcoming: "À venir et planifiées",
+    completed: "Tenue",
+    other: "Annulées ou reportées"
+  };
+
+  function renderFilters() {
+    const types=availableTypes();
+    toolbar.innerHTML = types.map(type => `
+      <button class="activity-filter" type="button" data-filter="${escapeHtml(type)}"
+        aria-pressed="${chosenType === type}">${escapeHtml(typeLabels[type] || type)}</button>`).join("");
+    statusToolbar.innerHTML = Object.entries(statusLabelsFilter).map(([key, label]) => `
+      <button class="activity-filter" type="button" data-status="${key}"
+        aria-pressed="${chosenStatus === key}">${label}</button>`).join("");
+    toolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+      chosenType = button.dataset.filter;
+      renderFilters(); renderActivities();
+    }));
+    statusToolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+      chosenStatus = button.dataset.status;
+      renderFilters(); renderActivities();
+    }));
+  }
+
+  function renderActivities() {
+    let activities=currentActivities.filter(activity => activity.visible !== false);
+    if (chosenType !== "all") activities=activities.filter(activity => activity.type===chosenType);
+    if (chosenStatus === "upcoming") activities=activities.filter(activity => ["upcoming","scheduled"].includes(activity.status));
+    if (chosenStatus === "completed") activities=activities.filter(activity => activity.status === "completed");
+    if (chosenStatus === "other") activities=activities.filter(activity => ["cancelled","postponed"].includes(activity.status));
+    if (!activities.length) {
+      container.innerHTML="";
+      empty.textContent = chosenStatus === "upcoming"
+        ? "Aucune séance à venir n’est inscrite pour le moment. Consultez les horaires généraux des programmes ci-dessus."
+        : "Aucune activité ne correspond aux filtres choisis.";
+      empty.style.display="block";
+      return;
+    }
+    empty.style.display="none";
+    // Highlight upcoming sessions first; keep completed events in newest-first order.
+    const rank=a => ["scheduled","upcoming"].includes(a.status) ? 0 : a.status === "completed" ? 1 : 2;
+    activities.sort((a,b) => rank(a)-rank(b) || (rank(a) === 0
+      ? (a.date || "9999").localeCompare(b.date || "9999")
+      : (b.date || "").localeCompare(a.date || "")));
+    const groups=[];
+    for (const activity of activities) {
+      const groupName = rank(activity) === 0 ? "Séances à venir" : rank(activity) === 1
+        ? "Activités tenues · " + getYear(activity)
+        : "Activités annulées ou reportées";
+      let group=groups.find(item => item.title === groupName);
+      if (!group) { group={title:groupName,items:[]}; groups.push(group); }
+      group.items.push(activity);
+    }
+    container.innerHTML=groups.map(group => `<section class="activity-year">
+      <div class="activity-year-heading"><h2>${escapeHtml(group.title)}</h2></div>
+      <div class="activities-grid">${group.items.map(renderActivityCard).join("")}</div>
+    </section>`).join("");
+  }
+
+  function secureLink(link) {
+    try {
+      const url = new URL(String(link || ""), window.location.href);
+      return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+    } catch { return ""; }
+  }
+
+  function renderActivityCard(activity) {
+
+    const link = secureLink(activity.link);
+    const tags =
+      activity.tags || [];
+
+
+    return `
+
+      <article class="activity-card" id="session-${escapeHtml(activity.id)}">
+
+        <div class="activity-date">
+          ${escapeHtml(formatDate(activity.date) || "Date à confirmer")}
+        </div>
+        <div>${renderStatus(activity.status)}</div>
+
+
+        <div>
+
+          ${
+            activity.type
+              ? `
+                <span class="activity-type">
+                  ${escapeHtml(typeLabels[activity.type] || activity.type)}
+                </span>
+              `
+              : ""
+          }
+
+        </div>
+
+
+        <h3>
+          ${escapeHtml(activity.title)}
+        </h3>
+
+        ${activity.programId && currentPrograms.some(p => p.id === activity.programId)
+          ? `<p><a href="#program-${escapeHtml(activity.programId)}">Retour au programme ↑</a></p>`
+          : ""}
+
+
+        ${
+          activity.subtitle
+            ? `
+              <p class="activity-subtitle">
+                ${escapeHtml(activity.subtitle)}
+              </p>
+            `
+            : ""
+        }
+
+
+        ${
+          activity.summary
+            ? `
+              <p class="activity-summary">
+                ${escapeHtml(activity.summary)}
+              </p>
+            `
+            : ""
+        }
+
+
+        <div class="activity-details">
+
+          ${activity.module ? `<p><strong>Volet :</strong> ${escapeHtml(activity.module)}</p>` : ""}
+
+          ${
+            activity.project
+              ? `
+                <p>
+                  <strong>Dans le cadre de :</strong>
+                  ${escapeHtml(activity.project)}
+                </p>
+              `
+              : ""
+          }
+
+
+          ${
+            collaboratorItems(activity).length
+              ? `<p><strong>En collaboration avec :</strong> ${renderCollaborators(activity)}</p>`
+              : ""
+          }
+
+
+          ${
+            activity.location
+              ? `
+                <p>
+                  <strong>Lieu :</strong>
+                  ${escapeHtml(activity.location)}
+                </p>
+              `
+              : ""
+          }
+
+
+          ${
+            activity.role
+              ? `
+                <p>
+                  <strong>Rôle de DIDAR :</strong>
+                  ${escapeHtml(activity.role)}
+                </p>
+              `
+              : ""
+          }
+
+        </div>
+
+
+        ${
+          tags.length
+            ? `
+              <div class="activity-tags">
+
+                ${tags.map(tag => `
+                  <span class="activity-tag">
+                    ${escapeHtml(tag)}
+                  </span>
+                `).join("")}
+
+              </div>
+            `
+            : ""
+        }
+
+
+        ${
+          link
+            ? `
+              <a
+                class="activity-link"
+                href="${escapeHtml(link)}" rel="noopener noreferrer"
+              >
+                En savoir plus →
+              </a>
+            `
+            : ""
+        }
+
+      </article>
+
+    `;
+
+  }
+
+
+  async function initActivities() {
+    try {
+      const response = await fetch("../fa/activities/activities-feed.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const result = await response.json();
+      if (!Array.isArray(result.programs) || !result.programs.length ||
+          !Array.isArray(result.sessions)) {
+        throw new Error("Unexpected activities feed format");
+      }
+      currentPrograms = result.programs.map(p => localize(p, "program"));
+      currentActivities = result.sessions.map(p => localize(p, "session"));
+    } catch (error) {
+      console.warn("DIDAR: loading Persian fallback activity data:", error);
+    }
+    renderPrograms();
+    renderFilters();
+    renderActivities();
+    // Cards are generated asynchronously: scroll to a linked program/session after rendering.
+    if (location.hash) {
+      const id = decodeURIComponent(location.hash.slice(1));
+      const target = document.getElementById(id);
+      if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+    }
+  }
+
+  initActivities();
+
+
+</script></body></html>
