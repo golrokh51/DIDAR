@@ -1,0 +1,6 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://didar-mtl.ca/sitemap.xml
+
