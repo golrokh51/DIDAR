@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Rencontrez l’équipe de DIDAR et découvrez ses membres à travers leurs noms et biographies choisis.">
+<title>Notre équipe | DIDAR</title>
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/localized-experience.css">
+<link rel="stylesheet" href="../team/team.css">
+</head>
+<body data-team-locale="fr" data-team-config="../config/team-sheet.json" data-team-feed="../team/team-feed.json" data-assets-prefix="../">
+<a class="skip-link" href="#top">Passer au contenu principal</a>
+<header class="site-header"><div class="container nav-wrap">
+<a class="brand" href="../" aria-label="DIDAR"><img class="brand-logo" alt="DIDAR logo" src="../assets/logo.png"><strong>DIDAR</strong></a>
+<div class="nav-area"><nav class="languages" aria-label="Languages"><a href="../team/" aria-current="page">FR</a><a href="../en/team/">EN</a><a href="../fa/team/">فارسی</a></nav>
+<nav class="main-nav" aria-label="Navigation principale"><a href="../">Accueil</a><a href="../story/">Notre histoire</a><a href="../#support">Soutien et orientation</a><a href="../projects/">Projets</a><a href="../activities/">Activités</a><a href="../team/" aria-current="page">Notre équipe</a><a href="../supporters/">Contributeurs</a><a href="../#contact">Nous joindre</a></nav>
+<details class="mobile-navigation"><summary aria-label="Menu">☰ Menu</summary><nav aria-label="Mobile navigation"><a href="../">Accueil</a><a href="../story/">Notre histoire</a><a href="../#support">Soutien et orientation</a><a href="../projects/">Projets</a><a href="../activities/">Activités</a><a href="../team/" aria-current="page">Notre équipe</a><a href="../supporters/">Contributeurs</a><a href="../#contact">Nous joindre</a></nav></details>
+</div></div></header>
+<main id="top">
+<section class="team-hero"><div class="container"><p class="eyebrow">Les personnes qui font vivre DIDAR</p><h1>Notre équipe</h1><p class="lead">Découvrez les membres de l’équipe à travers les noms qu’ils choisissent et les présentations qu’ils souhaitent partager.</p></div></section>
+<section class="section alt"><div class="container"><p class="team-intro">Chaque personne choisit son nom public, son avatar et sa courte présentation. Aucune indication d’âge ni aucun nom légal n’est demandé.</p>
+<div id="team-grid" class="team-grid" aria-live="polite"></div>
+<div id="team-empty" class="team-empty" role="status"><h2>Nos portraits arrivent bientôt</h2><p id="team-empty-text">Les profils seront publiés avec l’accord des membres de l’équipe.</p></div>
+<p class="team-note">Chaque texte est fourni ou approuvé par la personne concernée. Elle peut demander sa modification ou son retrait.</p>
+</div></section></main>
+<footer><div class="container footer-wrap"><p>© <span id="year"></span> DIDAR.</p><p>Montréal · Québec</p></div></footer>
+<script src="../team/team.js" defer></script>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body></html>
