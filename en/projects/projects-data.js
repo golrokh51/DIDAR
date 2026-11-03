@@ -1,1 +1,84 @@
-const PROJECTS=[{"title": "Nima Library", "subtitle": "Books, heritage & cultural memory", "status": ["collaboration"], "summary": "A collaboration supporting access to books, cultural archives, literary activities, digitization and opportunities for exchange across generations.", "tags": ["Literature", "Heritage", "Community"]}, {"title": "DIDAR Seniors", "subtitle": "Digital confidence, access & connection", "status": ["development"], "summary": "Developing opportunities for older adults to build digital confidence, connect with community services and receive practical support where possible.", "tags": ["Older adults", "Digital access", "Support"], "relatedPrograms": [{"id": "digital-cafe", "title": "Digital Café — open to all ages"}]}, {"title": "DIDAR Dialogues", "subtitle": "Listen, learn & connect", "status": ["active"], "summary": "Workshops and gatherings exploring dialogue, belonging, consent, gender, migration, community participation and intercultural understanding.", "tags": ["Learning", "Dialogue", "Community"], "relatedPrograms": [{"id": "dialogue-crisis", "title": "The Art of Dialogue in Times of Crisis"}, {"id": "harassment-consent", "title": "Harassment & Consent workshop series"}]}, {"title": "DIDAR Community Voices", "subtitle": "Making shared challenges visible", "status": ["development"], "summary": "Documenting recurring barriers and community concerns to support stronger services, informed collaboration and practical change.", "tags": ["Community needs", "Documentation", "Advocacy"]}];
+const PROJECTS = [
+  {
+    "id": "nima-library",
+    "title": "Nima Library",
+    "subtitle": "Books, heritage & cultural memory",
+    "summary": "A collaboration supporting access to books, cultural archives, literary activities, digitization and opportunities for exchange across generations.",
+    "status": [
+      "collaboration"
+    ],
+    "tags": [
+      "Literature",
+      "Heritage",
+      "Community"
+    ],
+    "relatedPrograms": [],
+    "committeeIds": [],
+    "link": ""
+  },
+  {
+    "id": "didar-seniors",
+    "title": "DIDAR Seniors",
+    "subtitle": "Digital confidence, access & connection",
+    "summary": "Developing opportunities for older adults to build digital confidence, connect with community services and receive practical support where possible.",
+    "status": [
+      "development"
+    ],
+    "tags": [
+      "Older adults",
+      "Digital access",
+      "Support"
+    ],
+    "relatedPrograms": [
+      {
+        "id": "digital-cafe",
+        "title": "کافه دیجیتال"
+      }
+    ],
+    "committeeIds": [],
+    "link": ""
+  },
+  {
+    "id": "didar-dialogues",
+    "title": "DIDAR Dialogues",
+    "subtitle": "Listen, learn & connect",
+    "summary": "Workshops and gatherings exploring dialogue, belonging, consent, gender, migration, community participation and intercultural understanding.",
+    "status": [
+      "active"
+    ],
+    "tags": [
+      "Learning",
+      "Dialogue",
+      "Community"
+    ],
+    "relatedPrograms": [
+      {
+        "id": "dialogue-crisis",
+        "title": "هنر گفت‌وگو در بحران"
+      },
+      {
+        "id": "harassment-consent",
+        "title": "آزار جنسی، آزار روانی و رضایت"
+      }
+    ],
+    "committeeIds": [],
+    "link": ""
+  },
+  {
+    "id": "didar-community-voices",
+    "title": "DIDAR Community Voices",
+    "subtitle": "Making shared challenges visible",
+    "summary": "Documenting recurring barriers and community concerns to support stronger services, informed collaboration and practical change.",
+    "status": [
+      "development"
+    ],
+    "tags": [
+      "Community needs",
+      "Documentation",
+      "Advocacy"
+    ],
+    "relatedPrograms": [],
+    "committeeIds": [],
+    "link": ""
+  }
+];

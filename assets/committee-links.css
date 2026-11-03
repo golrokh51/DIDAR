@@ -1,0 +1,14 @@
+/* Shared committee directory and related-content sections */
+.committee-index-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; margin:2rem 0; }
+.committee-index-card { padding:1.4rem; border-radius:18px; background:#fff; border:1px solid rgba(23,50,77,.15); display:flex; flex-direction:column; gap:.7rem; }
+.committee-index-card h2 { margin:0; font-size:1.28rem; }
+.committee-index-card p { margin:0; }
+.committee-index-card a { align-self:flex-start; margin-top:auto; }
+.related-content {margin-top:2.5rem; padding-top:1.7rem; border-top:1px solid rgba(23,50,77,.15)}
+.related-content h2 {margin-top:0}
+.related-content h3 {font-size:1.12rem;margin:.9rem 0 .3rem}
+.related-content-list {list-style:none;padding:0;display:grid;gap:.6rem}
+.related-content-list li {padding:.75rem 1rem; border:1px solid rgba(23,50,77,.12);border-radius:12px;background:#fff}
+.related-content-list a {font-weight:650}
+.related-content-empty {color:#4f626a}
+@media(max-width:680px){.committee-index-grid{grid-template-columns:1fr}}

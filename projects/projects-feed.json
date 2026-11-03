@@ -1,0 +1,181 @@
+{
+  "projects": [
+    {
+      "id": "nima-library",
+      "status": [
+        "collaboration"
+      ],
+      "visible": true,
+      "sortOrder": 10,
+      "committeeIds": [],
+      "relatedProgramIds": [],
+      "link": "",
+      "translations": {
+        "fr": {
+          "title": "Bibliothèque Nima",
+          "subtitle": "Lecture, patrimoine et mémoire culturelle",
+          "summary": "Une collaboration autour de l’accès aux livres et aux archives, de la valorisation du patrimoine, de la numérisation et d’activités littéraires et intergénérationnelles.",
+          "tags": [
+            "Littérature",
+            "Patrimoine",
+            "Communauté"
+          ]
+        },
+        "en": {
+          "title": "Nima Library",
+          "subtitle": "Books, heritage & cultural memory",
+          "summary": "A collaboration supporting access to books, cultural archives, literary activities, digitization and opportunities for exchange across generations.",
+          "tags": [
+            "Literature",
+            "Heritage",
+            "Community"
+          ]
+        },
+        "fa": {
+          "title": "کتابخانه نیما",
+          "subtitle": "ادبیات، میراث و حافظه فرهنگی",
+          "summary": "همکاری در زمینه ادبیات، مستندسازی، حافظه فرهنگی، دسترسی به کتاب‌ها و مجموعه‌ها، دیجیتال‌سازی، نمایشگاه‌ها و فعالیت‌های بین‌نسلی.",
+          "tags": [
+            "ادبیات",
+            "میراث",
+            "جامعه"
+          ]
+        }
+      }
+    },
+    {
+      "id": "didar-seniors",
+      "status": [
+        "development"
+      ],
+      "visible": true,
+      "sortOrder": 20,
+      "committeeIds": [],
+      "relatedProgramIds": [
+        "digital-cafe"
+      ],
+      "link": "",
+      "translations": {
+        "fr": {
+          "title": "DIDAR Aînés",
+          "subtitle": "Autonomie numérique, accès aux services et liens sociaux",
+          "summary": "Un projet en développement pour favoriser l’autonomie numérique des personnes aînées, l’accès aux ressources de proximité et, lorsque possible, l’accompagnement ponctuel.",
+          "tags": [
+            "Aînés",
+            "Numérique",
+            "Accompagnement"
+          ]
+        },
+        "en": {
+          "title": "DIDAR Seniors",
+          "subtitle": "Digital confidence, access & connection",
+          "summary": "Developing opportunities for older adults to build digital confidence, connect with community services and receive practical support where possible.",
+          "tags": [
+            "Older adults",
+            "Digital access",
+            "Support"
+          ]
+        },
+        "fa": {
+          "title": "دیدار سالمندان",
+          "subtitle": "توانمندی دیجیتال، دسترسی به خدمات و همراهی",
+          "summary": "برنامه‌ای برای همراهی اجتماعی سالمندان، کمک در امور دیجیتال، دسترسی به خدمات و در صورت امکان همراهی عملی در برخی امور اداری، اجتماعی و مراجعه‌های پزشکی.",
+          "tags": [
+            "سالمندان",
+            "دیجیتال",
+            "همراهی"
+          ]
+        }
+      }
+    },
+    {
+      "id": "didar-dialogues",
+      "status": [
+        "active"
+      ],
+      "visible": true,
+      "sortOrder": 30,
+      "committeeIds": [],
+      "relatedProgramIds": [
+        "dialogue-crisis",
+        "harassment-consent"
+      ],
+      "link": "",
+      "translations": {
+        "fr": {
+          "title": "Dialogues DIDAR",
+          "subtitle": "Échanger, apprendre et participer",
+          "summary": "Des ateliers et des rencontres sur le dialogue, le consentement, les rapports sociaux, le sentiment d’appartenance, les parcours migratoires et les relations interculturelles.",
+          "tags": [
+            "Ateliers",
+            "Dialogue",
+            "Vie communautaire"
+          ]
+        },
+        "en": {
+          "title": "DIDAR Dialogues",
+          "subtitle": "Listen, learn & connect",
+          "summary": "Workshops and gatherings exploring dialogue, belonging, consent, gender, migration, community participation and intercultural understanding.",
+          "tags": [
+            "Learning",
+            "Dialogue",
+            "Community"
+          ]
+        },
+        "fa": {
+          "title": "گفت‌وگوهای دیدار",
+          "subtitle": "گفت‌وگو، یادگیری و مشارکت",
+          "summary": "کارگاه‌ها، گفت‌وگوهای عمومی و رویدادهای اجتماعی درباره موضوعاتی مانند مشارکت، تنوع، رضایت، جنسیت، احساس تعلق، تجربه مهاجرت، حقوق و درک بین‌فرهنگی.",
+          "tags": [
+            "آموزش",
+            "گفت‌وگو",
+            "بین‌فرهنگی"
+          ]
+        }
+      }
+    },
+    {
+      "id": "didar-community-voices",
+      "status": [
+        "development"
+      ],
+      "visible": true,
+      "sortOrder": 40,
+      "committeeIds": [],
+      "relatedProgramIds": [],
+      "link": "",
+      "translations": {
+        "fr": {
+          "title": "Voix de la communauté",
+          "subtitle": "Documenter les besoins et les obstacles",
+          "summary": "Recueillir et documenter les enjeux récurrents vécus dans la communauté pour alimenter les collaborations et contribuer à l’amélioration des services.",
+          "tags": [
+            "Besoins du milieu",
+            "Documentation",
+            "Concertation"
+          ]
+        },
+        "en": {
+          "title": "DIDAR Community Voices",
+          "subtitle": "Making shared challenges visible",
+          "summary": "Documenting recurring barriers and community concerns to support stronger services, informed collaboration and practical change.",
+          "tags": [
+            "Community needs",
+            "Documentation",
+            "Advocacy"
+          ]
+        },
+        "fa": {
+          "title": "صدای جامعه در دیدار",
+          "subtitle": "مستندسازی نیازها و موانع تکرارشونده",
+          "summary": "جمع‌آوری و مستندسازی مسائل تکرارشونده جامعه و ایجاد داده و شواهدی که بتواند به بهبود خدمات، همکاری‌ها و پاسخ نهادها کمک کند.",
+          "tags": [
+            "مستندسازی",
+            "جامعه",
+            "پیگیری"
+          ]
+        }
+      }
+    }
+  ]
+}

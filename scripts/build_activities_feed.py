@@ -145,6 +145,8 @@ def program_from_row(row: dict[str, str]) -> dict:
     fa = "fa"
     result = {
         "id": row["id"],
+        "committeeIds": split_list(row.get("committee_ids", "")),
+        "projectIds": split_list(row.get("project_ids", "")),
         "title": get_value(row, "title", fa),
         "subtitle": get_value(row, "subtitle", fa),
         "description": get_value(row, "description", fa),
@@ -180,6 +182,8 @@ def session_from_row(row: dict[str, str]) -> dict:
         raise ValueError(f"Session {row['id']}: invalid status {status!r}")
     result = {
         "id": row["id"], "programId": row.get("program_id", ""),
+        "committeeIds": split_list(row.get("committee_ids", "")),
+        "projectIds": split_list(row.get("project_ids", "")),
         "date": iso_date(row.get("date", "")), "status": status,
         "title": get_value(row, "title", fa),
         "subtitle": get_value(row, "subtitle", fa),
