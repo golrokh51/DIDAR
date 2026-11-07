@@ -32,7 +32,7 @@ const PROJECTS = [
     "relatedPrograms": [
       {
         "id": "digital-cafe",
-        "title": "کافه دیجیتال"
+        "title": "Digital Café"
       }
     ],
     "committeeIds": [],
@@ -54,11 +54,11 @@ const PROJECTS = [
     "relatedPrograms": [
       {
         "id": "dialogue-crisis",
-        "title": "هنر گفت‌وگو در بحران"
+        "title": "The Art of Dialogue in Times of Crisis"
       },
       {
         "id": "harassment-consent",
-        "title": "آزار جنسی، آزار روانی و رضایت"
+        "title": "Sexual and Psychological Harassment and Consent"
       }
     ],
     "committeeIds": [],
