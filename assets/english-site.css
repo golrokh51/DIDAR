@@ -43,3 +43,58 @@ html[lang="en"] .section[id], html[lang="en"] article[id] { scroll-margin-top: 1
 .home-photo-bridge {background:var(--cream-light);}
 @media(max-width:1080px){.directory-grid,.archive-grid,.community-links-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:670px){.directory-grid,.archive-grid,.community-links-grid,.directory-grid.two-column,.committee-page .focus-list{grid-template-columns:1fr;}.page-hero{padding:50px 0;}.directory-card{padding:22px;}}
+
+/* DIDAR English navigation, charter and separate support page — Nov 2026 */
+html[lang="en"] .main-nav { align-items:center;flex-wrap:nowrap;gap:15px; }
+html[lang="en"] .main-nav > a, html[lang="en"] .nav-dropdown > summary { color:var(--ink);text-decoration:none;white-space:nowrap;font-weight:650;font-size:.84rem; }
+html[lang="en"] .main-nav > a:hover, html[lang="en"] .nav-dropdown > summary:hover {color:var(--orange-dark)}
+html[lang="en"] .nav-dropdown {position:relative;}
+html[lang="en"] .nav-dropdown > summary {cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:5px;}
+html[lang="en"] .nav-dropdown > summary::-webkit-details-marker {display:none;}
+html[lang="en"] .nav-dropdown-menu {position:absolute;top:calc(100% + 18px);right:0;z-index:50;min-width:230px;display:grid;gap:2px;padding:9px;border:1px solid var(--line);border-radius:14px;background:white;box-shadow:var(--shadow);}
+html[lang="en"] .nav-dropdown-menu a {padding:10px 12px;text-decoration:none;color:var(--ink);font-size:.9rem;border-radius:8px;}
+html[lang="en"] .nav-dropdown-menu a:hover {background:var(--teal-soft);}
+html[lang="en"] .mobile-nav-heading {padding:11px 14px 2px;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800;}
+html[lang="en"] .charter-section {background:linear-gradient(180deg,#fff 0%,#f7faf9 100%);}
+html[lang="en"] .charter-heading {display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:18px;margin-bottom:8px;}
+html[lang="en"] .charter-heading h2 {margin-bottom:8px;}
+html[lang="en"] .charter-english {font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-size:.55em;letter-spacing:0;font-weight:650;white-space:normal;}
+html[lang="en"] .charter-status {font-size:.78rem;background:#fff3db;color:#775219;border:1px solid #ebd4a6;border-radius:999px;padding:7px 12px;font-weight:700;}
+html[lang="en"] .charter-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin:28px 0 18px;}
+html[lang="en"] .charter-card {padding:25px;border-radius:18px;background:#fff;border:1px solid #dbe6e5;box-shadow:0 5px 20px rgba(3,56,75,.035);}
+html[lang="en"] .charter-number {display:block;color:var(--orange-dark);font-size:.8rem;letter-spacing:.12em;font-weight:800;margin-bottom:13px;}
+html[lang="en"] .charter-card h3 {font-size:1.25rem;margin-bottom:11px;}
+html[lang="en"] .charter-card p {color:var(--text);margin:0;}
+html[lang="en"] .charter-note {color:var(--muted);font-size:.9rem;margin-top:24px;max-width:820px;}
+html[lang="en"] .didar-home-hero .hero-grid {align-items:center;}
+html[lang="en"] .didar-home-hero .hero-tagline {font-size:1.19rem;}
+@media(max-width:1050px) {html[lang="en"] .charter-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:920px) {html[lang="en"] .main-nav{display:none;}html[lang="en"] .mobile-navigation{display:block;}}
+@media(max-width:670px) {html[lang="en"] .charter-grid{grid-template-columns:1fr;}html[lang="en"] .charter-card{padding:21px;}html[lang="en"] .charter-heading{display:block;}html[lang="en"] .charter-status{display:inline-block;margin:5px 0 14px;}html[lang="en"] .didar-home-hero .hero-grid{grid-template-columns:1fr;}}
+
+@media (max-width: 920px) {
+  html[lang="en"] .mobile-navigation[open] nav {
+    left: auto;
+    right: 0;
+    width: min(260px, calc(100vw - 26px));
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+html[lang="en"] .eyebrow,
+html[lang="en"] .charter-number {
+  color: #a45a0e;
+}
+
+/* Preserve light text in the dark contact section */
+html[lang="en"] .contact .eyebrow {
+  color: #ffd89f;
+}
+
+html[lang="en"] .related-content {
+  width: min(calc(100% - 36px), var(--max));
+  margin: 2.5rem auto 0;
+  padding: 1.7rem 0 3rem;
+  box-sizing: border-box;
+}

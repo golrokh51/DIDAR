@@ -1,0 +1,140 @@
+/* English DIDAR homepage: full mission, vision, values and charter.
+   Only loaded by /en/index.html; does not change French or Persian. */
+html[lang="en"] .didar-page-nav {
+  background:#fff; border-top:1px solid #e3eeee; border-bottom:1px solid #dce8e7;
+}
+html[lang="en"] .didar-page-nav-inner {display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:16px 0}
+html[lang="en"] .didar-page-nav-label {font-size:.79rem;font-weight:800;color:#425e66;margin-right:10px;letter-spacing:.03em}
+html[lang="en"] .didar-page-nav a {display:inline-flex;align-items:center;min-height:42px;padding:6px 15px;border:1px solid #c7d9d9;border-radius:999px;text-decoration:none;font-size:.9rem;font-weight:700;color:#034759;background:#f8fbfb;transition:background .15s ease}
+html[lang="en"] .didar-page-nav a:hover {background:#e8f2f3}
+html[lang="en"] :is(#mission,#vision,#values,#charter,#contact,.didar-value-card,.didar-article) {scroll-margin-top:105px}
+html[lang="en"] .didar-statement {background:#fff;padding-top:82px;padding-bottom:88px}
+html[lang="en"] .didar-statement-alt {background:linear-gradient(130deg,#f1f7f7,#fff 72%,#fff8ed)}
+html[lang="en"] .didar-section-heading {display:flex;align-items:start;gap:18px;max-width:900px;margin-bottom:22px}
+html[lang="en"] .didar-section-heading h2 {margin-bottom:0;line-height:1.14}
+html[lang="en"] .didar-section-heading .eyebrow {margin:0 0 8px}
+html[lang="en"] .didar-section-num {display:inline-flex;align-items:center;justify-content:center;flex:0 0 51px;width:51px;height:51px;border:1px solid #cbdcdd;border-radius:14px;background:#f3f8f8;color:#245b64;font-family:Georgia,serif;font-size:1.16rem;font-weight:700}
+html[lang="en"] .didar-narrative-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px;align-items:stretch;max-width:1050px}
+html[lang="en"] .didar-narrative-col {min-width:0;padding:28px 31px;border:1px solid #e0e9e9;border-radius:20px;background:rgba(255,255,255,.96)}
+html[lang="en"] .didar-narrative-primary {border-top:4px solid #db8b21}
+html[lang="en"] .didar-narrative-col p {margin:0 0 17px;color:#26434b;line-height:1.8}
+html[lang="en"] .didar-narrative-col p:last-child {margin-bottom:0}
+html[lang="en"] .didar-values-section {background:#f5f9f8}
+html[lang="en"] .didar-section-intro {max-width:750px;color:#3e5960;margin-top:0;margin-bottom:27px;font-size:1.06rem}
+html[lang="en"] .didar-values-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
+html[lang="en"] .didar-value-card {border:1px solid #d9e7e6;border-radius:21px;background:#fff;padding:26px 28px;box-shadow:0 7px 24px rgba(3,56,75,.035);min-width:0}
+html[lang="en"] .didar-value-top {display:flex;align-items:start;gap:15px;margin-bottom:17px}
+html[lang="en"] .didar-value-number {display:inline-flex;flex:0 0 36px;align-items:center;justify-content:center;height:36px;border-radius:11px;background:#e9f3f4;color:#225e69;font-size:.81rem;letter-spacing:.07em;font-weight:800}
+html[lang="en"] .didar-value-card h3 {margin:4px 0 0;font-size:1.22rem;line-height:1.3}
+html[lang="en"] .didar-value-copy p {color:#344d53;font-size:.97rem;line-height:1.73;margin:0 0 15px}
+html[lang="en"] .didar-value-copy p:last-child {margin-bottom:0}
+html[lang="en"] .didar-full-charter {background:#fff}
+html[lang="en"] .didar-charter-intro {max-width:900px;border:1px solid #bfd5d6;border-left:5px solid #db8b21;border-radius:18px;background:#f7fbfb;padding:28px 32px;margin:29px 0 36px}
+html[lang="en"] .didar-charter-intro h3 {font-size:1.45rem;margin:0 0 15px}
+html[lang="en"] .didar-charter-intro p {margin:0 0 13px;color:#344d53;max-width:790px}
+html[lang="en"] .didar-charter-intro p:last-child {margin-bottom:0}
+html[lang="en"] .didar-charter-intro .didar-adoption-note {font-size:.86rem;color:#645634;border-top:1px solid #dce8e7;margin-top:22px;padding-top:14px}
+html[lang="en"] .didar-charter-toolbar {max-width:920px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:13px}
+html[lang="en"] .didar-charter-toolbar p {margin:0;color:#39535b;font-size:.92rem}
+html[lang="en"] .didar-charter-actions {display:flex;gap:8px;flex-wrap:wrap}
+html[lang="en"] .didar-text-button {font:inherit;font-size:.88rem;font-weight:700;color:#055466;background:#fff;border:1px solid #b6d0d2;padding:9px 16px;border-radius:999px;cursor:pointer}
+html[lang="en"] .didar-text-button:hover {background:#e8f2f3}
+html[lang="en"] .didar-article-list {max-width:920px;display:grid;gap:11px}
+html[lang="en"] .didar-article {border:1px solid #d6e4e4;border-radius:15px;background:#fff;overflow:hidden;box-shadow:0 4px 15px rgba(3,56,75,.025)}
+html[lang="en"] .didar-article[open] {border-color:#b1ccd0;box-shadow:0 7px 18px rgba(3,56,75,.05)}
+html[lang="en"] .didar-article > summary {cursor:pointer;list-style:none;display:grid;grid-template-columns:90px minmax(0,1fr) 24px;align-items:center;column-gap:16px;padding:20px 22px;font-weight:740;color:#093e50}
+html[lang="en"] .didar-article > summary::-webkit-details-marker {display:none}
+html[lang="en"] .didar-article > summary:hover {background:#f3f9f9}
+html[lang="en"] .didar-article[open] > summary {background:#edf6f5;border-bottom:1px solid #d5e4e4}
+html[lang="en"] .didar-article-index {font-size:.82rem;font-weight:800;color:#34626a;white-space:nowrap}
+html[lang="en"] .didar-article-name {font-size:1.07rem;line-height:1.35;margin:0;font-family:Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:normal}
+html[lang="en"] .didar-article-toggle {display:inline-block;border-right:2px solid currentColor;border-bottom:2px solid currentColor;width:9px;height:9px;transform:rotate(45deg);transition:transform .15s ease}
+html[lang="en"] .didar-article[open] .didar-article-toggle {transform:rotate(225deg)}
+html[lang="en"] .didar-article-copy {padding:22px 27px 25px 129px}
+html[lang="en"] .didar-article-copy p {max-width:710px;color:#344d53;line-height:1.75;margin:0 0 16px}
+html[lang="en"] .didar-article-copy p:last-child {margin:0}
+html[lang="en"] .didar-shared-commitment {max-width:920px;margin-top:45px;background:linear-gradient(130deg,#e6f1ef,#f9f8ef);padding:38px 43px;border-radius:22px;border:1px solid #cfdfdd}
+html[lang="en"] .didar-shared-commitment h3 {font-size:1.8rem;font-family:Georgia,serif;margin:5px 0 20px}
+html[lang="en"] .didar-shared-commitment p {max-width:800px;color:#2f4b54;margin:0 0 15px;line-height:1.72}
+html[lang="en"] .didar-shared-commitment p:last-child {margin:24px 0 0;padding:15px 0 0;border-top:1px solid #c5d9d6;color:#034558;font-size:1.06rem}
+html[lang="en"] .didar-shared-commitment .eyebrow {color:#8b510c}
+@media(max-width:850px){html[lang="en"] .didar-narrative-grid,html[lang="en"] .didar-values-grid{grid-template-columns:1fr}html[lang="en"] .didar-statement{padding-top:62px;padding-bottom:68px}}
+@media(max-width:560px){html[lang="en"] .didar-page-nav-inner{gap:7px;padding:12px 0}html[lang="en"] .didar-page-nav-label{width:100%}html[lang="en"] .didar-page-nav a{padding:6px 11px;font-size:.82rem}html[lang="en"] .didar-section-heading{gap:10px}html[lang="en"] .didar-section-num{flex-basis:42px;width:42px;height:42px}html[lang="en"] .didar-narrative-col,html[lang="en"] .didar-value-card{padding:21px}html[lang="en"] .didar-value-card h3{font-size:1.13rem}html[lang="en"] .didar-article > summary{grid-template-columns:minmax(0,1fr) 18px;gap:7px;padding:17px}html[lang="en"] .didar-article-index{grid-column:1 / 2}html[lang="en"] .didar-article-name{grid-column:1 / 2}html[lang="en"] .didar-article-toggle{grid-column:2;grid-row:1 / 3}html[lang="en"] .didar-article-copy{padding:19px 18px 24px}html[lang="en"] .didar-charter-intro{padding:22px}html[lang="en"] .didar-shared-commitment{padding:27px 23px}}
+@media(prefers-reduced-motion:reduce){html[lang="en"] .didar-article-toggle{transition:none}html[lang="en"] .didar-page-nav a{transition:none}}
+
+/* DIDAR — Pass It Forward */
+
+.didar-pif-section {
+  padding: 40px 20px 25px;
+  background: #ffffff;
+}
+
+.didar-pif-box {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 38px 44px;
+  text-align: center;
+  border: 1px solid #d4e5e1;
+  border-left: 5px solid #c78230;
+  border-radius: 22px;
+  background: linear-gradient(
+    120deg, #edf7f5, #fff9ee
+  );
+  box-shadow: 0 8px 28px rgba(15, 65, 75, 0.06);
+}
+
+.didar-pif-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  color: #075265;
+  background: #dceee9;
+}
+
+.didar-pif-box h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #073f50;
+  margin: 0 0 18px;
+}
+
+.didar-pif-description {
+  max-width: 690px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: #344f56;
+  font-size: 1.04rem;
+}
+
+.didar-pif-footer {
+  margin-top: 27px;
+  padding-top: 20px;
+  border-top: 1px solid #cbded9;
+}
+
+.didar-pif-motto {
+  font-weight: 700;
+  color: #075265;
+  letter-spacing: 0.02em;
+}
+
+.didar-pif-tagline {
+  margin-top: 9px;
+  font-style: italic;
+  color: #79521f;
+}
+
+@media (max-width: 600px) {
+  .didar-pif-box {
+    padding: 27px 22px;
+    border-left-width: 3px;
+  }
+
+  .didar-pif-description {
+    font-size: 0.98rem;
+  }
+}
