@@ -1,0 +1,5 @@
+{
+  "mode": "local_json",
+  "google_sheets_csv_url": "",
+  "note": "To use a published public-only Google Sheet, set mode to google_sheets_csv and paste its published CSV URL. Never publish the private DIDAR master workbook."
+}

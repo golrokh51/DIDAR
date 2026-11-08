@@ -1,0 +1,20 @@
+EXAMPLE ONLY: Do not paste a real person's private information into the PUBLIC spreadsheet.
+
+Event: EVT-000013 (example; verify against the DIDAR Events master before using)
+program_uid: PRG-0005
+program_id: nowruz
+event_year: 2026
+event_date: 2026-03-21
+status: completed
+website_status: published (only after approval)
+review_status: approved (only after review)
+primary_category_id: cultural
+title_en: Nowruz 2026
+title_fr: Norouz 2026
+title_fa: نوروز ۱۴۰۵
+featured_image: https://drive.google.com/file/d/PASTE_REAL_PUBLIC_IMAGE_ID_HERE/view
+photo_rights_approved: yes (only if rights confirmed)
+photo_consent_approved: yes (only if everyone identifiable has appropriate consent or image contains no people)
+
+The public spreadsheet is a SEPARATE Google Sheets document. Only approved public columns.
+Photo share setting: Anyone with the link > Viewer. Google may occasionally block direct thumbnail embeds; local website image is the fallback.
