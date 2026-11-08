@@ -6,7 +6,12 @@
   const lang = root.dataset.lang || 'fr';
   const siteRoot = root.dataset.siteRoot || '../';
   const feedUrl = root.dataset.feedUrl || `${siteRoot}events/events-feed.json`;
-  const configUrl = `${siteRoot}config/events-source.json`;
+  const configUrl = `${siteRoot}
+{
+  "mode": "google_sheets_csv",
+  "google_sheets_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrNUwAxSxPKZQGLR92tP_BBIybtt7dgb3vrxDdU1fCg75ReanC9HW3gEMv7U5uCGBifDZqscMZ7Uot/pub?gid=168042679&single=true&output=csv"
+}
+`;
   const helpers = window.DIDAREventsData;
   if (!helpers) { console.error('DIDAR events-data.js must load before events.js'); return; }
   const labels = {
