@@ -22,7 +22,7 @@
 const PROJECTS = [
 
   {
-    title: "کتابخانه نیما",
+    title: "کتابخانه نیما یوشیج",
     subtitle: "ادبیات، میراث و حافظه فرهنگی",
     status: ["collaboration"],
     summary:

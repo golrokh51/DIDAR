@@ -1,7 +1,7 @@
 const PROJECTS = [
   {
     "id": "nima-library",
-    "title": "Bibliothèque Nima",
+    "title": "Bibliothèque Nima Yooshij",
     "subtitle": "Lecture, patrimoine et mémoire culturelle",
     "summary": "Une collaboration autour de l’accès aux livres et aux archives, de la valorisation du patrimoine, de la numérisation et d’activités littéraires et intergénérationnelles.",
     "status": [

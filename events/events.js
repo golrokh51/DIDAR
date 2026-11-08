@@ -197,7 +197,7 @@
   async function getEvents() {
     // Prefer a public Google Sheets CSV URL, configured once in config/events-source.json.
     // Otherwise use the curated JSON feed built from the private workbook.
-    let config = {mode:'local_json'};
+    let config = {mode:'google_sheets_csv'};
     const configResponse = await fetch(configUrl, {cache:'no-store'});
     if (configResponse.ok) config = await configResponse.json();
     if (config.mode === 'google_sheets_csv') {
