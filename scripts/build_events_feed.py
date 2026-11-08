@@ -256,7 +256,7 @@ def compose_from_workbook(data):
         result.append({
             'id': uid, 'programUid': val(row.get('program_uid')),
             'programId': val(program.get('program_id')) if program else '',
-            'date': event_date,
+            'date': event_date, 'datePrecision': norm(row.get('date_precision')),
             'endDate': valid_date(row.get('end_date'), uid, False),
             'status': status,
             'category': val(row.get('primary_category_id')),
@@ -291,7 +291,8 @@ def compose_from_public_csv(rows):
         if event_year and event_year != event_date[:4]:
             warn(f'{uid}: year conflict, skipping')
             continue
-        if not (is_true(row.get('photo_rights_approved')) and is_true(row.get('photo_consent_approved'))):
+        if not (is_true(row.get('photo_rights_approved')) and
+                norm(row.get('photo_consent_approved')) in (TRUE | NO_PEOPLE)):
             warn(f'{uid}: photo rights/consent not approved')
             continue
         image_path = safe_photo(row.get('featured_image'))
@@ -312,7 +313,8 @@ def compose_from_public_csv(rows):
         result.append({
             'id':uid, 'programUid':val(row.get('program_uid')),
             'programId':val(row.get('program_id')),
-            'date':event_date, 'endDate':valid_date(row.get('end_date'), uid, False),
+            'date':event_date, 'datePrecision': norm(row.get('date_precision')),
+            'endDate':valid_date(row.get('end_date'), uid, False),
             'status':status, 'category':val(row.get('primary_category_id')),
             'type':val(row.get('event_type')),
             'title':{lang:title[lang] or fallback for lang in VALID_LOCALES},

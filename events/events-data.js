@@ -9,6 +9,7 @@
   const norm = value => trim(value).toLowerCase().replace(/[- ]/g, '_');
   const isApproved = value => ['approved','verified','confirmed','yes','true','1'].includes(norm(value));
   const isPublic = value => ['public','published'].includes(norm(value));
+  const consentApproved = value => isApproved(value) || ['not_applicable','no_people','not_required'].includes(norm(value));
   const validDate = value => {
     const s = trim(value);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;
@@ -103,7 +104,7 @@
       if (ids.has(id)) {console.warn('DIDAR duplicate event ID; skipped:',id);continue;}
       ids.add(id);
       if (!isPublic(row.website_status) || !isApproved(row.review_status) ||
-          !isApproved(row.photo_rights_approved) || !isApproved(row.photo_consent_approved)) continue;
+          !isApproved(row.photo_rights_approved) || !consentApproved(row.photo_consent_approved)) continue;
       const status = norm(row.status);
       if (!['completed','planned','upcoming','scheduled'].includes(status)) continue;
       if (!validDate(row.event_date)) {console.warn('DIDAR invalid/missing event date:',id);continue;}
@@ -120,7 +121,7 @@
       }
       out.push({
         id, programUid:trim(row.program_uid),programId:trim(row.program_id),
-        date:row.event_date,endDate:trim(row.end_date),status,
+        date:row.event_date,endDate:trim(row.end_date),datePrecision:norm(row.date_precision),status,
         category:norm(row.primary_category_id) || 'other',type:trim(row.event_type),
         title,summary:localized('summary',row),description:localized('description',row),
         venue:trim(row.venue_public),venueType:trim(row.venue_type),

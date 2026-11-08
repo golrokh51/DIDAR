@@ -6,12 +6,7 @@
   const lang = root.dataset.lang || 'fr';
   const siteRoot = root.dataset.siteRoot || '../';
   const feedUrl = root.dataset.feedUrl || `${siteRoot}events/events-feed.json`;
-  const configUrl = `${siteRoot}
-{
-  "mode": "google_sheets_csv",
-  "google_sheets_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrNUwAxSxPKZQGLR92tP_BBIybtt7dgb3vrxDdU1fCg75ReanC9HW3gEMv7U5uCGBifDZqscMZ7Uot/pub?gid=168042679&single=true&output=csv"
-}
-`;
+  const configUrl = `${siteRoot}config/events-source.json`;
   const helpers = window.DIDAREventsData;
   if (!helpers) { console.error('DIDAR events-data.js must load before events.js'); return; }
   const labels = {
@@ -21,21 +16,21 @@
       loadError:'Unable to load the event calendar. Please try again later.',
       eventNotFound:'This event is not available for public viewing.',
       more:'More information', collaborators:'Collaborators', location:'Location',
-      photoCredit:'Photo credit', imageError:'Photo unavailable', openPhoto:'Open original on Google Drive', photoAlbum:'View photo album', count:n=>`${n} event${n===1?'':'s'}`},
+      photoCredit:'Photo credit', imageError:'Photo unavailable', openPhoto:'Open original on Google Drive', photoAlbum:'View photo album', approx:'Approximate date: ', count:n=>`${n} event${n===1?'':'s'}`},
     fr: {upcoming:'Événements à venir', past:'Événements passés', all:'Toutes les catégories', years:'Toutes les années',
       category:'Catégorie', year:'Année', details:'Voir l’événement', back:'← Retour aux événements',
       emptyUpcoming:'Aucun événement à venir n’est publié pour le moment.',emptyPast:'Les archives publiques des événements sont en préparation.',
       loadError:'Impossible de charger les événements. Veuillez réessayer plus tard.',
       eventNotFound:'Cet événement n’est pas disponible publiquement.',
       more:'Plus d’informations', collaborators:'Organismes collaborateurs', location:'Lieu',
-      photoCredit:'Crédit photo', imageError:'Photo indisponible', openPhoto:'Ouvrir la photo sur Google Drive', photoAlbum:'Voir l’album photo', count:n=>`${n} événement${n===1?'':'s'}`},
+      photoCredit:'Crédit photo', imageError:'Photo indisponible', openPhoto:'Ouvrir la photo sur Google Drive', photoAlbum:'Voir l’album photo', approx:'Date approximative : ', count:n=>`${n} événement${n===1?'':'s'}`},
     fa: {upcoming:'رویدادهای پیش رو', past:'رویدادهای گذشته', all:'همهٔ دسته‌ها', years:'همهٔ سال‌ها',
       category:'دسته‌بندی', year:'سال', details:'مشاهدهٔ رویداد', back:'بازگشت به رویدادها ←',
       emptyUpcoming:'در حال حاضر رویداد آینده‌ای برای نمایش عمومی ثبت نشده است.',emptyPast:'آرشیو عمومی رویدادها در حال آماده‌سازی است.',
       loadError:'بارگیری رویدادها امکان‌پذیر نیست. لطفاً بعداً دوباره تلاش کنید.',
       eventNotFound:'اطلاعات این رویداد برای نمایش عمومی در دسترس نیست.',
       more:'اطلاعات بیشتر', collaborators:'همکاران', location:'محل برگزاری',
-      photoCredit:'عکاس', imageError:'تصویر در دسترس نیست', openPhoto:'دیدن تصویر در گوگل درایو', photoAlbum:'مشاهدهٔ آلبوم تصاویر', count:n=>`${n} رویداد`},
+      photoCredit:'عکاس', imageError:'تصویر در دسترس نیست', openPhoto:'دیدن تصویر در گوگل درایو', photoAlbum:'مشاهدهٔ آلبوم تصاویر', approx:'تاریخ تقریبی: ', count:n=>`${n} رویداد`},
   };
   const c = labels[lang] || labels.en;
   const categories = {
@@ -64,6 +59,9 @@
     const d = new Date(`${iso}T12:00:00Z`);
     const locales = {fa:'fa-IR-u-ca-gregory',en:'en-CA',fr:'fr-CA'};
     return new Intl.DateTimeFormat(locales[lang]||'fr-CA', {year:'numeric',month:'long',day:'numeric',timeZone:'UTC'}).format(d);
+  }
+  function displayEventDate(ev) {
+    return (['estimated','approximate'].includes(String(ev.datePrecision||'').toLowerCase()) ? c.approx : '') + formatDate(ev.date);
   }
   function todayToronto() {
     const parts = new Intl.DateTimeFormat('en-US',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'America/Toronto'}).formatToParts(new Date());
@@ -115,7 +113,7 @@
     const img = make('img');img.src = imageUrl(ev.featuredImage);img.alt = tr(ev.featuredImage.alt)||tr(ev.title);
     img.loading='lazy';img.decoding='async';link.append(img);onPhotoError(img,ev,link);card.append(link);
     const body=make('div','event-card-body');
-    body.append(badge(ev),make('p','event-date',formatDate(ev.date)));
+    body.append(badge(ev),make('p','event-date',displayEventDate(ev)));
     const h=make('h3');const titleLink=make('a','',tr(ev.title));titleLink.href=link.href;h.append(titleLink);body.append(h);
     const description=tr(ev.summary)||tr(ev.description);
     if(description) body.append(make('p','event-summary',description.length>190?description.slice(0,187)+'…':description));
@@ -157,7 +155,7 @@
     if(!ev) {detail.append(make('p','events-empty',c.eventNotFound));return;}
     detail.append(badge(ev));
     detail.append(make('h2','',tr(ev.title)));
-    const meta=make('div','event-detail-meta');meta.append(make('span','event-date',formatDate(ev.date)));
+    const meta=make('div','event-detail-meta');meta.append(make('span','event-date',displayEventDate(ev)));
     if(ev.endDate && ev.endDate!==ev.date) meta.append(make('span','event-muted',formatDate(ev.endDate)));
     if(ev.venue) meta.append(make('span','event-muted',ev.venue));
     detail.append(meta);

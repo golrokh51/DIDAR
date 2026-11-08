@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>DIDAR activities | DIDAR</title><meta content="See what’s happening at DIDAR. Each ongoing program can have several sessions, held on different dates and with different community partners." name="description"/><link href="../../styles.css" rel="stylesheet"/><link href="../../assets/localized-experience.css" rel="stylesheet"/><style>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>DIDAR activities | DIDAR</title>
+  <meta
+    content="See what’s happening at DIDAR. Each ongoing program can have several sessions, held on different dates and with different community partners."
+    name="description" />
+  <link href="../../styles.css" rel="stylesheet" />
+  <link href="../../assets/localized-experience.css" rel="stylesheet" />
+  <style>
     html[lang="xx"] body {
       text-align: left;
     }
@@ -42,8 +53,16 @@
       font: inherit;
     }
 
-    .activity-toolbar-group { margin-top:1rem; }
-    .activity-toolbar-label { margin:0 0 -.6rem; font-weight:700; font-size:.94rem; }
+    .activity-toolbar-group {
+      margin-top: 1rem;
+    }
+
+    .activity-toolbar-label {
+      margin: 0 0 -.6rem;
+      font-weight: 700;
+      font-size: .94rem;
+    }
+
     .activity-filter[aria-pressed="true"] {
       background: var(--ink, #17324D);
       color: #fff;
@@ -52,12 +71,17 @@
 
     /* REPEATABLE GENERAL PROGRAMS */
 
-    .programs-intro { max-width: 850px; margin: 0 0 1.5rem; }
+    .programs-intro {
+      max-width: 850px;
+      margin: 0 0 1.5rem;
+    }
+
     .programs-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1rem;
     }
+
     .program-card {
       display: flex;
       flex-direction: column;
@@ -67,34 +91,164 @@
       background: #fff;
       border: 1px solid rgba(23, 50, 77, .11);
     }
-    .program-card h3 { margin: 0; font-size: 1.3rem; }
-    .program-card p { margin: 0; }
-    .program-status { color: #2D6F6D; font-weight: 700; font-size: .93rem; }
-    .program-subtitle { font-weight: 600; }
-    .program-meta { font-size: .92rem; }
-    .program-meta strong { color: var(--ink, #17324D); }
-    .program-topics { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: auto; }
-    .program-topics span { background: #f7f3eb; border-radius: 99px; padding: .25rem .6rem; font-size: .83rem; }
-    .program-more { font-weight: 700; text-decoration: none; margin-top: .5rem; }
-    .collaborator-links { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .4rem .65rem; }
-    .collaborator-links a { color: var(--teal, #2D6F6D); font-weight: 600; text-decoration: underline; text-underline-offset: .18rem; }
-    .collaborator-links span { font-weight: 600; }
-    .collaborator-links a:hover { color: var(--ink, #17324D); }
-    .collaborator-links a:focus-visible { outline: 2px solid #B9913B; outline-offset: 3px; border-radius: 2px; }
 
-    .program-collaborators { margin-top: .2rem; font-size: .94rem; }
-    .program-sessions { margin-top: .3rem; padding-top: .8rem; border-top: 1px solid rgba(23, 50, 77, .12); }
-    .program-sessions summary { cursor: pointer; font-weight: 700; color: var(--ink, #17324D); }
-    .program-session-list { padding: .6rem 0 0; list-style: none; margin: 0; display: grid; gap: .7rem; }
-    .program-session-item { border-radius: 10px; background: #f7f9f8; padding: .7rem; display: grid; gap: .35rem; font-size: .9rem; }
-    .program-session-item a { color: var(--ink, #17324D); font-weight: 650; text-decoration: underline; text-underline-offset: .2rem; }
-    .session-topline { display: flex; flex-wrap: wrap; gap: .45rem .6rem; align-items: center; }
-    .session-status { display: inline-flex; border-radius: 99px; padding: .2rem .65rem; font-size: .8rem; font-weight: 700; background: #e9f1ef; color: #235e55; }
-    .session-status[data-status="completed"] { background: #eef4f3; color: #245f60; }
-    .session-status[data-status="scheduled"], .session-status[data-status="upcoming"] { background: #f8f0df; color: #7c5d17; }
-    .session-status[data-status="cancelled"] { background: #f9e9e9; color: #9c3535; }
-    .session-status[data-status="postponed"] { background: #f0eef8; color: #62508c; }
-    .session-collaborators { font-size: .86rem; }
+    .program-card h3 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .program-card p {
+      margin: 0;
+    }
+
+    .program-status {
+      color: #2D6F6D;
+      font-weight: 700;
+      font-size: .93rem;
+    }
+
+    .program-subtitle {
+      font-weight: 600;
+    }
+
+    .program-meta {
+      font-size: .92rem;
+    }
+
+    .program-meta strong {
+      color: var(--ink, #17324D);
+    }
+
+    .program-topics {
+      display: flex;
+      gap: .4rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .program-topics span {
+      background: #f7f3eb;
+      border-radius: 99px;
+      padding: .25rem .6rem;
+      font-size: .83rem;
+    }
+
+    .program-more {
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: .5rem;
+    }
+
+    .collaborator-links {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: .4rem .65rem;
+    }
+
+    .collaborator-links a {
+      color: var(--teal, #2D6F6D);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: .18rem;
+    }
+
+    .collaborator-links span {
+      font-weight: 600;
+    }
+
+    .collaborator-links a:hover {
+      color: var(--ink, #17324D);
+    }
+
+    .collaborator-links a:focus-visible {
+      outline: 2px solid #B9913B;
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .program-collaborators {
+      margin-top: .2rem;
+      font-size: .94rem;
+    }
+
+    .program-sessions {
+      margin-top: .3rem;
+      padding-top: .8rem;
+      border-top: 1px solid rgba(23, 50, 77, .12);
+    }
+
+    .program-sessions summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink, #17324D);
+    }
+
+    .program-session-list {
+      padding: .6rem 0 0;
+      list-style: none;
+      margin: 0;
+      display: grid;
+      gap: .7rem;
+    }
+
+    .program-session-item {
+      border-radius: 10px;
+      background: #f7f9f8;
+      padding: .7rem;
+      display: grid;
+      gap: .35rem;
+      font-size: .9rem;
+    }
+
+    .program-session-item a {
+      color: var(--ink, #17324D);
+      font-weight: 650;
+      text-decoration: underline;
+      text-underline-offset: .2rem;
+    }
+
+    .session-topline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem .6rem;
+      align-items: center;
+    }
+
+    .session-status {
+      display: inline-flex;
+      border-radius: 99px;
+      padding: .2rem .65rem;
+      font-size: .8rem;
+      font-weight: 700;
+      background: #e9f1ef;
+      color: #235e55;
+    }
+
+    .session-status[data-status="completed"] {
+      background: #eef4f3;
+      color: #245f60;
+    }
+
+    .session-status[data-status="scheduled"],
+    .session-status[data-status="upcoming"] {
+      background: #f8f0df;
+      color: #7c5d17;
+    }
+
+    .session-status[data-status="cancelled"] {
+      background: #f9e9e9;
+      color: #9c3535;
+    }
+
+    .session-status[data-status="postponed"] {
+      background: #f0eef8;
+      color: #62508c;
+    }
+
+    .session-collaborators {
+      font-size: .86rem;
+    }
 
 
     /* YEARS */
@@ -216,11 +370,16 @@
     }
 
     @media (max-width: 1000px) {
-      .programs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .programs-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 760px) {
-      .programs-grid { grid-template-columns: 1fr; }
+      .programs-grid {
+        grid-template-columns: 1fr;
+      }
+
       .activities-grid {
         grid-template-columns: 1fr;
       }
@@ -229,124 +388,202 @@
         padding-top: 3rem;
       }
     }
-  </style><link href="../../assets/english-site.css" rel="stylesheet"/><link href="https://didar-mtl.ca/en/activities/" rel="canonical"/></head><body><a class="skip-link" href="#top">Skip to main content</a><header class="site-header"><div class="container nav-wrap"><a aria-label="DIDAR English homepage" class="brand" href="../index.html"><img alt="DIDAR logo" class="brand-logo" src="../../assets/logo-header.webp"/><strong>DIDAR</strong></a><div class="nav-area"><nav aria-label="Choose language" class="languages"><a href="../../index.html" title="French homepage">FR</a><a aria-current="page" href="../index.html">EN</a><a href="../../fa/index.html" title="Persian homepage">فارسی</a></nav><nav aria-label="Main navigation" class="main-nav"><a href="../index.html">Home</a> <a href="../story/index.html">Our Story</a> <a href="../projects/index.html">Projects</a> <a href="./index.html">Activities</a> <a href="../events/index.html">Events</a> <a href="../committees/index.html">Committees</a><details class="nav-dropdown"><summary>Community <span aria-hidden="true">⌄</span></summary><div class="nav-dropdown-menu"><a href="../team/index.html">Our Team</a><a href="../recognition/index.html">Recognition</a><a href="../reports/index.html">Reports &amp; Impact</a><a href="../moments/index.html">Community Moments</a></div></details><a href="../index.html#contact">Contact</a></nav><details class="mobile-navigation"><summary aria-label="Open navigation">☰ Menu</summary><nav aria-label="Mobile navigation"><a href="../index.html">Home</a><a href="../story/index.html">Our Story</a><a href="../projects/index.html">Projects</a><a href="./index.html">Activities</a> <a href="../events/index.html">Events</a><a href="../committees/index.html">Committees</a><span class="mobile-nav-heading">Community</span><a href="../team/index.html">Our Team</a><a href="../recognition/index.html">Recognition</a><a href="../reports/index.html">Reports &amp; Impact</a><a href="../moments/index.html">Community Moments</a><a href="../index.html#contact">Contact</a></nav></details></div></div></header><main id="top"><section class="activities-hero"><div class="container narrow"><p class="eyebrow">Workshops · conversations · gatherings · partnerships</p><h1>DIDAR activities</h1><p class="lead">See what’s happening at DIDAR. Each ongoing program can have several sessions, held on different dates and with different community partners.</p></div></section><section class="section" id="programs"><div class="container"><h2>Explore our programs</h2><p class="programs-intro">Get to know the programs. Details and dates for individual sessions are listed separately.</p><div class="programs-grid" id="programs-grid"></div></div></section><section class="section alt" id="sessions"><div class="container"><h2>Sessions &amp; events</h2><p>Browse what’s coming up and what has already taken place. Every session has its own date, status and collaborators.</p><div class="activity-toolbar-group"><p class="activity-toolbar-label">Session status</p><div aria-label="Session status" class="activity-toolbar" id="status-filters" role="group"></div></div><div class="activity-toolbar-group"><p class="activity-toolbar-label">Type of activity</p><div aria-label="Type of activity" class="activity-toolbar" id="activity-filters" role="group"></div></div><div id="activities-container"></div><p class="activities-empty" id="activities-empty">No activities match these filters.</p></div></section></main><footer><div class="container footer-wrap"><p>© <span id="year"></span> DIDAR. All rights reserved.</p><p>Montréal · Québec</p></div></footer><script>document.getElementById("year").textContent=new Date().getFullYear();</script><script src="../../activities/activities-data.js"></script>
-<script src="../../assets/activity-i18n.js"></script>
-<script>
+  </style>
+  <link href="../../assets/english-site.css" rel="stylesheet" />
+  <link href="https://didar-mtl.ca/en/activities/" rel="canonical" />
+</head>
+
+<body><a class="skip-link" href="#top">Skip to main content</a>
+  <header class="site-header">
+    <div class="container nav-wrap"><a aria-label="DIDAR English homepage" class="brand" href="../index.html"><img
+          alt="DIDAR logo" class="brand-logo" src="../../assets/logo.png" /><strong>DIDAR</strong></a>
+      <div class="nav-area">
+        <nav aria-label="Choose language" class="languages"><a href="../../index.html" title="French homepage">FR</a><a
+            aria-current="page" href="../index.html">EN</a><a href="../../fa/index.html"
+            title="Persian homepage">فارسی</a></nav>
+        <nav aria-label="Main navigation" class="main-nav"><a href="../index.html">Home</a> <a
+            href="../story/index.html">Our Story</a> <a href="../projects/index.html">Projects</a> <a
+            href="./index.html">Activities</a> <a href="../events/index.html">Events</a> <a
+            href="../committees/index.html">Committees</a>
+          <details class="nav-dropdown">
+            <summary>Community <span aria-hidden="true">⌄</span></summary>
+            <div class="nav-dropdown-menu"><a href="../team/index.html">Our Team</a><a
+                href="../recognition/index.html">Recognition</a><a href="../reports/index.html">Reports &amp;
+                Impact</a><a href="../moments/index.html">Community Moments</a></div>
+          </details><a href="../index.html#contact">Contact</a>
+        </nav>
+        <details class="mobile-navigation">
+          <summary aria-label="Open navigation">☰ Menu</summary>
+          <nav aria-label="Mobile navigation"><a href="../index.html">Home</a><a href="../story/index.html">Our
+              Story</a><a href="../projects/index.html">Projects</a><a href="./index.html">Activities</a> <a
+              href="../events/index.html">Events</a><a href="../committees/index.html">Committees</a><span
+              class="mobile-nav-heading">Community</span><a href="../team/index.html">Our Team</a><a
+              href="../recognition/index.html">Recognition</a><a href="../reports/index.html">Reports &amp; Impact</a><a
+              href="../moments/index.html">Community Moments</a><a href="../index.html#contact">Contact</a></nav>
+        </details>
+      </div>
+    </div>
+  </header>
+  <main id="top">
+    <section class="activities-hero">
+      <div class="container narrow">
+        <p class="eyebrow">Workshops · conversations · gatherings · partnerships</p>
+        <h1>DIDAR activities</h1>
+        <p class="lead">See what’s happening at DIDAR. Each ongoing program can have several sessions, held on different
+          dates and with different community partners.</p>
+      </div>
+    </section>
+    <section class="section" id="programs">
+      <div class="container">
+        <h2>Explore our programs</h2>
+        <p class="programs-intro">Get to know the programs. Details and dates for individual sessions are listed
+          separately.</p>
+        <div class="programs-grid" id="programs-grid"></div>
+      </div>
+    </section>
+    <section class="section alt" id="sessions">
+      <div class="container">
+        <h2>Sessions &amp; events</h2>
+        <p>Browse what’s coming up and what has already taken place. Every session has its own date, status and
+          collaborators.</p>
+        <div class="activity-toolbar-group">
+          <p class="activity-toolbar-label">Session status</p>
+          <div aria-label="Session status" class="activity-toolbar" id="status-filters" role="group"></div>
+        </div>
+        <div class="activity-toolbar-group">
+          <p class="activity-toolbar-label">Type of activity</p>
+          <div aria-label="Type of activity" class="activity-toolbar" id="activity-filters" role="group"></div>
+        </div>
+        <div id="activities-container"></div>
+        <p class="activities-empty" id="activities-empty">No activities match these filters.</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> DIDAR. All rights reserved.</p>
+      <p>Montréal · Québec</p>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="../../activities/activities-data.js"></script>
+  <script src="../../assets/activity-i18n.js"></script>
+  <script>
 
 
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
 
-  const container =
-    document.getElementById("activities-container");
+    const container =
+      document.getElementById("activities-container");
 
-  const toolbar =
-    document.getElementById("activity-filters");
-  const statusToolbar = document.getElementById("status-filters");
-  let chosenType = "all";
-  let chosenStatus = "all";
+    const toolbar =
+      document.getElementById("activity-filters");
+    const statusToolbar = document.getElementById("status-filters");
+    let chosenType = "all";
+    let chosenStatus = "all";
 
-  const empty =
-    document.getElementById("activities-empty");
-
-
-  const programsGrid =
-    document.getElementById("programs-grid");
-
-  // Site uses the generated, language-ready JSON feed. The original Persian
-  // activities-data.js remains a safety fallback for local previews and errors.
-  let connectedProjects = [];
-  let currentPrograms = PROGRAMS;
-  let currentActivities = ACTIVITIES;
+    const empty =
+      document.getElementById("activities-empty");
 
 
+    const programsGrid =
+      document.getElementById("programs-grid");
 
-  function localize(record, kind) {
-    const savedCopy = kind === "program" ? PROGRAMS : ACTIVITIES;
-    return window.DIDAR_localizeRecord(record, "en", kind, savedCopy);
-  }
+    // Site uses the generated, language-ready JSON feed. The original Persian
+    // activities-data.js remains a safety fallback for local previews and errors.
+    let connectedProjects = [];
+    let currentPrograms = PROGRAMS;
+    let currentActivities = ACTIVITIES;
 
-  // Escape user-editable text before placing it inside HTML.
-  function escapeHtml(value = "") {
-    return String(value).replace(/[&<>"']/g, char => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;",
-      '"': "&quot;", "'": "&#39;"
-    }[char]));
-  }
 
-  const sessionStatusLabels = {
-    completed: "Completed",
-    scheduled: "Scheduled",
-    upcoming: "Scheduled",
-    cancelled: "Cancelled",
-    postponed: "Postponed"
-  };
 
-  function renderStatus(status) {
-    const allowed = ["completed", "scheduled", "upcoming", "cancelled", "postponed"];
-    const safeStatus = allowed.includes(status) ? status : "scheduled";
-    return `<span class="session-status" data-status="${safeStatus}">${sessionStatusLabels[safeStatus]}</span>`;
-  }
-
-  function hostItems(record) {
-    return Array.isArray(record.hosts)
-      ? record.hosts.filter(item => item && item.name)
-      : [];
-  }
-
-  function collaboratorItems(record) {
-    const hosts = hostItems(record);
-    const isHost = item => hosts.some(host =>
-      host.name.trim().toLocaleLowerCase() === item.name.trim().toLocaleLowerCase() ||
-      (host.url && item.url && host.url === item.url));
-    if (Array.isArray(record.collaborators) && record.collaborators.length) {
-      return record.collaborators.filter(item => item && item.name && !isHost(item));
+    function localize(record, kind) {
+      const savedCopy = kind === "program" ? PROGRAMS : ACTIVITIES;
+      return window.DIDAR_localizeRecord(record, "en", kind, savedCopy);
     }
-    // Backwards compatibility: partner_fa/en/fr plus shared partner_url.
-    const fallback = record.partner
-      ? { name: record.partner, url: record.partnerUrl || "" }
-      : null;
-    return fallback && !isHost(fallback) ? [fallback] : [];
-  }
 
-  function renderOrganizationLinks(items, className = "") {
-    if (!items.length) return "";
-    return `<span class="collaborator-links ${className}">${items.map(item => {
-      const link = /^https?:\/\//i.test(String(item.url || "").trim())
-        ? secureLink(item.url) : "";
-      const name = escapeHtml(item.name);
-      const label = "Visit {name} website (opens in a new tab)".replace("{name}", item.name);
-      return link
-        ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(label)}">${name} <span aria-hidden="true">↗</span></a>`
-        : `<span>${name}</span>`;
-    }).join("")}</span>`;
-  }
+    // Escape user-editable text before placing it inside HTML.
+    function escapeHtml(value = "") {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;",
+        '"': "&quot;", "'": "&#39;"
+      }[char]));
+    }
 
-  function renderCollaborators(record, className = "") {
-    return renderOrganizationLinks(collaboratorItems(record), className);
-  }
+    const sessionStatusLabels = {
+      completed: "Completed",
+      scheduled: "Scheduled",
+      upcoming: "Scheduled",
+      cancelled: "Cancelled",
+      postponed: "Postponed"
+    };
 
-  function renderHosts(record, className = "") {
-    return renderOrganizationLinks(hostItems(record), className);
-  }
+    function renderStatus(status) {
+      const allowed = ["completed", "scheduled", "upcoming", "cancelled", "postponed"];
+      const safeStatus = allowed.includes(status) ? status : "scheduled";
+      return `<span class="session-status" data-status="${safeStatus}">${sessionStatusLabels[safeStatus]}</span>`;
+    }
 
-  function sessionsOfProgram(programId) {
-    return currentActivities
-      .filter(activity => activity.programId === programId && activity.visible !== false)
-      .sort((a,b) => {
-        const aScheduled = ["upcoming", "scheduled"].includes(a.status);
-        const bScheduled = ["upcoming", "scheduled"].includes(b.status);
-        if (aScheduled !== bScheduled) return aScheduled ? -1 : 1;
-        return aScheduled
-          ? (a.date || "9999").localeCompare(b.date || "9999")
-          : (b.date || "").localeCompare(a.date || "");
-      });
-  }
+    function hostItems(record) {
+      return Array.isArray(record.hosts)
+        ? record.hosts.filter(item => item && item.name)
+        : [];
+    }
 
-  function renderProgramSessions(sessions) {
-    if (!sessions.length) return "";
-    return `<details class="program-sessions" ${sessions.length <= 3 ? "open" : ""}>
+    function collaboratorItems(record) {
+      const hosts = hostItems(record);
+      const isHost = item => hosts.some(host =>
+        host.name.trim().toLocaleLowerCase() === item.name.trim().toLocaleLowerCase() ||
+        (host.url && item.url && host.url === item.url));
+      if (Array.isArray(record.collaborators) && record.collaborators.length) {
+        return record.collaborators.filter(item => item && item.name && !isHost(item));
+      }
+      // Backwards compatibility: partner_fa/en/fr plus shared partner_url.
+      const fallback = record.partner
+        ? { name: record.partner, url: record.partnerUrl || "" }
+        : null;
+      return fallback && !isHost(fallback) ? [fallback] : [];
+    }
+
+    function renderOrganizationLinks(items, className = "") {
+      if (!items.length) return "";
+      return `<span class="collaborator-links ${className}">${items.map(item => {
+        const link = /^https?:\/\//i.test(String(item.url || "").trim())
+          ? secureLink(item.url) : "";
+        const name = escapeHtml(item.name);
+        const label = "Visit {name} website (opens in a new tab)".replace("{name}", item.name);
+        return link
+          ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(label)}">${name} <span aria-hidden="true">↗</span></a>`
+          : `<span>${name}</span>`;
+      }).join("")}</span>`;
+    }
+
+    function renderCollaborators(record, className = "") {
+      return renderOrganizationLinks(collaboratorItems(record), className);
+    }
+
+    function renderHosts(record, className = "") {
+      return renderOrganizationLinks(hostItems(record), className);
+    }
+
+    function sessionsOfProgram(programId) {
+      return currentActivities
+        .filter(activity => activity.programId === programId && activity.visible !== false)
+        .sort((a, b) => {
+          const aScheduled = ["upcoming", "scheduled"].includes(a.status);
+          const bScheduled = ["upcoming", "scheduled"].includes(b.status);
+          if (aScheduled !== bScheduled) return aScheduled ? -1 : 1;
+          return aScheduled
+            ? (a.date || "9999").localeCompare(b.date || "9999")
+            : (b.date || "").localeCompare(a.date || "");
+        });
+    }
+
+    function renderProgramSessions(sessions) {
+      if (!sessions.length) return "";
+      return `<details class="program-sessions" ${sessions.length <= 3 ? "open" : ""}>
       <summary>Sessions in this program (${sessions.length.toLocaleString("en-CA")})</summary>
       <ul class="program-session-list">${sessions.map(session => `
         <li class="program-session-item">
@@ -359,32 +596,32 @@
           ${collaboratorItems(session).length ? `<div class="session-collaborators"><strong>In collaboration with:</strong> ${renderCollaborators(session)}</div>` : ""}
         </li>`).join("")}</ul>
     </details>`;
-  }
+    }
 
 
-  function relatedProjectLinks(record) {
-    const parent = record.programId ? currentPrograms.find(p=>p.id===record.programId) : null;
-    const direct = [...(Array.isArray(record.projectIds) ? record.projectIds : []),
-                    ...(parent && Array.isArray(parent.projectIds) ? parent.projectIds : [])];
-    const programId = record.programId || record.id;
-    const inferred = connectedProjects.filter(p=>(p.relatedProgramIds || []).includes(programId)).map(p=>p.id);
-    const ids = [...new Set([...direct,...inferred])];
-    const links = ids.map(id=>{
-      const project = connectedProjects.find(p=>p.id===id);
-      const title = project?.translations?.en?.title || id;
-      return `<a href="../projects/index.html#project-${encodeURIComponent(id)}">${escapeHtml(title)}</a>`;
-    });
-    return links.length ? `<p class="program-meta"><strong>Related project:</strong> ${links.join(' · ')}</p>` : '';
-  }
+    function relatedProjectLinks(record) {
+      const parent = record.programId ? currentPrograms.find(p => p.id === record.programId) : null;
+      const direct = [...(Array.isArray(record.projectIds) ? record.projectIds : []),
+      ...(parent && Array.isArray(parent.projectIds) ? parent.projectIds : [])];
+      const programId = record.programId || record.id;
+      const inferred = connectedProjects.filter(p => (p.relatedProgramIds || []).includes(programId)).map(p => p.id);
+      const ids = [...new Set([...direct, ...inferred])];
+      const links = ids.map(id => {
+        const project = connectedProjects.find(p => p.id === id);
+        const title = project?.translations?.en?.title || id;
+        return `<a href="../projects/index.html#project-${encodeURIComponent(id)}">${escapeHtml(title)}</a>`;
+      });
+      return links.length ? `<p class="program-meta"><strong>Related project:</strong> ${links.join(' · ')}</p>` : '';
+    }
 
-  function renderPrograms() {
-    const programs = currentPrograms.filter(p => p.visible !== false)
-      .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
-    programsGrid.innerHTML = programs.map(p => {
-      const programSessions = sessionsOfProgram(p.id);
-      const topicBadges = (p.topics || [])
-        .map(topic => `<span>${escapeHtml(topic)}</span>`).join("");
-      return `
+    function renderPrograms() {
+      const programs = currentPrograms.filter(p => p.visible !== false)
+        .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+      programsGrid.innerHTML = programs.map(p => {
+        const programSessions = sessionsOfProgram(p.id);
+        const topicBadges = (p.topics || [])
+          .map(topic => `<span>${escapeHtml(topic)}</span>`).join("");
+        return `
         <article class="program-card" id="program-${escapeHtml(p.id)}">
           ${p.status ? `<div class="program-status">${escapeHtml(p.status)}</div>` : ""}
           <h3>${escapeHtml(p.title)}</h3>
@@ -399,138 +636,138 @@
           ${relatedProjectLinks(p)}
           ${renderProgramSessions(programSessions)}
         </article>`;
-    }).join("");
-  }
+      }).join("");
+    }
 
-  const typeLabels = {
-    all: "All",
-    workshop: "Workshop",
-    event: "Event",
-    talk: "Talk & discussion",
-    cultural: "Cultural activity",
-    community: "Community activity",
-    collaboration: "Collaboration",
-    training: "Training"
-  };
-
-
-  function formatDate(dateString) {
-
-    if (!dateString) return "";
-
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return "";
-    const date = new Date(dateString + "T12:00:00");
-    if (Number.isNaN(date.getTime())) return "";
-
-    return new Intl.DateTimeFormat(
-      "en-CA",
-      {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      }
-    ).format(date);
-
-  }
+    const typeLabels = {
+      all: "All",
+      workshop: "Workshop",
+      event: "Event",
+      talk: "Talk & discussion",
+      cultural: "Cultural activity",
+      community: "Community activity",
+      collaboration: "Collaboration",
+      training: "Training"
+    };
 
 
-  function getYear(activity) {
+    function formatDate(dateString) {
 
-    if (!activity.date) return "Undated";
+      if (!dateString) return "";
 
-    return activity.date.slice(0, 4);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return "";
+      const date = new Date(dateString + "T12:00:00");
+      if (Number.isNaN(date.getTime())) return "";
 
-  }
+      return new Intl.DateTimeFormat(
+        "en-CA",
+        {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }
+      ).format(date);
 
-
-  function availableTypes() {
-    return [
-    "all",
-    ...new Set(
-      currentActivities
-        .filter(activity => activity.visible !== false)
-        .map(activity => activity.type)
-        .filter(Boolean)
-    )
-  ];
-  }
+    }
 
 
-  const statusLabelsFilter = {
-    all: "All statuses",
-    upcoming: "Upcoming & scheduled",
-    completed: "Completed",
-    other: "Cancelled & postponed"
-  };
+    function getYear(activity) {
 
-  function renderFilters() {
-    const types=availableTypes();
-    toolbar.innerHTML = types.map(type => `
+      if (!activity.date) return "Undated";
+
+      return activity.date.slice(0, 4);
+
+    }
+
+
+    function availableTypes() {
+      return [
+        "all",
+        ...new Set(
+          currentActivities
+            .filter(activity => activity.visible !== false)
+            .map(activity => activity.type)
+            .filter(Boolean)
+        )
+      ];
+    }
+
+
+    const statusLabelsFilter = {
+      all: "All statuses",
+      upcoming: "Upcoming & scheduled",
+      completed: "Completed",
+      other: "Cancelled & postponed"
+    };
+
+    function renderFilters() {
+      const types = availableTypes();
+      toolbar.innerHTML = types.map(type => `
       <button class="activity-filter" type="button" data-filter="${escapeHtml(type)}"
         aria-pressed="${chosenType === type}">${escapeHtml(typeLabels[type] || type)}</button>`).join("");
-    statusToolbar.innerHTML = Object.entries(statusLabelsFilter).map(([key, label]) => `
+      statusToolbar.innerHTML = Object.entries(statusLabelsFilter).map(([key, label]) => `
       <button class="activity-filter" type="button" data-status="${key}"
         aria-pressed="${chosenStatus === key}">${label}</button>`).join("");
-    toolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
-      chosenType = button.dataset.filter;
-      renderFilters(); renderActivities();
-    }));
-    statusToolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
-      chosenStatus = button.dataset.status;
-      renderFilters(); renderActivities();
-    }));
-  }
+      toolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+        chosenType = button.dataset.filter;
+        renderFilters(); renderActivities();
+      }));
+      statusToolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+        chosenStatus = button.dataset.status;
+        renderFilters(); renderActivities();
+      }));
+    }
 
-  function renderActivities() {
-    let activities=currentActivities.filter(activity => activity.visible !== false);
-    if (chosenType !== "all") activities=activities.filter(activity => activity.type===chosenType);
-    if (chosenStatus === "upcoming") activities=activities.filter(activity => ["upcoming","scheduled"].includes(activity.status));
-    if (chosenStatus === "completed") activities=activities.filter(activity => activity.status === "completed");
-    if (chosenStatus === "other") activities=activities.filter(activity => ["cancelled","postponed"].includes(activity.status));
-    if (!activities.length) {
-      container.innerHTML="";
-      empty.textContent = chosenStatus === "upcoming"
-        ? "No upcoming sessions are listed yet. See the programs above for general schedules."
-        : "No activities match these filters.";
-      empty.style.display="block";
-      return;
-    }
-    empty.style.display="none";
-    // Highlight upcoming sessions first; keep completed events in newest-first order.
-    const rank=a => ["scheduled","upcoming"].includes(a.status) ? 0 : a.status === "completed" ? 1 : 2;
-    activities.sort((a,b) => rank(a)-rank(b) || (rank(a) === 0
-      ? (a.date || "9999").localeCompare(b.date || "9999")
-      : (b.date || "").localeCompare(a.date || "")));
-    const groups=[];
-    for (const activity of activities) {
-      const groupName = rank(activity) === 0 ? "Upcoming sessions" : rank(activity) === 1
-        ? "Completed · " + getYear(activity)
-        : "Cancelled or postponed";
-      let group=groups.find(item => item.title === groupName);
-      if (!group) { group={title:groupName,items:[]}; groups.push(group); }
-      group.items.push(activity);
-    }
-    container.innerHTML=groups.map(group => `<section class="activity-year">
+    function renderActivities() {
+      let activities = currentActivities.filter(activity => activity.visible !== false);
+      if (chosenType !== "all") activities = activities.filter(activity => activity.type === chosenType);
+      if (chosenStatus === "upcoming") activities = activities.filter(activity => ["upcoming", "scheduled"].includes(activity.status));
+      if (chosenStatus === "completed") activities = activities.filter(activity => activity.status === "completed");
+      if (chosenStatus === "other") activities = activities.filter(activity => ["cancelled", "postponed"].includes(activity.status));
+      if (!activities.length) {
+        container.innerHTML = "";
+        empty.textContent = chosenStatus === "upcoming"
+          ? "No upcoming sessions are listed yet. See the programs above for general schedules."
+          : "No activities match these filters.";
+        empty.style.display = "block";
+        return;
+      }
+      empty.style.display = "none";
+      // Highlight upcoming sessions first; keep completed events in newest-first order.
+      const rank = a => ["scheduled", "upcoming"].includes(a.status) ? 0 : a.status === "completed" ? 1 : 2;
+      activities.sort((a, b) => rank(a) - rank(b) || (rank(a) === 0
+        ? (a.date || "9999").localeCompare(b.date || "9999")
+        : (b.date || "").localeCompare(a.date || "")));
+      const groups = [];
+      for (const activity of activities) {
+        const groupName = rank(activity) === 0 ? "Upcoming sessions" : rank(activity) === 1
+          ? "Completed · " + getYear(activity)
+          : "Cancelled or postponed";
+        let group = groups.find(item => item.title === groupName);
+        if (!group) { group = { title: groupName, items: [] }; groups.push(group); }
+        group.items.push(activity);
+      }
+      container.innerHTML = groups.map(group => `<section class="activity-year">
       <div class="activity-year-heading"><h2>${escapeHtml(group.title)}</h2></div>
       <div class="activities-grid">${group.items.map(renderActivityCard).join("")}</div>
     </section>`).join("");
-  }
+    }
 
-  function secureLink(link) {
-    try {
-      const url = new URL(String(link || ""), window.location.href);
-      return ["http:", "https:"].includes(url.protocol) ? url.href : "";
-    } catch { return ""; }
-  }
+    function secureLink(link) {
+      try {
+        const url = new URL(String(link || ""), window.location.href);
+        return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+      } catch { return ""; }
+    }
 
-  function renderActivityCard(activity) {
+    function renderActivityCard(activity) {
 
-    const link = secureLink(activity.link);
-    const tags =
-      activity.tags || [];
+      const link = secureLink(activity.link);
+      const tags =
+        activity.tags || [];
 
 
-    return `
+      return `
 
       <article class="activity-card" id="session-${escapeHtml(activity.id)}">
 
@@ -542,15 +779,14 @@
 
         <div>
 
-          ${
-            activity.type
-              ? `
+          ${activity.type
+          ? `
                 <span class="activity-type">
                   ${escapeHtml(typeLabels[activity.type] || activity.type)}
                 </span>
               `
-              : ""
-          }
+          : ""
+        }
 
         </div>
 
@@ -566,25 +802,23 @@
 
         ${relatedProjectLinks(activity)}
 
-        ${
-          activity.subtitle
-            ? `
+        ${activity.subtitle
+          ? `
               <p class="activity-subtitle">
                 ${escapeHtml(activity.subtitle)}
               </p>
             `
-            : ""
+          : ""
         }
 
 
-        ${
-          activity.summary
-            ? `
+        ${activity.summary
+          ? `
               <p class="activity-summary">
                 ${escapeHtml(activity.summary)}
               </p>
             `
-            : ""
+          : ""
         }
 
 
@@ -592,58 +826,53 @@
 
           ${activity.module ? `<p><strong>Session:</strong> ${escapeHtml(activity.module)}</p>` : ""}
 
-          ${
-            activity.project
-              ? `
+          ${activity.project
+          ? `
                 <p>
                   <strong>Part of:</strong>
                   ${escapeHtml(activity.project)}
                 </p>
               `
-              : ""
-          }
+          : ""
+        }
           ${hostItems(activity).length
-            ? `<p><strong>Hosted by:</strong> ${renderHosts(activity)}</p>`
-            : ""}
+          ? `<p><strong>Hosted by:</strong> ${renderHosts(activity)}</p>`
+          : ""}
 
 
 
-          ${
-            collaboratorItems(activity).length
-              ? `<p><strong>In collaboration with:</strong> ${renderCollaborators(activity)}</p>`
-              : ""
-          }
+          ${collaboratorItems(activity).length
+          ? `<p><strong>In collaboration with:</strong> ${renderCollaborators(activity)}</p>`
+          : ""
+        }
 
 
-          ${
-            activity.location
-              ? `
+          ${activity.location
+          ? `
                 <p>
                   <strong>Location:</strong>
                   ${escapeHtml(activity.location)}
                 </p>
               `
-              : ""
-          }
+          : ""
+        }
 
 
-          ${
-            activity.role
-              ? `
+          ${activity.role
+          ? `
                 <p>
                   <strong>DIDAR’s role:</strong>
                   ${escapeHtml(activity.role)}
                 </p>
               `
-              : ""
-          }
+          : ""
+        }
 
         </div>
 
 
-        ${
-          tags.length
-            ? `
+        ${tags.length
+          ? `
               <div class="activity-tags">
 
                 ${tags.map(tag => `
@@ -654,13 +883,12 @@
 
               </div>
             `
-            : ""
+          : ""
         }
 
 
-        ${
-          link
-            ? `
+        ${link
+          ? `
               <a
                 class="activity-link"
                 href="${escapeHtml(link)}" rel="noopener noreferrer"
@@ -668,50 +896,53 @@
                 Learn more →
               </a>
             `
-            : ""
+          : ""
         }
 
       </article>
 
     `;
 
-  }
+    }
 
 
-  async function initActivities() {
-    try {
-      const response = await fetch("../../fa/activities/activities-feed.json", { cache: "no-store" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const result = await response.json();
-      if (!Array.isArray(result.programs) || !result.programs.length ||
+    async function initActivities() {
+      try {
+        const response = await fetch("../../fa/activities/activities-feed.json", { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const result = await response.json();
+        if (!Array.isArray(result.programs) || !result.programs.length ||
           !Array.isArray(result.sessions)) {
-        throw new Error("Unexpected activities feed format");
+          throw new Error("Unexpected activities feed format");
+        }
+        currentPrograms = result.programs.map(p => localize(p, "program"));
+        currentActivities = result.sessions.map(p => localize(p, "session"));
+      } catch (error) {
+        console.warn("DIDAR: loading EN fallback activity data:", error);
       }
-      currentPrograms = result.programs.map(p => localize(p, "program"));
-      currentActivities = result.sessions.map(p => localize(p, "session"));
-    } catch (error) {
-      console.warn("DIDAR: loading EN fallback activity data:", error);
+      try {
+        const projectResponse = await fetch("../../projects/projects-feed.json", { cache: "no-store" });
+        if (!projectResponse.ok) throw new Error(`Projects feed HTTP ${projectResponse.status}`);
+        const projectFeed = await projectResponse.json();
+        connectedProjects = Array.isArray(projectFeed.projects) ? projectFeed.projects : [];
+      } catch (error) {
+        console.warn("DIDAR: related project links unavailable", error);
+      }
+      renderPrograms();
+      renderFilters();
+      renderActivities();
+      // Cards are generated asynchronously: scroll to a linked program/session after rendering.
+      if (location.hash) {
+        const id = decodeURIComponent(location.hash.slice(1));
+        const target = document.getElementById(id);
+        if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+      }
     }
-    try {
-      const projectResponse = await fetch("../../projects/projects-feed.json", { cache: "no-store" });
-      if (!projectResponse.ok) throw new Error(`Projects feed HTTP ${projectResponse.status}`);
-      const projectFeed = await projectResponse.json();
-      connectedProjects = Array.isArray(projectFeed.projects) ? projectFeed.projects : [];
-    } catch (error) {
-      console.warn("DIDAR: related project links unavailable", error);
-    }
-    renderPrograms();
-    renderFilters();
-    renderActivities();
-    // Cards are generated asynchronously: scroll to a linked program/session after rendering.
-    if (location.hash) {
-      const id = decodeURIComponent(location.hash.slice(1));
-      const target = document.getElementById(id);
-      if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
-    }
-  }
 
-  initActivities();
+    initActivities();
 
 
-</script></body></html>
+  </script>
+</body>
+
+</html>
