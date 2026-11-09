@@ -16,21 +16,21 @@
       loadError:'Unable to load the event calendar. Please try again later.',
       eventNotFound:'This event is not available for public viewing.',
       more:'More information', collaborators:'Collaborators', location:'Location',
-      photoCredit:'Photo credit', imageError:'Photo unavailable', openPhoto:'Open original on Google Drive', photoAlbum:'View photo album', approx:'Approximate date: ', count:n=>`${n} event${n===1?'':'s'}`},
+      photoCredit:'Photo credit', imageError:'Photo unavailable', openPhoto:'Open original on Google Drive', photoAlbum:'View photo album', approx:'Approximate date: ',repeatWeekly:'Every week',repeatBiweekly:'Every two weeks',repeatMonthly:'Every month',repeatDates:'Multiple dates',count:n=>`${n} event${n===1?'':'s'}`},
     fr: {upcoming:'Événements à venir', past:'Événements passés', all:'Toutes les catégories', years:'Toutes les années',
       category:'Catégorie', year:'Année', details:'Voir l’événement', back:'← Retour aux événements',
       emptyUpcoming:'Aucun événement à venir n’est publié pour le moment.',emptyPast:'Les archives publiques des événements sont en préparation.',
       loadError:'Impossible de charger les événements. Veuillez réessayer plus tard.',
       eventNotFound:'Cet événement n’est pas disponible publiquement.',
       more:'Plus d’informations', collaborators:'Organismes collaborateurs', location:'Lieu',
-      photoCredit:'Crédit photo', imageError:'Photo indisponible', openPhoto:'Ouvrir la photo sur Google Drive', photoAlbum:'Voir l’album photo', approx:'Date approximative : ', count:n=>`${n} événement${n===1?'':'s'}`},
+      photoCredit:'Crédit photo', imageError:'Photo indisponible', openPhoto:'Ouvrir la photo sur Google Drive', photoAlbum:'Voir l’album photo', approx:'Date approximative : ',repeatWeekly:'Chaque semaine',repeatBiweekly:'Toutes les deux semaines',repeatMonthly:'Chaque mois',repeatDates:'Plusieurs dates',count:n=>`${n} événement${n===1?'':'s'}`},
     fa: {upcoming:'رویدادهای پیش رو', past:'رویدادهای گذشته', all:'همهٔ دسته‌ها', years:'همهٔ سال‌ها',
       category:'دسته‌بندی', year:'سال', details:'مشاهدهٔ رویداد', back:'بازگشت به رویدادها ←',
       emptyUpcoming:'در حال حاضر رویداد آینده‌ای برای نمایش عمومی ثبت نشده است.',emptyPast:'آرشیو عمومی رویدادها در حال آماده‌سازی است.',
       loadError:'بارگیری رویدادها امکان‌پذیر نیست. لطفاً بعداً دوباره تلاش کنید.',
       eventNotFound:'اطلاعات این رویداد برای نمایش عمومی در دسترس نیست.',
       more:'اطلاعات بیشتر', collaborators:'همکاران', location:'محل برگزاری',
-      photoCredit:'عکاس', imageError:'تصویر در دسترس نیست', openPhoto:'دیدن تصویر در گوگل درایو', photoAlbum:'مشاهدهٔ آلبوم تصاویر', approx:'تاریخ تقریبی: ', count:n=>`${n} رویداد`},
+      photoCredit:'عکاس', imageError:'تصویر در دسترس نیست', openPhoto:'دیدن تصویر در گوگل درایو', photoAlbum:'مشاهدهٔ آلبوم تصاویر', approx:'تاریخ تقریبی: ',repeatWeekly:'هر هفته',repeatBiweekly:'هر دو هفته',repeatMonthly:'هر ماه',repeatDates:'چند تاریخ',count:n=>`${n} رویداد`},
   };
   const c = labels[lang] || labels.en;
   const categories = {
@@ -74,21 +74,26 @@
     try {const u = new URL(url);return u.protocol === 'https:' ? u.href : '';} catch {return '';}
   }
   function categoryFor(ev) {return (ev.category || 'other').toLowerCase();}
-  function bucket(ev) {
-    if (ev.status === 'completed' && ev.date <= todayToronto()) return 'past';
-    if (['planned','upcoming','scheduled'].includes(ev.status) && ev.date >= todayToronto()) return 'upcoming';
-    return 'hidden';
+  function bucket(ev) { return helpers.eventBucket(ev,todayToronto()); }
+  function recurrenceLabel(ev) {
+    if (!ev.recurrence) return '';
+    const labels = {weekly:c.repeatWeekly,biweekly:c.repeatBiweekly,
+      monthly:c.repeatMonthly,dates:c.repeatDates};
+    return labels[ev.recurrence.frequency] || '';
   }
   function imageUrl(img) {
     if (!img) return '';
     const source = helpers.imageSource(img.original || img.src);
     return !source ? '' : source.drive ? source.src : `${siteRoot}${source.src}`;
   }
-  function onPhotoError(img, ev, parent) {
+  function eventPoster(ev) { return helpers.posterForLanguage(ev,lang); }
+  function allowedMedia(image) { return helpers.mediaAllowedForLanguage(image,lang); }
+  function eventCover(ev) { return helpers.coverForLanguage(ev,lang); }
+  function onPhotoError(img, image, parent) {
     img.addEventListener('error', () => {
       img.hidden = true;
       parent.append(make('span','event-image-error',c.imageError));
-      const source = helpers.imageSource(ev.featuredImage.original || ev.featuredImage.src);
+      const source = helpers.imageSource(image.original || image.src);
       if (source && source.drive && parent.tagName !== 'A') {
         const a = make('a','event-photo-original',c.openPhoto);
         a.href = source.original; a.target = '_blank'; a.rel = 'noopener noreferrer';
@@ -112,15 +117,18 @@
     const card = make('article','event-card');
     const eventHref = `?event=${encodeURIComponent(ev.id)}`;
     // No image yet? Render a clean text-only card instead of excluding the event.
-    const cover = imageUrl(ev.featuredImage);
+    const coverImage = eventCover(ev);
+    const cover = imageUrl(coverImage);
     if (cover) {
+      if (eventPoster(ev)) card.classList.add('event-card--poster');
       const link = make('a'); link.href = eventHref;
-      const img = make('img'); img.src = cover; img.alt = tr(ev.featuredImage.alt)||tr(ev.title);
+      const img = make('img'); img.src = cover; img.alt = tr(coverImage.alt)||tr(ev.title);
       img.loading='lazy'; img.decoding='async'; link.append(img);
-      onPhotoError(img,ev,link); card.append(link);
+      onPhotoError(img,coverImage,link); card.append(link);
     } else { card.classList.add('event-card--text-only'); }
     const body=make('div','event-card-body');
     body.append(badge(ev),make('p','event-date',displayEventDate(ev)));
+    if(recurrenceLabel(ev)) body.append(make('p','event-repeat',recurrenceLabel(ev)));
     const h=make('h3');const titleLink=make('a','',tr(ev.title));titleLink.href=eventHref;h.append(titleLink);body.append(h);
     const description=tr(ev.summary)||tr(ev.description);
     if(description) body.append(make('p','event-summary',description.length>190?description.slice(0,187)+'…':description));
@@ -163,25 +171,45 @@
     detail.append(badge(ev));
     detail.append(make('h2','',tr(ev.title)));
     const meta=make('div','event-detail-meta');meta.append(make('span','event-date',displayEventDate(ev)));
+    if(recurrenceLabel(ev))meta.append(make('span','event-repeat',recurrenceLabel(ev)));
     if(ev.endDate && ev.endDate!==ev.date) meta.append(make('span','event-muted',formatDate(ev.endDate)));
     if(ev.venue) meta.append(make('span','event-muted',ev.venue));
     detail.append(meta);
-    const photoUrl = imageUrl(ev.featuredImage);
+    const coverImage = eventCover(ev);
+    const photoUrl = imageUrl(coverImage);
     if (photoUrl) {
       const photo=make('img','event-detail-hero');photo.src=photoUrl;
-      photo.alt=tr(ev.featuredImage.alt)||tr(ev.title);detail.append(photo);onPhotoError(photo,ev,detail);
-      if(ev.featuredImage.credit) detail.append(make('p','event-caption',`${c.photoCredit}: ${ev.featuredImage.credit}`));
+      photo.alt=tr(coverImage.alt)||tr(ev.title);detail.append(photo);onPhotoError(photo,coverImage,detail);
+      if(coverImage.credit) detail.append(make('p','event-caption',`${c.photoCredit}: ${coverImage.credit}`));
     }
     if(safeLink(ev.galleryUrl)){const album=make('a','event-album-link',c.photoAlbum);album.href=ev.galleryUrl;album.target='_blank';album.rel='noopener noreferrer';detail.append(album);}
     const description=tr(ev.description)||tr(ev.summary);
     if(description) detail.append(make('p','event-detail-description',description));
-    if(Array.isArray(ev.images) && ev.images.length>1) {
+    // A poster and photographs are different media: show every gallery photo
+    // when a poster is the hero; avoid repeating the hero in photo-only events.
+    const posters = ev.posterCollections || {};
+    // On the event page show all applicable posters (not other languages),
+    // followed by event photos, avoiding duplicate hero images.
+    const gallery = [
+      ...(posters[lang] || []), ...(posters.all || []),
+      ...(Array.isArray(ev.galleryPhotos) ? ev.galleryPhotos :
+        (Array.isArray(ev.images) ? ev.images.slice(1) : []))
+    ];
+    const seen = new Set();
+    const coverSource = coverImage && coverImage.src;
+    const galleryToShow = gallery.filter(item=>{
+      if (!item || !allowedMedia(item) || !safeImage(item.src) || seen.has(item.src)) return false;
+      seen.add(item.src);
+      return item.src !== coverSource;
+    });
+    if(galleryToShow.length) {
       const grid=make('div','event-gallery');
-      ev.images.slice(1).forEach(item=>{if(!safeImage(item.src))return;
-        const fig=make('figure');const img=make('img');img.src=imageUrl(item);img.alt=tr(item.alt)||tr(ev.title);img.loading='lazy';fig.append(img);img.addEventListener('error',()=>{img.hidden=true;fig.append(make('span','event-image-error',c.imageError));},{once:true});
+      galleryToShow.forEach(item=>{
+        const fig=make('figure');const img=make('img');img.src=imageUrl(item);img.alt=tr(item.alt)||tr(ev.title);img.loading='lazy';fig.append(img);
+        img.addEventListener('error',()=>{img.hidden=true;fig.append(make('span','event-image-error',c.imageError));},{once:true});
         const caption=tr(item.caption);if(caption)fig.append(make('figcaption','',caption));grid.append(fig);
       });
-      if(grid.childElementCount)detail.append(grid);
+      detail.append(grid);
     }
     const info=make('div','event-info');
     if(Array.isArray(ev.partners) && ev.partners.length){
@@ -226,7 +254,7 @@
   }
   async function init() {
     try {
-      all = (await getEvents()).filter(isPublicEvent);
+      all = helpers.expandRecurrences((await getEvents()).filter(isPublicEvent),todayToronto());
       console.info(`DIDAR Events: ${all.length} approved events loaded (${all.filter(ev=>bucket(ev)==='past').length} past, ${all.filter(ev=>bucket(ev)==='upcoming').length} upcoming).`);
       // When no upcoming event is published, show the existing history immediately.
       if (!all.some(ev=>bucket(ev)==='upcoming') && all.some(ev=>bucket(ev)==='past')) chosen = 'past';

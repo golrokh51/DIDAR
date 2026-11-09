@@ -64,3 +64,7 @@ html[dir="rtl"] .events-count{margin-left:0;margin-right:auto}
   html[lang="fa"] .languages {gap:3px;}
   html[lang="fa"] .languages a {min-width:auto;padding:.24rem .4rem;}
 }
+
+/* Keep portrait posters readable, rather than cropping them to a landscape card. */
+.event-card--poster img{object-fit:contain;background:#f7f5f1}
+.event-repeat{font-size:.84rem;color:var(--teal,#085064);font-weight:650}

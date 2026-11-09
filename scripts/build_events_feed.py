@@ -267,6 +267,94 @@ def compose_from_workbook(data):
     return result
 
 
+def csv_recurrence(row, uid, start):
+    """Mirror the live CSV client's optional recurrence columns."""
+    frequency = norm(row.get('recurrence_frequency') or row.get('repeat_frequency'))
+    dates = sorted({x.strip() for x in val(row.get('recurrence_dates')).split('|')
+                    if x.strip() and x.strip() >= start and valid_date(x.strip(), uid)})[:200]
+    exclusions = sorted({x.strip() for x in val(row.get('recurrence_exclude_dates')).split('|')
+                         if x.strip() and valid_date(x.strip(), uid)})
+    until = val(row.get('recurrence_until'))
+    if until and (not valid_date(until, uid) or until < start):
+        warn(f'{uid}: invalid recurrence_until; disabled')
+        return None
+    count = val(row.get('recurrence_count'))
+    if count and (not count.isdigit() or not 1 <= int(count) <= 3000):
+        warn(f'{uid}: invalid recurrence_count; disabled')
+        return None
+    if dates:
+        return {'frequency':'dates', 'dates':dates, 'until':'', 'count':0, 'exclusions':exclusions}
+    if frequency in {'weekly','biweekly','monthly'}:
+        return {'frequency':frequency, 'dates':[], 'until':until, 'count':int(count) if count else 0,
+                'exclusions':exclusions}
+    return None
+
+
+def event_image_source(value, event_uid):
+    """Resolve image IDs to local assets without storing full paths in Sheets."""
+    name = val(value)
+    match = re.fullmatch(r'(EVT-\d{6})-(?:poster(?:-(?:fr|en|fa))?(?:-\d{1,3})?|photo-\d{1,3})(?:\.(?:webp|png|jpe?g|avif))?', name, re.I)
+    if match:
+        if match.group(1) != event_uid:
+            return ''
+        filename = name if re.search(r'\.(?:webp|png|jpe?g|avif)$', name, re.I) else name + '.webp'
+        return safe_photo(f'assets/event-photos/{event_uid}/{filename}')
+    return safe_photo(name)
+
+
+def poster_locale(raw, default_locale='all'):
+    """A poster's -en/-fr/-fa filename suffix is binding; no suffix means shared."""
+    name = val(raw).split('/')[-1].split('?')[0]
+    match = re.fullmatch(r'EVT-\d{6}-poster-(fr|en|fa)(?:-\d{1,3})?(?:\.(?:webp|png|jpe?g|avif))?', name, re.I)
+    if match:
+        return match.group(1).lower()
+    if re.fullmatch(r'EVT-\d{6}-poster(?:-\d{1,3})?(?:\.(?:webp|png|jpe?g|avif))?', name, re.I):
+        return 'all'
+    return default_locale
+
+
+def public_csv_media(row):
+    """No photo/poster is shown until both publication approvals are granted."""
+    approved = (is_true(row.get('photo_rights_approved')) and
+                norm(row.get('photo_consent_approved')) in (TRUE | NO_PEOPLE))
+    if not approved:
+        return (None, {lang: None for lang in VALID_LOCALES},
+                {lang: [] for lang in ('all', *VALID_LOCALES)}, None, [], [])
+
+    def photo(raw):
+        path = event_image_source(raw, val(row.get('event_uid')))
+        return ({'src':path, 'alt':localized_names('photo_alt', row),
+                 'caption':{lang:'' for lang in VALID_LOCALES},
+                 'credit':val(row.get('photo_credit'))} if path else None)
+
+    collections = {lang: [] for lang in ('all', *VALID_LOCALES)}
+    seen_posters = set()
+    for field, default_locale in (('poster_image','all'), ('poster_image_fr','fr'),
+                                  ('poster_image_en','en'), ('poster_image_fa','fa')):
+        for raw in val(row.get(field)).split('|')[:24]:
+            item = photo(raw)
+            if item and item['src'] not in seen_posters:
+                seen_posters.add(item['src'])
+                collections[poster_locale(raw,default_locale)].append(item)
+    posters = {lang: (collections[lang][0] if collections[lang] else None) for lang in VALID_LOCALES}
+    poster = collections['all'][0] if collections['all'] else None
+    legacy = photo(row.get('featured_image')) if poster_locale(row.get('featured_image'),'all') == 'all' else None
+    gallery = []
+    seen = set()
+    entries = val(row.get('gallery_image_ids')).split('|') + val(row.get('gallery_image_urls')).split('|')
+    for raw in entries[:24]:
+        item = photo(raw)
+        if item and item['src'] not in seen:
+            gallery.append(item)
+            seen.add(item['src'])
+    cover = legacy or next((item for item in gallery if poster_locale(item['src'],'all') == 'all'), None)
+    images = []
+    for item in [cover, *gallery]:
+        if item and not any(prev['src'] == item['src'] for prev in images):
+            images.append(item)
+    return poster, posters, collections, cover, gallery, images
+
+
 def compose_from_public_csv(rows):
     result = []
     ids = set()
@@ -288,21 +376,13 @@ def compose_from_public_csv(rows):
         if event_year and event_year != event_date[:4]:
             warn(f'{uid}: year conflict, skipping')
             continue
-        # Images are optional, and must never be displayed without the required approvals.
-        photo_approved = (is_true(row.get('photo_rights_approved')) and
-                norm(row.get('photo_consent_approved')) in (TRUE | NO_PEOPLE))
-        image_path = safe_photo(row.get('featured_image')) if photo_approved else ''
+        # Images optional, but media rights + consent are mandatory for publication.
+        poster, posters, poster_collections, cover, gallery, images = public_csv_media(row)
         title = localized_names('title', row)
         fallback = next((title[lang] for lang in ('fr','en','fa') if title[lang]), '')
         if not fallback:
             warn(f'{uid}: missing titles')
             continue
-        photo = ({
-            'src': image_path,
-            'alt': localized_names('photo_alt', row),
-            'caption': {lang: '' for lang in VALID_LOCALES},
-            'credit': val(row.get('photo_credit')),
-        } if image_path else None)
         result.append({
             'id':uid, 'programUid':val(row.get('program_uid')),
             'programId':val(row.get('program_id')),
@@ -315,7 +395,12 @@ def compose_from_public_csv(rows):
             'description':localized_names('description',row),
             'venue':val(row.get('venue_public')), 'venueType':val(row.get('venue_type')),
             'link':public_url(row.get('event_url')),
-            'partners':[], 'featuredImage':photo, 'images':[photo] if photo else [],
+            'galleryUrl':public_url(row.get('photo_album_url')),
+            'partners':[{'name':{lang:name for lang in VALID_LOCALES}, 'url':''}
+                        for name in [x.strip() for x in val(row.get('partners_public')).split('|')] if name],
+            'posterImage':poster, 'posterImages':posters, 'posterCollections':poster_collections,
+            'featuredImage':cover,'galleryPhotos':gallery,'images':images,
+            'recurrence':csv_recurrence(row,uid,event_date),
         })
     return result
 
