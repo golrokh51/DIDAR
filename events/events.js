@@ -205,7 +205,11 @@
       if (!url) throw new Error('Set a published CSV URL (not the Google Sheets edit link) in config/events-source.json');
       const csvResponse = await fetch(url, {cache:'no-store',redirect:'follow'});
       if (!csvResponse.ok) throw new Error(`Public Google Sheets CSV returned HTTP ${csvResponse.status}`);
-      const events = helpers.fromCSV(await csvResponse.text());
+      const csvText = await csvResponse.text();
+      const parsed = helpers.parseCSV(csvText);
+      const events = helpers.fromCSV(csvText);
+      console.info(`DIDAR Events: Google Sheets returned ${parsed.records.length} rows; ${events.length} approved public events accepted.`);
+      if (parsed.records.length && !events.length) console.warn('DIDAR Events: No events passed the public display checks. Confirm featured_image, publication approval, date, and photo permissions.');
       return events;
     }
     const response = await fetch(feedUrl, {cache:'no-store'});
