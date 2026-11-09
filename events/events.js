@@ -16,21 +16,21 @@
       loadError:'Unable to load the event calendar. Please try again later.',
       eventNotFound:'This event is not available for public viewing.',
       more:'More information', collaborators:'Collaborators', location:'Location',
-      photoCredit:'Photo credit', imageError:'Photo unavailable', openPhoto:'Open original on Google Drive', photoAlbum:'View photo album', approx:'Approximate date: ',repeatWeekly:'Every week',repeatBiweekly:'Every two weeks',repeatMonthly:'Every month',repeatDates:'Multiple dates',count:n=>`${n} event${n===1?'':'s'}`},
+      photoCredit:'Photo credit', imageError:'Photo unavailable', openPhoto:'Open original on Google Drive', photoAlbum:'View photo album', approx:'Approximate date: ',repeatWeekly:'Every week',repeatBiweekly:'Every two weeks',repeatMonthly:'Every month',repeatDates:'Multiple dates',nextSession:'Next session',formerly:'Previously',count:n=>`${n} event${n===1?'':'s'}`},
     fr: {upcoming:'Événements à venir', past:'Événements passés', all:'Toutes les catégories', years:'Toutes les années',
       category:'Catégorie', year:'Année', details:'Voir l’événement', back:'← Retour aux événements',
       emptyUpcoming:'Aucun événement à venir n’est publié pour le moment.',emptyPast:'Les archives publiques des événements sont en préparation.',
       loadError:'Impossible de charger les événements. Veuillez réessayer plus tard.',
       eventNotFound:'Cet événement n’est pas disponible publiquement.',
       more:'Plus d’informations', collaborators:'Organismes collaborateurs', location:'Lieu',
-      photoCredit:'Crédit photo', imageError:'Photo indisponible', openPhoto:'Ouvrir la photo sur Google Drive', photoAlbum:'Voir l’album photo', approx:'Date approximative : ',repeatWeekly:'Chaque semaine',repeatBiweekly:'Toutes les deux semaines',repeatMonthly:'Chaque mois',repeatDates:'Plusieurs dates',count:n=>`${n} événement${n===1?'':'s'}`},
+      photoCredit:'Crédit photo', imageError:'Photo indisponible', openPhoto:'Ouvrir la photo sur Google Drive', photoAlbum:'Voir l’album photo', approx:'Date approximative : ',repeatWeekly:'Chaque semaine',repeatBiweekly:'Toutes les deux semaines',repeatMonthly:'Chaque mois',repeatDates:'Plusieurs dates',nextSession:'Prochaine séance',formerly:'Auparavant',count:n=>`${n} événement${n===1?'':'s'}`},
     fa: {upcoming:'رویدادهای پیش رو', past:'رویدادهای گذشته', all:'همهٔ دسته‌ها', years:'همهٔ سال‌ها',
       category:'دسته‌بندی', year:'سال', details:'مشاهدهٔ رویداد', back:'بازگشت به رویدادها ←',
       emptyUpcoming:'در حال حاضر رویداد آینده‌ای برای نمایش عمومی ثبت نشده است.',emptyPast:'آرشیو عمومی رویدادها در حال آماده‌سازی است.',
       loadError:'بارگیری رویدادها امکان‌پذیر نیست. لطفاً بعداً دوباره تلاش کنید.',
       eventNotFound:'اطلاعات این رویداد برای نمایش عمومی در دسترس نیست.',
       more:'اطلاعات بیشتر', collaborators:'همکاران', location:'محل برگزاری',
-      photoCredit:'عکاس', imageError:'تصویر در دسترس نیست', openPhoto:'دیدن تصویر در گوگل درایو', photoAlbum:'مشاهدهٔ آلبوم تصاویر', approx:'تاریخ تقریبی: ',repeatWeekly:'هر هفته',repeatBiweekly:'هر دو هفته',repeatMonthly:'هر ماه',repeatDates:'چند تاریخ',count:n=>`${n} رویداد`},
+      photoCredit:'عکاس', imageError:'تصویر در دسترس نیست', openPhoto:'دیدن تصویر در گوگل درایو', photoAlbum:'مشاهدهٔ آلبوم تصاویر', approx:'تاریخ تقریبی: ',repeatWeekly:'هر هفته',repeatBiweekly:'هر دو هفته',repeatMonthly:'هر ماه',repeatDates:'چند تاریخ',nextSession:'جلسهٔ بعدی',formerly:'پیش‌تر',count:n=>`${n} رویداد`},
   };
   const c = labels[lang] || labels.en;
   const categories = {
@@ -77,9 +77,23 @@
   function bucket(ev) { return helpers.eventBucket(ev,todayToronto()); }
   function recurrenceLabel(ev) {
     if (!ev.recurrence) return '';
-    const labels = {weekly:c.repeatWeekly,biweekly:c.repeatBiweekly,
-      monthly:c.repeatMonthly,dates:c.repeatDates};
-    return labels[ev.recurrence.frequency] || '';
+    const frequency = ev.recurrence.frequency;
+    const weekday = new Date(`${ev.date}T12:00:00Z`).getUTCDay();
+    const days = {
+      en:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+      fr:['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'],
+      fa:['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه','شنبه']
+    };
+    const day = (days[lang] || days.en)[weekday];
+    let label = '';
+    if (frequency === 'weekly') label = lang==='fr' ? `Tous les ${day}s` :
+      lang==='fa' ? `هر ${day}` : `Every ${day}`;
+    else if (frequency === 'biweekly') label = lang==='fr' ? `Un ${day} sur deux` :
+      lang==='fa' ? `یک ${day} در میان` : `Every other ${day}`;
+    else if (frequency === 'monthly') label = c.repeatMonthly;
+    else if (frequency === 'dates') label = c.repeatDates;
+    if (ev.isRecurringSeries && !ev.nextOccurrence) return `${c.formerly}: ${label}`;
+    return label;
   }
   function imageUrl(img) {
     if (!img) return '';
@@ -127,8 +141,11 @@
       onPhotoError(img,coverImage,link); card.append(link);
     } else { card.classList.add('event-card--text-only'); }
     const body=make('div','event-card-body');
-    body.append(badge(ev),make('p','event-date',displayEventDate(ev)));
-    if(recurrenceLabel(ev)) body.append(make('p','event-repeat',recurrenceLabel(ev)));
+    body.append(badge(ev));
+    // A series has one poster/card and a readable schedule, not a start-date
+    // label repeated once per generated occurrence.
+    if (!ev.isRecurringSeries) body.append(make('p','event-date',displayEventDate(ev)));
+    if (recurrenceLabel(ev)) body.append(make('p','event-repeat',recurrenceLabel(ev)));
     const h=make('h3');const titleLink=make('a','',tr(ev.title));titleLink.href=eventHref;h.append(titleLink);body.append(h);
     const description=tr(ev.summary)||tr(ev.description);
     if(description) body.append(make('p','event-summary',description.length>190?description.slice(0,187)+'…':description));
@@ -136,27 +153,31 @@
     const go=make('a','event-open',c.details);go.href=eventHref;body.append(go);
     card.append(body);return card;
   }
+  function eventSortDate(ev) {
+    return chosen === 'upcoming' && ev.isRecurringSeries ? ev.nextOccurrence || ev.date : ev.date;
+  }
+  function eventYear(ev) { return eventSortDate(ev).slice(0,4); }
   function fillFilters() {
     const cats=[...new Set(all.map(categoryFor))].sort();
     categoryFilter.replaceChildren();yearFilter.replaceChildren();
     categoryFilter.append(new Option(c.all,''));
     cats.forEach(id=>categoryFilter.append(new Option(labelCategory(id),id)));
     yearFilter.append(new Option(c.years,''));
-    [...new Set(all.map(ev=>ev.date.slice(0,4)))].sort().reverse().forEach(y=>yearFilter.append(new Option(y,y)));
+    [...new Set(all.map(ev=>ev.isRecurringSeries && ev.nextOccurrence ? ev.nextOccurrence.slice(0,4) : ev.date.slice(0,4)))].sort().reverse().forEach(y=>yearFilter.append(new Option(y,y)));
   }
   function renderList() {
     detail.hidden=true;list.hidden=false;filters.hidden=false;
     tabs.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.eventsTab===chosen)));
     const items=all.filter(ev=>bucket(ev)===chosen)
       .filter(ev=>!categoryFilter.value||categoryFor(ev)===categoryFilter.value)
-      .filter(ev=>!yearFilter.value||ev.date.slice(0,4)===yearFilter.value)
-      .sort((a,b)=>chosen==='past'?b.date.localeCompare(a.date):a.date.localeCompare(b.date));
+      .filter(ev=>!yearFilter.value||eventYear(ev)===yearFilter.value)
+      .sort((a,b)=>chosen==='past'?eventSortDate(b).localeCompare(eventSortDate(a)):eventSortDate(a).localeCompare(eventSortDate(b)));
     list.replaceChildren();count.textContent=c.count(items.length);
     empty.hidden=items.length>0;
     empty.textContent=chosen==='past'?c.emptyPast:c.emptyUpcoming;
     if(chosen==='past') {
       const groups = new Map();
-      items.forEach(ev=>{const y=ev.date.slice(0,4);if(!groups.has(y))groups.set(y,[]);groups.get(y).push(ev);});
+      items.forEach(ev=>{const y=eventYear(ev);if(!groups.has(y))groups.set(y,[]);groups.get(y).push(ev);});
       groups.forEach((group,y)=>{
         list.append(make('h2','events-year',y));const grid=make('div','events-grid');
         group.forEach(ev=>grid.append(createCard(ev)));list.append(grid);
@@ -170,9 +191,11 @@
     if(!ev) {detail.append(make('p','events-empty',c.eventNotFound));return;}
     detail.append(badge(ev));
     detail.append(make('h2','',tr(ev.title)));
-    const meta=make('div','event-detail-meta');meta.append(make('span','event-date',displayEventDate(ev)));
-    if(recurrenceLabel(ev))meta.append(make('span','event-repeat',recurrenceLabel(ev)));
-    if(ev.endDate && ev.endDate!==ev.date) meta.append(make('span','event-muted',formatDate(ev.endDate)));
+    const meta=make('div','event-detail-meta');
+    if (!ev.isRecurringSeries) meta.append(make('span','event-date',displayEventDate(ev)));
+    if (recurrenceLabel(ev)) meta.append(make('span','event-repeat',recurrenceLabel(ev)));
+    if (ev.isRecurringSeries && ev.nextOccurrence) meta.append(make('span','event-muted',`${c.nextSession}: ${formatDate(ev.nextOccurrence)}`));
+    if(!ev.isRecurringSeries && ev.endDate && ev.endDate!==ev.date) meta.append(make('span','event-muted',formatDate(ev.endDate)));
     if(ev.venue) meta.append(make('span','event-muted',ev.venue));
     detail.append(meta);
     const coverImage = eventCover(ev);
@@ -212,14 +235,32 @@
       detail.append(grid);
     }
     const info=make('div','event-info');
-    if(Array.isArray(ev.partners) && ev.partners.length){
-      const h=make('h3','',c.collaborators);info.append(h);
-      const ul=make('ul','event-info-list');ev.partners.forEach(p=>{
-        const li=make('li');const text=tr(p.name);
-        if(safeLink(p.url)){const a=make('a','',text);a.href=p.url;a.rel='noopener noreferrer';a.target='_blank';li.append(a);}
-        else li.textContent=text;ul.append(li);
-      });info.append(ul);
+
+if(Array.isArray(ev.partners) && ev.partners.length){
+  const h=make('h3','',c.collaborators);info.append(h);
+  const grid=make('div','event-collaborators');
+  ev.partners.forEach(p=>{
+    const item=make('div','event-collaborator');
+    const imgSrc=p.logo ? imageUrl(p.logo) : '';
+    if (imgSrc) {
+      const logo=make('img','event-collaborator-logo');
+      logo.src=imgSrc;logo.alt=tr(p.name);logo.loading='lazy';
+      logo.addEventListener('error',()=>logo.remove(),{once:true});
+      item.append(logo);
     }
+    const body=make('div','event-collaborator-text');
+    const name=make('h4');
+    const label=tr(p.name);
+    const url=safeLink(p.url);
+    if(url){const a=make('a','',label);a.href=url;a.rel='noopener noreferrer';a.target='_blank';name.append(a);}
+    else name.textContent=label;
+    body.append(name);
+    const role=tr(p.role);
+    if(role) body.append(make('p','event-collaborator-role',role));
+    item.append(body);grid.append(item);
+  });
+  info.append(grid);
+}
     const link=safeLink(ev.link);
     if(link){const a=make('a','',c.more);a.href=link;a.target='_blank';a.rel='noopener noreferrer';info.append(a);}
     detail.append(info);
@@ -252,15 +293,34 @@
     if (!feed || feed.schemaVersion !== 1 || !Array.isArray(feed.events)) throw new Error('Unexpected JSON feed schema');
     return feed.events;
   }
+
+async function withCollaborators(events) {
+  // An absent/unconfigured registry must NEVER make events disappear.
+  try {
+    const cfg=await fetch(`${siteRoot}config/collaborators-source.json`,{cache:'no-store'});
+    if(!cfg.ok) return events;
+    const settings=await cfg.json();
+    if(settings.mode!=='google_sheets_csv' || !settings.google_sheets_csv_url) return events;
+    const url=helpers.safeSheetCsvUrl(settings.google_sheets_csv_url);
+    if(!url) throw new Error('Invalid published Collaborators CSV URL');
+    const response=await fetch(url,{cache:'no-store',redirect:'follow'});
+    if(!response.ok) throw new Error(`Collaborators CSV HTTP ${response.status}`);
+    return helpers.attachCollaborators(events,helpers.fromCollaboratorsCSV(await response.text()));
+  } catch(error) {
+    console.warn('DIDAR collaborators unavailable; events remain visible:',error);
+    return events;
+  }
+}
   async function init() {
     try {
-      all = helpers.expandRecurrences((await getEvents()).filter(isPublicEvent),todayToronto());
+      all = helpers.summarizeRecurringEvents((await withCollaborators(await getEvents())).filter(isPublicEvent),todayToronto());
       console.info(`DIDAR Events: ${all.length} approved events loaded (${all.filter(ev=>bucket(ev)==='past').length} past, ${all.filter(ev=>bucket(ev)==='upcoming').length} upcoming).`);
       // When no upcoming event is published, show the existing history immediately.
       if (!all.some(ev=>bucket(ev)==='upcoming') && all.some(ev=>bucket(ev)==='past')) chosen = 'past';
       fillFilters();
       const detailId = new URLSearchParams(window.location.search).get('event');
-      if (detailId) renderDetail(all.find(ev=>ev.id===detailId)); else renderList();
+      if (detailId) renderDetail(all.find(ev=>ev.id===detailId ||
+        (ev.isRecurringSeries && detailId.startsWith(`${ev.id}--`) && /^\d{4}-\d{2}-\d{2}$/.test(detailId.slice(ev.id.length+2))))); else renderList();
     } catch (error) {
       console.error('DIDAR events feed:',error);
       list.replaceChildren();detail.hidden=true;filters.hidden=true;empty.hidden=false;

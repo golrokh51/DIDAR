@@ -45,7 +45,7 @@
   function imageSource(value) {
     const text = trim(value);
     // Local file path is a useful fallback when Google Drive refuses image embedding.
-    if (/^assets\/event-photos\/[a-zA-Z0-9_./-]+\.(?:png|jpe?g|webp|avif)$/i.test(text) &&
+    if (/^assets\/(?:event-photos|collaborators)\/[a-zA-Z0-9_./-]+\.(?:png|jpe?g|webp|avif|svg)$/i.test(text) &&
       !text.includes('..') && !text.includes('//')) return {src:text,original:text,drive:false};
     // File ID copied directly from Drive is also accepted.
     let id = /^[A-Za-z0-9_-]{20,}$/.test(text) ? text : '';
@@ -115,6 +115,77 @@
       alt: localized('photo_alt',row), caption: {en:'',fr:'',fa:''}, credit: trim(row.photo_credit)
     };
   }
+
+// Collaborator ID references live in the Events sheet, while organizations live
+// in a separate published Collaborators tab. Roles belong to the event, not to
+// the organization: the same organization may sponsor one event and host another.
+const collaboratorRoles = {
+  organizer:{en:'Organizer',fr:'Organisateur',fa:'برگزارکننده'},
+  co_organizer:{en:'Co-organizer',fr:'Coorganisateur',fa:'برگزارکنندهٔ مشترک'},
+  partner:{en:'Collaborator',fr:'Partenaire',fa:'همکار'},
+  host:{en:'Host',fr:'Organisme hôte',fa:'میزبان'},
+  sponsor:{en:'Sponsor',fr:'Commanditaire',fa:'حامی مالی'},
+  financial_support:{en:'Financial support',fr:'Soutien financier',fa:'حمایت مالی'},
+  media_partner:{en:'Media partner',fr:'Partenaire médiatique',fa:'همکار رسانه‌ای'},
+  community_partner:{en:'Community partner',fr:'Partenaire communautaire',fa:'همکار اجتماعی'},
+  facilitator:{en:'Facilitation',fr:'Animation',fa:'تسهیل‌گری'},
+  venue_partner:{en:'Venue partner',fr:'Partenaire d’accueil',fa:'همکار میزبانی'},
+  technical_support:{en:'Technical support',fr:'Soutien technique',fa:'پشتیبانی فنی'},
+  logistics:{en:'Logistics',fr:'Logistique',fa:'پشتیبانی اجرایی'},
+  outreach:{en:'Outreach',fr:'Diffusion',fa:'اطلاع‌رسانی'},
+  in_kind_support:{en:'In-kind support',fr:'Soutien en nature',fa:'حمایت غیرنقدی'}
+};
+const collaboratorIdPattern = /^COL-\d{6}$/;
+function parseCollaboratorRefs(raw) {
+  const refs = new Map();
+  for (const token of trim(raw).split('|').map(trim).filter(Boolean).slice(0,40)) {
+    const m = token.match(/^(COL-\d{6})(?::([a-z][a-z0-9_]*(?:\+[a-z][a-z0-9_]*)*))?$/i);
+    if (!m) {console.warn('DIDAR invalid collaborator reference:', token);continue;}
+    const codes = (m[2] || 'partner').toLowerCase().split('+');
+    if (!refs.has(m[1])) refs.set(m[1],new Set());
+    codes.forEach(code=>{if (collaboratorRoles[code]) refs.get(m[1]).add(code);
+      else console.warn('DIDAR unknown collaborator role:', code);});
+    if (!refs.get(m[1]).size) refs.get(m[1]).add('partner');
+  }
+  return [...refs].map(([id,roles])=>({id,roles:[...roles]}));
+}
+function collaboratorLogoSource(raw,id) {
+  const name=trim(raw);
+  if (!collaboratorIdPattern.test(id) || !new RegExp(`^${id}-logo\\.(png|jpe?g|webp|avif|svg)$`,'i').test(name)) return null;
+  return imageSource(`assets/collaborators/${name}`);
+}
+function fromCollaboratorsCSV(csvText) {
+  const {headers,records}=parseCSV(csvText);
+  const required=['collaborator_id','website_status','review_status'];
+  const missing=required.filter(name=>!headers.includes(name));
+  if(missing.length) throw new Error(`Required collaborator CSV columns missing: ${missing.join(', ')}`);
+  const registry=new Map();
+  for(const row of records) {
+    const id=trim(row.collaborator_id);
+    if(!id || !collaboratorIdPattern.test(id) || registry.has(id)) continue;
+    if(!isPublic(row.website_status) || !isApproved(row.review_status)) continue;
+    const name=localized('name',row);
+    if(!name.en && !name.fr && !name.fa) continue;
+    const logo=(isApproved(row.logo_rights_approved)) ? collaboratorLogoSource(row.logo_image,id) : null;
+    registry.set(id,{id,name,url:secureLink(row.website_url),logo});
+  }
+  return registry;
+}
+function attachCollaborators(events, registry) {
+  const map=registry instanceof Map ? registry : new Map();
+  return events.map(ev=>{
+    if(!Array.isArray(ev.collaboratorRefs) || !ev.collaboratorRefs.length) return ev;
+    const detailed=ev.collaboratorRefs.map(ref=>{
+      const partner=map.get(ref.id);
+      if(!partner) return null;
+      const roleNames=(ref.roles||['partner']).map(code=>collaboratorRoles[code]).filter(Boolean);
+      const role={en:roleNames.map(r=>r.en).join(' · '),fr:roleNames.map(r=>r.fr).join(' · '),fa:roleNames.map(r=>r.fa).join(' · ')};
+      return {...partner,role};
+    }).filter(Boolean);
+    // Preserve legacy name-only partners if the new registry is unavailable.
+    return {...ev,partners:detailed.length ? detailed : ev.partners};
+  });
+}
   // Each row is a single occurrence or a series. Optional scheduling columns may
   // be absent from an existing live Google Sheet without breaking the page.
   function parseRecurrence(row, eventDate, id) {
@@ -185,6 +256,46 @@
       });
     }
     return out;
+  }
+  // The public event index is an index of EVENTS, not occurrences. An ongoing
+  // weekly series (e.g. Digital Café) gets one card with its next session used
+  // only for ordering/eligibility. This does not expand 78 weekly occurrences.
+  function nextSeriesOccurrence(ev, today) {
+    if (!ev || !ev.recurrence || !validDate(ev.date) || !validDate(today)) return '';
+    const repeat = ev.recurrence;
+    const span = ev.endDate && validDate(ev.endDate) ?
+      Math.max(0, Math.round((isoToMillis(ev.endDate) - isoToMillis(ev.date)) / 86400000)) : 0;
+    const excluded = new Set(repeat.exclusions || []);
+    const qualifies = day => day && !excluded.has(day) &&
+      (!repeat.until || day <= repeat.until) && addDays(day, span) >= today;
+    if (repeat.frequency === 'dates') {
+      return [...new Set([ev.date, ...(repeat.dates || [])])]
+        .filter(validDate).sort().find(qualifies) || '';
+    }
+    if (!['weekly','biweekly','monthly'].includes(repeat.frequency)) return '';
+    const max = Math.min(repeat.count || 3000, 3000);
+    const step = repeat.frequency === 'biweekly' ? 14 : 7;
+    // Skip old dates without performing hundreds of iterations for long-running
+    // weekly events. Count still refers to scheduled instances (including exclusions).
+    let start = 0;
+    if (repeat.frequency !== 'monthly') {
+      const diff = Math.floor((isoToMillis(today) - isoToMillis(ev.date)) / 86400000) - span;
+      start = Math.max(0, Math.floor(diff / step));
+    }
+    for (let n = start; n < max; n++) {
+      const day = repeat.frequency === 'monthly' ? addMonthsClamped(ev.date, n) : addDays(ev.date, n * step);
+      if (repeat.until && day > repeat.until) break;
+      if (qualifies(day)) return day;
+    }
+    return '';
+  }
+  function summarizeRecurringEvents(events, today) {
+    if (!validDate(today)) throw new Error('Invalid current date');
+    return events.map(ev => {
+      if (!ev.recurrence) return ev;
+      const nextOccurrence = ev.status === 'completed' ? '' : nextSeriesOccurrence(ev,today);
+      return {...ev, isRecurringSeries:true, nextOccurrence};
+    });
   }
   // Photos are optional. The event publication decision depends on event approval,
   // not on whether a photograph has been uploaded yet.
@@ -258,6 +369,7 @@
         venue:trim(row.venue_public),venueType:trim(row.venue_type),
         link:secureLink(row.event_url),galleryUrl:secureLink(row.photo_album_url),
         partners:trim(row.partners_public).split('|').map(trim).filter(Boolean).map(name=>({name:{en:name,fr:name,fa:name},url:''})),
+        collaboratorRefs:parseCollaboratorRefs(row.collaborators),
         posterImage,posterImages,posterCollections,featuredImage,images,galleryPhotos,
         recurrence:parseRecurrence(row,row.event_date,id)
       });
@@ -283,6 +395,9 @@
   }
   function eventBucket(ev, today) {
     if (!validDate(today) || !validDate(ev.date)) return 'hidden';
+    // Recurring programs are displayed ONCE. Ignore the historical start date
+    // while new sessions are scheduled; an ended series is one archived item.
+    if (ev.isRecurringSeries) return ev.nextOccurrence ? 'upcoming' : 'past';
     const finalDay = validDate(ev.endDate) && ev.endDate>=ev.date ? ev.endDate : ev.date;
     if (finalDay < today) return 'past';
     if (ev.status === 'completed' && ev.date > today) return 'hidden';
@@ -304,6 +419,8 @@
     } catch (_) { return ''; }
   }
   return {parseCSV,fromCSV,imageSource,eventImageSource,posterLocale,
+    parseCollaboratorRefs,collaboratorLogoSource,fromCollaboratorsCSV,attachCollaborators,
     mediaAllowedForLanguage,posterForLanguage,coverForLanguage,
-    secureLink,validDate,isEvent,safeSheetCsvUrl,parseRecurrence,expandRecurrences,eventBucket};
+    secureLink,validDate,isEvent,safeSheetCsvUrl,parseRecurrence,expandRecurrences,
+    nextSeriesOccurrence,summarizeRecurringEvents,eventBucket};
 });

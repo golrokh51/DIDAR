@@ -75,4 +75,48 @@ assert.deepEqual(month.map(e=>e.date),['2027-01-31','2027-02-28','2027-03-31']);
 const weekly=d.expandRecurrences([{id:'EVT-000106',date:'2026-11-08',status:'planned',recurrence:{frequency:'weekly',count:0,until:'',dates:[],exclusions:[]}}],'2026-11-08');
 assert.equal(weekly.at(-1).date,'2028-05-07','open-ended series shows next 18 months');
 assert.ok(weekly.length>75);
-console.log('PASS: multilingual shared posters, language-only posters, multiple posters, photo-only fallback, media permissions, recurrence, and publication rules');
+
+// New public collaborator registry (one organization per row, per-event roles).
+const partnerRows=[
+  {collaborator_id:'COL-000001',name_en:'Organization One',name_fr:'Organisme Un',name_fa:'سازمان یک',website_url:'https://example.org',logo_image:'COL-000001-logo.png',logo_rights_approved:'yes',website_status:'published',review_status:'approved'},
+  {collaborator_id:'COL-000002',name_en:'Organization Two',name_fr:'Organisme Deux',name_fa:'سازمان دو',website_url:'https://second.example.org',logo_image:'COL-000002-logo.svg',logo_rights_approved:'yes',website_status:'published',review_status:'approved'},
+  {collaborator_id:'COL-000003',name_en:'Private org',website_url:'https://private.example.org',logo_image:'COL-000003-logo.png',logo_rights_approved:'yes',website_status:'private',review_status:'approved'},
+  {collaborator_id:'COL-000004',name_en:'Logo not approved',website_url:'http://example.org',logo_image:'COL-000004-logo.png',logo_rights_approved:'',website_status:'published',review_status:'approved'},
+  {collaborator_id:'COL-000005',name_en:'Cross linked logo',logo_image:'COL-000001-logo.png',logo_rights_approved:'yes',website_status:'published',review_status:'approved'}
+];
+const partnerCols=Object.keys(partnerRows.reduce((r,v)=>Object.assign(r,v),{}));
+const partnerCsv=[partnerCols.join(','),...partnerRows.map(r=>partnerCols.map(k=>escape(r[k])).join(','))].join('\r\n');
+const registry=d.fromCollaboratorsCSV(partnerCsv);
+assert.equal(registry.size,4,'private collaborators must be excluded');
+assert.equal(registry.get('COL-000001').logo.src,'assets/collaborators/COL-000001-logo.png');
+assert.equal(registry.get('COL-000002').logo.src,'assets/collaborators/COL-000002-logo.svg');
+assert.equal(registry.get('COL-000004').logo,null,'unapproved logos hidden without hiding names');
+assert.equal(registry.get('COL-000004').url,'','http links must not be clickable');
+assert.equal(registry.get('COL-000005').logo,null,'cannot use another collaborator ID as logo');
+assert.equal(d.collaboratorLogoSource('../COL-000001-logo.png','COL-000001'),null,'path traversal rejected');
+assert.equal(d.collaboratorLogoSource('COL-000001-logo.png','COL-000002'),null,'logo cannot cross organizations');
+assert.deepEqual(d.parseCollaboratorRefs('COL-000001:co_organizer+technical_support|COL-000002:financial_support|COL-000001:host'),[
+  {id:'COL-000001',roles:['co_organizer','technical_support','host']},
+  {id:'COL-000002',roles:['financial_support']}
+]);
+const withLegacy={id:'EVT-000017',partners:[{name:{en:'Legacy partner'}}],collaboratorRefs:d.parseCollaboratorRefs('COL-000001:co_organizer|COL-000002:financial_support')};
+const merged=d.attachCollaborators([withLegacy],registry)[0];
+assert.equal(merged.partners.length,2);
+assert.equal(merged.partners[0].role.en,'Co-organizer');
+assert.equal(merged.partners[0].role.fr,'Coorganisateur');
+assert.equal(merged.partners[0].role.fa,'برگزارکنندهٔ مشترک');
+assert.equal(merged.partners[1].role.fr,'Soutien financier');
+const unconfigured=d.attachCollaborators([withLegacy],new Map())[0];
+assert.equal(unconfigured.partners[0].name.en,'Legacy partner','fallback to legacy names when collaborator sheet absent');
+const evWithRefs=d.fromCSV(csv.replace('"EVT-000100"','"EVT-000100"')); // unaffected original CSV
+assert.equal(evWithRefs.length,events.length,'existing events remain unchanged');
+const evRow={...base,event_uid:'EVT-000200',collaborators:'COL-000001:host|COL-000002:media_partner'};
+const fields2=Object.keys(evRow);
+const refCsv=[fields2.join(','),fields2.map(k=>escape(evRow[k])).join(',')].join('\r\n');
+const parsedEvent=d.fromCSV(refCsv);
+assert.equal(parsedEvent[0].collaboratorRefs.length,2);
+assert.equal(d.attachCollaborators(parsedEvent,registry)[0].partners[1].role.en,'Media partner');
+const recurring=d.expandRecurrences(d.attachCollaborators(parsedEvent,registry),'2026-11-08');
+assert.equal(recurring[0].partners.length,2,'collaborators survive event expansion');
+
+console.log('PASS: events, posters, recurrence, multilingual collaborator logos, approved registry, links and roles');
