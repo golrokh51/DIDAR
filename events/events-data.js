@@ -17,6 +17,8 @@
     return !Number.isNaN(d.getTime()) && d.toISOString().startsWith(s);
   };
   const validId = id => /^EVT-\d{6}$/.test(trim(id));
+  // Optional local end time for the last day of an occurrence (24-hour clock).
+  const validLocalTime = time => /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(trim(time));
   function parseCSV(csvText) {
     // RFC 4180-style parser: quoted commas, escaped quotes and embedded newlines.
     const input = String(csvText || '').replace(/^\uFEFF/, '');
@@ -260,14 +262,22 @@ function attachCollaborators(events, registry) {
   // The public event index is an index of EVENTS, not occurrences. An ongoing
   // weekly series (e.g. Digital Café) gets one card with its next session used
   // only for ordering/eligibility. This does not expand 78 weekly occurrences.
-  function nextSeriesOccurrence(ev, today) {
+  function nextSeriesOccurrence(ev, today, localTime='') {
     if (!ev || !ev.recurrence || !validDate(ev.date) || !validDate(today)) return '';
     const repeat = ev.recurrence;
     const span = ev.endDate && validDate(ev.endDate) ?
       Math.max(0, Math.round((isoToMillis(ev.endDate) - isoToMillis(ev.date)) / 86400000)) : 0;
     const excluded = new Set(repeat.exclusions || []);
-    const qualifies = day => day && !excluded.has(day) &&
-      (!repeat.until || day <= repeat.until) && addDays(day, span) >= today;
+    // If the end time is known, move to the next occurrence as soon as the
+    // current session ends, even when that happens on the same calendar day.
+    // Without an end time, an occurrence stays upcoming for its entire date.
+    const qualifies = day => {
+      if (!day || excluded.has(day) || (repeat.until && day > repeat.until)) return false;
+      const lastDay = addDays(day, span);
+      if (lastDay < today) return false;
+      return !(lastDay === today && validLocalTime(ev.endTime) &&
+        validLocalTime(localTime) && localTime >= ev.endTime);
+    };
     if (repeat.frequency === 'dates') {
       return [...new Set([ev.date, ...(repeat.dates || [])])]
         .filter(validDate).sort().find(qualifies) || '';
@@ -289,11 +299,11 @@ function attachCollaborators(events, registry) {
     }
     return '';
   }
-  function summarizeRecurringEvents(events, today) {
+  function summarizeRecurringEvents(events, today, localTime='') {
     if (!validDate(today)) throw new Error('Invalid current date');
     return events.map(ev => {
       if (!ev.recurrence) return ev;
-      const nextOccurrence = ev.status === 'completed' ? '' : nextSeriesOccurrence(ev,today);
+      const nextOccurrence = ev.status === 'completed' ? '' : nextSeriesOccurrence(ev,today,localTime);
       return {...ev, isRecurringSeries:true, nextOccurrence};
     });
   }
@@ -363,7 +373,7 @@ function attachCollaborators(events, registry) {
         image && array.findIndex(other=>other && other.src===image.src)===index);
       out.push({
         id, programUid:trim(row.program_uid),programId:trim(row.program_id),
-        date:row.event_date,endDate:trim(row.end_date),datePrecision:norm(row.date_precision),status,
+        date:row.event_date,endDate:trim(row.end_date),endTime:validLocalTime(row.event_end_time) ? trim(row.event_end_time) : '',datePrecision:norm(row.date_precision),status,
         category:norm(row.primary_category_id) || 'other',type:trim(row.event_type),
         title,summary:localized('summary',row),description:localized('description',row),
         venue:trim(row.venue_public),venueType:trim(row.venue_type),

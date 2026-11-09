@@ -68,6 +68,11 @@
     const vals = Object.fromEntries(parts.map(x=>[x.type,x.value]));
     return `${vals.year}-${vals.month}-${vals.day}`;
   }
+  function timeToronto() {
+    const parts = new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hourCycle:'h23',timeZone:'America/Toronto'}).formatToParts(new Date());
+    const vals = Object.fromEntries(parts.map(x=>[x.type,x.value]));
+    return `${vals.hour}:${vals.minute}`;
+  }
   function isPublicEvent(ev) { return helpers.isEvent(ev); }
   function safeImage(path) { return Boolean(helpers.imageSource(path)); }
   function safeLink(url) {
@@ -144,7 +149,11 @@
     body.append(badge(ev));
     // A series has one poster/card and a readable schedule, not a start-date
     // label repeated once per generated occurrence.
-    if (!ev.isRecurringSeries) body.append(make('p','event-date',displayEventDate(ev)));
+    if (ev.isRecurringSeries && ev.nextOccurrence) {
+      body.append(make('p','event-date',`${c.nextSession}: ${formatDate(ev.nextOccurrence)}`));
+    } else if (!ev.isRecurringSeries) {
+      body.append(make('p','event-date',displayEventDate(ev)));
+    }
     if (recurrenceLabel(ev)) body.append(make('p','event-repeat',recurrenceLabel(ev)));
     const h=make('h3');const titleLink=make('a','',tr(ev.title));titleLink.href=eventHref;h.append(titleLink);body.append(h);
     const description=tr(ev.summary)||tr(ev.description);
@@ -313,7 +322,7 @@ async function withCollaborators(events) {
 }
   async function init() {
     try {
-      all = helpers.summarizeRecurringEvents((await withCollaborators(await getEvents())).filter(isPublicEvent),todayToronto());
+      all = helpers.summarizeRecurringEvents((await withCollaborators(await getEvents())).filter(isPublicEvent),todayToronto(),timeToronto());
       console.info(`DIDAR Events: ${all.length} approved events loaded (${all.filter(ev=>bucket(ev)==='past').length} past, ${all.filter(ev=>bucket(ev)==='upcoming').length} upcoming).`);
       // When no upcoming event is published, show the existing history immediately.
       if (!all.some(ev=>bucket(ev)==='upcoming') && all.some(ev=>bucket(ev)==='past')) chosen = 'past';
@@ -328,5 +337,15 @@ async function withCollaborators(events) {
     }
   }
 
+  // Keep the next session current when a visitor returns to a long-open tab.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden || !all.length) return;
+    const before = all.map(ev=>ev.nextOccurrence||'').join('|');
+    all = helpers.summarizeRecurringEvents(all,todayToronto(),timeToronto());
+    if (all.map(ev=>ev.nextOccurrence||'').join('|') === before) return;
+    const detailId = new URLSearchParams(window.location.search).get('event');
+    if (detailId) renderDetail(all.find(ev=>ev.id===detailId));
+    else { fillFilters(); renderList(); }
+  });
   init();
 })();
