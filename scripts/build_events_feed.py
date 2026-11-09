@@ -7,7 +7,7 @@ Run one of:
   python3 scripts/build_events_feed.py --csv-url https://docs.google.com/...
 
 Requires Python 3.10+ and the standard library only.
-Only explicitly approved events AND approved, public Drive/local photos are published.
+Only explicitly approved events are published. Photos are optional and displayed only when approved.
 Private people/contact/finance tables are never exported.
 """
 from __future__ import annotations
@@ -223,10 +223,7 @@ def compose_from_workbook(data):
         if row.get('program_uid') and not program:
             warn(f'{uid}: program_uid does not exist; excluded')
             continue
-        images = safe_media(uid, all_media)
-        if not images:
-            warn(f'{uid}: NO approved local photo; event excluded (minimum one photo required)')
-            continue
+        images = safe_media(uid, all_media)  # Optional: a record can be published without photos.
         names = localized_names('title', row)
         if not any(names.values()):
             warn(f'{uid}: missing event titles')
@@ -265,7 +262,7 @@ def compose_from_workbook(data):
             'venue': public_place, 'venueType': val(row.get('venue_type')),
             'link': public_url(row.get('event_url')),
             'partners': partners,
-            'featuredImage': images[0], 'images': images,
+            'featuredImage': images[0] if images else None, 'images': images,
         })
     return result
 
@@ -291,25 +288,21 @@ def compose_from_public_csv(rows):
         if event_year and event_year != event_date[:4]:
             warn(f'{uid}: year conflict, skipping')
             continue
-        if not (is_true(row.get('photo_rights_approved')) and
-                norm(row.get('photo_consent_approved')) in (TRUE | NO_PEOPLE)):
-            warn(f'{uid}: photo rights/consent not approved')
-            continue
-        image_path = safe_photo(row.get('featured_image'))
-        if not image_path:
-            warn(f'{uid}: missing a valid approved Drive/local featured photo')
-            continue
+        # Images are optional, and must never be displayed without the required approvals.
+        photo_approved = (is_true(row.get('photo_rights_approved')) and
+                norm(row.get('photo_consent_approved')) in (TRUE | NO_PEOPLE))
+        image_path = safe_photo(row.get('featured_image')) if photo_approved else ''
         title = localized_names('title', row)
         fallback = next((title[lang] for lang in ('fr','en','fa') if title[lang]), '')
         if not fallback:
             warn(f'{uid}: missing titles')
             continue
-        photo = {
+        photo = ({
             'src': image_path,
             'alt': localized_names('photo_alt', row),
             'caption': {lang: '' for lang in VALID_LOCALES},
             'credit': val(row.get('photo_credit')),
-        }
+        } if image_path else None)
         result.append({
             'id':uid, 'programUid':val(row.get('program_uid')),
             'programId':val(row.get('program_id')),
@@ -322,15 +315,14 @@ def compose_from_public_csv(rows):
             'description':localized_names('description',row),
             'venue':val(row.get('venue_public')), 'venueType':val(row.get('venue_type')),
             'link':public_url(row.get('event_url')),
-            'partners':[], 'featuredImage':photo, 'images':[photo],
+            'partners':[], 'featuredImage':photo, 'images':[photo] if photo else [],
         })
     return result
 
 
 def load_csv(text):
     reader = csv.DictReader(io.StringIO(text, newline=''))
-    required = {'event_uid','event_date','status','website_status','review_status','featured_image',
-                'photo_rights_approved','photo_consent_approved'}
+    required = {'event_uid','event_date','status','website_status','review_status'}
     cols = set(reader.fieldnames or [])
     if not required.issubset(cols):
         raise ValueError(f'Public CSV missing required columns: {sorted(required - cols)}')
@@ -364,7 +356,7 @@ def main():
         events = compose_from_public_csv(load_csv(csv_text))
     events.sort(key=lambda event: (event['date'], event['id']))
     if not events and not args.allow_empty:
-        raise SystemExit('No approved events with approved public photos. Existing feed left unchanged. Use --allow-empty only to clear it deliberately.')
+        raise SystemExit('No publicly approved events. Existing feed left unchanged. Use --allow-empty only to clear it deliberately.')
     payload = {
         'schemaVersion': 1,
         'generatedAt': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),

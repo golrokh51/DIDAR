@@ -89,8 +89,9 @@
       alt: localized('photo_alt',row), caption: {en:'',fr:'',fa:''}, credit: trim(row.photo_credit)
     };
   }
-  const columns = ['event_uid','event_date','status','website_status','review_status',
-    'featured_image','photo_rights_approved','photo_consent_approved'];
+  // Photos are optional. The event publication decision depends on event approval,
+  // not on whether a photograph has been uploaded yet.
+  const columns = ['event_uid','event_date','status','website_status','review_status'];
   function fromCSV(csvText) {
     const { headers, records } = parseCSV(csvText);
     const missing = columns.filter(k=>!headers.includes(k));
@@ -103,22 +104,28 @@
       if (!validId(id)) {console.warn('DIDAR invalid event ID; skipped:', id); continue;}
       if (ids.has(id)) {console.warn('DIDAR duplicate event ID; skipped:',id);continue;}
       ids.add(id);
-      if (!isPublic(row.website_status) || !isApproved(row.review_status) ||
-          !isApproved(row.photo_rights_approved) || !consentApproved(row.photo_consent_approved)) continue;
+      if (!isPublic(row.website_status) || !isApproved(row.review_status)) continue;
       const status = norm(row.status);
       if (!['completed','planned','upcoming','scheduled'].includes(status)) continue;
       if (!validDate(row.event_date)) {console.warn('DIDAR invalid/missing event date:',id);continue;}
       if (row.event_year && trim(row.event_year) !== row.event_date.slice(0,4)) {console.warn('DIDAR conflicting year:',id);continue;}
       if (row.end_date && (!validDate(row.end_date) || row.end_date < row.event_date)) {console.warn('DIDAR invalid event end date:',id);continue;}
-      const photo = makePhoto(row.featured_image,row);
-      if (!photo) {console.warn('DIDAR event lacks valid public photo:',id);continue;}
       const title = localized('title',row);
       if (!title.en && !title.fr && !title.fa) continue;
-      const images = [photo];
-      // Optional gallery: Drive URLs separated by | (never by commas, which Drive URLs may contain).
-      for (const entry of trim(row.gallery_image_urls).split('|').map(trim).filter(Boolean).slice(0,12)) {
-        const p=makePhoto(entry,row);if(p)images.push(p);
+      // The event may be published before photography is available.
+      // Never display images without both rights and consent approval.
+      const images = [];
+      const imagesApproved = isApproved(row.photo_rights_approved) && consentApproved(row.photo_consent_approved);
+      if (imagesApproved) {
+        const featured = makePhoto(row.featured_image,row);
+        if (featured) images.push(featured);
+        // Optional gallery: Drive URLs separated by |.
+        for (const entry of trim(row.gallery_image_urls).split('|').map(trim).filter(Boolean).slice(0,12)) {
+          const galleryPhoto = makePhoto(entry,row);
+          if (galleryPhoto) images.push(galleryPhoto);
+        }
       }
+      const photo = images[0] || null;
       out.push({
         id, programUid:trim(row.program_uid),programId:trim(row.program_id),
         date:row.event_date,endDate:trim(row.end_date),datePrecision:norm(row.date_precision),status,
@@ -133,8 +140,10 @@
     return out;
   }
   function isEvent(entry) {
-    return entry && validId(entry.id) && validDate(entry.date) &&
-      entry.featuredImage && imageSource(entry.featuredImage.original || entry.featuredImage.src) && entry.title;
+    if (!entry || !validId(entry.id) || !validDate(entry.date)) return false;
+    const title = entry.title;
+    return typeof title === 'string' ? !!trim(title) :
+      !!(title && typeof title === 'object' && ['en','fr','fa'].some(lang => trim(title[lang])));
   }
   function safeSheetCsvUrl(input) {
     try {

@@ -80,6 +80,7 @@
     return 'hidden';
   }
   function imageUrl(img) {
+    if (!img) return '';
     const source = helpers.imageSource(img.original || img.src);
     return !source ? '' : source.drive ? source.src : `${siteRoot}${source.src}`;
   }
@@ -109,16 +110,22 @@
 
   function createCard(ev) {
     const card = make('article','event-card');
-    const link = make('a');link.href = `?event=${encodeURIComponent(ev.id)}`;
-    const img = make('img');img.src = imageUrl(ev.featuredImage);img.alt = tr(ev.featuredImage.alt)||tr(ev.title);
-    img.loading='lazy';img.decoding='async';link.append(img);onPhotoError(img,ev,link);card.append(link);
+    const eventHref = `?event=${encodeURIComponent(ev.id)}`;
+    // No image yet? Render a clean text-only card instead of excluding the event.
+    const cover = imageUrl(ev.featuredImage);
+    if (cover) {
+      const link = make('a'); link.href = eventHref;
+      const img = make('img'); img.src = cover; img.alt = tr(ev.featuredImage.alt)||tr(ev.title);
+      img.loading='lazy'; img.decoding='async'; link.append(img);
+      onPhotoError(img,ev,link); card.append(link);
+    } else { card.classList.add('event-card--text-only'); }
     const body=make('div','event-card-body');
     body.append(badge(ev),make('p','event-date',displayEventDate(ev)));
-    const h=make('h3');const titleLink=make('a','',tr(ev.title));titleLink.href=link.href;h.append(titleLink);body.append(h);
+    const h=make('h3');const titleLink=make('a','',tr(ev.title));titleLink.href=eventHref;h.append(titleLink);body.append(h);
     const description=tr(ev.summary)||tr(ev.description);
     if(description) body.append(make('p','event-summary',description.length>190?description.slice(0,187)+'…':description));
     if(ev.venue) body.append(make('p','event-muted',ev.venue));
-    const go=make('a','event-open',c.details);go.href=link.href;body.append(go);
+    const go=make('a','event-open',c.details);go.href=eventHref;body.append(go);
     card.append(body);return card;
   }
   function fillFilters() {
@@ -159,9 +166,12 @@
     if(ev.endDate && ev.endDate!==ev.date) meta.append(make('span','event-muted',formatDate(ev.endDate)));
     if(ev.venue) meta.append(make('span','event-muted',ev.venue));
     detail.append(meta);
-    const photo=make('img','event-detail-hero');photo.src=imageUrl(ev.featuredImage);
-    photo.alt=tr(ev.featuredImage.alt)||tr(ev.title);detail.append(photo);onPhotoError(photo,ev,detail);
-    if(ev.featuredImage.credit) detail.append(make('p','event-caption',`${c.photoCredit}: ${ev.featuredImage.credit}`));
+    const photoUrl = imageUrl(ev.featuredImage);
+    if (photoUrl) {
+      const photo=make('img','event-detail-hero');photo.src=photoUrl;
+      photo.alt=tr(ev.featuredImage.alt)||tr(ev.title);detail.append(photo);onPhotoError(photo,ev,detail);
+      if(ev.featuredImage.credit) detail.append(make('p','event-caption',`${c.photoCredit}: ${ev.featuredImage.credit}`));
+    }
     if(safeLink(ev.galleryUrl)){const album=make('a','event-album-link',c.photoAlbum);album.href=ev.galleryUrl;album.target='_blank';album.rel='noopener noreferrer';detail.append(album);}
     const description=tr(ev.description)||tr(ev.summary);
     if(description) detail.append(make('p','event-detail-description',description));
@@ -205,11 +215,7 @@
       if (!url) throw new Error('Set a published CSV URL (not the Google Sheets edit link) in config/events-source.json');
       const csvResponse = await fetch(url, {cache:'no-store',redirect:'follow'});
       if (!csvResponse.ok) throw new Error(`Public Google Sheets CSV returned HTTP ${csvResponse.status}`);
-      const csvText = await csvResponse.text();
-      const parsed = helpers.parseCSV(csvText);
-      const events = helpers.fromCSV(csvText);
-      console.info(`DIDAR Events: Google Sheets returned ${parsed.records.length} rows; ${events.length} approved public events accepted.`);
-      if (parsed.records.length && !events.length) console.warn('DIDAR Events: No events passed the public display checks. Confirm featured_image, publication approval, date, and photo permissions.');
+      const events = helpers.fromCSV(await csvResponse.text());
       return events;
     }
     const response = await fetch(feedUrl, {cache:'no-store'});
@@ -221,6 +227,9 @@
   async function init() {
     try {
       all = (await getEvents()).filter(isPublicEvent);
+      console.info(`DIDAR Events: ${all.length} approved events loaded (${all.filter(ev=>bucket(ev)==='past').length} past, ${all.filter(ev=>bucket(ev)==='upcoming').length} upcoming).`);
+      // When no upcoming event is published, show the existing history immediately.
+      if (!all.some(ev=>bucket(ev)==='upcoming') && all.some(ev=>bucket(ev)==='past')) chosen = 'past';
       fillFilters();
       const detailId = new URLSearchParams(window.location.search).get('event');
       if (detailId) renderDetail(all.find(ev=>ev.id===detailId)); else renderList();
