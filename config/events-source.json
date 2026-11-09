@@ -1,5 +1,5 @@
 {
   "mode": "google_sheets_csv",
-  "google_sheets_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrNUwAxSxPKZQGLR92tP_BBIybtt7dgb3vrxDdU1fCg75ReanC9HW3gEMv7U5uCGBifDZqscMZ7Uot/pub?gid=168042679&single=true&output=csv",
+  "google_sheets_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSARwzihViXlHWSnous6q7O0zgu1aV_y_66EI2O_xN6ZPcHiXBJvwTRSuBywtZsmLd0GcQ_SKDonWo_/pub?gid=575249303&single=true&output=csv",
   "note": "Use ONLY a separately published PUBLIC events tab in Google Sheets. Paste its CSV URL here and set mode to google_sheets_csv. Never publish a private/master spreadsheet."
 }
