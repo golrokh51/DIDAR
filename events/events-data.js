@@ -169,7 +169,24 @@ function fromCollaboratorsCSV(csvText) {
     const name=localized('name',row);
     if(!name.en && !name.fr && !name.fa) continue;
     const logo=(isApproved(row.logo_rights_approved)) ? collaboratorLogoSource(row.logo_image,id) : null;
-    registry.set(id,{id,name,url:secureLink(row.website_url),logo});
+    // Every URL is optional. Website is the primary destination when supplied;
+    // otherwise the first valid social profile becomes the clickable name/logo.
+    // Non-HTTPS links are rejected, and duplicate destinations are suppressed.
+    const linkColumns = [
+      ['website','website_url'],['instagram','instagram_url'],
+      ['facebook','facebook_url'],['linkedin','linkedin_url'],
+      ['youtube','youtube_url'],['tiktok','tiktok_url'],
+      ['social','social_media_url']
+    ];
+    const seenLinks = new Set();
+    const links = [];
+    for (const [type,column] of linkColumns) {
+      const url = secureLink(row[column]);
+      if (!url || seenLinks.has(url)) continue;
+      seenLinks.add(url);
+      links.push({type,url});
+    }
+    registry.set(id,{id,name,url:links[0]?.url || '',links,logo});
   }
   return registry;
 }

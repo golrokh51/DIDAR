@@ -68,3 +68,19 @@ html[dir="rtl"] .events-count{margin-left:0;margin-right:auto}
 /* Keep portrait posters readable, rather than cropping them to a landscape card. */
 .event-card--poster img{object-fit:contain;background:#f7f5f1}
 .event-repeat{font-size:.84rem;color:var(--teal,#085064);font-weight:650}
+
+/* Collaborators: one card per organization; all channels independently clickable. */
+.event-collaborators{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0 1.4rem}
+.event-collaborator{display:flex;align-items:flex-start;gap:1rem;min-width:0;padding:1rem;background:#fff;border:1px solid var(--line,#dce5e4);border-radius:14px}
+.event-collaborator-logo,.event-collaborator-logo-link{width:76px;height:76px;flex:0 0 76px;border-radius:8px}
+.event-collaborator-logo{object-fit:contain;background:#fff}
+.event-collaborator-logo-link{display:block}
+.event-collaborator-logo-link .event-collaborator-logo{display:block}
+.event-collaborator-text{min-width:0;overflow-wrap:anywhere}
+.event-collaborator-text h4{font-size:1rem;line-height:1.35;margin:0 0 .3rem}
+.event-collaborator-role{color:var(--muted,#6b777c);font-size:.88rem;margin:.2rem 0 .65rem;line-height:1.5}
+.event-collaborator-links{display:flex;flex-wrap:wrap;gap:.38rem .5rem;margin-top:.55rem}
+.event-collaborator-channel{display:inline-block;border:1px solid #cadeda;border-radius:999px;padding:.22rem .58rem;font-size:.8rem;font-weight:600;line-height:1.4;text-decoration:none;color:var(--teal,#085064);background:#f7fbfa}
+.event-collaborator-channel:hover{background:#e8f2f3;text-decoration:underline}
+.event-collaborator a:focus-visible{outline:3px solid var(--orange,#ee9521);outline-offset:2px}
+@media(max-width:670px){.event-collaborators{grid-template-columns:1fr}.event-collaborator-logo,.event-collaborator-logo-link{width:62px;height:62px;flex-basis:62px}}

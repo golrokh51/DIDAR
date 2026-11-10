@@ -257,22 +257,52 @@ if(Array.isArray(ev.partners) && ev.partners.length){
   const grid=make('div','event-collaborators');
   ev.partners.forEach(p=>{
     const item=make('div','event-collaborator');
+    const url=safeLink(p.url);
     const imgSrc=p.logo ? imageUrl(p.logo) : '';
     if (imgSrc) {
       const logo=make('img','event-collaborator-logo');
       logo.src=imgSrc;logo.alt=tr(p.name);logo.loading='lazy';
-      logo.addEventListener('error',()=>logo.remove(),{once:true});
-      item.append(logo);
+      if (url) {
+        const logoLink=make('a','event-collaborator-logo-link');
+        logoLink.href=url;logoLink.target='_blank';logoLink.rel='noopener noreferrer';
+        logoLink.setAttribute('aria-label',tr(p.name));
+        logoLink.append(logo);item.append(logoLink);
+        logo.addEventListener('error',()=>logoLink.remove(),{once:true});
+      } else {
+        item.append(logo);
+        logo.addEventListener('error',()=>logo.remove(),{once:true});
+      }
     }
     const body=make('div','event-collaborator-text');
     const name=make('h4');
     const label=tr(p.name);
-    const url=safeLink(p.url);
     if(url){const a=make('a','',label);a.href=url;a.rel='noopener noreferrer';a.target='_blank';name.append(a);}
     else name.textContent=label;
     body.append(name);
     const role=tr(p.role);
     if(role) body.append(make('p','event-collaborator-role',role));
+    const socialLabels={
+      website:{en:'Website',fr:'Site web',fa:'وب‌سایت'},
+      instagram:{en:'Instagram',fr:'Instagram',fa:'اینستاگرام'},
+      facebook:{en:'Facebook',fr:'Facebook',fa:'فیسبوک'},
+      linkedin:{en:'LinkedIn',fr:'LinkedIn',fa:'لینکدین'},
+      youtube:{en:'YouTube',fr:'YouTube',fa:'یوتیوب'},
+      tiktok:{en:'TikTok',fr:'TikTok',fa:'تیک‌تاک'},
+      social:{en:'Social media',fr:'Réseaux sociaux',fa:'شبکه‌های اجتماعی'}
+    };
+    const links=Array.isArray(p.links) ? p.links : (url ? [{type:'website',url}] : []);
+    if (links.length) {
+      const linksRow=make('div','event-collaborator-links');
+      links.forEach(link=>{
+        const href=safeLink(link.url);
+        if (!href) return;
+        const label=tr(socialLabels[link.type]||socialLabels.social);
+        const a=make('a','event-collaborator-channel',label);
+        a.href=href;a.target='_blank';a.rel='noopener noreferrer';
+        linksRow.append(a);
+      });
+      if (linksRow.childElementCount) body.append(linksRow);
+    }
     item.append(body);grid.append(item);
   });
   info.append(grid);

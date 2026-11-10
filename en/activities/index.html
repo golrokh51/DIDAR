@@ -769,7 +769,7 @@
 
       return `
 
-      <article class="activity-card" id="session-${escapeHtml(activity.id)}">
+      <article class="activity-card" id="session-${escapeHtml(activity.id)}" data-program-id="${escapeHtml(activity.programId || '')}" data-event-date="${escapeHtml(activity.date || '')}">
 
         <div class="activity-date">
           ${escapeHtml(formatDate(activity.date) || "Date to be announced")}
@@ -943,6 +943,9 @@
 
 
   </script>
+  <link rel="stylesheet" href="../../assets/activities-event-media.css" />
+  <script src="../../events/events-data.js"></script>
+  <script src="../../assets/activities-event-media.js"></script>
 </body>
 
 </html>
