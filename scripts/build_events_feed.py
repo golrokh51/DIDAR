@@ -33,7 +33,7 @@ APPROVED = {'approved', 'verified', 'confirmed', 'cleared', 'yes', 'true', '1'}
 PUBLIC_STATUSES = {'published', 'public'}
 TRUE = {'yes', 'true', '1', 'approved', 'published'}
 NO_PEOPLE = {'not_applicable', 'not applicable', 'no_people', 'no people', 'not_required'}
-VALID_STATUS = {'completed', 'planned', 'upcoming', 'scheduled'}
+VALID_STATUS = {'completed', 'planned', 'upcoming', 'scheduled', 'ongoing'}
 VALID_LOCALES = ('fa', 'en', 'fr')
 
 

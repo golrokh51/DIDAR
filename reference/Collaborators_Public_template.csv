@@ -1,0 +1,3 @@
+collaborator_id,name_en,name_fr,name_fa,website_url,instagram_url,facebook_url,linkedin_url,youtube_url,tiktok_url,social_media_url,logo_image,logo_rights_approved,website_status,review_status
+COL-000001,Example organization,Organisation exemple,سازمان نمونه,https://example.org,https://www.instagram.com/example/,,,,,,COL-000001-logo.png,yes,published,approved
+COL-000002,Social-only example,Exemple réseau social,نمونه شبکه اجتماعی,,,https://www.facebook.com/example/,,,,,COL-000002-logo.png,yes,published,approved
