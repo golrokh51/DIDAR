@@ -413,6 +413,14 @@ function attachCollaborators(events, registry) {
     if (ev.status === 'completed' && ev.date > today) return 'hidden';
     return 'upcoming';
   }
+  // A rolling calendar-month window (inclusive of today and the same date
+  // next month). Each recurring series has only one nextOccurrence.
+  function isWithinUpcomingWindow(ev, today, windowMonths=1) {
+    if (!validDate(today) || !ev || eventBucket(ev,today)!=='upcoming') return false;
+    const limit = addMonthsClamped(today,windowMonths);
+    const next = ev.isRecurringSeries ? ev.nextOccurrence : (ev.date < today && validDate(ev.endDate) && ev.endDate >= today ? today : ev.date);
+    return validDate(next) && next<=limit;
+  }
   function isEvent(entry) {
     if (!entry || !validId(entry.id) || !validDate(entry.date)) return false;
     const title = entry.title;
@@ -432,5 +440,5 @@ function attachCollaborators(events, registry) {
     parseCollaboratorRefs,collaboratorLogoSource,fromCollaboratorsCSV,attachCollaborators,
     mediaAllowedForLanguage,posterForLanguage,coverForLanguage,
     secureLink,validDate,isEvent,safeSheetCsvUrl,parseRecurrence,expandRecurrences,
-    nextSeriesOccurrence,summarizeRecurringEvents,eventBucket};
+    nextSeriesOccurrence,summarizeRecurringEvents,eventBucket,isWithinUpcomingWindow};
 });

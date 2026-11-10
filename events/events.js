@@ -80,6 +80,9 @@
   }
   function categoryFor(ev) {return (ev.category || 'other').toLowerCase();}
   function bucket(ev) { return helpers.eventBucket(ev,todayToronto()); }
+  function upcomingInNextMonth(ev) {
+    return helpers.isWithinUpcomingWindow(ev,todayToronto(),1);
+  }
   function recurrenceLabel(ev) {
     if (!ev.recurrence) return '';
     const frequency = ev.recurrence.frequency;
@@ -167,17 +170,21 @@
   }
   function eventYear(ev) { return eventSortDate(ev).slice(0,4); }
   function fillFilters() {
-    const cats=[...new Set(all.map(categoryFor))].sort();
+    const visible=all.filter(ev=>bucket(ev)===chosen && (chosen!=='upcoming'||upcomingInNextMonth(ev)));
+    const selectedCategory=categoryFilter.value,selectedYear=yearFilter.value;
+    const cats=[...new Set(visible.map(categoryFor))].sort();
     categoryFilter.replaceChildren();yearFilter.replaceChildren();
     categoryFilter.append(new Option(c.all,''));
     cats.forEach(id=>categoryFilter.append(new Option(labelCategory(id),id)));
     yearFilter.append(new Option(c.years,''));
-    [...new Set(all.map(ev=>ev.isRecurringSeries && ev.nextOccurrence ? ev.nextOccurrence.slice(0,4) : ev.date.slice(0,4)))].sort().reverse().forEach(y=>yearFilter.append(new Option(y,y)));
+    [...new Set(visible.map(eventYear))].sort().reverse().forEach(y=>yearFilter.append(new Option(y,y)));
+    if(cats.includes(selectedCategory)) categoryFilter.value=selectedCategory;
+    if([...new Set(visible.map(eventYear))].includes(selectedYear)) yearFilter.value=selectedYear;
   }
   function renderList() {
     detail.hidden=true;list.hidden=false;filters.hidden=false;
     tabs.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.eventsTab===chosen)));
-    const items=all.filter(ev=>bucket(ev)===chosen)
+    const items=all.filter(ev=>bucket(ev)===chosen && (chosen!=='upcoming'||upcomingInNextMonth(ev)))
       .filter(ev=>!categoryFilter.value||categoryFor(ev)===categoryFilter.value)
       .filter(ev=>!yearFilter.value||eventYear(ev)===yearFilter.value)
       .sort((a,b)=>chosen==='past'?eventSortDate(b).localeCompare(eventSortDate(a)):eventSortDate(a).localeCompare(eventSortDate(b)));
@@ -278,7 +285,7 @@ if(Array.isArray(ev.partners) && ev.partners.length){
   tabs.forEach(button=>button.addEventListener('click',()=>{
     chosen=button.dataset.eventsTab;categoryFilter.value='';yearFilter.value='';
     if(window.location.search) window.history.replaceState({},'',window.location.pathname);
-    renderList();
+    fillFilters(); renderList();
   }));
   categoryFilter.addEventListener('change',renderList);
   yearFilter.addEventListener('change',renderList);
@@ -323,9 +330,10 @@ async function withCollaborators(events) {
   async function init() {
     try {
       all = helpers.summarizeRecurringEvents((await withCollaborators(await getEvents())).filter(isPublicEvent),todayToronto(),timeToronto());
-      console.info(`DIDAR Events: ${all.length} approved events loaded (${all.filter(ev=>bucket(ev)==='past').length} past, ${all.filter(ev=>bucket(ev)==='upcoming').length} upcoming).`);
-      // When no upcoming event is published, show the existing history immediately.
-      if (!all.some(ev=>bucket(ev)==='upcoming') && all.some(ev=>bucket(ev)==='past')) chosen = 'past';
+      console.info(`DIDAR Events: ${all.length} approved events loaded (${all.filter(ev=>bucket(ev)==='past').length} past, ${all.filter(upcomingInNextMonth).length} upcoming within one month).`);
+      if (!all.some(ev => ev.id === 'EVT-000020')) console.warn('DIDAR: EVT-000020 Café numérique is missing from the PUBLIC Google Sheets CSV or is not published/approved. Verify the exact published tab and row.');
+      // Keep the Upcoming tab selected even when empty; otherwise it hides
+      // missing recurring programs behind the Past Events tab.
       fillFilters();
       const detailId = new URLSearchParams(window.location.search).get('event');
       if (detailId) renderDetail(all.find(ev=>ev.id===detailId ||

@@ -1,5 +1,924 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-08T21:36:46Z",
-  "events": []
+  "generatedAt": "2026-11-10T01:41:43Z",
+  "events": [
+    {
+      "id": "EVT-000001",
+      "programUid": "PRG-0005",
+      "programId": "nowruz",
+      "date": "2023-03-21",
+      "datePrecision": "estimated",
+      "endDate": "2023-03-21",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "cultural celebration",
+      "title": {
+        "fa": "نوروز ۱۴۰۲ (۲۰۲۳)",
+        "en": "Nowruz 2023",
+        "fr": "Norouz 2023"
+      },
+      "summary": {
+        "fa": "برگزاری نوروز در چارچوب برنامه‌های فرهنگی دیدار.",
+        "en": "Nowruz celebration as part of DIDAR’s cultural activities.",
+        "fr": "Célébration de Norouz dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000002",
+      "programUid": "PRG-0006",
+      "programId": "sizdah-bedar",
+      "date": "2023-04-02",
+      "datePrecision": "estimated",
+      "endDate": "2023-04-02",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "cultural celebration",
+      "title": {
+        "fa": "سیزده‌بدر ۱۴۰۲ (۲۰۲۳)",
+        "en": "Sizdah Bedar 2023",
+        "fr": "Sizdah Bedar 2023"
+      },
+      "summary": {
+        "fa": "برگزاری سیزده‌بدر در چارچوب برنامه‌های فرهنگی دیدار.",
+        "en": "Sizdah Bedar celebration as part of DIDAR’s cultural activities.",
+        "fr": "Célébration de Sizdah Bedar dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "outdoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000003",
+      "programUid": "PRG-0009",
+      "programId": "bookfair",
+      "date": "2023-10-07",
+      "datePrecision": "confirmed",
+      "endDate": "2023-10-08",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "book fair",
+      "title": {
+        "fa": "نمایشگاه کتاب ۲۰۲۳",
+        "en": "Book Fair 2023",
+        "fr": "Salon du livre 2023"
+      },
+      "summary": {
+        "fa": "نمایشگاه کتاب در چارچوب فعالیت‌های فرهنگی دیدار.",
+        "en": "Book fair as part of DIDAR’s cultural activities.",
+        "fr": "Salon du livre dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000004",
+      "programUid": "PRG-0010",
+      "programId": "campusrally4iran",
+      "date": "2023-11-30",
+      "datePrecision": "confirmed",
+      "endDate": "2023-11-30",
+      "endTime": "",
+      "status": "completed",
+      "category": "solidarity",
+      "type": "solidarity gathering",
+      "title": {
+        "fa": "گردهمایی جهانی در همبستگی با دانشگاهیان ایران — ۲۰۲۳",
+        "en": "Global Solidarity Gathering with Iranian Academics — 2023",
+        "fr": "Rassemblement international de solidarité avec les universitaires iraniens — 2023"
+      },
+      "summary": {
+        "fa": "مشارکت در گردهمایی بین‌المللی همبستگی با جامعهٔ دانشگاهی ایران.",
+        "en": "Participation in an international solidarity gathering supporting Iran’s academic community.",
+        "fr": "Participation à un rassemblement international de solidarité avec la communauté universitaire iranienne."
+      },
+      "description": {
+        "fa": "مشارکت در گردهمایی بین‌المللی همبستگی با جامعهٔ دانشگاهی ایران.",
+        "en": "Participation in an international solidarity gathering supporting Iran’s academic community.",
+        "fr": "Participation à un rassemblement international de solidarité avec la communauté universitaire iranienne."
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000005",
+      "programUid": "PRG-0011",
+      "programId": "March8",
+      "date": "2024-03-08",
+      "datePrecision": "confirmed",
+      "endDate": "2024-03-08",
+      "endTime": "",
+      "status": "completed",
+      "category": "solidarity",
+      "type": "solidarity gathering",
+      "title": {
+        "fa": "رویداد جهانی ۸ مارس در همبستگی با دانشگاهیان ایران — ۲۰۲۴",
+        "en": "International March 8 Solidarity Event with Iranian Academics — 2024",
+        "fr": "Événement international du 8 mars en solidarité avec les universitaires iraniens — 2024"
+      },
+      "summary": {
+        "fa": "رویدادی در چارچوب همبستگی بین‌المللی ۸ مارس با جامعهٔ دانشگاهی ایران.",
+        "en": "A March 8 event held in the context of international solidarity with Iran’s academic community.",
+        "fr": "Un événement du 8 mars dans le cadre d’une mobilisation internationale de solidarité avec la communauté universitaire iranienne."
+      },
+      "description": {
+        "fa": "رویدادی در چارچوب همبستگی بین‌المللی ۸ مارس با جامعهٔ دانشگاهی ایران.",
+        "en": "A March 8 event held in the context of international solidarity with Iran’s academic community.",
+        "fr": "Un événement du 8 mars dans le cadre d’une mobilisation internationale de solidarité avec la communauté universitaire iranienne."
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000006",
+      "programUid": "PRG-0005",
+      "programId": "nowruz",
+      "date": "2024-03-19",
+      "datePrecision": "confirmed",
+      "endDate": "2024-03-19",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "cultural celebration",
+      "title": {
+        "fa": "نوروز ۱۴۰۳ (۲۰۲۴)",
+        "en": "Nowruz 2024",
+        "fr": "Norouz 2024"
+      },
+      "summary": {
+        "fa": "برگزاری نوروز در چارچوب برنامه‌های فرهنگی دیدار.",
+        "en": "Nowruz celebration as part of DIDAR’s cultural activities.",
+        "fr": "Célébration de Norouz dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000007",
+      "programUid": "PRG-0006",
+      "programId": "sizdah-bedar",
+      "date": "2024-03-31",
+      "datePrecision": "confirmed",
+      "endDate": "2024-03-31",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "cultural celebration",
+      "title": {
+        "fa": "سیزده‌بدر ۱۴۰۳ (۲۰۲۴)",
+        "en": "Sizdah Bedar 2024",
+        "fr": "Sizdah Bedar 2024"
+      },
+      "summary": {
+        "fa": "برگزاری سیزده‌بدر در چارچوب برنامه‌های فرهنگی دیدار.",
+        "en": "Sizdah Bedar celebration as part of DIDAR’s cultural activities.",
+        "fr": "Célébration de Sizdah Bedar dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "outdoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000008",
+      "programUid": "PRG-0009",
+      "programId": "bookfair",
+      "date": "2024-05-25",
+      "datePrecision": "confirmed",
+      "endDate": "2024-05-26",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "book fair",
+      "title": {
+        "fa": "نمایشگاه کتاب ۲۰۲۴",
+        "en": "Book Fair 2024",
+        "fr": "Salon du livre 2024"
+      },
+      "summary": {
+        "fa": "نمایشگاه کتاب در چارچوب فعالیت‌های فرهنگی دیدار.",
+        "en": "Book fair as part of DIDAR’s cultural activities.",
+        "fr": "Salon du livre dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000009",
+      "programUid": "PRG-0005",
+      "programId": "nowruz",
+      "date": "2025-03-21",
+      "datePrecision": "confirmed",
+      "endDate": "2025-03-21",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "cultural celebration",
+      "title": {
+        "fa": "نوروز ۱۴۰۴ (۲۰۲۵)",
+        "en": "Nowruz 2025",
+        "fr": "Norouz 2025"
+      },
+      "summary": {
+        "fa": "برگزاری نوروز در چارچوب برنامه‌های فرهنگی دیدار.",
+        "en": "Nowruz celebration as part of DIDAR’s cultural activities.",
+        "fr": "Célébration de Norouz dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000010",
+      "programUid": "PRG-0004",
+      "programId": "community-gatherings",
+      "date": "2025-06-03",
+      "datePrecision": "confirmed",
+      "endDate": "2025-06-03",
+      "endTime": "",
+      "status": "completed",
+      "category": "solidarity",
+      "type": "community gathering",
+      "title": {
+        "fa": "گردهمایی دیدار — ۳ ژوئن ۲۰۲۵",
+        "en": "DIDAR Gathering — June 3, 2025",
+        "fr": "Rencontre DIDAR — 3 juin 2025"
+      },
+      "summary": {
+        "fa": "گردهمایی اعضا و همراهان دیدار.",
+        "en": "DIDAR community gathering.",
+        "fr": "Rencontre de la communauté DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000011",
+      "programUid": "PRG-0007",
+      "programId": "yalda",
+      "date": "2025-12-21",
+      "datePrecision": "confirmed",
+      "endDate": "2025-12-21",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "cultural celebration",
+      "title": {
+        "fa": "شب یلدا ۱۴۰۴ (۲۰۲۵)",
+        "en": "Yalda Night 2025",
+        "fr": "Nuit de Yalda 2025"
+      },
+      "summary": {
+        "fa": "برگزاری شب یلدا در چارچوب برنامه‌های فرهنگی دیدار.",
+        "en": "Yalda Night celebration as part of DIDAR’s cultural activities.",
+        "fr": "Célébration de la nuit de Yalda dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000012",
+      "programUid": "PRG-0008",
+      "programId": "memorial-18-19-dey",
+      "date": "2026-02-22",
+      "datePrecision": "confirmed",
+      "endDate": "2026-02-22",
+      "endTime": "",
+      "status": "completed",
+      "category": "solidarity",
+      "type": "solidarity gathering",
+      "title": {
+        "fa": "گردهمایی همبستگی و برنامه‌ریزی یادبود ۱۸ و ۱۹ دی — ۲۲ فوریهٔ ۲۰۲۶",
+        "en": "Solidarity Gathering and Memorial Planning — February 22, 2026",
+        "fr": "Rencontre de solidarité et préparation de la commémoration — 22 février 2026"
+      },
+      "summary": {
+        "fa": "در پی گزارش‌های کشتار گسترده در ایران در ۱۸ و ۱۹ دی ۱۴۰۴، اعضای دیدار در ۲۲ فوریهٔ ۲۰۲۶ برای همبستگی گرد هم آمدند و برای یادبود ۲۶ فوریه و پخش حلوا برنامه‌ریزی کردند.",
+        "en": "Following reports of widespread killings in Iran on 18–19 Dey 1404, DIDAR members gathered in solidarity on February 22, 2026, and planned a February 26 memorial with halva distribution.",
+        "fr": "À la suite des informations faisant état de nombreux morts en Iran les 18 et 19 Dey 1404, des membres de DIDAR se sont réunis le 22 février 2026 et ont prévu une commémoration avec distribution de halva le 26 février."
+      },
+      "description": {
+        "fa": "در پی گزارش‌های کشتار گسترده در ایران در ۱۸ و ۱۹ دی ۱۴۰۴، اعضای دیدار در ۲۲ فوریهٔ ۲۰۲۶ برای همبستگی گرد هم آمدند و برای یادبود ۲۶ فوریه و پخش حلوا برنامه‌ریزی کردند.",
+        "en": "Following reports of widespread killings in Iran on 18–19 Dey 1404, DIDAR members gathered in solidarity on February 22, 2026, and planned a February 26 memorial with halva distribution.",
+        "fr": "À la suite des informations faisant état de nombreux morts en Iran les 18 et 19 Dey 1404, des membres de DIDAR se sont réunis le 22 février 2026 et ont prévu une commémoration avec distribution de halva le 26 février."
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000013",
+      "programUid": "PRG-0008",
+      "programId": "memorial-18-19-dey",
+      "date": "2026-02-25",
+      "datePrecision": "confirmed",
+      "endDate": "2026-02-25",
+      "endTime": "",
+      "status": "completed",
+      "category": "solidarity",
+      "type": "memorial preparation",
+      "title": {
+        "fa": "تهیهٔ حلوا و آش برای یادبود ۱۸ و ۱۹ دی — ۲۵ فوریهٔ ۲۰۲۶",
+        "en": "Preparing Halva and Ash for the Memorial — February 25, 2026",
+        "fr": "Préparation du halva et de l’âsh pour la commémoration — 25 février 2026"
+      },
+      "summary": {
+        "fa": "در ۲۵ فوریهٔ ۲۰۲۶، اعضای دیدار در تدارک برنامهٔ یادبود، حلوا و آش تهیه کردند.",
+        "en": "On February 25, 2026, DIDAR members prepared halva and ash for the memorial.",
+        "fr": "Le 25 février 2026, des membres de DIDAR ont préparé du halva et de l’âsh en vue de la commémoration."
+      },
+      "description": {
+        "fa": "در ۲۵ فوریهٔ ۲۰۲۶، اعضای دیدار در تدارک برنامهٔ یادبود، حلوا و آش تهیه کردند.",
+        "en": "On February 25, 2026, DIDAR members prepared halva and ash for the memorial.",
+        "fr": "Le 25 février 2026, des membres de DIDAR ont préparé du halva et de l’âsh en vue de la commémoration."
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000014",
+      "programUid": "PRG-0008",
+      "programId": "memorial-18-19-dey",
+      "date": "2026-02-26",
+      "datePrecision": "confirmed",
+      "endDate": "2026-02-26",
+      "endTime": "",
+      "status": "completed",
+      "category": "solidarity",
+      "type": "commemoration",
+      "title": {
+        "fa": "مراسم یادبود ۱۸ و ۱۹ دی — ۲۶ فوریهٔ ۲۰۲۶",
+        "en": "Remembrance of 18–19 Dey — February 26, 2026",
+        "fr": "Commémoration des 18 et 19 Dey — 26 février 2026"
+      },
+      "summary": {
+        "fa": "برنامهٔ یادبود وقایع ۱۸ و ۱۹ دی برای ۲۶ فوریهٔ ۲۰۲۶ در نظر گرفته شد. پخش حلوا در این روز برنامه‌ریزی شده بود؛ انجام نهایی پخش باید تأیید شود.",
+        "en": "A memorial associated with the events of 18–19 Dey was scheduled for February 26, 2026, with halva distribution planned. Whether the distribution took place still needs confirmation.",
+        "fr": "Une commémoration liée aux événements des 18 et 19 Dey était prévue pour le 26 février 2026, avec distribution de halva envisagée. La tenue effective de la distribution reste à confirmer."
+      },
+      "description": {
+        "fa": "برنامهٔ یادبود وقایع ۱۸ و ۱۹ دی برای ۲۶ فوریهٔ ۲۰۲۶ در نظر گرفته شد. پخش حلوا در این روز برنامه‌ریزی شده بود؛ انجام نهایی پخش باید تأیید شود.",
+        "en": "A memorial associated with the events of 18–19 Dey was scheduled for February 26, 2026, with halva distribution planned. Whether the distribution took place still needs confirmation.",
+        "fr": "Une commémoration liée aux événements des 18 et 19 Dey était prévue pour le 26 février 2026, avec distribution de halva envisagée. La tenue effective de la distribution reste à confirmer."
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000015",
+      "programUid": "PRG-0005",
+      "programId": "nowruz",
+      "date": "2026-03-21",
+      "datePrecision": "confirmed",
+      "endDate": "2026-03-21",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "cultural celebration",
+      "title": {
+        "fa": "نوروز ۱۴۰۵ (۲۰۲۶)",
+        "en": "Nowruz 2026",
+        "fr": "Norouz 2026"
+      },
+      "summary": {
+        "fa": "برگزاری نوروز در چارچوب برنامه‌های فرهنگی دیدار.",
+        "en": "Nowruz celebration as part of DIDAR’s cultural activities.",
+        "fr": "Célébration de Norouz dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000016",
+      "programUid": "PRG-0006",
+      "programId": "sizdah-bedar",
+      "date": "2026-04-02",
+      "datePrecision": "confirmed",
+      "endDate": "2026-04-02",
+      "endTime": "",
+      "status": "completed",
+      "category": "cultural",
+      "type": "cultural celebration",
+      "title": {
+        "fa": "سیزده‌بدر ۱۴۰۵ (۲۰۲۶)",
+        "en": "Sizdah Bedar 2026",
+        "fr": "Sizdah Bedar 2026"
+      },
+      "summary": {
+        "fa": "برگزاری سیزده‌بدر در چارچوب برنامه‌های فرهنگی دیدار.",
+        "en": "Sizdah Bedar celebration as part of DIDAR’s cultural activities.",
+        "fr": "Célébration de Sizdah Bedar dans le cadre des activités culturelles de DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000017",
+      "programUid": "PRG-0001",
+      "programId": "dialogue-crisis",
+      "date": "2026-10-11",
+      "datePrecision": "confirmed",
+      "endDate": "2026-10-11",
+      "endTime": "",
+      "status": "completed",
+      "category": "education",
+      "type": "workshop",
+      "title": {
+        "fa": "کارگاه «هنر گفت‌وگو در بحران»",
+        "en": "The Art of Dialogue in Times of Crisis — Workshop",
+        "fr": "Atelier « L’art du dialogue en temps de crise »"
+      },
+      "summary": {
+        "fa": "کارگاه آموزشی هنر گفت‌وگو در بحران.",
+        "en": "Educational workshop on the art of dialogue in times of crisis.",
+        "fr": "Atelier éducatif sur l’art du dialogue en temps de crise."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    },
+    {
+      "id": "EVT-000020",
+      "programUid": "PRG-0003",
+      "programId": "digital-cafe",
+      "date": "2026-10-26",
+      "datePrecision": "confirmed",
+      "endDate": "",
+      "endTime": "19:00",
+      "status": "scheduled",
+      "category": "education",
+      "type": "weekly digital café",
+      "title": {
+        "fa": "کافه دیجیتال",
+        "en": "Digital Café",
+        "fr": "Café numérique"
+      },
+      "summary": {
+        "fa": "کافه دیجیتال، هر دوشنبه از ساعت ۱۶ تا ۱۹.",
+        "en": "Digital Café, every Monday from 4 to 7 p.m.",
+        "fr": "Café numérique, tous les lundis de 16 h à 19 h."
+      },
+      "description": {
+        "fa": "برنامه هفتگی کافه دیجیتال، هر دوشنبه از ساعت ۱۶ تا ۱۹.",
+        "en": "Weekly Digital Café event, every Monday from 4 to 7 p.m.",
+        "fr": "Rendez-vous hebdomadaire du Café numérique, chaque lundi de 16 h à 19 h."
+      },
+      "venue": "",
+      "venueType": "",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": {
+        "frequency": "weekly",
+        "dates": [],
+        "until": "",
+        "count": 0,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "EVT-000018",
+      "programUid": "PRG-0004",
+      "programId": "community-gatherings",
+      "date": "2026-11-04",
+      "datePrecision": "confirmed",
+      "endDate": "2026-11-04",
+      "endTime": "",
+      "status": "completed",
+      "category": "solidarity",
+      "type": "community gathering",
+      "title": {
+        "fa": "گردهمایی دیدار — ۴ نوامبر ۲۰۲۶",
+        "en": "DIDAR Gathering — November 4, 2026",
+        "fr": "Rencontre DIDAR — 4 novembre 2026"
+      },
+      "summary": {
+        "fa": "گردهمایی اعضا و همراهان دیدار.",
+        "en": "DIDAR community gathering.",
+        "fr": "Rencontre de la communauté DIDAR."
+      },
+      "description": {
+        "fa": "",
+        "en": "",
+        "fr": ""
+      },
+      "venue": "",
+      "venueType": "indoor",
+      "link": "",
+      "galleryUrl": "",
+      "partners": [],
+      "posterImage": null,
+      "posterImages": {
+        "fa": null,
+        "en": null,
+        "fr": null
+      },
+      "posterCollections": {
+        "all": [],
+        "fa": [],
+        "en": [],
+        "fr": []
+      },
+      "featuredImage": null,
+      "galleryPhotos": [],
+      "images": [],
+      "recurrence": null
+    }
+  ]
 }

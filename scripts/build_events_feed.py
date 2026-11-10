@@ -388,6 +388,7 @@ def compose_from_public_csv(rows):
             'programId':val(row.get('program_id')),
             'date':event_date, 'datePrecision': norm(row.get('date_precision')),
             'endDate':valid_date(row.get('end_date'), uid, False),
+            'endTime': val(row.get('event_end_time')) if re.fullmatch(r'(?:[01]\d|2[0-3]):[0-5]\d',val(row.get('event_end_time'))) else '',
             'status':status, 'category':val(row.get('primary_category_id')),
             'type':val(row.get('event_type')),
             'title':{lang:title[lang] or fallback for lang in VALID_LOCALES},
