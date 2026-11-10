@@ -1,448 +1,591 @@
-<!DOCTYPE html>
+<!doctype html>
+
+
 <html lang="fr">
 
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width,initial-scale=1" name="viewport" />
-  <title>Activités de DIDAR | DIDAR</title>
   <meta
-    content="Découvrez nos programmes et leurs différentes séances. Un même atelier peut être offert à plusieurs dates, parfois avec des organismes partenaires différents."
+    content="Découvrez DIDAR à Montréal : notre mission, notre vision, nos dix valeurs fondamentales, notre charte complète et nos coordonnées."
     name="description" />
-  <link href="../styles.css" rel="stylesheet" />
-  <link href="../assets/localized-experience.css" rel="stylesheet" />
-  <style>
-    html[lang="xx"] body {
-      text-align: left;
-    }
-
-    html[lang="fa"] .brand,
-    html[lang="fa"] .languages {
-      direction: ltr;
-    }
-
-    html[lang="fa"] .main-nav {
-      direction: rtl;
-    }
-
-    /* HERO */
-
-    .activities-hero {
-      padding: 4.5rem 0 2.5rem;
-    }
-
-    .activities-hero .lead {
-      max-width: 780px;
-    }
-
-    /* FILTERS */
-
-    .activity-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .65rem;
-      margin: 1.5rem 0 2.5rem;
-    }
-
-    .activity-filter {
-      border: 1px solid rgba(23, 50, 77, .16);
-      background: #fff;
-      border-radius: 999px;
-      padding: .55rem .9rem;
-      cursor: pointer;
-      font: inherit;
-    }
-
-    .activity-toolbar-group {
-      margin-top: 1rem;
-    }
-
-    .activity-toolbar-label {
-      margin: 0 0 -.6rem;
-      font-weight: 700;
-      font-size: .94rem;
-    }
-
-    .activity-filter[aria-pressed="true"] {
-      background: var(--ink, #17324D);
-      color: #fff;
-      border-color: var(--ink, #17324D);
-    }
-
-    /* REPEATABLE GENERAL PROGRAMS */
-
-    .programs-intro {
-      max-width: 850px;
-      margin: 0 0 1.5rem;
-    }
-
-    .programs-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .program-card {
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-      padding: 1.35rem;
-      border-radius: 18px;
-      background: #fff;
-      border: 1px solid rgba(23, 50, 77, .11);
-    }
-
-    .program-card h3 {
-      margin: 0;
-      font-size: 1.3rem;
-    }
-
-    .program-card p {
-      margin: 0;
-    }
-
-    .program-status {
-      color: #2D6F6D;
-      font-weight: 700;
-      font-size: .93rem;
-    }
-
-    .program-subtitle {
-      font-weight: 600;
-    }
-
-    .program-meta {
-      font-size: .92rem;
-    }
-
-    .program-meta strong {
-      color: var(--ink, #17324D);
-    }
-
-    .program-topics {
-      display: flex;
-      gap: .4rem;
-      flex-wrap: wrap;
-      margin-top: auto;
-    }
-
-    .program-topics span {
-      background: #f7f3eb;
-      border-radius: 99px;
-      padding: .25rem .6rem;
-      font-size: .83rem;
-    }
-
-    .program-more {
-      font-weight: 700;
-      text-decoration: none;
-      margin-top: .5rem;
-    }
-
-    .collaborator-links {
-      display: inline-flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: .4rem .65rem;
-    }
-
-    .collaborator-links a {
-      color: var(--teal, #2D6F6D);
-      font-weight: 600;
-      text-decoration: underline;
-      text-underline-offset: .18rem;
-    }
-
-    .collaborator-links span {
-      font-weight: 600;
-    }
-
-    .collaborator-links a:hover {
-      color: var(--ink, #17324D);
-    }
-
-    .collaborator-links a:focus-visible {
-      outline: 2px solid #B9913B;
-      outline-offset: 3px;
-      border-radius: 2px;
-    }
-
-    .program-collaborators {
-      margin-top: .2rem;
-      font-size: .94rem;
-    }
-
-    .program-sessions {
-      margin-top: .3rem;
-      padding-top: .8rem;
-      border-top: 1px solid rgba(23, 50, 77, .12);
-    }
-
-    .program-sessions summary {
-      cursor: pointer;
-      font-weight: 700;
-      color: var(--ink, #17324D);
-    }
-
-    .program-session-list {
-      padding: .6rem 0 0;
-      list-style: none;
-      margin: 0;
-      display: grid;
-      gap: .7rem;
-    }
-
-    .program-session-item {
-      border-radius: 10px;
-      background: #f7f9f8;
-      padding: .7rem;
-      display: grid;
-      gap: .35rem;
-      font-size: .9rem;
-    }
-
-    .program-session-item a {
-      color: var(--ink, #17324D);
-      font-weight: 650;
-      text-decoration: underline;
-      text-underline-offset: .2rem;
-    }
-
-    .session-topline {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .45rem .6rem;
-      align-items: center;
-    }
-
-    .session-status {
-      display: inline-flex;
-      border-radius: 99px;
-      padding: .2rem .65rem;
-      font-size: .8rem;
-      font-weight: 700;
-      background: #e9f1ef;
-      color: #235e55;
-    }
-
-    .session-status[data-status="completed"] {
-      background: #eef4f3;
-      color: #245f60;
-    }
-
-    .session-status[data-status="scheduled"],
-    .session-status[data-status="upcoming"] {
-      background: #f8f0df;
-      color: #7c5d17;
-    }
-
-    .session-status[data-status="cancelled"] {
-      background: #f9e9e9;
-      color: #9c3535;
-    }
-
-    .session-status[data-status="postponed"] {
-      background: #f0eef8;
-      color: #62508c;
-    }
-
-    .session-collaborators {
-      font-size: .86rem;
-    }
-
-
-    /* YEARS */
-
-    .activity-year {
-      margin-top: 3.5rem;
-    }
-
-    .activity-year:first-child {
-      margin-top: 0;
-    }
-
-    .activity-year-heading {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .activity-year-heading h2 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
-
-    .activity-year-heading::after {
-      content: "";
-      height: 1px;
-      flex: 1;
-      background: rgba(23, 50, 77, .12);
-    }
-
-    /* CARDS */
-
-    .activities-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .activity-card {
-      background: #fff;
-      border: 1px solid rgba(23, 50, 77, .10);
-      border-radius: 18px;
-      padding: 1.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: .8rem;
-    }
-
-    .activity-date {
-      font-size: .9rem;
-      font-weight: 700;
-      color: var(--teal, #2D6F6D);
-    }
-
-    .activity-card h3 {
-      margin: 0;
-      font-size: 1.35rem;
-    }
-
-    .activity-subtitle {
-      margin: -.25rem 0 0;
-      font-weight: 600;
-    }
-
-    .activity-summary {
-      margin: 0;
-    }
-
-    .activity-details {
-      display: grid;
-      gap: .4rem;
-      margin-top: .25rem;
-      font-size: .94rem;
-    }
-
-    .activity-details p {
-      margin: 0;
-    }
-
-    .activity-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .45rem;
-      margin-top: .25rem;
-    }
-
-    .activity-tag,
-    .activity-type {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: .3rem .7rem;
-      font-size: .84rem;
-      line-height: 1.4;
-    }
-
-    .activity-type {
-      background: #eef4f3;
-      color: #2D6F6D;
-      font-weight: 700;
-    }
-
-    .activity-tag {
-      background: #f7f3eb;
-      color: #6c5530;
-    }
-
-    .activity-link {
-      margin-top: auto;
-      padding-top: .4rem;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .activities-empty {
-      display: none;
-      padding: 2rem 0;
-    }
-
-    @media (max-width: 1000px) {
-      .programs-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 760px) {
-      .programs-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .activities-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .activities-hero {
-        padding-top: 3rem;
-      }
-    }
-  </style>
+  <title>À propos de DIDAR | Mission, vision, valeurs et charte</title>
+  <link href="styles.css" rel="stylesheet" />
+  <link href="assets/localized-experience.css" rel="stylesheet" />
+  <meta content="e3xyW8NPThOiCxGBLwlDscQ_2JuDJZU_co2jBu6NUOc" name="google-site-verification">
+  </meta>
+  <link href="assets/localized-home.css" rel="stylesheet" />
+  <link href="https://didar-mtl.ca/" rel="canonical" />
+  <link href="https://didar-mtl.ca/" hreflang="fr" rel="alternate" />
+  <link href="https://didar-mtl.ca/en/" hreflang="en" rel="alternate" />
+  <link href="https://didar-mtl.ca/fa/" hreflang="fa" rel="alternate" />
 </head>
 
 <body><a class="skip-link" href="#top">Passer au contenu principal</a>
   <header class="site-header">
-    <div class="container nav-wrap"><a aria-label="DIDAR home" class="brand" href="../"><img alt="DIDAR logo"
-          class="brand-logo" src="../assets/logo.png" /><strong>DIDAR</strong></a>
+    <div class="container nav-wrap">
+      <a aria-label="Accueil de DIDAR" class="brand" href="#top"><img alt="DIDAR logo" class="brand-logo"
+          src="assets/logo.png" /><strong>DIDAR</strong></a>
       <div class="nav-area">
-        <nav aria-label="Choisir la langue" class="languages"><a aria-current="page" href="../activities/">FR</a><a
-            href="../en/activities/">EN</a><a href="../fa/activities/">فارسی</a></nav>
-        <nav aria-label="Navigation principale" class="main-nav"><a href="../">Accueil</a><a href="../story/">Notre
-            histoire</a><a href="../#support">Soutien et orientation</a><a href="../projects/">Projets</a><a
-            aria-current="page" href="../activities/">Activités</a><a href="../events/">Événements</a><a
-            href="../#contact">Nous joindre</a></nav>
+        <nav aria-label="Choisir la langue" class="languages"><a aria-current="page" href="">FR</a><a
+            href="en/">EN</a><a href="fa/">فارسی</a></nav>
+        <nav aria-label="Navigation principale" class="main-nav"><a href="">Accueil</a><a href="story/">Notre
+            histoire</a><a href="projects/">Projets</a><a href="activities/">Activités</a><a
+            href="events/">Événements</a><a href="team/">Notre équipe</a><a href="supporters/">Contributeurs</a><a
+            href="#contact">Nous joindre</a></nav>
         <details class="mobile-navigation">
-          <summary aria-label="Menu">☰ Menu</summary>
-          <nav aria-label="Menu"><a href="../">Accueil</a><a href="../story/">Notre histoire</a><a
-              href="../#support">Soutien et orientation</a><a href="../projects/">Projets</a><a
-              href="../activities/">Activités</a><a href="../events/">Événements</a><a href="../#contact">Nous
-              joindre</a></nav>
+          <summary aria-label="Ouvrir le menu">☰ Menu</summary>
+          <nav aria-label="Navigation mobile"><a href="">Accueil</a><a href="story/">Notre histoire</a><a
+              href="projects/">Projets</a><a href="activities/">Activités</a><a href="events/">Événements</a><a
+              href="team/">Notre équipe</a><a href="supporters/">Contributeurs</a><a href="#contact">Nous joindre</a>
+          </nav>
         </details>
       </div>
     </div>
   </header>
   <main id="top">
-    <section class="activities-hero">
+    <section aria-labelledby="about-title" class="hero didar-home-hero" id="about">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Montréal · Québec</p>
+          <h1 id="about-title">Qui sommes-nous ?</h1>
+          <p class="hero-tagline"><strong>DIDAR — un espace pour se rencontrer, apprendre, créer et tisser des
+              liens.</strong></p>
+          <p class="lead">DIDAR est une initiative culturelle, éducative et communautaire basée à Montréal. Nous
+            rassemblons des personnes autour de l’apprentissage partagé, de l’expression artistique et culturelle, du
+            dialogue et de l’entraide concrète.</p>
+          <p>Nous accueillons celles et ceux qui souhaitent participer, échanger des connaissances et créer des liens.
+            Certaines activités répondent à des expériences et à des besoins particuliers, notamment ceux des personnes
+            nouvellement arrivées, des étudiantes et étudiants internationaux et des groupes sous-représentés.</p>
+          <p>Notre démarche s’enracine dans les relations communautaires, l’écoute et la solidarité. Nous ne remplaçons
+            pas les services professionnels ou réglementés.</p>
+          <div class="actions"><a class="button primary" href="#contact">Contacter DIDAR</a><a class="button secondary"
+              href="story/index.html">Lire notre histoire</a></div>
+        </div>
+        <aside class="meaning-card"><span class="persian" lang="fa">دیدار</span>
+          <h2>Pourquoi « DIDAR » ?</h2>
+          <p>En persan, « didâr » évoque la rencontre, le fait de se voir et de renouer des liens. Ce nom exprime notre
+            attachement aux relations humaines, aux rencontres et à l’apprentissage mutuel.</p>
+        </aside>
+      </div>
+    </section>
+    <!-- DIDAR: Pass It Forward -->
+    <section aria-labelledby="didar-pif-title" class="didar-pif-section">
+      <div class="didar-pif-box">
+        <div aria-hidden="true" class="didar-pif-icon">
+          <svg fill="none" height="30" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.8" viewbox="0 0 24 24" width="30">
+            <path
+              d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8Z">
+            </path>
+          </svg>
+        </div>
+        <h2 id="didar-pif-title">Réciprocité et entraide</h2>
+        <p class="didar-pif-description">Nous souhaitons favoriser une communauté où les personnes partagent leurs
+          connaissances, leur temps, leurs compétences et leurs ressources. Celles et ceux qui reçoivent du soutien sont
+          encouragés, lorsqu’ils en ont la possibilité et le désir, à transmettre cet élan de solidarité à d’autres.</p>
+        <div class="didar-pif-footer">
+          <p class="didar-pif-motto">Apprendre · Partager · Soutenir · Passer le relais</p>
+          <p class="didar-pif-tagline">L’entraide grandit lorsqu’elle se partage.</p>
+        </div>
+      </div>
+    </section>
+    <nav aria-label="Dans cette page" class="didar-page-nav">
+      <div class="container didar-page-nav-inner"><span class="didar-page-nav-label">Découvrir DIDAR</span><a
+          href="#mission">Mission</a><a href="#vision">Vision</a><a href="#values">Valeurs fondamentales</a><a
+          href="#charter">Notre charte</a><a href="#contact">Contact</a></div>
+    </nav>
+    <section aria-labelledby="mission-title" class="section didar-statement" id="mission">
+      <div class="container">
+        <div class="didar-section-heading"><span class="didar-section-num">01</span>
+          <div>
+            <p class="eyebrow">Ce qui nous guide</p>
+            <h2 id="mission-title">Notre mission</h2>
+          </div>
+        </div>
+        <div class="didar-narrative-grid">
+          <div class="didar-narrative-col didar-narrative-primary">
+            <p>La mission de DIDAR est de créer un espace indépendant, accueillant et participatif où des personnes aux
+              parcours, aux expériences et aux identités diverses peuvent se rencontrer, apprendre les unes des autres,
+              partager leurs cultures et leurs savoirs et contribuer à la vie culturelle et communautaire.</p>
+            <p>DIDAR œuvre à la préservation et à la transmission du patrimoine culturel et linguistique, à un meilleur
+              accès à l’éducation et aux arts, à la créativité, au renforcement des liens entre les générations et les
+              cultures, ainsi qu’à la création d’occasions de participation et d’entraide.</p>
+          </div>
+          <div class="didar-narrative-col">
+            <p>Nous cherchons également à combattre la discrimination et à réduire les obstacles à la participation, y
+              compris ceux qui peuvent se reproduire au sein des espaces culturels et communautaires. Par l’éducation,
+              le dialogue et la collaboration, nous encourageons la réflexion critique, l’autonomie individuelle et une
+              participation significative sans exiger que les personnes renoncent à leurs identités culturelles.</p>
+            <p>Nous voulons bâtir des ponts entre le passé et l’avenir, entre les cultures, ainsi qu’entre les personnes
+              et les possibilités offertes dans la société. Nos activités reposent sur la dignité humaine, l’égalité,
+              l’apprentissage mutuel et la responsabilité sociale et environnementale.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="vision-title" class="section didar-statement didar-statement-alt" id="vision">
+      <div class="container">
+        <div class="didar-section-heading"><span class="didar-section-num">02</span>
+          <div>
+            <p class="eyebrow">L’avenir que nous imaginons</p>
+            <h2 id="vision-title">Notre vision</h2>
+          </div>
+        </div>
+        <div class="didar-narrative-grid">
+          <div class="didar-narrative-col didar-narrative-primary">
+            <p>Nous aspirons à une société où les différences culturelles, linguistiques, générationnelles et
+              individuelles ne constituent pas des obstacles aux relations humaines, mais deviennent des occasions de
+              découverte, d’apprentissage et d’enrichissement collectif.</p>
+            <p>Nous imaginons un avenir où les patrimoines culturels sont préservés et réinventés, où le savoir,
+              l’éducation et les arts sont accessibles à davantage de personnes et où nul n’est exclu de la
+              participation en raison de son origine, de son identité ou de sa situation personnelle.</p>
+          </div>
+          <div class="didar-narrative-col">
+            <p>DIDAR aspire à devenir un espace communautaire durable à Montréal et au Québec, où les personnes se
+              sentent accueillies, développent leur capacité d’agir, créent, dialoguent et tissent des liens
+              significatifs entre les cultures, les générations et les communautés.</p>
+            <p>Nous imaginons des communautés où le sentiment d’appartenance n’exige ni conformité ni silence, et où
+              chaque personne peut exprimer son identité, remettre en question les normes établies et participer sans
+              craindre la discrimination ou l’exclusion.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="values-title" class="section didar-values-section" id="values">
+      <div class="container">
+        <div class="didar-section-heading"><span class="didar-section-num">03</span>
+          <div>
+            <p class="eyebrow">Nos principes communs</p>
+            <h2 id="values-title">Nos valeurs fondamentales</h2>
+          </div>
+        </div>
+        <p class="didar-section-intro">Dix principes qui orientent notre façon d’apprendre, de collaborer, de préserver
+          les patrimoines et de faire communauté.</p>
+        <div class="didar-values-grid">
+          <article aria-labelledby="value-1-title" class="didar-value-card" id="value-1">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">01</span>
+              <h3 id="value-1-title">Dignité humaine, égalité, équité et inclusion</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>Nous reconnaissons la dignité et l’égalité des droits de chaque personne, quels que soient son origine,
+                sa langue, sa situation économique, son âge, son genre, son identité de genre, son orientation sexuelle,
+                ses convictions religieuses ou non religieuses, son handicap ou son statut migratoire.</p>
+              <p>Nous nous engageons à combattre la discrimination, qu’elle soit interpersonnelle, institutionnelle ou
+                systémique, et à réduire les obstacles à une participation significative. Nous reconnaissons que
+                l’exclusion et les rapports de pouvoir inégaux peuvent aussi exister au sein de nos propres espaces
+                culturels et communautaires.</p>
+            </div>
+          </article>
+          <article aria-labelledby="value-2-title" class="didar-value-card" id="value-2">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">02</span>
+              <h3 id="value-2-title">Patrimoine culturel, mémoire et continuité</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>Nous valorisons les langues, la littérature, les arts, les mémoires collectives, les histoires orales
+                et les expériences vécues. Préserver le patrimoine ne signifie pas rester tourné vers le passé, mais
+                permettre sa transmission, sa réinterprétation et son dialogue avec les générations futures.</p>
+              <p>Nous reconnaissons que le patrimoine culturel est vivant et évolutif. Sa préservation doit respecter la
+                dignité humaine, la liberté individuelle, l’égalité et la non-discrimination. Les traditions peuvent
+                être célébrées, questionnées et réinventées dans un dialogue respectueux.</p>
+            </div>
+          </article>
+          <article aria-labelledby="value-3-title" class="didar-value-card" id="value-3">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">03</span>
+              <h3 id="value-3-title">Éducation, savoir et créativité</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>Nous considérons l’éducation, la curiosité, la recherche, les arts et le partage des connaissances
+                comme des chemins d’épanouissement individuel et collectif. Chaque personne peut apprendre, enseigner,
+                partager et contribuer à de nouveaux savoirs.</p>
+              <p>Nous encourageons la pensée critique, l’apprentissage fondé sur les connaissances et les données
+                disponibles, la créativité et la liberté de remettre en question les idées établies, y compris nos
+                propres présupposés et pratiques.</p>
+            </div>
+          </article>
+          <article aria-labelledby="value-4-title" class="didar-value-card" id="value-4">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">04</span>
+              <h3 id="value-4-title">Dialogue interculturel et respect des différences</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>Nous valorisons la diversité culturelle et créons des occasions de rencontre, de dialogue et de
+                collaboration entre les cultures, les langues et les communautés, mais aussi au sein de celles-ci. Nul
+                ne devrait être tenu de représenter à lui seul toute une culture ou communauté.</p>
+              <p>Nous reconnaissons que les différences d’expérience, de possibilités et de pouvoir influencent les voix
+                qui sont entendues. Nous cherchons à favoriser le désaccord respectueux, la compréhension mutuelle et
+                une participation significative, en particulier pour les personnes dont les perspectives sont souvent
+                négligées ou marginalisées.</p>
+            </div>
+          </article>
+          <article aria-labelledby="value-5-title" class="didar-value-card" id="value-5">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">05</span>
+              <h3 id="value-5-title">Solidarité, entraide volontaire et responsabilité partagée</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>Nous croyons au pouvoir des relations humaines et de la coopération. Le partage des expériences, du
+                temps, des compétences et des connaissances peut ouvrir de nouvelles possibilités pour autrui.</p>
+              <p>L’entraide repose sur le respect, la participation volontaire et la solidarité collective. Recevoir de
+                l’aide ne doit jamais être conditionné à un remboursement, à des remerciements publics, à une loyauté
+                personnelle ou à de futures contributions. Nous cherchons à éviter les pratiques qui créent une
+                dépendance ou des rapports de pouvoir inégaux. Nous respectons aussi le temps, les capacités et les
+                limites personnelles des bénévoles et des personnes contributrices.</p>
+            </div>
+          </article>
+          <article aria-labelledby="value-6-title" class="didar-value-card" id="value-6">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">06</span>
+              <h3 id="value-6-title">Pouvoir d’agir et autonomie personnelle</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>Nous reconnaissons que les personnes et les communautés possèdent déjà des connaissances, des forces et
+                des capacités. Nous cherchons à réduire les obstacles qui limitent leurs possibilités d’apprendre, de
+                prendre des décisions éclairées, de participer et d’influencer les questions qui touchent leur vie.</p>
+              <p>Nous respectons l’autonomie, la liberté de choix et le droit de chaque personne de définir son propre
+                parcours, sans imposer d’attentes quant à sa manière de vivre, de participer ou d’exprimer son identité.
+              </p>
+            </div>
+          </article>
+          <article aria-labelledby="value-7-title" class="didar-value-card" id="value-7">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">07</span>
+              <h3 id="value-7-title">Liberté de pensée, pluralisme et indépendance institutionnelle</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>DIDAR n’est affilié à aucun parti politique ni à aucune organisation religieuse. Nous respectons la
+                liberté de pensée, de conscience, de croyance et d’expression, y compris le droit de questionner les
+                idées, les traditions et les institutions, dans le respect des droits et de la dignité d’autrui.</p>
+              <p>Notre indépendance institutionnelle ne signifie pas l’indifférence à la discrimination, à la violence
+                ou aux atteintes à la dignité humaine. Nous demeurons attachés aux droits de la personne, à l’égalité et
+                à la justice sociale, sans exiger que les personnes participantes partagent des convictions politiques
+                ou religieuses particulières.</p>
+            </div>
+          </article>
+          <article aria-labelledby="value-8-title" class="didar-value-card" id="value-8">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">08</span>
+              <h3 id="value-8-title">Bienveillance, consentement, limites personnelles et responsabilité</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>Nous nous efforçons de créer des environnements plus sûrs, respectueux et inclusifs, exempts de
+                harcèlement, d’intimidation et d’abus de pouvoir.</p>
+              <p>Le consentement éclairé et librement donné, la vie privée, les limites personnelles et le droit de
+                choisir les modalités de sa participation ou de sa représentation sont au cœur de notre démarche.</p>
+              <p>Nous reconnaissons notre responsabilité d’écouter les préoccupations, de réfléchir aux conséquences de
+                nos actes et de répondre de façon juste, sans représailles, aux signalements de préjudices ou de
+                comportements inappropriés. Personne ne devrait subir de pression pour révéler son vécu ou son identité.
+              </p>
+            </div>
+          </article>
+          <article aria-labelledby="value-9-title" class="didar-value-card" id="value-9">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">09</span>
+              <h3 id="value-9-title">Responsabilité environnementale</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>Nous considérons la protection de l’environnement comme une responsabilité partagée. Nous encourageons
+                la réduction des déchets, le réemploi, la réparation, le recyclage, le partage des ressources et
+                l’adoption de pratiques durables dans nos programmes et nos activités quotidiennes.</p>
+            </div>
+          </article>
+          <article aria-labelledby="value-10-title" class="didar-value-card" id="value-10">
+            <div class="didar-value-top"><span aria-hidden="true" class="didar-value-number">10</span>
+              <h3 id="value-10-title">Collaboration, transparence et responsabilité collective</h3>
+            </div>
+            <div class="didar-value-copy">
+              <p>Nous valorisons la coopération entre les personnes, les artistes, les éducateurs, les chercheurs, les
+                institutions culturelles et éducatives et les organismes communautaires.</p>
+              <p>La transparence, la responsabilité, l’utilisation judicieuse des ressources et le respect des
+                contributions bénévoles sont essentiels à la confiance collective.</p>
+              <p>Nous encourageons des décisions justes et transparentes, la reconnaissance des contributions, la
+                gestion responsable des conflits d’intérêts et les occasions de rétroaction. Les partenariats et les
+                contributions financières ne doivent compromettre ni l’indépendance de DIDAR, ni sa mission, ni son
+                engagement envers les communautés qu’il sert.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="charter-title" class="section didar-full-charter" id="charter">
+      <div class="container">
+        <div class="didar-section-heading"><span class="didar-section-num">04</span>
+          <div>
+            <p class="eyebrow">Traduire nos valeurs en gestes concrets</p>
+            <h2 id="charter-title">La Charte de DIDAR</h2>
+          </div>
+        </div>
+        <div class="didar-charter-intro">
+          <div>
+            <h3>Préambule</h3>
+            <p>DIDAR repose sur la conviction que les relations humaines, l’éducation, la culture et la participation
+              collective peuvent contribuer à une société plus accueillante, inclusive, équitable et unie.</p>
+            <p>La présente Charte énonce les principes et engagements communs qui orientent les activités, les
+              partenariats, les décisions et les relations au sein de DIDAR. Elle constitue une référence pour l’équipe,
+              les bénévoles, les partenaires et les personnes participantes, selon leurs rôles et responsabilités
+              respectifs.</p>
+            <p>Nous reconnaissons que la dignité, l’inclusion et la responsabilité ne peuvent se limiter à des
+              déclarations de principe. Elles doivent se traduire dans nos gestes quotidiens, nos pratiques
+              organisationnelles et notre volonté d’apprendre et de nous améliorer.</p>
+          </div>
+          <p class="didar-adoption-note">Ce texte présente les engagements communs proposés pour DIDAR. Leur adoption
+            officielle par l’équipe n’a pas encore été confirmée.</p>
+        </div>
+        <div class="didar-charter-toolbar">
+          <p id="charter-instructions">Choisissez un article pour lire son texte intégral ou déployez les onze articles.
+          </p>
+          <div class="didar-charter-actions"><button aria-controls="charter-articles" class="didar-text-button"
+              id="expand-charter" type="button">Tout déployer</button><button aria-controls="charter-articles"
+              class="didar-text-button" id="collapse-charter" type="button">Tout replier</button></div>
+        </div>
+        <div class="didar-article-list" id="charter-articles">
+          <details class="didar-article" id="article-1" open="">
+            <summary><span class="didar-article-index">Article 01</span>
+              <h3 class="didar-article-name">Dignité humaine, égalité et non-discrimination</h3><span aria-hidden="true"
+                class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>Toute personne a droit à un traitement digne et respectueux, sans discrimination. DIDAR s’oppose au
+                racisme, au sexisme, à la xénophobie, à l’homophobie, à la transphobie, au capacitisme et à toute autre
+                forme de discrimination ou d’exclusion sociale.</p>
+              <p>Nous reconnaissons que la discrimination peut être directe, indirecte, interpersonnelle,
+                institutionnelle ou systémique, et qu’elle peut exister tant entre les groupes culturels et
+                communautaires qu’en leur sein.</p>
+              <p>Nous nous engageons à identifier et à réduire les obstacles à une participation significative, à
+                reconnaître les rapports de pouvoir inégaux et à veiller à ce que nos propres pratiques reflètent les
+                principes d’égalité, d’équité et d’inclusion.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-2">
+            <summary><span class="didar-article-index">Article 02</span>
+              <h3 class="didar-article-name">Un environnement respectueux et exempt de harcèlement</h3><span
+                aria-hidden="true" class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>Nous ne tolérons pas le harcèlement, les menaces, l’intimidation, la violence, l’humiliation, la
+                coercition ni les abus de pouvoir.</p>
+              <p>Nous nous efforçons de créer des milieux plus sûrs et respectueux où les personnes peuvent participer
+                sans craindre la discrimination, l’intimidation ou les représailles.</p>
+              <p>Nous nous engageons à écouter les préoccupations, à traiter les situations problématiques avec équité
+                et responsabilité, à respecter les droits des personnes concernées et à prendre les mesures appropriées
+                pour prévenir les préjudices.</p>
+              <p>Nous reconnaissons que les personnes en position d’autorité ou d’influence ont des responsabilités
+                particulières et ne doivent pas user de cette position pour réduire les autres au silence, les mettre
+                sous pression ou les exploiter.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-3">
+            <summary><span class="didar-article-index">Article 03</span>
+              <h3 class="didar-article-name">Consentement, autonomie et vie privée</h3><span aria-hidden="true"
+                class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>La participation aux activités de DIDAR et le partage d’expériences personnelles sont volontaires.
+                Personne n’est tenu de dévoiler des renseignements personnels, son vécu ou son identité pour appartenir
+                à DIDAR ou participer à ses activités, sauf si certaines informations sont réellement nécessaires à une
+                activité précise.</p>
+              <p>La publication du nom, de la photographie, de la voix enregistrée, du récit personnel ou d’autres
+                renseignements permettant d’identifier une personne nécessite un consentement approprié, éclairé et
+                librement donné.</p>
+              <p>Les personnes doivent être informées de l’utilisation de leurs renseignements et de la manière de
+                demander la correction ou le retrait de contenus publiés par DIDAR, sous réserve des limites
+                applicables.</p>
+              <p>Nous nous engageons à ne recueillir que les renseignements personnels nécessaires, à respecter la
+                confidentialité et à gérer les données personnelles de façon responsable et conformément aux obligations
+                applicables en matière de protection de la vie privée.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-4">
+            <summary><span class="didar-article-index">Article 04</span>
+              <h3 class="didar-article-name">Diversité culturelle, liberté de pensée et dialogue respectueux</h3><span
+                aria-hidden="true" class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>Nous reconnaissons l’égale dignité de toutes les personnes, quelles que soient leurs identités
+                culturelles, linguistiques ou personnelles. Nous respectons la diversité des croyances et des visions du
+                monde tout en maintenant notre engagement envers les droits de la personne, l’égalité et la
+                non-discrimination.</p>
+              <p>Nous respectons la liberté de pensée, de conscience, de croyance et d’expression, y compris le droit de
+                questionner et d’examiner de façon critique les idées, les traditions, les institutions et les pratiques
+                établies.</p>
+              <p>Nous encourageons le dialogue respectueux entre les communautés et en leur sein, reconnaissant que des
+                personnes appartenant à une même communauté culturelle ou linguistique peuvent avoir des vécus, des
+                identités et des perspectives différents.</p>
+              <p>Les désaccords et la critique des idées ne doivent pas devenir du harcèlement, de l’intimidation, de la
+                discrimination ou des attaques contre la dignité des personnes.</p>
+              <p>Nul ne devrait être tenu de représenter à lui seul toute une culture ou communauté.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-5">
+            <summary><span class="didar-article-index">Article 05</span>
+              <h3 class="didar-article-name">Patrimoine, savoir et expression créative</h3><span aria-hidden="true"
+                class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>Nous encourageons la préservation, la transmission et le partage des patrimoines culturels, des
+                langues, de la littérature, des arts traditionnels, des histoires orales, de la mémoire collective et
+                des expériences intergénérationnelles.</p>
+              <p>Nous reconnaissons que le patrimoine culturel est vivant et évolutif. Les traditions peuvent être
+                célébrées, questionnées, réinterprétées et adaptées au moyen d’un dialogue respectueux.</p>
+              <p>La préservation du patrimoine culturel doit demeurer compatible avec la dignité humaine, la liberté
+                individuelle, l’égalité et la non-discrimination. Les pratiques culturelles ne doivent pas servir à
+                justifier l’exclusion, la coercition ou la violation des droits fondamentaux.</p>
+              <p>Nous soutenons la créativité, l’innovation, l’éducation accessible et la participation aux activités
+                artistiques, culturelles et scientifiques.</p>
+              <p>Nous respectons les voix, les connaissances, les droits d’auteur et les contributions des personnes et
+                des communautés dont le patrimoine culturel est partagé ou représenté.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-6">
+            <summary><span class="didar-article-index">Article 06</span>
+              <h3 class="didar-article-name">Participation volontaire et entraide</h3><span aria-hidden="true"
+                class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>DIDAR repose sur la participation volontaire, la coopération et la solidarité collective.</p>
+              <p>Chaque personne peut contribuer selon ses intérêts, ses capacités, sa situation et ses disponibilités.
+                La participation et les contributions doivent être exemptes de coercition et de pressions indues.</p>
+              <p>Recevoir de l’aide communautaire ne crée aucune obligation de remboursement, de remerciements publics,
+                de loyauté ou de contribution future. La participation aux activités de DIDAR est volontaire, et les
+                frais ou conditions de participation applicables doivent être communiqués clairement à l’avance.</p>
+              <p>Nous respectons l’autonomie, le temps, les limites personnelles et les capacités des participantes et
+                participants, des bénévoles et des personnes contributrices.</p>
+              <p>L’entraide devrait renforcer l’indépendance, la dignité et la capacité de chaque personne à prendre ses
+                propres décisions, plutôt que créer une dépendance ou des relations inégales.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-7">
+            <summary><span class="didar-article-index">Article 07</span>
+              <h3 class="didar-article-name">Accessibilité et réduction des obstacles</h3><span aria-hidden="true"
+                class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>Nous cherchons à identifier et à réduire, dans la limite de nos ressources, les obstacles
+                linguistiques, économiques, sociaux, culturels, numériques, physiques et cognitifs à la participation.
+              </p>
+              <p>Nos activités devraient tenir compte, dans la mesure du possible, des situations, des capacités, des
+                besoins et des responsabilités variés des personnes participantes.</p>
+              <p>Nous reconnaissons le français comme langue officielle et commune du Québec, tout en valorisant le
+                multilinguisme, la diversité linguistique et la préservation des langues patrimoniales.</p>
+              <p>Nous encourageons une communication accessible, une participation significative et la possibilité
+                d’exprimer ses besoins sans avoir à divulguer inutilement des renseignements personnels sensibles.</p>
+              <p>L’inclusion ne consiste pas seulement à accueillir des personnes diverses, mais aussi à créer des
+                occasions pour que leurs points de vue soient entendus et pris en considération.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-8">
+            <summary><span class="didar-article-index">Article 08</span>
+              <h3 class="didar-article-name">Indépendance politique et religieuse</h3><span aria-hidden="true"
+                class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>DIDAR est une organisation indépendante, non partisane et non confessionnelle. Il n’est affilié à aucun
+                parti politique ni à aucune institution religieuse.</p>
+              <p>Les activités de DIDAR ne doivent pas servir à la propagande ou au recrutement partisan ou religieux.
+              </p>
+              <p>Cette indépendance institutionnelle ne limite pas les convictions personnelles, les identités ou la
+                liberté de conscience des personnes participantes, à condition que leur conduite respecte la Charte de
+                DIDAR.</p>
+              <p>Notre indépendance ne signifie pas non plus que nous nous détournons des questions sociales ou gardons
+                le silence face à l’injustice.</p>
+              <p>La défense de la dignité humaine, de l’égalité, des droits de la personne et des libertés
+                individuelles, ainsi que la lutte contre la discrimination et la violence, sont compatibles avec
+                l’identité et les engagements de DIDAR.</p>
+              <p>Nous distinguons la défense des droits humains universels du soutien à un parti politique, à une
+                organisation religieuse ou à une idéologie particulière.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-9">
+            <summary><span class="didar-article-index">Article 09</span>
+              <h3 class="didar-article-name">Responsabilité environnementale et utilisation des ressources</h3><span
+                aria-hidden="true" class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>Dans la planification et la réalisation de nos activités, nous encourageons la réduction de la
+                consommation inutile, le réemploi, la réparation, le recyclage, la préservation des ressources et les
+                choix responsables sur le plan environnemental.</p>
+              <p>Nous favorisons des pratiques collectives et durables tout en tenant compte de l’accessibilité, de
+                l’abordabilité et des besoins différents des personnes participantes.</p>
+              <p>Nous reconnaissons la responsabilité environnementale comme une dimension de notre engagement plus
+                large envers le bien-être social et l’utilisation responsable des ressources communes.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-10">
+            <summary><span class="didar-article-index">Article 10</span>
+              <h3 class="didar-article-name">Transparence, responsabilité et reconnaissance de nos limites</h3><span
+                aria-hidden="true" class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>Nous nous engageons à faire preuve de transparence quant à nos objectifs, nos activités, nos rôles, nos
+                ressources, nos décisions et nos limites, tout en respectant la confidentialité et la vie privée.</p>
+              <p>Nous accueillons les critiques constructives, les commentaires et les occasions d’améliorer nos
+                pratiques. Les membres de l’équipe et les personnes participantes doivent pouvoir signaler des
+                préoccupations et remettre des décisions en question sans craindre de représailles.</p>
+              <p>Nous reconnaissons notre responsabilité d’admettre nos erreurs, de traiter les problèmes avec équité et
+                de prendre, au besoin, des mesures correctives appropriées.</p>
+              <p>Nous nous efforçons de communiquer honnêtement sur nos activités et nos réalisations, en distinguant
+                les actions terminées, les initiatives en cours et les projets futurs.</p>
+              <p>DIDAR ne remplace pas les services spécialisés en médecine, en psychologie, en droit, en immigration ou
+                dans d’autres professions réglementées. Lorsque cela est approprié et dans la limite de nos capacités,
+                nous aidons les personnes à trouver des professionnelles et professionnels qualifiés ou des ressources
+                communautaires pertinentes.</p>
+            </div>
+          </details>
+          <details class="didar-article" id="article-11">
+            <summary><span class="didar-article-index">Article 11</span>
+              <h3 class="didar-article-name">Partenariats responsables et indépendance</h3><span aria-hidden="true"
+                class="didar-article-toggle"></span>
+            </summary>
+            <div class="didar-article-copy">
+              <p>Les collaborations de DIDAR doivent correspondre à sa mission, à ses valeurs et à ses engagements en
+                matière de dignité humaine, d’inclusion et d’intérêts communautaires.</p>
+              <p>Dans le choix des partenaires et des soutiens, nous privilégions l’indépendance décisionnelle, le
+                respect mutuel, la transparence, la responsabilité et la gestion responsable des conflits d’intérêts.
+              </p>
+              <p>Nous valorisons et cherchons à reconnaître les contributions des personnes, des bénévoles, des
+                artistes, des professionnelles et professionnels, des entreprises et des organisations, qu’elles soient
+                artistiques, éducatives, matérielles, financières ou offertes sous forme de services.</p>
+              <p>La reconnaissance d’une contribution ne confère aucune autorité particulière sur les décisions de
+                DIDAR. De même, un partenariat ou une contribution financière ne signifie pas que DIDAR approuve toutes
+                les positions, tous les produits, tous les services ou toutes les activités d’un soutien.</p>
+              <p>Nous respectons la propriété intellectuelle, les droits d’auteur et les conditions convenues pour les
+                contributions créatives.</p>
+              <p>DIDAR se réserve le droit de refuser ou de réexaminer les collaborations incompatibles avec sa mission
+                et ses engagements éthiques, selon des processus décisionnels justes et responsables.</p>
+            </div>
+          </details>
+        </div>
+        <div class="didar-shared-commitment" id="shared-commitment">
+          <p class="eyebrow">Notre engagement commun</p>
+          <h3>Notre engagement commun</h3>
+          <p>DIDAR est plus qu’un nom. C’est une invitation à se rencontrer, à écouter des voix différentes, à apprendre
+            des expériences des autres, à préserver et réinventer les patrimoines culturels et à créer des liens qui
+            enrichissent la vie individuelle et collective.</p>
+          <p>Nous croyons que le patrimoine culturel et la liberté individuelle peuvent s’enrichir mutuellement, que les
+            différences peuvent devenir des occasions d’apprentissage et que l’appartenance ne devrait jamais exiger de
+            renoncer à sa dignité, à son identité ou à son autonomie.</p>
+          <p>Nous reconnaissons que le respect, l’inclusion et la solidarité ne se concrétisent pas par de simples
+            déclarations. Ils exigent que nous examinions nos présupposés, combattions la discrimination, reconnaissions
+            les rapports de pouvoir inégaux, partagions les responsabilités et rendions compte de nos actes.</p>
+          <p><strong>À DIDAR, nos différences sont des occasions d’apprendre, de questionner, de créer et de grandir
+              ensemble, dans la dignité, la liberté, le respect mutuel et la responsabilité partagée.</strong></p>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="contact-title" class="section contact" id="contact">
       <div class="container narrow">
-        <p class="eyebrow">Ateliers · rencontres · événements · collaborations</p>
-        <h1>Activités de DIDAR</h1>
-        <p class="lead">Découvrez nos programmes et leurs différentes séances. Un même atelier peut être offert à
-          plusieurs dates, parfois avec des organismes partenaires différents.</p>
-      </div>
-    </section>
-    <section class="section" id="programs">
-      <div class="container">
-        <h2>Nos programmes</h2>
-        <p class="programs-intro">Chaque programme possède sa propre description. Les dates et les détails sont précisés
-          pour chaque séance.</p>
-        <div class="programs-grid" id="programs-grid"></div>
-      </div>
-    </section>
-    <section class="section alt" id="sessions">
-      <div class="container">
-        <h2>Rencontres et activités</h2>
-        <p>Consultez les activités à venir et celles qui ont déjà eu lieu. Chaque séance présente sa date, son statut et
-          ses partenaires.</p>
-        <div class="activity-toolbar-group">
-          <p class="activity-toolbar-label">Statut de la séance</p>
-          <div aria-label="Statut de la séance" class="activity-toolbar" id="status-filters" role="group"></div>
+        <p class="eyebrow">Restons en contact</p>
+        <h2 id="contact-title">Joindre DIDAR</h2>
+        <p>Que vous souhaitiez poser une question, participer, collaborer ou proposer une activité, nous serons heureux
+          de vous lire.</p>
+        <div class="contact-box">
+          <p><strong>Email:</strong> <a href="mailto:contact@didar-mtl.ca">contact@didar-mtl.ca</a></p>
+          <p><strong>Instagram:</strong> <a href="https://www.instagram.com/didar_mtl/" rel="noopener noreferrer"
+              target="_blank">@didar_mtl</a></p>
+          <p>
+            <strong>Facebook:</strong>
+            <a href="https://www.facebook.com/didar.mtl/" rel="noopener noreferrer" target="_blank">
+              @didar.mtl
+            </a>
+          </p>
+          <p><strong>À Montréal :</strong> Montréal, Québec</p>
         </div>
-        <div class="activity-toolbar-group">
-          <p class="activity-toolbar-label">Type d’activité</p>
-          <div aria-label="Type d’activité" class="activity-toolbar" id="activity-filters" role="group"></div>
-        </div>
-        <div id="activities-container"></div>
-        <p class="activities-empty" id="activities-empty">Aucune activité ne correspond aux filtres choisis.</p>
+        <div class="actions contact-cta"><a class="button primary"
+            href="mailto:contact@didar-mtl.ca?subject=Contact%20DIDAR">Écrire à DIDAR</a></div>
       </div>
     </section>
   </main>
@@ -452,459 +595,29 @@
       <p>Montréal · Québec</p>
     </div>
   </footer>
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-  <script src="activities-data.js"></script>
-  <script src="../assets/activity-i18n.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="assets/activities-localized-fallback.js"></script>
+  <script src="assets/activity-i18n.js"></script>
   <script>
-
-
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-
-
-    const container =
-      document.getElementById("activities-container");
-
-    const toolbar =
-      document.getElementById("activity-filters");
-    const statusToolbar = document.getElementById("status-filters");
-    let chosenType = "all";
-    let chosenStatus = "all";
-
-    const empty =
-      document.getElementById("activities-empty");
-
-
-    const programsGrid =
-      document.getElementById("programs-grid");
-
-    // Site uses the generated, language-ready JSON feed. The original Persian
-    // activities-data.js remains a safety fallback for local previews and errors.
-    let currentPrograms = PROGRAMS;
-    let currentActivities = ACTIVITIES;
-
-
-
-    function localize(record, kind) {
-      const savedCopy = kind === "program" ? PROGRAMS : ACTIVITIES;
-      return window.DIDAR_localizeRecord(record, "fr", kind, savedCopy);
-    }
-
-    // Escape user-editable text before placing it inside HTML.
-    function escapeHtml(value = "") {
-      return String(value).replace(/[&<>"']/g, char => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;",
-        '"': "&quot;", "'": "&#39;"
-      }[char]));
-    }
-
-    const sessionStatusLabels = {
-      completed: "Tenue",
-      scheduled: "Planifiée",
-      upcoming: "Planifiée",
-      cancelled: "Annulée",
-      postponed: "Reportée"
-    };
-
-    function renderStatus(status) {
-      const allowed = ["completed", "scheduled", "upcoming", "cancelled", "postponed"];
-      const safeStatus = allowed.includes(status) ? status : "scheduled";
-      return `<span class="session-status" data-status="${safeStatus}">${sessionStatusLabels[safeStatus]}</span>`;
-    }
-
-    function hostItems(record) {
-      return Array.isArray(record.hosts)
-        ? record.hosts.filter(item => item && item.name)
-        : [];
-    }
-
-    function collaboratorItems(record) {
-      const hosts = hostItems(record);
-      const isHost = item => hosts.some(host =>
-        host.name.trim().toLocaleLowerCase() === item.name.trim().toLocaleLowerCase() ||
-        (host.url && item.url && host.url === item.url));
-      if (Array.isArray(record.collaborators) && record.collaborators.length) {
-        return record.collaborators.filter(item => item && item.name && !isHost(item));
+    (function () {
+      const locale = "fr", labels = ["Ateliers participatifs", "Série de trois ateliers", "Soutien numérique hebdomadaire"], target = document.getElementById('featured-programs-grid');
+      const featured = ['dialogue-crisis', 'harassment-consent', 'digital-cafe'];
+      const safe = x => String(x ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      function render(items) {
+        const localCopy = window.DIDAR_PROGRAM_FALLBACK || [];
+        const translatedItems = items.map(p => window.DIDAR_localizeRecord(p, locale, 'program', localCopy));
+        const byId = new Map(translatedItems.filter(p => p.visible !== false).map(p => [p.id, p]));
+        target.innerHTML = featured.filter(id => byId.has(id)).map((id, i) => {
+          const program = byId.get(id);
+          const title = program.title, subtitle = program.subtitle || program.description;
+          const schedule = program.schedule;
+          return `<article class="featured-card"><p class="featured-kicker">${safe(labels[i])}</p><h3>${safe(title)}</h3><p class="featured-subtitle">${safe(subtitle)}</p>${schedule ? `<p class="featured-schedule"><strong>Quand :</strong> ${safe(schedule)}</p>` : ''}<a class="featured-link" href="activities/#program-${encodeURIComponent(id)}">Découvrir le programme et ses séances →</a></article>`;
+        }).join('');
       }
-      // Backwards compatibility: partner_fa/en/fr plus shared partner_url.
-      const fallback = record.partner
-        ? { name: record.partner, url: record.partnerUrl || "" }
-        : null;
-      return fallback && !isHost(fallback) ? [fallback] : [];
-    }
-
-    function renderOrganizationLinks(items, className = "") {
-      if (!items.length) return "";
-      return `<span class="collaborator-links ${className}">${items.map(item => {
-        const link = /^https?:\/\//i.test(String(item.url || "").trim())
-          ? secureLink(item.url) : "";
-        const name = escapeHtml(item.name);
-        const label = "Visiter le site de {name} (nouvel onglet)".replace("{name}", item.name);
-        return link
-          ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(label)}">${name} <span aria-hidden="true">↗</span></a>`
-          : `<span>${name}</span>`;
-      }).join("")}</span>`;
-    }
-
-    function renderCollaborators(record, className = "") {
-      return renderOrganizationLinks(collaboratorItems(record), className);
-    }
-
-    function renderHosts(record, className = "") {
-      return renderOrganizationLinks(hostItems(record), className);
-    }
-
-    function sessionsOfProgram(programId) {
-      return currentActivities
-        .filter(activity => activity.programId === programId && activity.visible !== false)
-        .sort((a, b) => {
-          const aScheduled = ["upcoming", "scheduled"].includes(a.status);
-          const bScheduled = ["upcoming", "scheduled"].includes(b.status);
-          if (aScheduled !== bScheduled) return aScheduled ? -1 : 1;
-          return aScheduled
-            ? (a.date || "9999").localeCompare(b.date || "9999")
-            : (b.date || "").localeCompare(a.date || "");
-        });
-    }
-
-    function renderProgramSessions(sessions) {
-      if (!sessions.length) return "";
-      return `<details class="program-sessions" ${sessions.length <= 3 ? "open" : ""}>
-      <summary>Séances du programme (${sessions.length.toLocaleString("fr-CA")})</summary>
-      <ul class="program-session-list">${sessions.map(session => `
-        <li class="program-session-item">
-          <div class="session-topline">
-            ${renderStatus(session.status)}
-            <span>${escapeHtml(formatDate(session.date) || "Date à confirmer")}</span>
-          </div>
-          <a href="#session-${escapeHtml(session.id)}">${escapeHtml(session.title)}</a>
-          ${hostItems(session).length ? `<div class="session-collaborators"><strong>Organisé par :</strong> ${renderHosts(session)}</div>` : ""}
-          ${collaboratorItems(session).length ? `<div class="session-collaborators"><strong>En collaboration avec :</strong> ${renderCollaborators(session)}</div>` : ""}
-        </li>`).join("")}</ul>
-    </details>`;
-    }
-
-    function renderPrograms() {
-      const programs = currentPrograms.filter(p => p.visible !== false)
-        .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
-      programsGrid.innerHTML = programs.map(p => {
-        const programSessions = sessionsOfProgram(p.id);
-        const topicBadges = (p.topics || [])
-          .map(topic => `<span>${escapeHtml(topic)}</span>`).join("");
-        return `
-        <article class="program-card" id="program-${escapeHtml(p.id)}">
-          ${p.status ? `<div class="program-status">${escapeHtml(p.status)}</div>` : ""}
-          <h3>${escapeHtml(p.title)}</h3>
-          ${p.subtitle ? `<p class="program-subtitle">${escapeHtml(p.subtitle)}</p>` : ""}
-          ${p.description ? `<p>${escapeHtml(p.description)}</p>` : ""}
-          ${p.audience ? `<p class="program-meta"><strong>Public visé :</strong> ${escapeHtml(p.audience)}</p>` : ""}
-          ${(p.languages || []).length ? `<p class="program-meta"><strong>Langues :</strong> ${escapeHtml(p.languages.join(", "))}</p>` : ""}
-          ${p.schedule ? `<p class="program-meta"><strong>Horaire :</strong> ${escapeHtml(p.schedule)}</p>` : ""}
-          ${hostItems(p).length ? `<p class="program-collaborators"><strong>Organismes hôtes :</strong> ${renderHosts(p)}</p>` : ""}
-          ${collaboratorItems(p).length ? `<p class="program-collaborators"><strong>Partenaires du programme :</strong> ${renderCollaborators(p)}</p>` : ""}
-          ${topicBadges ? `<div class="program-topics">${topicBadges}</div>` : ""}
-          ${renderProgramSessions(programSessions)}
-        </article>`;
-      }).join("");
-    }
-
-    const typeLabels = {
-      all: "Toutes",
-      workshop: "Atelier",
-      event: "Événement",
-      talk: "Rencontre et discussion",
-      cultural: "Activité culturelle",
-      community: "Activité communautaire",
-      collaboration: "Collaboration",
-      training: "Formation"
-    };
-
-
-    function formatDate(dateString) {
-
-      if (!dateString) return "";
-
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return "";
-      const date = new Date(dateString + "T12:00:00");
-      if (Number.isNaN(date.getTime())) return "";
-
-      return new Intl.DateTimeFormat(
-        "fr-CA",
-        {
-          year: "numeric",
-          month: "long",
-          day: "numeric"
-        }
-      ).format(date);
-
-    }
-
-
-    function getYear(activity) {
-
-      if (!activity.date) return "Sans date";
-
-      return activity.date.slice(0, 4);
-
-    }
-
-
-    function availableTypes() {
-      return [
-        "all",
-        ...new Set(
-          currentActivities
-            .filter(activity => activity.visible !== false)
-            .map(activity => activity.type)
-            .filter(Boolean)
-        )
-      ];
-    }
-
-
-    const statusLabelsFilter = {
-      all: "Tous les statuts",
-      upcoming: "À venir et planifiées",
-      completed: "Tenue",
-      other: "Annulées ou reportées"
-    };
-
-    function renderFilters() {
-      const types = availableTypes();
-      toolbar.innerHTML = types.map(type => `
-      <button class="activity-filter" type="button" data-filter="${escapeHtml(type)}"
-        aria-pressed="${chosenType === type}">${escapeHtml(typeLabels[type] || type)}</button>`).join("");
-      statusToolbar.innerHTML = Object.entries(statusLabelsFilter).map(([key, label]) => `
-      <button class="activity-filter" type="button" data-status="${key}"
-        aria-pressed="${chosenStatus === key}">${label}</button>`).join("");
-      toolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
-        chosenType = button.dataset.filter;
-        renderFilters(); renderActivities();
-      }));
-      statusToolbar.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
-        chosenStatus = button.dataset.status;
-        renderFilters(); renderActivities();
-      }));
-    }
-
-    function renderActivities() {
-      let activities = currentActivities.filter(activity => activity.visible !== false);
-      if (chosenType !== "all") activities = activities.filter(activity => activity.type === chosenType);
-      if (chosenStatus === "upcoming") activities = activities.filter(activity => ["upcoming", "scheduled"].includes(activity.status));
-      if (chosenStatus === "completed") activities = activities.filter(activity => activity.status === "completed");
-      if (chosenStatus === "other") activities = activities.filter(activity => ["cancelled", "postponed"].includes(activity.status));
-      if (!activities.length) {
-        container.innerHTML = "";
-        empty.textContent = chosenStatus === "upcoming"
-          ? "Aucune séance à venir n’est inscrite pour le moment. Consultez les horaires généraux des programmes ci-dessus."
-          : "Aucune activité ne correspond aux filtres choisis.";
-        empty.style.display = "block";
-        return;
-      }
-      empty.style.display = "none";
-      // Highlight upcoming sessions first; keep completed events in newest-first order.
-      const rank = a => ["scheduled", "upcoming"].includes(a.status) ? 0 : a.status === "completed" ? 1 : 2;
-      activities.sort((a, b) => rank(a) - rank(b) || (rank(a) === 0
-        ? (a.date || "9999").localeCompare(b.date || "9999")
-        : (b.date || "").localeCompare(a.date || "")));
-      const groups = [];
-      for (const activity of activities) {
-        const groupName = rank(activity) === 0 ? "Séances à venir" : rank(activity) === 1
-          ? "Activités tenues · " + getYear(activity)
-          : "Activités annulées ou reportées";
-        let group = groups.find(item => item.title === groupName);
-        if (!group) { group = { title: groupName, items: [] }; groups.push(group); }
-        group.items.push(activity);
-      }
-      container.innerHTML = groups.map(group => `<section class="activity-year">
-      <div class="activity-year-heading"><h2>${escapeHtml(group.title)}</h2></div>
-      <div class="activities-grid">${group.items.map(renderActivityCard).join("")}</div>
-    </section>`).join("");
-    }
-
-    function secureLink(link) {
-      try {
-        const url = new URL(String(link || ""), window.location.href);
-        return ["http:", "https:"].includes(url.protocol) ? url.href : "";
-      } catch { return ""; }
-    }
-
-    function renderActivityCard(activity) {
-
-      const link = secureLink(activity.link);
-      const tags =
-        activity.tags || [];
-
-
-      return `
-
-      <article class="activity-card" id="session-${escapeHtml(activity.id)}" data-program-id="${escapeHtml(activity.programId || '')}" data-event-date="${escapeHtml(activity.date || '')}">
-
-        <div class="activity-date">
-          ${escapeHtml(formatDate(activity.date) || "Date à confirmer")}
-        </div>
-        <div>${renderStatus(activity.status)}</div>
-
-
-        <div>
-
-          ${activity.type
-          ? `
-                <span class="activity-type">
-                  ${escapeHtml(typeLabels[activity.type] || activity.type)}
-                </span>
-              `
-          : ""
-        }
-
-        </div>
-
-
-        <h3>
-          ${escapeHtml(activity.title)}
-        </h3>
-
-        ${activity.programId && currentPrograms.some(p => p.id === activity.programId)
-          ? `<p><a href="#program-${escapeHtml(activity.programId)}">Retour au programme ↑</a></p>`
-          : ""}
-
-
-        ${activity.subtitle
-          ? `
-              <p class="activity-subtitle">
-                ${escapeHtml(activity.subtitle)}
-              </p>
-            `
-          : ""
-        }
-
-
-        ${activity.summary
-          ? `
-              <p class="activity-summary">
-                ${escapeHtml(activity.summary)}
-              </p>
-            `
-          : ""
-        }
-
-
-        <div class="activity-details">
-
-          ${activity.module ? `<p><strong>Volet :</strong> ${escapeHtml(activity.module)}</p>` : ""}
-
-          ${activity.project
-          ? `
-                <p>
-                  <strong>Dans le cadre de :</strong>
-                  ${escapeHtml(activity.project)}
-                </p>
-              `
-          : ""
-        }
-          ${hostItems(activity).length
-          ? `<p><strong>Organisé par :</strong> ${renderHosts(activity)}</p>`
-          : ""}
-
-
-
-          ${collaboratorItems(activity).length
-          ? `<p><strong>En collaboration avec :</strong> ${renderCollaborators(activity)}</p>`
-          : ""
-        }
-
-
-          ${activity.location
-          ? `
-                <p>
-                  <strong>Lieu :</strong>
-                  ${escapeHtml(activity.location)}
-                </p>
-              `
-          : ""
-        }
-
-
-          ${activity.role
-          ? `
-                <p>
-                  <strong>Rôle de DIDAR :</strong>
-                  ${escapeHtml(activity.role)}
-                </p>
-              `
-          : ""
-        }
-
-        </div>
-
-
-        ${tags.length
-          ? `
-              <div class="activity-tags">
-
-                ${tags.map(tag => `
-                  <span class="activity-tag">
-                    ${escapeHtml(tag)}
-                  </span>
-                `).join("")}
-
-              </div>
-            `
-          : ""
-        }
-
-
-        ${link
-          ? `
-              <a
-                class="activity-link"
-                href="${escapeHtml(link)}" rel="noopener noreferrer"
-              >
-                En savoir plus →
-              </a>
-            `
-          : ""
-        }
-
-      </article>
-
-    `;
-
-    }
-
-
-    async function initActivities() {
-      try {
-        const response = await fetch("../fa/activities/activities-feed.json", { cache: "no-store" });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const result = await response.json();
-        if (!Array.isArray(result.programs) || !result.programs.length ||
-          !Array.isArray(result.sessions)) {
-          throw new Error("Unexpected activities feed format");
-        }
-        currentPrograms = result.programs.map(p => localize(p, "program"));
-        currentActivities = result.sessions.map(p => localize(p, "session"));
-      } catch (error) {
-        console.warn("DIDAR: loading FR fallback activity data:", error);
-      }
-      renderPrograms();
-      renderFilters();
-      renderActivities();
-      // Cards are generated asynchronously: scroll to a linked program/session after rendering.
-      if (location.hash) {
-        const id = decodeURIComponent(location.hash.slice(1));
-        const target = document.getElementById(id);
-        if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
-      }
-    }
-
-    initActivities();
-
-
+      fetch('fa/activities/activities-feed.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw Error(r.status); return r.json() }).then(data => render(data.programs || [])).catch(() => { render(window.DIDAR_PROGRAM_FALLBACK || []); });
+    }());
   </script>
-  <link rel="stylesheet" href="../assets/activities-event-media.css" />
-  <script src="../events/events-data.js"></script>
-  <script src="../assets/activities-event-media.js"></script>
+  <script defer="True" src="assets/english-home.js"></script>
 </body>
 
 </html>
