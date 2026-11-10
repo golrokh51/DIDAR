@@ -79,6 +79,7 @@ async function testLang(lang){
  assert.match(sessLink.children[0].src,new RegExp(`EVT-000017-poster-${lang}\\.png`));
  assert.match(progLink.href,/event=EVT-000020/);
  assert.equal(api.eventForSession('digital-cafe','2026-10-11'),null,'do not link unrelated sessions');
+ assert.equal(api.eventForSession('digital-cafe','2026-11-16',published,lang)?.id,'EVT-000020','recurring Café session inherits the series poster');
 }
 Promise.all(['en','fr','fa'].map(testLang)).then(()=>console.log('PASS: one-month Events + all 3 Activities languages link exact approved posters; missing consent blocks images'))
  .catch(e=>{console.error(e);process.exitCode=1;});

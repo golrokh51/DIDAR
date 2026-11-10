@@ -48,8 +48,12 @@
     })[0];
   }
   function eventForSession(programId, date, items=events, language=lang) {
-    if (!programId || !date) return null;
-    return items.find(ev=>ev.programId===programId && ev.date===date && visibleImage(ev,language)) || null;
+    if (!programId || !date || !helpers || !helpers.validDate(date)) return null;
+    // The Activities feed may contain a dated session of a recurring Events
+    // series. Its poster belongs to the series, not only to the first date.
+    return items.find(ev => ev.programId===programId && visibleImage(ev,language) &&
+      (ev.date===date || (ev.recurrence && ev.status!=='completed' &&
+        helpers.nextSeriesOccurrence(ev,date,'')===date))) || null;
   }
   function makeLinkedImage(ev) {
     if (!siteRoot || !idPattern.test(ev.id)) return null;

@@ -341,7 +341,7 @@ function attachCollaborators(events, registry) {
       ids.add(id);
       if (!isPublic(row.website_status) || !isApproved(row.review_status)) continue;
       const status = norm(row.status);
-      if (!['completed','planned','upcoming','scheduled'].includes(status)) continue;
+      if (!['completed','planned','upcoming','scheduled','ongoing'].includes(status)) continue;
       if (!validDate(row.event_date)) {console.warn('DIDAR invalid/missing event date:',id);continue;}
       if (row.event_year && trim(row.event_year) !== row.event_date.slice(0,4)) {console.warn('DIDAR conflicting year:',id);continue;}
       if (row.end_date && (!validDate(row.end_date) || row.end_date < row.event_date)) {console.warn('DIDAR invalid event end date:',id);continue;}
