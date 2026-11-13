@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<!DOCTYPE html>
+<!doctype html>
+
 
 <html lang="fr">
 <head>
@@ -10,7 +10,7 @@
 <link href="../styles.css" rel="stylesheet"/>
 <link href="../assets/localized-experience.css" rel="stylesheet"/>
 <link href="../supporters/supporters.css" rel="stylesheet"/>
-</head>
+<link href="../assets/recognition-directory.css" rel="stylesheet"/></head>
 <body data-assets-prefix="../" data-supporter-locale="fr">
 <a class="skip-link" href="#top">Passer au contenu principal</a>
 <header class="site-header">
@@ -82,20 +82,9 @@
 <div class="container">
 <p class="eyebrow">Mettre en lumière les contributions</p>
 <h2>Découvrez nos soutiens</h2>
-<p class="section-intro supporters-intro">Chaque portrait est publié avec la permission de la personne
-                    ou de l’organisation concernée. Les descriptions et les liens peuvent être choisis par les personnes
-                    elles-mêmes.</p><p class="note supporter-selection-note">DIDAR choisit les personnes et les organisations qu’il souhaite mettre en valeur et les contacte directement. Aucun portrait n’est publié sans leur consentement éclairé.</p>
-<div aria-label="Découvrez nos soutiens" class="supporter-toolbar" id="supporter-filters" role="group">
-</div>
-<div aria-live="polite" class="supporters-grid" id="supporters-grid"></div>
-<div class="supporters-empty" id="supporters-empty">
-<div aria-hidden="true" class="supporters-empty-mark">✦</div>
-<h3>Un espace à construire ensemble</h3>
-<p id="supporters-empty-text"></p>
-</div>
-</div>
+<p class="note supporter-selection-note">DIDAR choisit les personnes et les organisations qu’il souhaite mettre en valeur et les contacte directement. Aucun portrait n’est publié sans leur consentement éclairé.</p>
+<p class="section-intro supporters-intro">Les noms, les profils et les liens sont sélectionnés par DIDAR et publiés avec autorisation.</p><nav aria-label="Explorer les sections" class="recognition-jump"><a href="#recognition-business">Entreprises et professionnels</a><a href="#recognition-artist">Artistes indépendants</a><a href="#recognition-ally">Alliés et organismes partenaires</a></nav><section aria-labelledby="recognition-business-heading" class="recognition-group" id="recognition-business"><div class="recognition-group-header"><h3 id="recognition-business-heading">Entreprises et professionnels</h3><p>Entreprises et professionnels que DIDAR souhaite mettre en lumière. Une mention ne constitue pas une recommandation commerciale.</p></div><div aria-live="polite" class="supporters-grid" id="recognition-business-grid"></div><p class="directory-empty" id="recognition-business-empty">…</p></section><section aria-labelledby="recognition-artist-heading" class="recognition-group" id="recognition-artist"><div class="recognition-group-header"><h3 id="recognition-artist-heading">Artistes indépendants</h3><p>Artistes dont DIDAR souhaite présenter le travail créatif, avec leur accord.</p></div><div aria-live="polite" class="supporters-grid" id="recognition-artist-grid"></div><p class="directory-empty" id="recognition-artist-empty">…</p></section><section aria-labelledby="recognition-ally-heading" class="recognition-group" id="recognition-ally"><div class="recognition-group-header"><h3 id="recognition-ally-heading">Alliés et organismes partenaires</h3><p>Bibliothèques, groupes culturels et organismes communautaires ayant des liens ou des collaborations avec DIDAR.</p></div><div aria-live="polite" class="supporters-grid" id="recognition-ally-grid"></div><p class="directory-empty" id="recognition-ally-empty">…</p></section></div>
 </section>
-
 </main>
 <footer>
 <div class="container footer-wrap">
@@ -108,8 +97,6 @@
 <p>Montréal · Québec</p>
 </div>
 </footer>
-<script src="../supporters/supporters-data.js"></script>
-<script src="../supporters/supporters.js"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-</body>
+<script defer="True" src="../assets/didar-public-csv.js"></script><script defer="True" src="../assets/recognition-directory.js"></script></body>
 </html>

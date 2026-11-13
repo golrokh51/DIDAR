@@ -1,0 +1,12 @@
+id,category,name,role_en,role_fr,role_fa,description_en,description_fr,description_fa,website_url,instagram_url,youtube_url,image_url,image_alt_en,image_alt_fr,image_alt_fa,sort_order,publish
+SUP-001,business,Restaurant et Boulangerie Numéro Un,,,,,,,,,,,,,,10,no
+SUP-002,business,Garage Crystal,,,,,,,,,,,,,,20,no
+SUP-003,business,Anna Boroujerdi,Residential Real Estate Broker,Courtière immobilière résidentielle,مشاور املاک مسکونی,,,,,,,,,,,30,no
+SUP-004,business,Maryam Talebi,,,,,,,,,,,,,,40,no
+SUP-005,artist,Pardis,,,,,,,,https://www.instagram.com/pardisgalleryvancouver/,https://www.youtube.com/watch?v=qrMDBjaI-SQ,,,,,50,no
+SUP-006,artist,Sotoudeh,,,,,,,,https://www.instagram.com/bloomedbydawn/,,,,,,60,no
+SUP-007,artist,Babak Salari,,,,,,,,,,,,,,70,no
+SUP-008,artist,Alireza Shahbazin,,,,,,,,,,,,,,80,no
+SUP-009,ally,Mehregan Library,,,,,,,,,,,,,,90,no
+SUP-010,ally,Nima Library,,,,,,,,,,,,,,100,no
+SUP-011,ally,Centre cyper et cedre,,,,,,,,,,,,,,110,no

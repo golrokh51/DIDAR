@@ -1,23 +1,24 @@
 <!doctype html>
+
+
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Events &amp; Gatherings | DIDAR</title>
-<meta name="description" content="Explore upcoming events and past gatherings. Browse event dates, descriptions, and collaborators. Photos will be added as they become available.">
-<link rel="canonical" href="https://didar-mtl.ca/en/events/">
-<link rel="alternate" hreflang="fr" href="https://didar-mtl.ca/events/"><link rel="alternate" hreflang="en" href="https://didar-mtl.ca/en/events/"><link rel="alternate" hreflang="fa" href="https://didar-mtl.ca/fa/events/">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../../assets/localized-experience.css">
-
-<link rel="stylesheet" href="../../events/events.css">
-</head>
+<meta content="Explore upcoming events and past gatherings. Browse event dates, descriptions, and collaborators. Photos will be added as they become available." name="description"/>
+<link href="https://didar-mtl.ca/en/events/" rel="canonical"/>
+<link href="https://didar-mtl.ca/events/" hreflang="fr" rel="alternate"/><link href="https://didar-mtl.ca/en/events/" hreflang="en" rel="alternate"/><link href="https://didar-mtl.ca/fa/events/" hreflang="fa" rel="alternate"/>
+<link href="../../styles.css" rel="stylesheet"/>
+<link href="../../assets/localized-experience.css" rel="stylesheet"/>
+<link href="../../events/events.css" rel="stylesheet"/>
+<link href="../../assets/montreal-city-guide.css" rel="stylesheet"/></head>
 <body>
 <a class="skip-link" href="#events-main">Skip to main content</a>
 <header class="site-header"><div class="container nav-wrap">
-<a class="brand" href="../index.html" aria-label="DIDAR"><img class="brand-logo" src="../../assets/logo.png" alt="DIDAR"><strong>DIDAR</strong></a>
+<a aria-label="DIDAR" class="brand" href="../index.html"><img alt="DIDAR" class="brand-logo" src="../../assets/logo.png"/><strong>DIDAR</strong></a>
 <div class="nav-area">
-<nav class="languages" aria-label="Choose language"><a href="../../events/">FR</a><a href="../../en/events/" aria-current="page">EN</a><a href="../../fa/events/">فارسی</a></nav>
-<nav class="main-nav" aria-label="Main navigation"><a href="../index.html">Home</a>
+<nav aria-label="Choose language" class="languages"><a href="../../events/">FR</a><a aria-current="page" href="../../en/events/">EN</a><a href="../../fa/events/">فارسی</a></nav>
+<nav aria-label="Main navigation" class="main-nav"><a href="../index.html">Home</a>
 <a href="../story/">Our Story</a>
 <a href="../projects/">Projects</a>
 <a href="../activities/">Activities</a>
@@ -30,28 +31,28 @@
 <a aria-current="page" href="../events/">Events</a>
 <a href="../index.html#contact">Contact</a></nav></details>
 </div></div></header>
-<main id="events-main" data-didar-events data-lang="en" data-site-root="../../" data-feed-url="../../events/events-feed.json">
+<main data-didar-events="" data-feed-url="../../events/events-feed.json" data-lang="en" data-site-root="../../" id="events-main">
 <section class="events-hero"><div class="container"><p class="eyebrow">DIDAR · Montréal</p>
 <h1>Events &amp; Gatherings</h1><p class="lead">Explore upcoming events and past gatherings. Browse event dates, descriptions, and collaborators. Photos will be added as they become available.</p>
-<p><a href="../activities/">Explore our activities</a></p></div></section>
+<p><a href="../activities/">Explore our activities</a></p></div><div class="container city-event-bridge"><a href="../city-guide/">Around Montréal — Upcoming around the city</a></div></section>
 <section class="events-main"><div class="container">
-<nav class="events-nav" aria-label="Events &amp; Gatherings">
-<button class="events-tab" data-events-tab="upcoming" aria-pressed="true" type="button">Upcoming Events</button>
-<button class="events-tab" data-events-tab="past" aria-pressed="false" type="button">Past Events</button>
+<nav aria-label="Events &amp; Gatherings" class="events-nav">
+<button aria-pressed="true" class="events-tab" data-events-tab="upcoming" type="button">Upcoming Events</button>
+<button aria-pressed="false" class="events-tab" data-events-tab="past" type="button">Past Events</button>
 </nav>
 <div class="events-filterbar" id="events-filters">
-<label>Categories<select id="events-category" class="events-select"></select></label>
-<label>Years<select id="events-year" class="events-select"></select></label>
-<span id="events-count" class="events-count" aria-live="polite"></span>
+<label>Categories<select class="events-select" id="events-category"></select></label>
+<label>Years<select class="events-select" id="events-year"></select></label>
+<span aria-live="polite" class="events-count" id="events-count"></span>
 </div>
-<div id="events-list" class="events-list" aria-live="polite"></div>
-<p id="events-empty" class="events-empty" hidden>Approved events will appear here even if photos are not yet available.</p>
-<article id="event-detail" class="event-detail" hidden></article>
+<div aria-live="polite" class="events-list" id="events-list"></div>
+<p class="events-empty" hidden="" id="events-empty">Approved events will appear here even if photos are not yet available.</p>
+<article class="event-detail" hidden="" id="event-detail"></article>
 <noscript><p>Approved events will appear here even if photos are not yet available.</p></noscript>
 </div></section>
 </main>
 <footer><div class="container footer-wrap"><p>© <span id="year"></span> DIDAR. All rights reserved.</p><p>Montréal · Québec</p></div></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
-<script defer src="../../events/events-data.js"></script>
-<script defer src="../../events/events.js"></script>
+<script defer="" src="../../events/events-data.js"></script>
+<script defer="" src="../../events/events.js"></script>
 </body></html>

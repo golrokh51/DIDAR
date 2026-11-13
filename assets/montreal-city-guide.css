@@ -1,0 +1,32 @@
+/* Montréal cultural notebook — editorial cards and easy-to-maintain CSV feed. */
+.city-hero{padding:80px 0 70px;background:linear-gradient(125deg,#e6f4f0 0%,#fff 51%,#fff1db 100%);position:relative;overflow:hidden}
+.city-hero .eyebrow{color:#a45c0b;letter-spacing:.1em;text-transform:uppercase;font-weight:800}
+.city-hero h1{font-size:clamp(2.4rem,5.8vw,4.9rem);line-height:1.14;max-width:780px;color:#073e50;margin:.3rem 0 1rem}
+.city-hero p{font-size:1.12rem;max-width:770px;line-height:1.8}
+.city-explore{padding:50px 0 85px}
+.city-overline{display:flex;gap:1rem;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:1.4rem}
+.city-overline h2{margin:0;font-size:1.6rem}
+.city-count{color:#526a6c}
+.city-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.7rem}
+.city-chip{font:inherit;border:1px solid #c7d9d5;background:white;border-radius:99px;padding:.56rem .9rem;color:#20515c;cursor:pointer;font-weight:700}
+.city-chip[aria-pressed="true"]{background:#075265;border-color:#075265;color:white}
+.city-chip:focus-visible,.city-post a:focus-visible,.city-details summary:focus-visible{outline:3px solid #bd821d;outline-offset:3px}
+.city-posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.35rem}
+.city-post{border:1px solid #d7e6e1;border-radius:22px;overflow:hidden;background:white;box-shadow:0 7px 20px rgba(4,50,59,.04);display:flex;flex-direction:column}
+.city-post-featured{grid-column:span 2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}
+.city-post-content{padding:1.6rem 1.8rem;display:flex;flex-direction:column;gap:.75rem;flex:1}
+.city-post-picture{min-height:200px;overflow:hidden;background:#e8f1ee}.city-post-picture img{height:100%;width:100%;display:block;object-fit:cover}
+.city-post-meta{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;color:#0b6971;font-weight:750;font-size:.87rem}
+.city-category{padding:.24rem .58rem;background:#f7efdf;color:#8e570b;border-radius:8px}
+.city-post h2{font-family:Georgia,serif;font-size:clamp(1.3rem,2vw,1.8rem);margin:.2rem 0 .1rem;color:#083b4d;line-height:1.3}
+.city-post p{margin:0;line-height:1.7}
+.city-excerpt{font-size:1.02rem}.city-venue,.city-organizer{font-size:.9rem;color:#54686b}
+.city-details summary{font-weight:750;color:#075265;cursor:pointer;margin-top:.15rem}.city-details p{margin-top:.6rem}
+.city-post-links{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-top:auto;padding-top:.5rem}
+.city-link{font-size:.92rem;white-space:normal}.city-location-link{font-weight:750}
+.city-empty{background:#f5faf8;padding:2.4rem;border-radius:18px;border:1px dashed #b7d0c9;text-align:center;line-height:1.7}
+.city-disclaimer{background:#fff7e9;border-inline-start:4px solid #cb8a31;padding:1rem 1.3rem;margin-top:2rem;border-radius:8px;color:#525457;font-size:.9rem;line-height:1.7}
+.city-event-bridge{margin-top:1.5rem}
+.city-event-bridge a{font-weight:750;text-decoration:underline;text-underline-offset:4px;color:#075265}
+html[lang="fa"] .city-post h2{font-family:inherit}
+@media(max-width:780px){.city-posts{grid-template-columns:1fr}.city-post-featured{grid-column:auto;display:flex;flex-direction:column}.city-hero{padding:50px 0}.city-post-content{padding:1.2rem}}

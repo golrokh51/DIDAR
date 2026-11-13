@@ -1,0 +1,15 @@
+/* DIDAR Recognition: three independently maintained public CSV categories. */
+.recognition-group{margin-top:2.8rem;scroll-margin-top:95px}
+.recognition-group:first-of-type{margin-top:1.3rem}
+.recognition-group-header{max-width:760px;margin-bottom:1.2rem}
+.recognition-group-header h3{font-size:clamp(1.35rem,2.5vw,1.9rem);margin:.2rem 0 .45rem;color:#073f50}
+.recognition-group-header p{margin:0;line-height:1.65}
+.recognition-jump{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0 2.2rem}
+.recognition-jump a{padding:.65rem 1rem;border:1px solid #bfd6d2;background:white;color:#075265;text-decoration:none;border-radius:99px;font-weight:750}
+.recognition-jump a:hover,.recognition-jump a:focus-visible{background:#e9f5f0;outline:2px solid #b87926;outline-offset:2px}
+.directory-visual{max-height:210px}
+.directory-placeholder{font-size:3.2rem;opacity:.85}
+.directory-links{gap:1rem}
+.directory-empty{padding:1rem 1.25rem;border:1px dashed #bbd2cd;border-radius:12px;color:#546b6f;line-height:1.7;background:#fff}
+html[lang="fa"] .recognition-jump, html[lang="fa"] .directory-links{direction:rtl}
+@media(max-width:650px){.recognition-jump a{font-size:.88rem}.recognition-group{margin-top:2rem}}
