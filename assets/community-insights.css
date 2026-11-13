@@ -1,0 +1,35 @@
+/* DIDAR — privacy-preserving public CSV summary and approved community accounts */
+.community-insights {background:#fff;}
+.community-insights .insights-lede {max-width:840px;color:#355660;line-height:1.75;margin:12px 0 26px;}
+.community-insights .insights-summary {max-width:910px;border:1px solid #cddfdf;border-radius:20px;padding:23px 27px;background:linear-gradient(115deg,#ebf6f4,#fdfaf3);display:flex;align-items:center;gap:25px;}
+.community-insights .insights-big-number {font-family:Georgia,serif;font-size:3.4rem;font-weight:700;line-height:1;color:#075265;font-variant-numeric:tabular-nums;min-width:65px;text-align:center;}
+.community-insights .insights-summary p {line-height:1.6;margin:0;max-width:610px;}
+.community-insights .insights-figure-title {margin:34px 0 14px;font-size:1.28rem;color:#084a59;}
+.community-insights .insights-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:1040px;margin-top:28px;}
+.community-insights .insights-panel {padding:25px 27px;border:1px solid #d9e8e5;border-radius:20px;background:#f8fbfa;min-width:0;}
+.community-insights .insights-panel h3 {font-size:1.24rem;color:#073f50;margin:0 0 19px;}
+.community-insights .insights-bars {list-style:none;margin:0;padding:0;}
+.community-insights .insight-bar-row {margin:0 0 19px;}
+.community-insights .insight-bar-row:last-child {margin-bottom:0;}
+.community-insights .insight-bar-labels {display:flex;gap:10px;align-items:baseline;justify-content:space-between;font-size:.91rem;line-height:1.45;color:#36535c;}
+.community-insights .insight-bar-labels strong {color:#075265;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:750;}
+.community-insights .insight-bar-track {height:8px;border-radius:6px;background:#e0eaeb;overflow:hidden;margin-top:9px;}
+.community-insights .insight-bar-fill {display:block;height:100%;background:#147383;border-radius:6px;}
+.community-insights .insights-note {max-width:1030px;margin:25px 0 0;color:#526b70;font-size:.91rem;line-height:1.75;}
+.community-insights .insights-reflection {max-width:1030px;border-left:4px solid #bb7a27;background:#fff8ec;padding:22px 26px;margin:26px 0 33px;border-radius:0 17px 17px 0;}
+.community-insights .insights-reflection h3 {font-size:1.23rem;margin:0 0 9px;}
+.community-insights .insights-reflection p {margin:0;line-height:1.72;}
+.community-insights .community-case-section {margin-top:45px;padding-top:32px;border-top:1px solid #dbe7e7;}
+.community-insights .community-case-section h3 {font-size:1.45rem;}
+.community-insights .community-case-section .small-note {color:#52707a;font-size:.93rem;line-height:1.7;max-width:930px;}
+.community-insights .community-cases-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px;margin-top:19px;}
+.community-insights .community-case-card {padding:25px 28px;border:1px solid #d5e4e3;border-radius:19px;background:#fff;min-width:0;box-shadow:0 5px 18px rgba(7,65,77,.035);}
+.community-insights .community-case-card h4 {font-size:1.15rem;color:#0a4b58;margin:10px 0 12px;}
+.community-insights .community-case-id {color:#536d72;font-size:.76rem;font-weight:800;letter-spacing:.06em;}
+.community-insights .community-case-category {font-size:.84rem;color:#705d3a;font-weight:700;margin:0 0 11px;}
+.community-insights .community-case-summary {color:#39545b;font-size:.94rem;line-height:1.75;margin:0;}
+.community-insights .insights-empty {color:#4c666c;padding:20px 23px;border:1px dashed #b7d4d4;border-radius:15px;max-width:830px;line-height:1.65;}
+.community-insights .insights-warning {color:#775220;font-size:.89rem;line-height:1.6;max-width:820px;margin:16px 0;}
+.community-insights .insights-updated {font-size:.79rem;color:#5b7475;margin:15px 0 0;}
+@media(max-width:800px){.community-insights .insights-grid,.community-insights .community-cases-grid{grid-template-columns:1fr;}}
+@media(max-width:520px){.community-insights .insights-summary{padding:19px;gap:16px;align-items:flex-start;}.community-insights .insights-big-number{font-size:2.55rem;min-width:42px;}.community-insights .insights-panel,.community-insights .community-case-card{padding:21px;}.community-insights .insights-reflection{padding:19px;}}
