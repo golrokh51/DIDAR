@@ -1,15 +1,15 @@
-/* DIDAR Recognition: three independently maintained public CSV categories. */
-.recognition-group{margin-top:2.8rem;scroll-margin-top:95px}
-.recognition-group:first-of-type{margin-top:1.3rem}
-.recognition-group-header{max-width:760px;margin-bottom:1.2rem}
-.recognition-group-header h3{font-size:clamp(1.35rem,2.5vw,1.9rem);margin:.2rem 0 .45rem;color:#073f50}
-.recognition-group-header p{margin:0;line-height:1.65}
-.recognition-jump{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0 2.2rem}
-.recognition-jump a{padding:.65rem 1rem;border:1px solid #bfd6d2;background:white;color:#075265;text-decoration:none;border-radius:99px;font-weight:750}
-.recognition-jump a:hover,.recognition-jump a:focus-visible{background:#e9f5f0;outline:2px solid #b87926;outline-offset:2px}
-.directory-visual{max-height:210px}
-.directory-placeholder{font-size:3.2rem;opacity:.85}
-.directory-links{gap:1rem}
-.directory-empty{padding:1rem 1.25rem;border:1px dashed #bbd2cd;border-radius:12px;color:#546b6f;line-height:1.7;background:#fff}
-html[lang="fa"] .recognition-jump, html[lang="fa"] .directory-links{direction:rtl}
-@media(max-width:650px){.recognition-jump a{font-size:.88rem}.recognition-group{margin-top:2rem}}
+/* DIDAR local-supporters directory. */
+.business-directory-intro{max-width:800px;margin-bottom:1.65rem}
+.business-directory-intro p{line-height:1.8}
+.business-directory-search-wrap{display:flex;align-items:center;gap:1rem;margin:1.3rem 0 2rem;flex-wrap:wrap}
+.business-directory-search-wrap label{font-weight:700;color:#074d5d}
+.business-directory-search-wrap input{font:inherit;min-width:200px;max-width:100%;flex:1 1 260px;padding:.8rem 1.1rem;border-radius:12px;border:1px solid #b6cdca;background:white;color:#113b43}
+.business-directory-search-wrap input:focus-visible{outline:3px solid #e89e38;outline-offset:2px}
+.business-directory-card{min-width:0}
+.business-directory-card .directory-visual{height:165px;aspect-ratio:auto;}
+.business-directory-card .directory-placeholder{display:grid;place-items:center;border-radius:50%;width:90px;height:90px;background:#e2eee9;border:1px solid #bad6cf;color:#075265;font-size:1.7rem;font-weight:850;letter-spacing:.03em}
+.business-directory-card .supporter-body{padding:21px;gap:10px}
+.business-directory-empty{border:1px dashed #b5d4cd;background:#f5faf8;padding:1.2rem 1.5rem;border-radius:12px}
+.business-directory-note{margin-top:1.8rem;font-size:.96rem;color:#52666a;line-height:1.7;border-inline-start:4px solid #d48628;padding:.6rem 1rem;background:#fff8ec}
+html[lang="fa"] .business-directory-note{border-inline-start:4px solid #d48628}
+@media(max-width:680px){.business-directory-search-wrap{align-items:stretch;flex-direction:column}.business-directory-search-wrap input{flex:none;width:100%}}
