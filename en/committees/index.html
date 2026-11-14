@@ -11,7 +11,9 @@
 <link href="../../assets/english-site.css" rel="stylesheet"/>
 <link href="../../assets/committee-links.css" rel="stylesheet"/>
 <link href="https://didar-mtl.ca/en/committees/" rel="canonical"/>
-<link href="../../assets/didar-allies-footer.css" rel="stylesheet"/></head>
+<link href="../../assets/didar-allies-footer.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/didar-allies-footer.css"/>
+</head>
 <body><a class="skip-link" href="#top">Skip to main content</a>
 <header class="site-header">
 <div class="container nav-wrap"><a aria-label="DIDAR English homepage" class="brand" href="../index.html"><img alt="DIDAR logo" class="brand-logo" src="../../assets/logo.png"/><strong>DIDAR</strong></a>
@@ -72,17 +74,11 @@
 </div>
 </section>
 </main>
-<footer><section aria-label="Our nonprofit &amp; community allies" class="didar-allies-footer" data-locale="en" data-site-root="../../" hidden=""><div class="container"><h2 class="didar-allies-title">Our nonprofit &amp; community allies</h2><div class="didar-allies-grid"></div></div></section>
-<div class="container footer-wrap">
-<p>
-                © <span id="year"></span> DIDAR Cultural and Educational Center.
-                All rights reserved.
-            </p>
-<p>Non-profit organization incorporated in Québec</p>
-<p>Quebec Enterprise Number (NEQ): 1182753112</p>
-<p>Montreal · Quebec</p>
-</div>
+<footer id="didar-site-footer">
+  <span id="year" hidden></span>
 </footer>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script defer="True" src="../../assets/didar-public-csv.js"></script><script defer="True" src="../../assets/didar-allies-footer.js"></script></body>
+<script defer src="/assets/didar-public-csv.js"></script>
+<script defer src="/assets/didar-allies-footer.js"></script>
+</body>
 </html>

@@ -150,7 +150,9 @@
       }
     }
   </style>
-<link href="../../assets/didar-allies-footer.css" rel="stylesheet"/></head>
+<link href="../../assets/didar-allies-footer.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/didar-allies-footer.css"/>
+</head>
 <body><a class="skip-link" href="#top">رفتن به محتوای اصلی</a>
 <header class="site-header">
 <div class="container nav-wrap">
@@ -205,16 +207,8 @@
 </div>
 </section>
 </main>
-<footer><section aria-label="سازمان‌های هم‌پیمان و همراه دیدار" class="didar-allies-footer" data-locale="fa" data-site-root="../../" hidden=""><div class="container"><h2 class="didar-allies-title">سازمان‌های هم‌پیمان و همراه دیدار</h2><div class="didar-allies-grid"></div></div></section>
-<div class="container footer-wrap">
-<p>
-        © <span id="year"></span> نام رسمی ثبت‌شده: Centre culturel et éducatif DIDAR.
-        تمامی حقوق محفوظ است
-      </p>
-<p>سازمان غیرانتفاعی ثبت‌شده در کبک</p>
-<p>شماره ثبت در کبک (NEQ): 1182753112</p>
-<p>&gt;مونترآل · کبک</p>
-</div>
+<footer id="didar-site-footer">
+  <span id="year" hidden></span>
 </footer>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 <script src="projects-data.js"></script>
@@ -228,5 +222,7 @@
     function render() { const projects = selected === 'all' ? PROJECTS : PROJECTS.filter(p => p.status.includes(selected)); empty.style.display = projects.length ? 'none' : 'block'; grid.innerHTML = projects.map(p => `<article class="project-card" id="project-${encodeURIComponent(p.id || p.title)}"><div class="project-meta">${p.status.map(s => `<span class="project-status">${safe(labels[s] || s)}</span>`).join('')}${p.tags.map(x => `<span class="project-tag">${safe(x)}</span>`).join('')}</div><h2>${safe(p.title)}</h2><p><strong>${safe(p.subtitle)}</strong></p><p>${safe(p.summary)}</p>${p.relatedPrograms?.length ? `<div class="project-related"><strong>فعالیت‌های مرتبط:</strong>${p.relatedPrograms.map(item => `<a href="../activities/#program-${encodeURIComponent(item.id)}">${safe(item.title)} →</a>`).join('')}</div>` : ''}${p.link ? `<a class="project-link" href="${safe(p.link)}">جزئیات بیشتر ←</a>` : ''}</article>`).join(''); }
     filters(); render();
   </script>
-<script defer="True" src="../../assets/didar-public-csv.js"></script><script defer="True" src="../../assets/didar-allies-footer.js"></script></body>
+<script defer src="/assets/didar-public-csv.js"></script>
+<script defer src="/assets/didar-allies-footer.js"></script>
+</body>
 </html>

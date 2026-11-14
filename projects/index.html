@@ -149,7 +149,9 @@
       }
     }
   </style>
-<link href="../assets/didar-allies-footer.css" rel="stylesheet"/></head>
+<link href="../assets/didar-allies-footer.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/didar-allies-footer.css"/>
+</head>
 <body><a class="skip-link" href="#top">Passer au contenu principal</a>
 <header class="site-header">
 <div class="container nav-wrap"><a aria-label="DIDAR home" class="brand" href="../"><img alt="DIDAR logo" class="brand-logo" src="../assets/logo.png"/><strong>DIDAR</strong></a>
@@ -182,16 +184,8 @@
 </div>
 </section>
 </main>
-<footer><section aria-label="Nos organismes alliés et partenaires communautaires" class="didar-allies-footer" data-locale="fr" data-site-root="../" hidden=""><div class="container"><h2 class="didar-allies-title">Nos organismes alliés et partenaires communautaires</h2><div class="didar-allies-grid"></div></div></section>
-<div class="container footer-wrap">
-<p>
-        © <span id="year"></span> Centre culturel et éducatif DIDAR.
-        Tous droits réservés.
-      </p>
-<p>Organisme sans but lucratif constitué au Québec</p>
-<p>NEQ : 1182753112</p>
-<p>Montréal · Québec</p>
-</div>
+<footer id="didar-site-footer">
+  <span id="year" hidden></span>
 </footer>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 <script src="projects-data.js"></script>
@@ -205,5 +199,7 @@
     function render() { const projects = selected === 'all' ? PROJECTS : PROJECTS.filter(p => p.status.includes(selected)); empty.style.display = projects.length ? 'none' : 'block'; grid.innerHTML = projects.map(p => `<article class="project-card" id="project-${encodeURIComponent(p.id || p.title)}"><div class="project-meta">${p.status.map(s => `<span class="project-status">${safe(labels[s] || s)}</span>`).join('')}${p.tags.map(x => `<span class="project-tag">${safe(x)}</span>`).join('')}</div><h2>${safe(p.title)}</h2><p><strong>${safe(p.subtitle)}</strong></p><p>${safe(p.summary)}</p>${p.relatedPrograms?.length ? `<div class="project-related"><strong>Activités associées :</strong>${p.relatedPrograms.map(item => `<a href="../activities/#program-${encodeURIComponent(item.id)}">${safe(item.title)} →</a>`).join('')}</div>` : ''}${p.link ? `<a class="project-link" href="${safe(p.link)}">Plus de détails →</a>` : ''}</article>`).join(''); }
     filters(); render();
   </script>
-<script defer="True" src="../assets/didar-public-csv.js"></script><script defer="True" src="../assets/didar-allies-footer.js"></script></body>
+<script defer src="/assets/didar-public-csv.js"></script>
+<script defer src="/assets/didar-allies-footer.js"></script>
+</body>
 </html>
