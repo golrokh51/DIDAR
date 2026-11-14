@@ -171,7 +171,11 @@
           img.onerror=()=>img.remove();
           frame.append(img);
         }
-        item.append(frame,el('span','didar-ally-name',row.name));
+        const copy=el('span','didar-ally-copy');
+        copy.append(el('span','didar-ally-name',row.name));
+        const subtitle=String(row['role_'+lang]||row.role_en||'').trim();
+        if(subtitle)copy.append(el('span','didar-ally-subtitle',subtitle));
+        item.append(frame,copy);
         return item;
       });
       grid.replaceChildren(...entries);
