@@ -11,3 +11,38 @@ a.didar-ally-item:hover,a.didar-ally-item:focus-visible{border-color:#b47a2c;bac
 .didar-ally-name{min-width:0;overflow-wrap:anywhere;line-height:1.35}
 html[lang="fa"] .didar-allies-footer{text-align:right;direction:rtl}
 @media(max-width:520px){.didar-allies-grid{gap:8px}.didar-ally-item{width:100%;max-width:none}.didar-allies-footer{padding:1rem 0}}
+
+/* Shared navigation styles are supplied here so French/Persian pages can use
+   the same dropdown menu without editing their individual stylesheets. */
+html[lang="fr"] .main-nav, html[lang="fa"] .main-nav {align-items:center;gap:14px;}
+html[lang="fr"] .nav-dropdown, html[lang="fa"] .nav-dropdown {position:relative;}
+html[lang="fr"] .nav-dropdown > summary,html[lang="fa"] .nav-dropdown > summary {
+  cursor:pointer;list-style:none;font-weight:650;font-size:.89rem;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:5px;
+}
+html[lang="fr"] .nav-dropdown > summary::-webkit-details-marker,html[lang="fa"] .nav-dropdown > summary::-webkit-details-marker {display:none;}
+html[lang="fr"] .nav-dropdown-menu, html[lang="fa"] .nav-dropdown-menu {
+  position:absolute;top:calc(100% + 17px);inset-inline-end:0;min-width:215px;
+  display:grid;gap:2px;padding:9px;border:1px solid #dce5e4;border-radius:14px;
+  background:white;box-shadow:0 14px 34px rgba(3,56,75,.15);z-index:55;
+}
+html[lang="fr"] .nav-dropdown-menu a, html[lang="fa"] .nav-dropdown-menu a {
+  padding:9px 12px;border-radius:8px;font-size:.9rem;white-space:nowrap;
+}
+html[lang="fr"] .nav-dropdown-menu a:hover,html[lang="fa"] .nav-dropdown-menu a:hover {background:#eef4f3;}
+html[lang="fr"] .mobile-nav-heading,html[lang="fa"] .mobile-nav-heading {
+  display:block;padding:10px 14px 3px;font-size:.81rem;font-weight:800;color:#4b666b;
+}
+html[lang="fa"] .nav-dropdown-menu {direction:rtl;text-align:right;}
+@media (max-width:920px) {html[lang="fr"] .main-nav,html[lang="fa"] .main-nav {display:none;}}
+
+/* One logo image and its fallback occupy the SAME space. */
+.didar-ally-logo > * {grid-area:1 / 1;}
+.didar-ally-logo img {position:relative;z-index:1;}
+/* The footer uses the original site footer design, only content is shared. */
+#didar-site-footer .footer-wrap {gap:.5rem 1rem;}
+#didar-site-footer .footer-wrap p {overflow-wrap:anywhere;}
+
+/* Ally initiatives: descriptions are provided by role_en/role_fr/role_fa in the central CSV. */
+.didar-ally-copy{display:flex;flex-direction:column;gap:.14rem;min-width:0;}
+.didar-ally-subtitle{font-size:.75rem;font-weight:450;color:#536d72;line-height:1.32;overflow-wrap:anywhere;}
