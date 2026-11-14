@@ -45,6 +45,64 @@
         return;
       }
 
+      // MODE 3: Numbered Core Values cards (no external library required)
+      if (layout === 'cards') {
+        if (!element.classList.contains('didar-values-grid')) {
+          throw new Error('Core Values needs the didar-values-grid container');
+        }
+
+        // Each value begins with: ### 1. Value title
+        const normalized = markdown.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
+        const headings = [...normalized.matchAll(/^###\s+(\d{1,2})\.\s+(.+?)\s*$/gm)];
+        if (headings.length !== 10) {
+          throw new Error(`Expected 10 numbered Core Values headings in ${source}; found ${headings.length}`);
+        }
+
+        const cards = headings.map((heading, i) => {
+          const number = Number(heading[1]);
+          if (number !== i + 1) {
+            throw new Error(`Core Values must be numbered 1 to 10 in ${source}`);
+          }
+          const titleText = heading[2].trim();
+          const start = heading.index + heading[0].length;
+          const end = headings[i + 1]?.index ?? normalized.length;
+          const paragraphs = paragraphBlocks(normalized.slice(start, end));
+          if (!titleText || !paragraphs.length) {
+            throw new Error(`Missing title or text for Core Value ${number}`);
+          }
+
+          const article = document.createElement('article');
+          article.className = 'didar-value-card';
+          article.id = `value-${number}`;
+          article.setAttribute('aria-labelledby', `value-${number}-title`);
+
+          const top = document.createElement('div');
+          top.className = 'didar-value-top';
+          const index = document.createElement('span');
+          index.className = 'didar-value-number';
+          index.setAttribute('aria-hidden', 'true');
+          index.textContent = String(number).padStart(2, '0');
+          const title = document.createElement('h3');
+          title.id = `value-${number}-title`;
+          title.textContent = titleText;
+          top.append(index, title);
+
+          const copy = document.createElement('div');
+          copy.className = 'didar-value-copy';
+          for (const text of paragraphs) {
+            const p = document.createElement('p');
+            p.textContent = text; // Never treat editorial Markdown as executable HTML.
+            copy.append(p);
+          }
+          article.append(top, copy);
+          return article;
+        });
+
+        // Update only when all ten values have been validated.
+        element.replaceChildren(...cards);
+        return;
+      }
+
       if (layout === 'article') {
         if (typeof marked === 'undefined' || typeof DOMPurify === 'undefined') {
           throw new Error('Article rendering needs Marked and DOMPurify');
