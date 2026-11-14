@@ -1,0 +1,282 @@
+{
+  "organization": {
+    "name": "DIDAR",
+    "legal_name": "Centre culturel et éducatif DIDAR",
+    "logo": "assets/logo.png",
+    "neq": "1182753112",
+    "location": {
+      "en": "Montréal · Québec",
+      "fr": "Montréal · Québec",
+      "fa": "مونترآل · کبک"
+    },
+    "incorporation": {
+      "en": "Nonprofit organization incorporated in Québec",
+      "fr": "Organisme sans but lucratif constitué au Québec",
+      "fa": "سازمان غیرانتفاعی ثبت‌شده در کبک"
+    },
+    "copyright": {
+      "en": "All rights reserved.",
+      "fr": "Tous droits réservés.",
+      "fa": "تمامی حقوق محفوظ است."
+    },
+    "logo_alt": {
+      "en": "DIDAR logo",
+      "fr": "Logo de DIDAR",
+      "fa": "لوگوی دیدار"
+    }
+  },
+  "navigation": {
+    "en": [
+      {
+        "label": "Home",
+        "page": "home"
+      },
+      {
+        "label": "Our Story",
+        "page": "story"
+      },
+      {
+        "label": "Projects",
+        "page": "projects"
+      },
+      {
+        "label": "Activities",
+        "page": "activities"
+      },
+      {
+        "label": "Events",
+        "page": "events"
+      },
+      {
+        "label": "Committees",
+        "page": "committees"
+      },
+      {
+        "label": "Community",
+        "children": [
+          {
+            "label": "Our Team",
+            "page": "team"
+          },
+          {
+            "label": "Local Supporters",
+            "page": "supporters"
+          },
+          {
+            "label": "Community Voices",
+            "page": "voices"
+          },
+          {
+            "label": "Around Montréal",
+            "page": "cityguide"
+          },
+          {
+            "label": "Reports & Impact",
+            "page": "reports"
+          },
+          {
+            "label": "Community Moments",
+            "page": "moments"
+          }
+        ]
+      },
+      {
+        "label": "Contact",
+        "page": "contact"
+      }
+    ],
+    "fr": [
+      {
+        "label": "Accueil",
+        "page": "home"
+      },
+      {
+        "label": "Notre histoire",
+        "page": "story"
+      },
+      {
+        "label": "Projets",
+        "page": "projects"
+      },
+      {
+        "label": "Activités",
+        "page": "activities"
+      },
+      {
+        "label": "Événements",
+        "page": "events"
+      },
+      {
+        "label": "Communauté",
+        "children": [
+          {
+            "label": "Notre équipe",
+            "page": "team"
+          },
+          {
+            "label": "Soutiens locaux",
+            "page": "supporters"
+          },
+          {
+            "label": "Témoignages",
+            "page": "voices"
+          },
+          {
+            "label": "À Montréal",
+            "page": "cityguide"
+          }
+        ]
+      },
+      {
+        "label": "Nous joindre",
+        "page": "contact"
+      }
+    ],
+    "fa": [
+      {
+        "label": "خانه",
+        "page": "home"
+      },
+      {
+        "label": "داستان ما",
+        "page": "story"
+      },
+      {
+        "label": "پروژه‌ها",
+        "page": "projects"
+      },
+      {
+        "label": "فعالیت‌ها",
+        "page": "activities"
+      },
+      {
+        "label": "رویدادها",
+        "page": "events"
+      },
+      {
+        "label": "جامعه",
+        "children": [
+          {
+            "label": "تیم ما",
+            "page": "team"
+          },
+          {
+            "label": "حامیان محلی",
+            "page": "supporters"
+          },
+          {
+            "label": "روایت‌های همراهی",
+            "page": "voices"
+          },
+          {
+            "label": "در مونترآل",
+            "page": "cityguide"
+          }
+        ]
+      },
+      {
+        "label": "تماس",
+        "page": "contact"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "en": "en/",
+      "fr": "",
+      "fa": "fa/"
+    },
+    "story": {
+      "en": "en/story/",
+      "fr": "story/",
+      "fa": "fa/story/"
+    },
+    "projects": {
+      "en": "en/projects/",
+      "fr": "projects/",
+      "fa": "fa/projects/"
+    },
+    "activities": {
+      "en": "en/activities/",
+      "fr": "activities/",
+      "fa": "fa/activities/"
+    },
+    "events": {
+      "en": "en/events/",
+      "fr": "events/",
+      "fa": "fa/events/"
+    },
+    "cityguide": {
+      "en": "en/city-guide/",
+      "fr": "city-guide/",
+      "fa": "fa/city-guide/"
+    },
+    "voices": {
+      "en": "en/community-voices/",
+      "fr": "community-voices/",
+      "fa": "fa/community-voices/"
+    },
+    "team": {
+      "en": "en/team/",
+      "fr": "team/",
+      "fa": "fa/team/"
+    },
+    "supporters": {
+      "en": "en/recognition/",
+      "fr": "supporters/",
+      "fa": "fa/supporters/"
+    },
+    "reports": {
+      "en": "en/reports/"
+    },
+    "moments": {
+      "en": "en/moments/"
+    },
+    "committees": {
+      "en": "en/committees/"
+    },
+    "contact": {
+      "en": "en/#contact",
+      "fr": "#contact",
+      "fa": "fa/#contact"
+    }
+  },
+  "languages": {
+    "en": {
+      "home": "en/",
+      "label": "EN",
+      "nav_label": "Main navigation",
+      "mobile_label": "Mobile navigation",
+      "switch_label": "Choose language",
+      "menu": "☰ Menu"
+    },
+    "fr": {
+      "home": "",
+      "label": "FR",
+      "nav_label": "Navigation principale",
+      "mobile_label": "Navigation mobile",
+      "switch_label": "Choisir la langue",
+      "menu": "☰ Menu"
+    },
+    "fa": {
+      "home": "fa/",
+      "label": "فارسی",
+      "nav_label": "منوی اصلی",
+      "mobile_label": "منوی موبایل",
+      "switch_label": "انتخاب زبان",
+      "menu": "☰ منو"
+    }
+  },
+  "footer": {
+    "allies_title": {
+      "en": "Our nonprofit & community allies",
+      "fr": "Nos organismes alliés et partenaires communautaires",
+      "fa": "سازمان‌های هم‌پیمان و همراه دیدار"
+    },
+    "allies_link_title": {
+      "en": "Visit partner website",
+      "fr": "Visiter le site de l’organisme",
+      "fa": "دیدن وب‌سایت سازمان"
+    }
+  }
+}
