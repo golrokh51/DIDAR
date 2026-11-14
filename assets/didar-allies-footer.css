@@ -1,14 +1,106 @@
-/* Lightweight, CSV-driven ally strip in every real page footer. */
-.didar-allies-footer{border-top:1px solid rgba(7,82,101,.15);border-bottom:1px solid rgba(7,82,101,.15);padding:1.15rem 0 1.4rem;margin-bottom:1.4rem;}
-.didar-allies-footer[hidden]{display:none!important}
-.didar-allies-title{font-family:inherit;font-weight:800;font-size:.92rem;text-transform:none;letter-spacing:.01em;color:inherit;margin:0 0 .88rem;}
-.didar-allies-grid{display:flex;align-items:stretch;flex-wrap:wrap;gap:12px;}
-.didar-ally-item{display:inline-flex;align-items:center;gap:.6rem;min-height:66px;padding:.55rem .85rem;background:rgba(247,250,249,.95);border:1px solid #c9dcda;border-radius:12px;color:#13454f;text-decoration:none;font-size:.86rem;font-weight:650;max-width:280px;}
-a.didar-ally-item:hover,a.didar-ally-item:focus-visible{border-color:#b47a2c;background:#fffaf0;text-decoration:underline;outline-offset:2px;}
-.didar-ally-fallback{font-weight:850;font-size:.75rem;letter-spacing:.01em}
-.didar-ally-name{min-width:0;overflow-wrap:anywhere;line-height:1.35}
-html[lang="fa"] .didar-allies-footer{text-align:right;direction:rtl}
-@media(max-width:520px){.didar-allies-grid{gap:8px}.didar-ally-item{width:100%;max-width:none}.didar-allies-footer{padding:1rem 0}}
+/* DIDAR central allies footer — circular logo frames, two-line names. */
+.didar-allies-footer {
+  border-top: 1px solid rgba(7,82,101,.15);
+  border-bottom: 1px solid rgba(7,82,101,.15);
+  padding: 1.25rem 0 1.5rem;
+  margin-bottom: 1.4rem;
+}
+.didar-allies-footer[hidden] {display:none !important;}
+.didar-allies-title {
+  font-family:inherit; font-weight:800; font-size:.98rem;
+  text-transform:none; letter-spacing:.01em; color:inherit; margin:0 0 1rem;
+}
+.didar-allies-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(min(100%,300px),1fr));
+  gap:14px;
+  align-items:stretch;
+}
+.didar-ally-item {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-height:92px;
+  padding:13px 16px;
+  background:rgba(247,250,249,.95);
+  border:1px solid #c9dcda;
+  border-radius:18px;
+  color:#13454f;
+  text-decoration:none;
+  font-size:.92rem;
+  font-weight:600;
+  min-width:0;
+  box-sizing:border-box;
+}
+a.didar-ally-item:hover,a.didar-ally-item:focus-visible {
+  border-color:#b47a2c;
+  background:#fffaf0;
+  outline-offset:2px;
+}
+/* Never treat the logo as a rectangle: same circular footprint for image and initials. */
+.didar-allies-footer .didar-ally-logo {
+  position:relative;
+  box-sizing:border-box;
+  display:grid;
+  place-items:center;
+  flex:0 0 58px;
+  width:58px;
+  min-width:58px;
+  max-width:58px;
+  height:58px;
+  min-height:58px;
+  max-height:58px;
+  border-radius:50% !important;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid #b9d3cb;
+  color:#075265;
+}
+.didar-allies-footer .didar-ally-logo img {
+  display:block;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border-radius:50% !important;
+  object-fit:contain;
+  background:#fff;
+}
+.didar-ally-fallback {font-weight:850;font-size:.78rem;letter-spacing:.01em;}
+.didar-allies-footer .didar-ally-copy {
+  display:flex;
+  flex:1 1 auto;
+  flex-direction:column;
+  align-items:stretch;
+  gap:5px;
+  min-width:0;
+}
+.didar-allies-footer .didar-ally-name {
+  display:block;
+  margin:0;
+  font-size:1rem;
+  font-weight:750;
+  line-height:1.38;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+.didar-allies-footer .didar-ally-subtitle {
+  display:block;
+  margin:0;
+  font-size:.84rem;
+  font-weight:450;
+  line-height:1.45;
+  color:#536d72;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+html[lang="fa"] .didar-allies-footer {text-align:right;direction:rtl;}
+html[lang="fa"] .didar-allies-footer .didar-ally-copy {direction:rtl;text-align:right;}
+@media(max-width:520px) {
+  .didar-allies-grid {gap:10px;}
+  .didar-ally-item {min-height:80px;}
+  .didar-allies-footer {padding:1rem 0;}
+}
 
 /* Shared navigation styles are supplied here so French/Persian pages can use
    the same dropdown menu without editing their individual stylesheets. */
@@ -34,103 +126,7 @@ html[lang="fr"] .mobile-nav-heading,html[lang="fa"] .mobile-nav-heading {
 html[lang="fa"] .nav-dropdown-menu {direction:rtl;text-align:right;}
 @media (max-width:920px) {html[lang="fr"] .main-nav,html[lang="fa"] .main-nav {display:none;}}
 
-/* Circular ally logos */
-.didar-ally-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 56px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #fff;
-  border: 1px solid #b9d4cc;
-  color: #075265;
-}
-
-/* Logo image */
-.didar-ally-logo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: contain;
-  background: #fff;
-}
-
-/* Ally card layout */
-.didar-ally-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* Two separate text lines */
-.didar-ally-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  flex: 1;
-  min-width: 0;
-  line-height: 1.5;
-}
-
-.didar-ally-name {
-  display: block;
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-.didar-ally-subtitle {
-  display: block;
-  font-size: 0.86rem;
-  font-weight: 400;
-  line-height: 1.5;
-  opacity: 0.8;
-}
-
-/* Round logo with fallback in the same position */
-.didar-ally-logo {
-  display: grid;
-  place-items: center;
-  flex: 0 0 56px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: white;
-  border: 1px solid #b9d4cc;
-}
-
-.didar-ally-logo > * {
-  grid-area: 1 / 1;
-}
-
-.didar-ally-logo img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: contain;
-  background: white;
-  position: relative;
-  z-index: 1;
-}
-
-/* Persian alignment */
-html[lang="fa"] .didar-ally-copy {
-  text-align: right;
-  direction: rtl;
-}
-
-html[lang="fa"] .didar-ally-name {
-  unicode-bidi: plaintext;
-}
 /* The footer uses the original site footer design, only content is shared. */
 #didar-site-footer .footer-wrap {gap:.5rem 1rem;}
 #didar-site-footer .footer-wrap p {overflow-wrap:anywhere;}
 
-/* Ally initiatives: descriptions are provided by role_en/role_fr/role_fa in the central CSV. */
-.didar-ally-copy{display:flex;flex-direction:column;gap:.14rem;min-width:0;}
-.didar-ally-subtitle{font-size:.75rem;font-weight:450;color:#536d72;line-height:1.32;overflow-wrap:anywhere;}

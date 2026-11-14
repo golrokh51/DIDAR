@@ -22,28 +22,12 @@
     && !/^[a-z]+:/i.test(value) && !value.startsWith('//') ? value : '';
   const siteURL = (path) => new URL(safePath(path), rootURL).href;
   const normalize = (value) => String(value || '').replace(/(^\/+)|(\/+?$)/g, '').replace(/(?:^|\/)index\.html$/i,'').replace(/\/+$/,'');
-  
-const roleText =
-  lang === 'fa' ? row.role_fa :
-  lang === 'fr' ? row.role_fr :
-  row.role_en;
-
-const nameText = row.name || '';
-
-const textHtml = `
-  <div class="didar-ally-copy">
-    <div class="didar-ally-name">${nameText}</div>
-    ${roleText ? `<div class="didar-ally-role">${roleText}</div>` : ''}
-  </div>
-`;
-
   function currentPath() {
     const basePath = rootURL.pathname;
     const actual = window.location.pathname;
     if (!actual.startsWith(basePath)) return '';
     return normalize(decodeURI(actual.slice(basePath.length)));
   }
-  
   function pageFor(path, cfg) {
     const relative = normalize(path);
     for (const [key, variants] of Object.entries(cfg.pages || {})) {
@@ -189,8 +173,9 @@ const textHtml = `
         }
         const copy=el('span','didar-ally-copy');
         copy.append(el('span','didar-ally-name',row.name));
-        const subtitle=String(row['role_'+lang]||row.role_en||'').trim();
-        if(subtitle)copy.append(el('span','didar-ally-subtitle',subtitle));
+        // Translated ally/initiative subtitle lives in the same public CSV as the logo.
+        const subtitle=String(row['role_'+lang] || row.role_en || row.role_fr || row.role_fa || '').trim();
+        if(subtitle) copy.append(el('span','didar-ally-subtitle',subtitle));
         item.append(frame,copy);
         return item;
       });
@@ -201,24 +186,42 @@ const textHtml = `
       target.hidden=true;
     }
   }
+  // Always give the footer meaningful visible content before network requests.
+  // A missing config or temporary CSV error must never leave the footer blank.
+  function showFallbackFooter() {
+    const footer = document.getElementById('didar-site-footer') || document.querySelector('footer');
+    if (!footer) return;
+    const languageText = {
+      en: ['All rights reserved.', 'Nonprofit organization incorporated in Québec', 'Montréal · Québec'],
+      fr: ['Tous droits réservés.', 'Organisme sans but lucratif constitué au Québec', 'Montréal · Québec'],
+      fa: ['تمامی حقوق محفوظ است.', 'سازمان غیرانتفاعی ثبت‌شده در کبک', 'مونترآل · کبک']
+    };
+    const parts = languageText[lang] || languageText.en;
+    const legal = el('div', 'container footer-wrap');
+    legal.append(
+      el('p', '', `© ${new Date().getFullYear()} Centre culturel et éducatif DIDAR. ${parts[0]}`),
+      el('p', '', parts[1]),
+      el('p', '', 'NEQ: 1182753112'),
+      el('p', '', parts[2])
+    );
+    footer.replaceChildren(legal);
+    footer.hidden = false;
+  }
+
   async function loadSiteShell(){
+    showFallbackFooter();
     try {
       const response=await fetch(siteURL('config/site-settings.json'), {cache:'no-store'});
-      if(!response.ok)throw new Error('HTTP '+response.status);
+      if(!response.ok)throw new Error('Site settings HTTP '+response.status);
       const cfg=await response.json();
       if(!cfg?.organization || !cfg?.navigation || !cfg?.pages)throw new Error('Invalid site configuration');
-      renderNavigation(cfg);
+      // Footer rendering should never depend on the header or navigation succeeding.
       const allies=renderFooter(cfg);
+      try { renderNavigation(cfg); }
+      catch (error) { console.warn('DIDAR central navigation unavailable', error); }
       await renderAllies(allies);
     } catch(error) {
-      console.warn('DIDAR central shell unavailable',error);
-      // Keep a usable footer even if the JSON request fails.
-      const fallback=document.getElementById('didar-site-footer');
-      if(fallback){
-        const legal=el('div','container footer-wrap');
-        legal.append(el('p','',`© ${new Date().getFullYear()} DIDAR · Montréal, Québec`));
-        fallback.replaceChildren(legal);
-      }
+      console.warn('DIDAR central shell unavailable; legal footer fallback displayed',error);
     }
   }
   loadSiteShell();
