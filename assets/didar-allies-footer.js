@@ -22,12 +22,28 @@
     && !/^[a-z]+:/i.test(value) && !value.startsWith('//') ? value : '';
   const siteURL = (path) => new URL(safePath(path), rootURL).href;
   const normalize = (value) => String(value || '').replace(/(^\/+)|(\/+?$)/g, '').replace(/(?:^|\/)index\.html$/i,'').replace(/\/+$/,'');
+  
+const roleText =
+  lang === 'fa' ? row.role_fa :
+  lang === 'fr' ? row.role_fr :
+  row.role_en;
+
+const nameText = row.name || '';
+
+const textHtml = `
+  <div class="didar-ally-copy">
+    <div class="didar-ally-name">${nameText}</div>
+    ${roleText ? `<div class="didar-ally-role">${roleText}</div>` : ''}
+  </div>
+`;
+
   function currentPath() {
     const basePath = rootURL.pathname;
     const actual = window.location.pathname;
     if (!actual.startsWith(basePath)) return '';
     return normalize(decodeURI(actual.slice(basePath.length)));
   }
+  
   function pageFor(path, cfg) {
     const relative = normalize(path);
     for (const [key, variants] of Object.entries(cfg.pages || {})) {
