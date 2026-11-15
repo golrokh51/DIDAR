@@ -138,3 +138,9 @@ html[lang="en"] .didar-shared-commitment .eyebrow {color:#8b510c}
     font-size: 0.98rem;
   }
 }
+/* DIDAR Core Values — single column */
+#values .didar-values-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100%;
+}
