@@ -103,6 +103,115 @@
         return;
       }
 
+      // MODE 4: Charter text is read exclusively from the local Markdown file.
+      // Generate the accordion dynamically; do not require 11 hard-coded articles.
+      if (layout === 'charter') {
+        const normalized = markdown.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
+        const section = element.closest('section#charter');
+        const preambleContainer = section?.querySelector('#charter-preamble');
+        const shared = section?.querySelector('#shared-commitment');
+        if (!section || !preambleContainer || !shared ||
+            !element.classList.contains('didar-article-list')) {
+          throw new Error('Missing Charter containers');
+        }
+
+        const localText = {
+          en: { preamble: 'Preamble', article: 'Article', commitment: 'Our Shared Commitment',
+                promise: 'Our guiding promise' },
+          fr: { preamble: 'Préambule', article: 'Article', commitment: 'Notre engagement commun',
+                promise: 'Notre engagement' },
+          fa: { preamble: 'مقدمه', article: 'ماده', commitment: 'تعهد مشترک ما',
+                promise: 'تعهد ما' }
+        }[language];
+
+        const headings = [...normalized.matchAll(/^###\s+(.+?)\s*$/gm)];
+        const digitValue = str => Number(str.replace(/[۰-۹]/g, ch => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(ch)))
+                                            .replace(/[٠-٩]/g, ch => String('٠١٢٣٤٥٦٧٨٩'.indexOf(ch))));
+        const articleMatch = heading =>
+          heading.match(/^(?:Article|ماده(?:ٔ|‌ی|ی)?)\s+([0-9۰-۹٠-٩]{1,2})\s*[—–-]\s*(.+)$/iu);
+        const isPreamble = s => /^(?:Preamble|Préambule|مقدمه)$/iu.test(s);
+        const isCommitment = s => /^(?:Our Shared Commitment|Notre engagement commun|تعهد مشترک ما)$/iu.test(s);
+
+        if (headings.length < 12 || !isPreamble(headings[0][1])) {
+          throw new Error(`Charter needs a preamble and eleven article headings in ${source}`);
+        }
+        const bodyOf = i => paragraphBlocks(normalized.slice(
+          headings[i].index + headings[i][0].length,
+          headings[i + 1]?.index ?? normalized.length
+        ));
+        const preamble = bodyOf(0);
+        if (!preamble.length) throw new Error('Empty Charter preamble');
+        const createParagraph = text => {
+          const p = document.createElement('p');
+          const bold = text.match(/^\*\*([\s\S]+)\*\*$/);
+          if (bold) {
+            const strong = document.createElement('strong');
+            strong.textContent = bold[1];
+            p.append(strong);
+          } else {
+            p.textContent = text;
+          }
+          return p;
+        };
+
+        const articles = [];
+        for (let i = 1; i <= 11; i++) {
+          const heading = headings[i];
+          const match = heading && articleMatch(heading[1]);
+          if (!match || digitValue(match[1]) !== i || !bodyOf(i).length) {
+            throw new Error(`Missing or invalid Charter Article ${i} in ${source}`);
+          }
+          const item = document.createElement('details');
+          item.className = 'didar-article';
+          item.id = `article-${i}`;
+          if (i === 1) item.open = true;
+          const summary = document.createElement('summary');
+          const index = document.createElement('span');
+          index.className = 'didar-article-index';
+          index.textContent = `${localText.article} ${String(i).padStart(2, '0')}`;
+          const title = document.createElement('h3');
+          title.className = 'didar-article-name';
+          title.textContent = match[2].trim();
+          const toggle = document.createElement('span');
+          toggle.className = 'didar-article-toggle';
+          toggle.setAttribute('aria-hidden', 'true');
+          summary.append(index, title, toggle);
+          const copy = document.createElement('div');
+          copy.className = 'didar-article-copy';
+          copy.append(...bodyOf(i).map(createParagraph));
+          item.append(summary, copy);
+          articles.push(item);
+        }
+
+        let commitment = null;
+        if (headings.length === 13 && isCommitment(headings[12][1])) {
+          commitment = bodyOf(12);
+          if (!commitment.length) throw new Error('Empty Charter shared commitment');
+        } else if (headings.length !== 12) {
+          throw new Error('Unexpected Charter sections');
+        }
+
+        const h3 = document.createElement('h3');
+        h3.textContent = localText.preamble;
+        preambleContainer.replaceChildren(h3, ...preamble.map(createParagraph));
+        element.replaceChildren(...articles);
+        if (commitment) {
+          const eyebrow = document.createElement('p');
+          eyebrow.className = 'eyebrow';
+          eyebrow.textContent = localText.promise;
+          const heading = document.createElement('h3');
+          heading.textContent = localText.commitment;
+          shared.replaceChildren(eyebrow, heading, ...commitment.map(createParagraph));
+          shared.hidden = false;
+          shared.style.display = '';
+        } else {
+          shared.replaceChildren();
+          shared.hidden = true;
+          shared.style.display = 'none';
+        }
+        return;
+      }
+
       if (layout === 'article') {
         if (typeof marked === 'undefined' || typeof DOMPurify === 'undefined') {
           throw new Error('Article rendering needs Marked and DOMPurify');
@@ -122,9 +231,23 @@
       throw new Error(`Unknown content layout: ${layout}`);
     } catch (error) {
       console.error('DIDAR content not loaded:', error);
-      // The four original English paragraphs stay visible as fallback.
+      // Replace an unresolved loading status with a localized, readable error.
+      const status = element.querySelector('[role="status"]');
+      if (status) {
+        status.textContent = language === 'fr' ? 'Contenu temporairement indisponible.'
+          : language === 'fa' ? 'محتوا موقتاً در دسترس نیست.'
+          : 'Content temporarily unavailable.';
+      }
     }
   }
 
   document.querySelectorAll('[data-didar-md]').forEach(loadContent);
+
+  // Event handlers query the current articles, which arrive asynchronously.
+  const setCharterExpanded = open => {
+    document.querySelectorAll('#charter-articles > details.didar-article')
+      .forEach(item => { item.open = open; });
+  };
+  document.getElementById('expand-charter')?.addEventListener('click', () => setCharterExpanded(true));
+  document.getElementById('collapse-charter')?.addEventListener('click', () => setCharterExpanded(false));
 })();

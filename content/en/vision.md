@@ -1,8 +1,7 @@
 ## Our Vision
-We envision a society where cultural, linguistic, generational and individual differences are not barriers to connection, but opportunities for discovery, learning and collective enrichment.
 
-We imagine a future where cultural heritage is preserved and reimagined; knowledge, education and the arts are accessible to more people; and no one is excluded from participation because of their background, identity or personal circumstances.
+DIDAR envisions a society where cultural, linguistic, generational, and individual differences are not barriers to connection, but opportunities for discovery, learning, and enriching collective life.
 
-DIDAR aspires to become a lasting community space in Montréal and Québec where people feel welcome, strengthen their ability to act, create, engage in dialogue and build meaningful connections across cultures, generations and communities.
+We envision a future where cultural heritage is preserved and reimagined; where knowledge, education, and the arts are accessible to more people; where no one is excluded from participation because of their background, identity (including national, ethnic, cultural, linguistic, religious or non-religious identity, gender identity, or sexual orientation), age, disability, immigration status, socioeconomic circumstances, or any other personal characteristics or life circumstances; and where everyone can experience a sense of belonging, empowerment, and the ability to make a meaningful contribution in a safe and respectful environment.
 
-We envision communities where belonging does not require conformity or silence, and where individuals can express their identities, question established norms and participate without fear of discrimination or exclusion.
+DIDAR aspires to become a lasting space for connection, dialogue, creativity, and collaboration, fostering meaningful relationships across individuals and generations while building constructive connections between Persian-speaking communities and other cultural and social communities in Montréal and across Québec.
