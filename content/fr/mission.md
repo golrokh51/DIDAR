@@ -1,4 +1,4 @@
-## Our Mission
+## Notre mission
 
 La mission de DIDAR est de créer un espace indépendant, accueillant et participatif où des personnes d’origines, de parcours et d’identités variés peuvent se rencontrer, apprendre les unes des autres, partager leurs cultures et leurs savoirs, et contribuer à la vie culturelle et communautaire.
 
