@@ -185,3 +185,8 @@ html[lang="fa"] .contact .contact-ltr {direction:ltr;text-align:left;unicode-bid
  html[lang="fa"] .site-header .brand-logo{width:48px;height:48px}
  html[lang="fa"] .languages a{padding:.2rem .4rem}
 }
+
+/* DIDAR About: show the ten Core Values in a single column. */
+:is(html[lang="fr"], html[lang="fa"]) #values .didar-values-grid {
+  grid-template-columns: minmax(0, 1fr);
+}

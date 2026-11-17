@@ -144,3 +144,7 @@ html[lang="en"] .didar-shared-commitment .eyebrow {color:#8b510c}
     grid-template-columns: minmax(0, 1fr) !important;
     width: 100%;
 }
+/* DIDAR About: show the ten Core Values in a single column. */
+html[lang="en"] #values .didar-values-grid {
+  grid-template-columns: minmax(0, 1fr);
+}

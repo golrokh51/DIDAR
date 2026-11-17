@@ -172,13 +172,30 @@
 
     </section>
     <section aria-labelledby="charter-title" class="section didar-full-charter" id="charter">
-
-      <div id="charter-preamble"></div>
-
-      <div class="didar-article-list" id="charter-articles" data-charter-src="/content/en/charter.md">
-        <p role="status">Loading charter…</p>
+      <div class="container">
+        <div class="didar-section-heading">
+          <span class="didar-section-num">04</span>
+          <div>
+            <p class="eyebrow">How we put our values into practice</p>
+            <h2 id="charter-title">The DIDAR Charter</h2>
+          </div>
+        </div>
+        <div class="didar-charter-intro">
+          <div id="charter-preamble"><p role="status">Loading charter…</p></div>
+          <p class="didar-adoption-note">This text sets out DIDAR’s proposed shared commitments. Formal adoption by the team has not been confirmed.</p>
+        </div>
+        <div class="didar-charter-toolbar">
+          <p id="charter-instructions">Choose an article to read its complete text, or expand all eleven.</p>
+          <div class="didar-charter-actions">
+            <button aria-controls="charter-articles" class="didar-text-button" id="expand-charter" type="button">Expand all</button>
+            <button aria-controls="charter-articles" class="didar-text-button" id="collapse-charter" type="button">Collapse all</button>
+          </div>
+        </div>
+        <div class="didar-article-list" id="charter-articles" data-didar-md="charter" data-didar-layout="charter">
+          <p role="status">Loading articles…</p>
+        </div>
+        <div class="didar-shared-commitment" id="shared-commitment" hidden></div>
       </div>
-      <div class="didar-shared-commitment" id="shared-commitment"></div>
     </section>
     <section aria-labelledby="contact-title" class="section contact" id="contact">
       <div class="container narrow">

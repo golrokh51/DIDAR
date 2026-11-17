@@ -17,6 +17,15 @@
     .filter(part => part && !/^#{1,6}[\t ]+/.test(part))
     .map(part => part.replace(/[\t ]*\r?\n[\t ]*/g, ' '));
 
+  const localizedNumber = value => Number(String(value).replace(/[۰-۹٠-٩]/g, digit => {
+    const western = '۰۱۲۳۴۵۶۷۸۹'.indexOf(digit);
+    return western >= 0 ? western : '٠١٢٣٤٥٦٧٨٩'.indexOf(digit);
+  }));
+  const displayNumber = number => {
+    const padded = String(number).padStart(2, '0');
+    return language === 'fa' ? padded.replace(/[0-9]/g, digit => '۰۱۲۳۴۵۶۷۸۹'[Number(digit)]) : padded;
+  };
+
   async function loadContent(element) {
     const name = element.dataset.didarMd;
     const layout = element.dataset.didarLayout || 'columns';
@@ -53,13 +62,13 @@
 
         // Each value begins with: ### 1. Value title
         const normalized = markdown.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
-        const headings = [...normalized.matchAll(/^###\s+(\d{1,2})\.\s+(.+?)\s*$/gm)];
+        const headings = [...normalized.matchAll(/^###\s+([0-9۰-۹٠-٩]{1,2})\.\s+(.+?)\s*$/gm)];
         if (headings.length !== 10) {
           throw new Error(`Expected 10 numbered Core Values headings in ${source}; found ${headings.length}`);
         }
 
         const cards = headings.map((heading, i) => {
-          const number = Number(heading[1]);
+          const number = localizedNumber(heading[1]);
           if (number !== i + 1) {
             throw new Error(`Core Values must be numbered 1 to 10 in ${source}`);
           }
@@ -81,7 +90,7 @@
           const index = document.createElement('span');
           index.className = 'didar-value-number';
           index.setAttribute('aria-hidden', 'true');
-          index.textContent = String(number).padStart(2, '0');
+          index.textContent = displayNumber(number);
           const title = document.createElement('h3');
           title.id = `value-${number}-title`;
           title.textContent = titleText;
@@ -168,7 +177,7 @@
           const summary = document.createElement('summary');
           const index = document.createElement('span');
           index.className = 'didar-article-index';
-          index.textContent = `${localText.article} ${String(i).padStart(2, '0')}`;
+          index.textContent = `${localText.article} ${displayNumber(i)}`;
           const title = document.createElement('h3');
           title.className = 'didar-article-name';
           title.textContent = match[2].trim();
