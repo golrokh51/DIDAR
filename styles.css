@@ -1243,3 +1243,26 @@ html[lang="fr"] .acronym {
     gap: 4px;
   }
 }
+/* Disabled language options for pages that do not yet have a translation.
+   Do not navigate people to an unrelated homepage. */
+.languages .language-unavailable {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  text-align: center;
+  font-size: .75rem;
+  color: var(--muted);
+  background: var(--paper);
+  opacity: .5;
+  cursor: not-allowed;
+}
+@media (max-width: 680px) {
+  .languages .language-unavailable {
+    min-width: 31px;
+    padding: 4px 7px;
+  }
+}
