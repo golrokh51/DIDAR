@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://didar-mtl.ca/</loc></url>
@@ -23,5 +22,17 @@
   <url><loc>https://didar-mtl.ca/city-guide/</loc></url>
   <url><loc>https://didar-mtl.ca/en/city-guide/</loc></url>
   <url><loc>https://didar-mtl.ca/fa/city-guide/</loc></url>
+  <url><loc>https://didar-mtl.ca/community-voices/</loc></url>
+  <url><loc>https://didar-mtl.ca/en/community-voices/</loc></url>
+  <url><loc>https://didar-mtl.ca/en/events/</loc></url>
+  <url><loc>https://didar-mtl.ca/events/</loc></url>
+  <url><loc>https://didar-mtl.ca/fa/activities/</loc></url>
+  <url><loc>https://didar-mtl.ca/fa/community-voices/</loc></url>
+  <url><loc>https://didar-mtl.ca/fa/events/</loc></url>
+  <url><loc>https://didar-mtl.ca/fa/projects/</loc></url>
+  <url><loc>https://didar-mtl.ca/fa/recognition/</loc></url>
+  <url><loc>https://didar-mtl.ca/fa/story/</loc></url>
+  <url><loc>https://didar-mtl.ca/fa/team/</loc></url>
+  <url><loc>https://didar-mtl.ca/recognition/</loc></url>
+  <url><loc>https://didar-mtl.ca/team/</loc></url>
 </urlset>
-
