@@ -223,8 +223,8 @@
     },
     "supporters": {
       "en": "en/recognition/",
-      "fr": "supporters/",
-      "fa": "fa/supporters/"
+      "fr": "recognition/",
+      "fa": "fa/recognition/"
     },
     "reports": {
       "en": "en/reports/"

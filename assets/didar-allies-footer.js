@@ -6,6 +6,65 @@
   const current = document.currentScript;
   const rootURL = new URL('../', current ? current.src : document.baseURI);
   const root = rootURL.href;
+  // Ensure the same, cache-busted footer stylesheet is available on every page,
+  // even if a page forgets its <link> or has a stale relative path.
+  const footerCSSURL = new URL('didar-allies-footer.css?v=didar-home-menu-20261118-a', current.src).href;
+  if (![...document.querySelectorAll('link[rel~="stylesheet"]')].some(link => link.href === footerCSSURL)) {
+    const footerCSS = document.createElement('link');
+    footerCSS.rel = 'stylesheet';
+    footerCSS.href = footerCSSURL;
+    document.head.append(footerCSS);
+  }
+  // Critical footer styles are embedded as a fallback when the independent stylesheet is missing.
+  // This is deliberately scoped to #didar-site-footer only.
+  if (!document.getElementById('didar-footer-critical-style')) {
+    const critical = document.createElement('style');
+    critical.id = 'didar-footer-critical-style';
+    critical.textContent = `
+/* DIDAR footer failsafe: avoids oversized ally images if footer-only CSS is not loaded. */
+#didar-site-footer .didar-allies-footer[hidden] { display: none !important; }
+#didar-site-footer .didar-allies-footer { padding: 1.25rem 0 1.5rem; margin-bottom: 1.4rem; }
+#didar-site-footer .didar-allies-title {
+  color: #eaf5f5 !important; font: inherit; font-size: 1rem !important;
+  font-weight: 800 !important; line-height: 1.5; letter-spacing: normal;
+  margin: 0 0 1rem; overflow-wrap: anywhere;
+}
+#didar-site-footer .didar-allies-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 14px; align-items: stretch;
+}
+#didar-site-footer .didar-ally-item {
+  box-sizing: border-box; display: flex; align-items: center; gap: 14px;
+  min-width: 0; min-height: 92px; padding: 13px 16px;
+  border-radius: 18px; border: 1px solid #c9dcda;
+  background: #f7faf9; color: #13454f; text-decoration: none;
+}
+#didar-site-footer .didar-ally-logo {
+  box-sizing: border-box; display: grid; place-items: center;
+  flex: 0 0 58px !important; width: 58px !important; height: 58px !important;
+  min-width: 58px !important; max-width: 58px !important;
+  min-height: 58px !important; max-height: 58px !important;
+  position: relative; overflow: hidden; border-radius: 50% !important;
+  border: 1px solid #b9d3cb; background: #fff;
+}
+#didar-site-footer .didar-ally-logo img {
+  box-sizing: border-box; display: block; position: absolute; inset: 0;
+  width: 58px !important; height: 58px !important;
+  min-width: 0 !important; max-width: 58px !important;
+  min-height: 0 !important; max-height: 58px !important;
+  object-fit: contain; object-position: center; padding: 5px;
+  border-radius: 50% !important; background: #fff;
+}
+#didar-site-footer .didar-ally-copy { min-width: 0; display: flex; flex: 1 1 auto; flex-direction: column; gap: 5px; }
+#didar-site-footer .didar-ally-name { color: #13454f; font-size: 1rem; font-weight: 750; line-height: 1.38; overflow-wrap: anywhere; }
+#didar-site-footer .didar-ally-subtitle { color: #536d72; font-size: .84rem; line-height: 1.45; overflow-wrap: anywhere; }
+@media (max-width: 520px) {
+  #didar-site-footer .didar-allies-grid { gap: 10px; }
+  #didar-site-footer .didar-ally-item { min-height: 80px; }
+}
+`;
+    document.head.append(critical);
+  }
   const lang = ['en', 'fr', 'fa'].includes(document.documentElement.lang) ? document.documentElement.lang : 'en';
   const csv = window.DIDARPublicCSV;
   const localText = (value) => typeof value === 'object' && value !== null
@@ -161,12 +220,16 @@
         const item=el(href?'a':'div','didar-ally-item');
         if(href){ item.href=href; item.target='_blank'; item.rel='noopener noreferrer'; }
         const frame=el('span','didar-ally-logo');
+        // Hard size limit: an ally logo must never expand to its original image size,
+        // even if a stylesheet is delayed, missing, or overridden.
+        frame.style.cssText='display:grid;place-items:center;position:relative;box-sizing:border-box;flex:0 0 58px;width:58px;min-width:58px;max-width:58px;height:58px;min-height:58px;max-height:58px;overflow:hidden;border-radius:50%;';
         const initials=row.name.trim().split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();
         frame.append(el('span','didar-ally-fallback',initials));
         const imageURL=csv.image(row.image_url,root);
         if(imageURL){
           const img=el('img');
           img.src=imageURL;img.alt=row['image_alt_'+lang]||row.image_alt_en||row.name;
+          img.style.cssText='display:block;position:absolute;inset:0;box-sizing:border-box;width:58px;height:58px;min-width:0;max-width:58px;min-height:0;max-height:58px;object-fit:contain;object-position:center;padding:5px;border-radius:50%;background:#fff;';
           img.loading='lazy';img.decoding='async';
           img.onerror=()=>img.remove();
           frame.append(img);

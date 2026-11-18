@@ -1266,3 +1266,110 @@ html[lang="fr"] .acronym {
     padding: 4px 7px;
   }
 }
+
+
+/* DIDAR FOOTER — permanent layout protection */
+
+#didar-site-footer .didar-allies-title {
+  color: #eaf5f5 !important;
+  font-size: 1rem !important;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+#didar-site-footer .didar-allies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 14px;
+}
+
+#didar-site-footer .didar-ally-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  border-radius: 18px;
+  background: #f7faf9;
+  color: #13454f;
+}
+
+#didar-site-footer .didar-ally-logo {
+  display: grid;
+  place-items: center;
+  position: relative;
+  box-sizing: border-box;
+  flex: 0 0 58px !important;
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  max-width: 58px !important;
+  min-height: 58px !important;
+  max-height: 58px !important;
+  overflow: hidden;
+  border-radius: 50%;
+  background: white;
+}
+
+#didar-site-footer .didar-ally-logo img {
+  display: block;
+  width: 58px !important;
+  height: 58px !important;
+  max-width: 58px !important;
+  max-height: 58px !important;
+  object-fit: contain;
+  padding: 5px;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* DIDAR-NAV-REPAIR-20261118: keep dropdown contents inside the menu. */
+:is(html[lang="fa"], html[lang="fr"], html[lang="en"])
+  .site-header details.nav-dropdown:not([open]) > .nav-dropdown-menu {
+  display: none !important;
+}
+:is(html[lang="fa"], html[lang="fr"], html[lang="en"])
+  .site-header details.nav-dropdown[open] > .nav-dropdown-menu {
+  display: grid !important;
+  position: absolute !important;
+  top: calc(100% + 8px);
+  inset-inline-end: 0;
+  z-index: 120;
+  min-width: 225px;
+  gap: 3px;
+  padding: 10px;
+  border: 1px solid #dce5e4;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(3, 56, 75, .16);
+}
+@media (min-width: 1101px) {
+  .site-header nav.main-nav {
+    flex-wrap: nowrap !important;
+    align-items: center;
+    column-gap: clamp(8px, 1vw, 15px);
+  }
+  .site-header nav.main-nav > a,
+  .site-header nav.main-nav > details > summary { white-space: nowrap; }
+}
+/* Use the mobile menu before the desktop links become too crowded. */
+@media (min-width: 921px) and (max-width: 1100px) {
+  .site-header nav.main-nav { display: none !important; }
+  .site-header details.mobile-navigation { display: block !important; position: relative; }
+  .site-header .nav-area { flex-direction: row; align-items: center; }
+  .site-header details.mobile-navigation[open] > nav {
+    position: absolute;
+    display: grid;
+    top: calc(100% + 8px);
+    inset-inline-end: 0;
+    z-index: 120;
+    min-width: 230px;
+    max-width: min(90vw, 340px);
+    max-height: 65vh;
+    overflow-y: auto;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #dce5e4;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(3, 56, 75, .16);
+  }
+}

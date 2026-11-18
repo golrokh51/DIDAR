@@ -6,11 +6,17 @@
   margin-bottom: 1.4rem;
 }
 .didar-allies-footer[hidden] {display:none !important;}
-.didar-allies-title {
-  font-family:inherit; font-weight:800; font-size:.98rem;
-  text-transform:none; letter-spacing:.01em; color:inherit; margin:0 0 1rem;
-}
-.didar-allies-grid {
+
+#didar-site-footer .didar-allies-title {
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 1rem !important;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: .01em;
+  color: #eaf5f5 !important;
+  margin: 0 0 1rem;
+}.didar-allies-grid {
   display:grid;
   grid-template-columns: repeat(auto-fit,minmax(min(100%,300px),1fr));
   gap:14px;
@@ -64,6 +70,9 @@ a.didar-ally-item:hover,a.didar-ally-item:focus-visible {
   height:100%;
   border-radius:50% !important;
   object-fit:contain;
+  object-position:center;
+  box-sizing:border-box;
+  padding:5px;
   background:#fff;
 }
 .didar-ally-fallback {font-weight:850;font-size:.78rem;letter-spacing:.01em;}
@@ -130,3 +139,112 @@ html[lang="fa"] .nav-dropdown-menu {direction:rtl;text-align:right;}
 #didar-site-footer .footer-wrap {gap:.5rem 1rem;}
 #didar-site-footer .footer-wrap p {overflow-wrap:anywhere;}
 
+
+/* DIDAR footer — enforce consistent logo sizes */
+
+#didar-site-footer .didar-allies-title {
+  color: #eaf5f5 !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+}
+
+#didar-site-footer .didar-allies-grid {
+  display: grid !important;
+  grid-template-columns: repeat(
+    auto-fit, minmax(min(100%, 300px), 1fr)
+  ) !important;
+  gap: 14px !important;
+}
+
+#didar-site-footer .didar-ally-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 13px 16px !important;
+  background: #f7faf9 !important;
+  border-radius: 18px !important;
+  min-width: 0;
+}
+
+#didar-site-footer .didar-ally-logo {
+  display: grid !important;
+  place-items: center !important;
+  position: relative !important;
+  flex: 0 0 58px !important;
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  max-width: 58px !important;
+  min-height: 58px !important;
+  max-height: 58px !important;
+  overflow: hidden !important;
+  border-radius: 50% !important;
+  background: white !important;
+  box-sizing: border-box !important;
+}
+
+#didar-site-footer .didar-ally-logo img {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 58px !important;
+  height: 58px !important;
+  max-width: 58px !important;
+  max-height: 58px !important;
+  object-fit: contain !important;
+  padding: 5px !important;
+  box-sizing: border-box !important;
+  border-radius: 50% !important;
+}
+
+/* DIDAR-NAV-REPAIR-20261118: keep dropdown contents inside the menu. */
+:is(html[lang="fa"], html[lang="fr"], html[lang="en"])
+  .site-header details.nav-dropdown:not([open]) > .nav-dropdown-menu {
+  display: none !important;
+}
+:is(html[lang="fa"], html[lang="fr"], html[lang="en"])
+  .site-header details.nav-dropdown[open] > .nav-dropdown-menu {
+  display: grid !important;
+  position: absolute !important;
+  top: calc(100% + 8px);
+  inset-inline-end: 0;
+  z-index: 120;
+  min-width: 225px;
+  gap: 3px;
+  padding: 10px;
+  border: 1px solid #dce5e4;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(3, 56, 75, .16);
+}
+@media (min-width: 1101px) {
+  .site-header nav.main-nav {
+    flex-wrap: nowrap !important;
+    align-items: center;
+    column-gap: clamp(8px, 1vw, 15px);
+  }
+  .site-header nav.main-nav > a,
+  .site-header nav.main-nav > details > summary { white-space: nowrap; }
+}
+/* Use the mobile menu before the desktop links become too crowded. */
+@media (min-width: 921px) and (max-width: 1100px) {
+  .site-header nav.main-nav { display: none !important; }
+  .site-header details.mobile-navigation { display: block !important; position: relative; }
+  .site-header .nav-area { flex-direction: row; align-items: center; }
+  .site-header details.mobile-navigation[open] > nav {
+    position: absolute;
+    display: grid;
+    top: calc(100% + 8px);
+    inset-inline-end: 0;
+    z-index: 120;
+    min-width: 230px;
+    max-width: min(90vw, 340px);
+    max-height: 65vh;
+    overflow-y: auto;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #dce5e4;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(3, 56, 75, .16);
+  }
+}
