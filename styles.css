@@ -1373,3 +1373,38 @@ html[lang="fr"] .acronym {
     box-shadow: 0 12px 30px rgba(3, 56, 75, .16);
   }
 }
+
+/* DIDAR — Event social and partner links */
+
+.event-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.event-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--cream-light);
+  color: var(--teal-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+  transition: background 0.2s ease;
+}
+
+.event-links a:hover {
+  background: var(--orange-soft);
+  border-color: var(--orange);
+}
+
+.event-links a:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}

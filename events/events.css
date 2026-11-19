@@ -37,7 +37,16 @@
 .event-detail-description{white-space:pre-line;line-height:1.85;max-width:800px}
 .event-gallery{margin:1.5rem 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}
 .event-gallery figure{margin:0}
-.event-gallery img{aspect-ratio:4/3;width:100%;object-fit:cover;border-radius:10px}
+
+.event-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
 .event-gallery figcaption{font-size:.78rem;color:var(--muted,#6b777c)}
 .event-info{margin-top:2.1rem;border-top:1px solid var(--line,#dce5e4);padding-top:1rem}
 .event-info a{font-weight:700}
