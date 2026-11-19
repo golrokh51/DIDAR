@@ -15,6 +15,7 @@
       emptyUpcoming:'No upcoming events have been published yet.',emptyPast:'The public event archive is being prepared.',
       loadError:'Unable to load the event calendar. Please try again later.',
       eventNotFound:'This event is not available for public viewing.',
+      openGallery:'Open larger image', closeGallery:'Close gallery', previousImage:'Previous image', nextImage:'Next image', imageCounter:(i,n)=>`Image ${i} of ${n}`,
       more:'More information', collaborators:'Collaborators', location:'Location',
       photoCredit:'Photo credit', imageError:'Photo unavailable', openPhoto:'Open original on Google Drive', photoAlbum:'View photo album', approx:'Approximate date: ',repeatWeekly:'Every week',repeatBiweekly:'Every two weeks',repeatMonthly:'Every month',repeatDates:'Multiple dates',nextSession:'Next session',formerly:'Previously',count:n=>`${n} event${n===1?'':'s'}`},
     fr: {upcoming:'Événements à venir', past:'Événements passés', all:'Toutes les catégories', years:'Toutes les années',
@@ -22,6 +23,7 @@
       emptyUpcoming:'Aucun événement à venir n’est publié pour le moment.',emptyPast:'Les archives publiques des événements sont en préparation.',
       loadError:'Impossible de charger les événements. Veuillez réessayer plus tard.',
       eventNotFound:'Cet événement n’est pas disponible publiquement.',
+      openGallery:'Agrandir l’image', closeGallery:'Fermer la galerie', previousImage:'Image précédente', nextImage:'Image suivante', imageCounter:(i,n)=>`Image ${i} sur ${n}`,
       more:'Plus d’informations', collaborators:'Organismes collaborateurs', location:'Lieu',
       photoCredit:'Crédit photo', imageError:'Photo indisponible', openPhoto:'Ouvrir la photo sur Google Drive', photoAlbum:'Voir l’album photo', approx:'Date approximative : ',repeatWeekly:'Chaque semaine',repeatBiweekly:'Toutes les deux semaines',repeatMonthly:'Chaque mois',repeatDates:'Plusieurs dates',nextSession:'Prochaine séance',formerly:'Auparavant',count:n=>`${n} événement${n===1?'':'s'}`},
     fa: {upcoming:'رویدادهای پیش رو', past:'رویدادهای گذشته', all:'همهٔ دسته‌ها', years:'همهٔ سال‌ها',
@@ -29,6 +31,7 @@
       emptyUpcoming:'در حال حاضر رویداد آینده‌ای برای نمایش عمومی ثبت نشده است.',emptyPast:'آرشیو عمومی رویدادها در حال آماده‌سازی است.',
       loadError:'بارگیری رویدادها امکان‌پذیر نیست. لطفاً بعداً دوباره تلاش کنید.',
       eventNotFound:'اطلاعات این رویداد برای نمایش عمومی در دسترس نیست.',
+      openGallery:'نمایش تصویر بزرگ‌تر', closeGallery:'بستن گالری', previousImage:'تصویر قبلی', nextImage:'تصویر بعدی', imageCounter:(i,n)=>`تصویر ${i} از ${n}`,
       more:'اطلاعات بیشتر', collaborators:'همکاران', location:'محل برگزاری',
       photoCredit:'عکاس', imageError:'تصویر در دسترس نیست', openPhoto:'دیدن تصویر در گوگل درایو', photoAlbum:'مشاهدهٔ آلبوم تصاویر', approx:'تاریخ تقریبی: ',repeatWeekly:'هر هفته',repeatBiweekly:'هر دو هفته',repeatMonthly:'هر ماه',repeatDates:'چند تاریخ',nextSession:'جلسهٔ بعدی',formerly:'پیش‌تر',count:n=>`${n} رویداد`},
   };
@@ -134,6 +137,107 @@
   const count = $('#events-count');
   const empty = $('#events-empty');
   let all = [], chosen = 'upcoming';
+  // One reusable, keyboard-accessible lightbox for the event's hero and gallery images.
+  // Gallery thumbnails keep their existing dimensions; only this dialog enlarges images.
+  let albumDialog = null;
+  let albumImages = [];
+  let albumIndex = 0;
+  let albumReturnFocus = null;
+  function ensureAlbumDialog() {
+    if (albumDialog) return albumDialog;
+    const dialog = make('dialog','event-album-dialog');
+    dialog.setAttribute('aria-label', c.photoAlbum);
+    dialog.dir = lang === 'fa' ? 'rtl' : 'ltr';
+    const box = make('div','event-album-box');
+    const close = make('button','event-album-close','×');
+    close.type = 'button';close.setAttribute('aria-label',c.closeGallery);
+    const prev = make('button','event-album-prev','‹');
+    prev.type = 'button';prev.setAttribute('aria-label',c.previousImage);
+    const next = make('button','event-album-next','›');
+    next.type = 'button';next.setAttribute('aria-label',c.nextImage);
+    const image = make('img','event-album-photo');
+    image.alt = '';
+    const footer = make('div','event-album-footer');
+    const caption = make('p','event-album-caption');
+    const counter = make('span','event-album-counter');
+    footer.append(caption,counter);
+    box.append(close,prev,image,next,footer);
+    dialog.append(box);
+    document.body.append(dialog);
+
+    const render = () => {
+      const current = albumImages[albumIndex];
+      if (!current) return;
+      image.src = current.src;
+      image.alt = current.alt;
+      caption.textContent = current.caption || current.alt;
+      counter.textContent = c.imageCounter(albumIndex+1,albumImages.length);
+      prev.hidden = next.hidden = albumImages.length < 2;
+    };
+    const step = offset => {
+      if (!albumImages.length) return;
+      albumIndex = (albumIndex + offset + albumImages.length) % albumImages.length;
+      render();
+    };
+    close.addEventListener('click',()=>dialog.close());
+    prev.addEventListener('click',()=>step(-1));
+    next.addEventListener('click',()=>step(1));
+    dialog.addEventListener('keydown',event=>{
+      if (event.key === 'ArrowRight') {event.preventDefault();step(1);}
+      else if (event.key === 'ArrowLeft') {event.preventDefault();step(-1);}
+    });
+    dialog.addEventListener('click',event=>{
+      if (event.target === dialog) dialog.close(); // Click the dark backdrop.
+    });
+    dialog.addEventListener('close',()=>{
+      document.body.classList.remove('event-album-open');
+      albumReturnFocus?.focus();
+      albumReturnFocus = null;
+    });
+    // Swipe to change image on touch screens.
+    let touchX = null;
+    image.addEventListener('touchstart',event=>{
+      touchX = event.changedTouches[0]?.screenX ?? null;
+    },{passive:true});
+    image.addEventListener('touchend',event=>{
+      if (touchX === null) return;
+      const endX = event.changedTouches[0]?.screenX;
+      const delta = endX - touchX;
+      touchX = null;
+      if (Number.isFinite(delta) && Math.abs(delta) > 45) step(delta < 0 ? 1 : -1);
+    },{passive:true});
+    albumDialog = {dialog,render};
+    return albumDialog;
+  }
+  function openEventAlbum(media,selected,trigger) {
+    if (!media.length) return;
+    const lightbox = ensureAlbumDialog();
+    albumImages = media;
+    albumIndex = Math.max(0,media.indexOf(selected));
+    albumReturnFocus = trigger;
+    lightbox.render();
+    lightbox.dialog.showModal();
+    document.body.classList.add('event-album-open');
+    lightbox.dialog.querySelector('.event-album-close').focus();
+  }
+  function posterButton(img, item, media) {
+    const btn=make('button','event-poster-view');
+    btn.type='button';
+    btn.setAttribute('aria-label',`${c.openGallery}: ${img.alt}`);
+    btn.title=c.openGallery;
+    btn.append(img);
+    const entry = {src:img.src, alt:img.alt, caption:tr(item.caption)};
+    media.push(entry);
+    btn.addEventListener('click',()=>openEventAlbum(media,entry,btn));
+    // A missing image cannot be opened and should not remain in the album.
+    img.addEventListener('error',()=>{
+      const idx=media.indexOf(entry);
+      if (idx >= 0) media.splice(idx,1);
+      btn.hidden=true;
+    },{once:true});
+    return btn;
+  }
+
 
   function createCard(ev) {
     const card = make('article','event-card');
@@ -214,11 +318,14 @@
     if(!ev.isRecurringSeries && ev.endDate && ev.endDate!==ev.date) meta.append(make('span','event-muted',formatDate(ev.endDate)));
     if(ev.venue) meta.append(make('span','event-muted',ev.venue));
     detail.append(meta);
+    const mediaForAlbum = [];
     const coverImage = eventCover(ev);
     const photoUrl = imageUrl(coverImage);
     if (photoUrl) {
       const photo=make('img','event-detail-hero');photo.src=photoUrl;
-      photo.alt=tr(coverImage.alt)||tr(ev.title);detail.append(photo);onPhotoError(photo,coverImage,detail);
+      photo.alt=tr(coverImage.alt)||tr(ev.title);
+      detail.append(posterButton(photo,coverImage,mediaForAlbum));
+      onPhotoError(photo,coverImage,detail);
       if(coverImage.credit) detail.append(make('p','event-caption',`${c.photoCredit}: ${coverImage.credit}`));
     }
     if(safeLink(ev.galleryUrl)){const album=make('a','event-album-link',c.photoAlbum);album.href=ev.galleryUrl;album.target='_blank';album.rel='noopener noreferrer';detail.append(album);}
@@ -244,7 +351,8 @@
     if(galleryToShow.length) {
       const grid=make('div','event-gallery');
       galleryToShow.forEach(item=>{
-        const fig=make('figure');const img=make('img');img.src=imageUrl(item);img.alt=tr(item.alt)||tr(ev.title);img.loading='lazy';fig.append(img);
+        const fig=make('figure');const img=make('img');img.src=imageUrl(item);img.alt=tr(item.alt)||tr(ev.title);img.loading='lazy';
+        fig.append(posterButton(img,item,mediaForAlbum));
         img.addEventListener('error',()=>{img.hidden=true;fig.append(make('span','event-image-error',c.imageError));},{once:true});
         const caption=tr(item.caption);if(caption)fig.append(make('figcaption','',caption));grid.append(fig);
       });
