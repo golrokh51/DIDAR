@@ -81,6 +81,10 @@
         ]
       },
       {
+        "label": "Support DIDAR",
+        "page": "support"
+      },
+      {
         "label": "Contact",
         "page": "contact"
       }
@@ -128,6 +132,10 @@
         ]
       },
       {
+        "label": "Soutenir DIDAR",
+        "page": "support"
+      },
+      {
         "label": "Nous joindre",
         "page": "contact"
       }
@@ -173,6 +181,10 @@
             "page": "cityguide"
           }
         ]
+      },
+      {
+        "label": "حمایت از دیدار",
+        "page": "support"
       },
       {
         "label": "تماس",
@@ -239,6 +251,11 @@
       "en": "en/#contact",
       "fr": "#contact",
       "fa": "fa/#contact"
+    },
+    "support": {
+      "fr": "support/",
+      "en": "support/",
+      "fa": "support/"
     }
   },
   "languages": {
