@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07384B">
+  <meta name="robots" content="noindex,follow">
+  <meta name="description" content="Merci de votre soutien à DIDAR. Thank you for supporting DIDAR. از حمایت شما از دیدار سپاسگزاریم.">
+  <title>Merci · Thank you · سپاس | DIDAR</title>
+  <link rel="icon" href="/assets/logo.png" type="image/png">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* DIDAR — a single static, trilingual thank-you page after Zeffy. */
+    .thanks-page{background:var(--cream-light,#fcfaf6);color:var(--ink,#17313a);min-height:100vh;}
+    .thanks-page .thanks-skip{position:absolute;inset-inline-start:-9999px;top:8px;background:white;padding:10px 16px;z-index:100;color:#03384b;}
+    .thanks-page .thanks-skip:focus{inset-inline-start:12px;}
+    .thanks-page .thanks-header{background:#fff;border-bottom:1px solid var(--line,#dce5e4);}
+    .thanks-page .thanks-header .nav-wrap{min-height:82px;}
+    .thanks-page .thanks-langs{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+    .thanks-page .thanks-langs a{padding:5px 12px;text-decoration:none;border:1px solid var(--line,#dce5e4);border-radius:999px;color:var(--teal-dark,#03384b);font-size:.85rem;font-weight:700;background:#fff;}
+    .thanks-page .thanks-langs a:hover{background:var(--teal-soft,#e8f2f3);}
+    .thanks-page a:focus-visible{outline:3px solid #ee9521;outline-offset:3px;}
+    .thanks-hero{text-align:center;padding:clamp(50px,8vw,82px) 0 43px;
+      background:radial-gradient(circle at 86% 12%,rgba(238,149,33,.17),transparent 32%),
+      radial-gradient(circle at 12% 85%,rgba(8,80,100,.08),transparent 32%),var(--cream-light,#fcfaf6);}
+    .thanks-hero .thanks-icon{width:78px;height:78px;display:grid;place-items:center;margin:0 auto 20px;border:2px solid #f6d6a8;border-radius:50%;background:#fff8eb;}
+    .thanks-icon svg{width:43px;height:43px;fill:none;stroke:#df642d;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+    .thanks-hero .thanks-eyebrow{margin:0 0 13px;font-size:.77rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#ae5910;}
+    .thanks-hero h1{max-width:none;font-size:clamp(2rem,5.6vw,4rem);margin:0 0 16px;color:var(--teal-dark,#03384b);letter-spacing:-.02em;line-height:1.22;}
+    .thanks-hero h1 span{display:inline-block;}
+    .thanks-hero p.thanks-subtitle{max-width:620px;margin:0 auto;color:var(--text,#44535a);font-size:1.06rem;line-height:1.8;}
+    .thanks-accent{width:55px;height:4px;border-radius:4px;background:var(--orange,#ee9521);margin:25px auto 0;}
+    .thanks-content{padding:10px 0 62px;}
+    .thanks-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:18px;}
+    .thanks-card{min-width:0;display:flex;flex-direction:column;padding:28px 25px 26px;border:1px solid var(--line,#dce5e4);border-radius:22px;background:#fff;box-shadow:0 8px 26px rgba(3,56,75,.045);scroll-margin-top:110px;}
+    .thanks-card::before{content:"";display:block;width:39px;height:4px;border-radius:999px;background:var(--orange,#ee9521);margin-bottom:22px;}
+    .thanks-card .thanks-label{margin:0 0 11px;color:#b36720;letter-spacing:.08em;font-size:.76rem;font-weight:800;text-transform:uppercase;}
+    .thanks-card h2{font-family:Georgia,"Times New Roman",serif;color:var(--teal-dark,#03384b);font-size:clamp(1.52rem,2.1vw,1.85rem);line-height:1.22;margin:0 0 15px;}
+    .thanks-card[lang="fa"] h2{font-family:inherit;}
+    .thanks-card p{font-size:.97rem;line-height:1.87;color:var(--text,#44535a);margin:0 0 14px;}
+    .thanks-card .thanks-closer{font-weight:700;color:var(--teal-dark,#03384b);}
+    .thanks-actions{margin-top:auto;padding-top:12px;}
+    .thanks-button{display:inline-flex;justify-content:center;align-items:center;gap:6px;min-height:45px;max-width:100%;padding:10px 18px;border-radius:999px;background:var(--teal,#085064);color:#fff;text-decoration:none;font-weight:750;font-size:.91rem;box-shadow:0 6px 16px rgba(8,80,100,.13);}
+    .thanks-button:hover{background:var(--teal-dark,#03384b);color:#fff;}
+    .thanks-card[dir="rtl"]{text-align:right;}
+    .thanks-card[dir="rtl"] .thanks-actions{text-align:right;}
+    .thanks-footnote{max-width:850px;margin:30px auto 0;padding:23px 22px;text-align:center;border:1px solid var(--line,#dce5e4);border-radius:18px;background:#fff;}
+    .thanks-footnote p{color:var(--text,#44535a);margin:0 0 6px;font-size:.91rem;line-height:1.8;}
+    .thanks-footnote p:last-child{margin-bottom:0;}
+    .thanks-footnote a{font-weight:750;overflow-wrap:anywhere;}
+    .thanks-bottom{text-align:center;padding:25px 15px;background:var(--teal-dark,#03384b);color:#eaf5f5;}
+    .thanks-bottom .thanks-motto{margin:0 0 5px;font-size:.89rem;font-weight:700;letter-spacing:.02em;}
+    .thanks-bottom p{margin:0;}
+    .thanks-bottom a{color:#fff;text-underline-offset:3px;}
+    @media(max-width:940px){.thanks-grid{grid-template-columns:1fr;max-width:670px;margin:0 auto;}.thanks-hero{padding-top:52px;}}
+    @media(max-width:600px){.thanks-page .thanks-header .nav-wrap{min-height:70px;gap:12px;}.thanks-page .brand-logo{width:48px;height:48px;}.thanks-langs{gap:4px!important;}.thanks-langs a{padding:4px 8px!important;font-size:.79rem!important;}.thanks-hero p.thanks-subtitle{font-size:.95rem;}.thanks-card{padding:24px 21px;}.thanks-content{padding-bottom:46px;}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  </style>
+</head>
+<body class="thanks-page">
+  <a class="thanks-skip" href="#main">Aller au contenu · Skip to content · رفتن به متن</a>
+  <header class="thanks-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="/" aria-label="DIDAR — accueil / homepage">
+        <img class="brand-logo" src="/assets/logo.png" alt="DIDAR logo">
+        <strong>DIDAR</strong>
+      </a>
+      <nav class="thanks-langs" aria-label="Languages / Langues / زبان‌ها">
+        <a lang="fr" href="#merci">FR</a>
+        <a lang="en" href="#thank-you">EN</a>
+        <a lang="fa" dir="rtl" href="#sepās">فارسی</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="thanks-hero" aria-labelledby="thanks-title">
+      <div class="container">
+        <div class="thanks-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <path d="M24 39S7 29 7 18.5C7 12.6 11 9 16 9c3.5 0 6.3 1.8 8 4.6C25.7 10.8 28.5 9 32 9c5 0 9 3.6 9 9.5C41 29 24 39 24 39Z"/>
+            <path d="m18 24 4.2 4.2L31 19.5"/>
+          </svg>
+        </div>
+        <p class="thanks-eyebrow">Centre culturel et éducatif DIDAR · Montréal</p>
+        <h1 id="thanks-title"><span lang="fr">Merci&nbsp;!</span> <span aria-hidden="true">·</span> <span lang="en">Thank you!</span> <span aria-hidden="true">·</span> <span lang="fa" dir="rtl">سپاس!</span></h1>
+        <p class="thanks-subtitle" lang="fr">Votre soutien contribue à faire grandir les rencontres, la culture, l’apprentissage et l’entraide.</p>
+        <div class="thanks-accent" aria-hidden="true"></div>
+      </div>
+    </section>
+    <div class="container thanks-content">
+      <div class="thanks-grid">
+        <section class="thanks-card" id="merci" lang="fr" aria-labelledby="merci-heading">
+          <p class="thanks-label">FRANÇAIS</p>
+          <h2 id="merci-heading">Merci de soutenir DIDAR&nbsp;!</h2>
+          <p>Votre générosité nous aide à faire vivre des espaces de rencontre, de créativité, d’apprentissage et d’entraide à Montréal. Chaque contribution soutient nos efforts pour rendre la culture et l’éducation plus accessibles et créer des liens entre les communautés.</p>
+          <p class="thanks-closer">Merci de faire partie de cette aventure collective.</p>
+          <div class="thanks-actions"><a class="thanks-button" href="/">Retour à DIDAR</a></div>
+        </section>
+        <section class="thanks-card" id="thank-you" lang="en" aria-labelledby="thank-you-heading">
+          <p class="thanks-label">ENGLISH</p>
+          <h2 id="thank-you-heading">Thank you for supporting DIDAR!</h2>
+          <p>Your generosity helps us create spaces for connection, creativity, learning, and mutual support in Montréal. Every contribution supports our efforts to make culture and education more accessible and build connections across communities.</p>
+          <p class="thanks-closer">We are grateful to have you with us.</p>
+          <div class="thanks-actions"><a class="thanks-button" href="/en/">Back to DIDAR</a></div>
+        </section>
+        <section class="thanks-card" id="sepās" lang="fa" dir="rtl" aria-labelledby="fa-thanks-heading">
+          <p class="thanks-label">فارسی</p>
+          <h2 id="fa-thanks-heading">از حمایت شما سپاسگزاریم!</h2>
+          <p>همراهی و سخاوت شما به دیدار کمک می‌کند تا در مونترآل فضایی برای دیدار، خلاقیت، یادگیری و همیاری فراهم کند. هر کمک، پشتیبان تلاش ما برای دسترسی بیشتر به فرهنگ و آموزش و ایجاد پیوندهای معنادار میان جوامع مختلف است.</p>
+          <p class="thanks-closer">سپاس که در این مسیر کنار ما هستید.</p>
+          <div class="thanks-actions"><a class="thanks-button" href="/fa/">بازگشت به دیدار</a></div>
+        </section>
+      </div>
+      <aside class="thanks-footnote" aria-label="Contact DIDAR">
+        <p lang="fr">Une question&nbsp;? <a href="mailto:contact@didar-mtl.ca">Écrivez-nous</a>.</p>
+        <p lang="en">Have a question? <a href="mailto:contact@didar-mtl.ca">Contact us</a>.</p>
+        <p lang="fa" dir="rtl">پرسشی دارید؟ <a href="mailto:contact@didar-mtl.ca">با ما تماس بگیرید</a>.</p>
+      </aside>
+    </div>
+  </main>
+  <footer class="thanks-bottom">
+    <p class="thanks-motto">Learn · Share · Support · Pass It Forward</p>
+    <p><a href="https://didar-mtl.ca/">didar-mtl.ca</a></p>
+  </footer>
+</body>
+</html>
