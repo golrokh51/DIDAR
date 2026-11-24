@@ -95,6 +95,8 @@
       }
     }
     if (relative.startsWith('en/committees/')) return 'committees';
+    // This special page has all three languages in a single HTML document.
+    if (relative === 'en/thanks' || relative === 'thanks') return 'thanks';
     return null;
   }
   function routeFor(key, lng, cfg) {
@@ -111,6 +113,27 @@
   function renderNavigation(cfg) {
     const header = document.querySelector('header.site-header');
     if (!header) return;
+
+    // Single shared header markup for every page that has an empty
+    // <header class="site-header" id="didar-site-header"></header>.
+    if (!header.querySelector('.nav-wrap')) {
+      header.innerHTML = `
+        <div class="container nav-wrap">
+          <a class="brand" href="/">
+            <img class="brand-logo" alt="DIDAR logo">
+            <strong>DIDAR</strong>
+          </a>
+          <div class="nav-area">
+            <nav class="languages" aria-label="Choose language"></nav>
+            <nav class="main-nav" aria-label="Main navigation"></nav>
+            <details class="mobile-navigation">
+              <summary>☰ Menu</summary>
+              <nav aria-label="Mobile navigation"></nav>
+            </details>
+          </div>
+        </div>`;
+    }
+
     const key = pageFor(currentPath(), cfg);
     const brand = header.querySelector('.brand');
     if (brand) {
@@ -131,11 +154,29 @@
       languageBar.setAttribute('aria-label', cfg.languages?.[lang]?.switch_label || 'Languages');
       const buttons = [];
       for (const lng of ['fr','en','fa']) {
-        const target = lng === lang ? null : routeFor(key, lng, cfg);
-        const a = el('a', '', cfg.languages?.[lng]?.label || lng.toUpperCase());
-        a.href = lng === lang ? window.location.href : siteURL(target);
-        if (lng === lang) a.setAttribute('aria-current','page');
-        buttons.push(a);
+        const label = cfg.languages?.[lng]?.label || lng.toUpperCase();
+        // Support and Thanks each contain all three languages in one document.
+        const sharedAnchors = key === 'thanks'
+          ? {fr:'#merci',en:'#thank-you',fa:'#sepās'}
+          : key === 'support'
+            ? {fr:'#fr-support',en:'#en-support',fa:'#fa-support'}
+            : null;
+        const route = cfg.pages?.[key]?.[lng];
+        if (sharedAnchors || lng === lang || (typeof route === 'string')) {
+          const a = el('a','',label);
+          a.href = sharedAnchors ? sharedAnchors[lng]
+            : lng === lang ? window.location.href : siteURL(route);
+          if (lng === lang && !sharedAnchors) a.setAttribute('aria-current','page');
+          a.lang = lng;
+          buttons.push(a);
+        } else {
+          const unavailable = el('span','language-unavailable',label);
+          unavailable.title = lang === 'fr' ? 'Traduction non disponible pour cette page'
+            : lang === 'fa' ? 'ترجمهٔ این صفحه در دسترس نیست'
+            : 'Translation not available for this page';
+          unavailable.setAttribute('aria-label', unavailable.title);
+          buttons.push(unavailable);
+        }
       }
       languageBar.replaceChildren(...buttons);
     }
@@ -178,10 +219,17 @@
         mobile.replaceChildren(...nodes);
       }
     }
+    header.addEventListener('keydown', event => {
+      if (event.key === 'Escape') header.querySelectorAll('details[open]').forEach(d => {d.open = false;});
+    });
+    document.addEventListener('click', event => {
+      if (!header.contains(event.target)) header.querySelectorAll('details[open]').forEach(d => {d.open = false;});
+    });
   }
   // Every page carries only <footer id="didar-site-footer"><span id="year" hidden></span></footer>.
   // The entire visible footer is generated here from one JSON file and one public CSV.
   function renderFooter(cfg) {
+    if (document.body.classList.contains('thanks-page')) return null;
     const footer=document.getElementById('didar-site-footer') || document.querySelector('footer');
     if (!footer) return null;
     const org=cfg.organization || {};
@@ -252,6 +300,7 @@
   // Always give the footer meaningful visible content before network requests.
   // A missing config or temporary CSV error must never leave the footer blank.
   function showFallbackFooter() {
+    if (document.body.classList.contains('thanks-page')) return;
     const footer = document.getElementById('didar-site-footer') || document.querySelector('footer');
     if (!footer) return;
     const languageText = {

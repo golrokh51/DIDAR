@@ -1408,3 +1408,11 @@ html[lang="fr"] .acronym {
   outline: 3px solid var(--orange);
   outline-offset: 3px;
 }
+
+/* Language without an available translation */
+.site-header .language-unavailable {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: none;
+  pointer-events: none;
+}
