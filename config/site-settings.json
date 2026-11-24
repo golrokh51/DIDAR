@@ -44,6 +44,10 @@
         "page": "activities"
       },
       {
+        "label": "Services",
+        "page": "services"
+      },
+      {
         "label": "Events",
         "page": "events"
       },
@@ -107,6 +111,10 @@
         "page": "activities"
       },
       {
+        "label": "Services",
+        "page": "services"
+      },
+      {
         "label": "Événements",
         "page": "events"
       },
@@ -124,10 +132,6 @@
           {
             "label": "Témoignages",
             "page": "voices"
-          },
-          {
-            "label": "Services",
-            "page": "services"
           },
           {
             "label": "À Montréal",
@@ -160,6 +164,10 @@
       {
         "label": "فعالیت‌ها",
         "page": "activities"
+      },
+      {
+        "label": "خدمات و آموزش‌ها",
+        "page": "services"
       },
       {
         "label": "رویدادها",
@@ -223,8 +231,19 @@
       "fa": "fa/events/"
     },
     "services": {
-      "fr": "services/"
-    }
+      "en": "services/",
+      "fr": "services/",
+      "fa": "services/"
+    },
+    "services_workshops": {
+      "fr": "services/workshops/"
+    },
+    "services_community": {
+      "fr": "services/community/"
+    },
+    "services_digital_support": {
+      "fr": "services/digital-support/"
+    },
     "cityguide": {
       "en": "en/city-guide/",
       "fr": "city-guide/",
