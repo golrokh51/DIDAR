@@ -29,3 +29,12 @@
 html[lang="fa"] .creator-page .creator-category{letter-spacing:0;text-transform:none}
 @media(max-width:990px){.creator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:660px){.creator-grid{grid-template-columns:1fr}.creator-intro-art{min-height:190px}.creator-intro-mark{font-size:6rem}}
+
+/* Creator galleries: show photo thumbnails directly within each profile card. */
+.creator-gallery-section{margin-top:1.2rem;border-top:1px solid var(--line,#dfe5e3);padding-top:1rem}
+.creator-gallery-heading{font-size:.89rem;line-height:1.45;font-weight:780;color:var(--teal-dark,#03384b);margin:0 0 .65rem}
+.creator-card .didar-creator-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem}
+.creator-card .didar-creator-gallery__image{aspect-ratio:1/1;border-radius:8px}
+.creator-card .didar-creator-gallery__button{min-width:0}
+.creator-card .didar-creator-dialog{max-width:min(96vw,1100px)}
+@media(max-width:480px){.creator-card .didar-creator-gallery{gap:.45rem}}

@@ -139,7 +139,9 @@ export async function renderCreatorGallery(container, creatorId) {
   const count = document.createElement('div');
   count.className = 'didar-creator-dialog__count';
   dialog.append(close, inner, count);
-  document.body.appendChild(dialog);
+  // Keep the dialog owned by its gallery. Removing a filtered card then
+  // also removes its dialog, rather than leaking dialogs into document.body.
+  container.appendChild(dialog);
 
   let activeIndex = 0;
   function show(index) {

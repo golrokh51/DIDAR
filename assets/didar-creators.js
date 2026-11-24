@@ -12,25 +12,28 @@
   const csv = window.DIDARPublicCSV;
   const texts = {
     fr: {
-      all:'Tous', visual_art:'Peinture et arts visuels', photography:'Photographie',
-      handmade:'Artisanat et création', creative_business:'Petites entreprises créatives',
-      other:'Autres créations', website:'Site web', instagram:'Instagram',
-      no_result:'Aucun profil dans cette catégorie',
-      load_error:'La galerie est momentanément indisponible. Réessayez plus tard.'
+      all: 'Tous', visual_art: 'Peinture et arts visuels', photography: 'Photographie',
+      handmade: 'Artisanat et création', creative_business: 'Petites entreprises créatives',
+      other: 'Autres créations', website: 'Site web', instagram: 'Instagram',
+      no_result: 'Aucun profil dans cette catégorie',
+      load_error: 'La galerie est momentanément indisponible. Réessayez plus tard.',
+      photos: 'Photos'
     },
     en: {
-      all:'All', visual_art:'Painting & visual arts', photography:'Photography',
-      handmade:'Crafts & handmade', creative_business:'Creative small businesses',
-      other:'Other creative work', website:'Website', instagram:'Instagram',
-      no_result:'No profiles in this category yet',
-      load_error:'The gallery is temporarily unavailable. Please try again later.'
+      all: 'All', visual_art: 'Painting & visual arts', photography: 'Photography',
+      handmade: 'Crafts & handmade', creative_business: 'Creative small businesses',
+      other: 'Other creative work', website: 'Website', instagram: 'Instagram',
+      no_result: 'No profiles in this category yet',
+      load_error: 'The gallery is temporarily unavailable. Please try again later.',
+      photos: 'Photos'
     },
     fa: {
-      all:'همه', visual_art:'نقاشی و هنرهای تجسمی', photography:'عکاسی',
-      handmade:'صنایع‌دستی و آثار دست‌ساز', creative_business:'کسب‌وکارهای کوچک خلاق',
-      other:'دیگر هنرها', website:'وب‌سایت', instagram:'اینستاگرام',
-      no_result:'در این دسته هنوز پروفایلی نیست',
-      load_error:'گالری موقتاً در دسترس نیست. لطفاً بعداً دوباره تلاش کنید.'
+      all: 'همه', visual_art: 'نقاشی و هنرهای تجسمی', photography: 'عکاسی',
+      handmade: 'صنایع‌دستی و آثار دست‌ساز', creative_business: 'کسب‌وکارهای کوچک خلاق',
+      other: 'دیگر هنرها', website: 'وب‌سایت', instagram: 'اینستاگرام',
+      no_result: 'در این دسته هنوز پروفایلی نیست',
+      load_error: 'گالری موقتاً در دسترس نیست. لطفاً بعداً دوباره تلاش کنید.',
+      photos: 'تصاویر'
     }
   }[lang];
 
@@ -50,11 +53,11 @@
       return u.protocol === 'https:' && !u.username && !u.password ? u.href : null;
     } catch { return null; }
   };
-  const validImage = value => {
-    if (typeof value !== 'string') return null;
-    // Allow only local image files in the creators folder.
-    if (!/^assets\/creators\/[a-zA-Z0-9_-]+\.(png|jpe?g|webp)$/i.test(value)) return null;
-    return '/' + value;
+  // The creator ID alone determines image locations. The CSV image column
+  // is intentionally NOT used for either the cover or the gallery.
+  const validCreatorId = value => {
+    const id = String(value || '').trim();
+    return /^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$/.test(id) ? id : null;
   };
   const empty = (title, description) => {
     const div = node('div', 'creator-empty');
@@ -66,16 +69,28 @@
   function makeCard(profile) {
     const art = node('article', 'creator-card');
     const visual = node('div', 'creator-image', '✦');
-    const imageSrc = validImage(profile.image);
-    if (imageSrc) {
-      const img = document.createElement('img');
-      img.src = imageSrc;
-      img.alt = localized(profile.image_alt) || profile.name;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.onerror = () => img.remove();
-      visual.append(img);
+    const id = validCreatorId(profile.id);
+    let cover = null;
+    let galleryFallback = null;
+
+    if (id) {
+      // By convention, -0 is the profile cover; -1, -2, ... are gallery photos.
+      cover = document.createElement('img');
+      cover.src = `/assets/creators/${encodeURIComponent(id)}/${encodeURIComponent(id)}-0.jpeg`;
+      cover.alt = localized(profile.image_alt) || profile.name;
+      cover.loading = 'lazy';
+      cover.decoding = 'async';
+      cover.addEventListener('error', () => {
+        // If there is no -0 cover, use the first successfully discovered gallery photo.
+        if (galleryFallback && cover.src !== new URL(galleryFallback, location.href).href) {
+          cover.src = galleryFallback;
+        } else {
+          cover.remove();
+        }
+      });
+      visual.append(cover);
     }
+
     const body = node('div', 'creator-card-content');
     body.append(node('p', 'creator-category', texts[profile.category] || texts.other),
       node('h3', '', profile.name));
@@ -92,6 +107,35 @@
       links.append(a);
     }
     if (links.childElementCount) body.append(links);
+
+    // Reserve space for discovered photos without putting their paths in the CSV.
+    // The module is imported here in the shared JS: no changes to any index.html.
+    if (id) {
+      const section = node('section', 'creator-gallery-section');
+      const title = node('h4', 'creator-gallery-heading', texts.photos);
+      const gallery = node('div', 'creator-gallery-container');
+      section.append(title, gallery);
+      body.append(section);
+      import('/assets/didar-creator-gallery.js')
+        .then(({ renderCreatorGallery }) => renderCreatorGallery(gallery, id))
+        .then(photos => {
+          if (!gallery.isConnected) return;
+          if (!photos.length) {
+            section.remove();
+            return;
+          }
+          title.textContent = `${texts.photos} (${photos.length})`;
+          galleryFallback = photos[0];
+          if (cover && !cover.isConnected) {
+            cover.src = galleryFallback;
+            visual.append(cover);
+          }
+        })
+        .catch(error => {
+          section.remove();
+          console.warn('DIDAR creator gallery could not load for', id, error);
+        });
+    }
     art.append(visual, body);
     return art;
   }
@@ -138,7 +182,7 @@
     const category = String(row.category || '').trim().toLowerCase();
     const orderString = String(row.sort_order || '').trim();
     const order = /^\d+$/.test(orderString) ? Number(orderString) : 999999;
-    const field = (base) => ({fr: row[base + '_fr'] || '', en: row[base + '_en'] || '', fa: row[base + '_fa'] || ''});
+    const field = (base) => ({ fr: row[base + '_fr'] || '', en: row[base + '_en'] || '', fa: row[base + '_fa'] || '' });
     return {
       id: String(row.id || '').trim(),
       name,
@@ -156,7 +200,7 @@
     console.warn('DIDAR creators CSV parser not loaded. Include /assets/didar-public-csv.js first.');
     return;
   }
-  fetch('/data/supported-creators.csv', {cache: 'no-store'})
+  fetch('/data/supported-creators.csv', { cache: 'no-store' })
     .then(response => {
       if (!response.ok) throw Error('Creators CSV HTTP ' + response.status);
       return response.text();

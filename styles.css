@@ -1416,3 +1416,58 @@ html[lang="fr"] .acronym {
   text-decoration: none;
   pointer-events: none;
 }
+
+/* DIDAR Creators — Clean editorial gallery */
+
+/* Simple hero without abstract illustration */
+.creator-page .creator-hero {
+  background: #fbf7ee;
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0 2rem;
+}
+
+.creator-page .creator-hero-inner {
+  width: 100%;
+  max-width: 850px;
+  margin-inline: auto;
+}
+
+.creator-page .creator-hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.7rem);
+  line-height: 1.12;
+  color: #03384b;
+  margin-bottom: 1.25rem;
+}
+
+.creator-page .creator-hero .lead {
+  max-width: 740px;
+  line-height: 1.75;
+  color: #36555a;
+}
+
+.creator-page .creator-hero .svc-actions {
+  margin-top: 1.8rem;
+}
+
+/* Bring real artwork cards closer to the hero */
+.creator-page #profiles {
+  padding-top: 1.75rem;
+}
+
+/* Artwork-first card images */
+.creator-page .creator-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+@media (max-width: 700px) {
+  .creator-page .creator-hero {
+    padding: 2.5rem 0 1.5rem;
+  }
+
+  .creator-page #profiles {
+    padding-top: 1.25rem;
+  }
+}
