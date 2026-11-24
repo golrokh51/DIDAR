@@ -236,13 +236,24 @@
       "fa": "services/"
     },
     "services_workshops": {
-      "fr": "services/workshops/"
+      "fr": "services/workshops/",
+      "en": "en/services/workshops/",
+      "fa": "fa/services/workshops/"
     },
     "services_community": {
-      "fr": "services/community/"
+      "fr": "services/community/",
+      "en": "en/services/community/",
+      "fa": "fa/services/community/"
     },
     "services_digital_support": {
-      "fr": "services/digital-support/"
+      "fr": "services/digital-support/",
+      "en": "en/services/digital-support/",
+      "fa": "fa/services/digital-support/"
+    },
+    "services_creative_support": {
+      "fr": "services/creative-support/",
+      "en": "en/services/creative-support/",
+      "fa": "fa/services/creative-support/"
     },
     "cityguide": {
       "en": "en/city-guide/",
