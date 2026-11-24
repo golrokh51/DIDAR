@@ -112,3 +112,11 @@ html[lang="fa"] .svc-card-mark{transform:scaleX(-1)}
 .svc-private-cta{display:inline-block;margin-top:.85rem;font-size:.91rem;font-weight:800;color:var(--teal-dark);text-decoration:underline;text-underline-offset:.2em}
 .svc-highlight-link{margin:1rem 0 0;font-weight:800}
 .svc-highlight-link a{color:var(--teal-dark);text-decoration:underline;text-underline-offset:.2em}
+
+/* Emerging artists / creative support, aligned with shared DIDAR visual language */
+.creative-wide-card{display:flex;align-items:center;gap:1.2rem;padding:1.75rem 2rem;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 4px 16px rgba(3,56,75,.035)}
+.creative-wide-card p{margin:0;line-height:1.8;color:var(--text);max-width:80ch}
+.creative-wide-icon{display:grid;place-items:center;flex:0 0 72px;width:72px;height:72px;border-radius:20px;background:var(--orange-soft);color:var(--orange-dark);font-size:2.6rem}
+.creative-bridge{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.creative-bridge p{max-width:65ch;line-height:1.7;color:var(--text)}
+@media(max-width:660px){.creative-bridge,.creative-wide-card{flex-direction:column;align-items:flex-start}.creative-wide-icon{flex:0 0 auto}}

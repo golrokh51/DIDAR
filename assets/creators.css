@@ -1,0 +1,31 @@
+/* DIDAR supported creators directory. Uses existing site palette and typography. */
+.creator-page{min-height:50vh}
+.creator-hero .svc-hero-grid{align-items:center}
+.creator-intro-art{position:relative;isolation:isolate;min-height:290px;border-radius:29px;overflow:hidden;border:1px solid #d5deda;background:linear-gradient(140deg,#fff5e4 10%,#eaf3f1 90%);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center}
+.creator-intro-mark{z-index:2;position:relative;font-family:Georgia,serif;font-size:9rem;line-height:1;color:var(--orange-dark);opacity:.92}
+.creator-intro-caption{z-index:2;position:absolute;bottom:1.4rem;inset-inline-start:1.5rem;font-size:.71rem;letter-spacing:.15em;font-weight:800;line-height:1.5;color:var(--teal-dark)}
+.creator-brush{position:absolute;z-index:1;border-radius:30px;transform:rotate(-31deg);opacity:.68}
+.creator-brush-one{width:110%;height:52px;top:45%;background:var(--teal);left:-20%}
+.creator-brush-two{width:95%;height:32px;top:57%;background:var(--orange);left:28%;transform:rotate(24deg)}
+.creator-filters{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.3rem 0 1.9rem}
+.creator-filter{padding:.55rem 1rem;background:var(--cream-light);border:1px solid #d7e1de;color:var(--teal-dark);font:inherit;font-size:.9rem;font-weight:750;cursor:pointer;border-radius:999px}
+.creator-filter:hover,.creator-filter:focus-visible{border-color:var(--teal);background:var(--teal-soft)}
+.creator-filter[aria-pressed="true"]{background:var(--teal-dark);color:#fff;border-color:var(--teal-dark)}
+.creator-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;min-height:150px}
+.creator-card{min-width:0;border-radius:21px;background:#fff;border:1px solid var(--line);overflow:hidden;box-shadow:0 4px 15px rgba(3,56,75,.035)}
+.creator-image{display:grid;place-items:center;aspect-ratio:1.45;background:linear-gradient(125deg,var(--teal-soft),var(--orange-soft));position:relative;color:var(--teal);font:700 4rem Georgia,serif}
+.creator-image img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.creator-card-content{padding:1.2rem 1.4rem 1.45rem}
+.creator-card h3{font-size:1.22rem;margin:.2rem 0 .55rem}
+.creator-card p{font-size:.95rem;line-height:1.65;color:var(--text)}
+.creator-card .creator-category{font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);font-weight:800;margin:0}
+.creator-links{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.1rem}
+.creator-links a{display:inline-flex;align-items:center;gap:.3rem;font-size:.9rem;font-weight:780;color:var(--teal);text-decoration:underline;text-underline-offset:.17em}
+.creator-empty{grid-column:1/-1;border:1px dashed #b6cecb;background:linear-gradient(120deg,#f8faf9,#fff7ed);border-radius:22px;min-height:180px;padding:2.2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.creator-empty .creator-empty-icon{font-size:2.2rem;color:var(--orange-dark);margin-bottom:.5rem}
+.creator-empty h3{margin:0 0 .6rem;font-size:1.35rem}
+.creator-empty p{margin:0;line-height:1.7;max-width:55ch;color:var(--text)}
+.creator-disclaimer{margin:1.5rem 0 0;padding:.85rem 1.15rem;border-inline-start:3px solid var(--orange);background:var(--cream-light);color:var(--text);font-size:.88rem;line-height:1.7}
+html[lang="fa"] .creator-page .creator-category{letter-spacing:0;text-transform:none}
+@media(max-width:990px){.creator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:660px){.creator-grid{grid-template-columns:1fr}.creator-intro-art{min-height:190px}.creator-intro-mark{font-size:6rem}}

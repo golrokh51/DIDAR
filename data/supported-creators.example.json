@@ -1,0 +1,27 @@
+[
+  {
+    "id": "artist-name-replace-me",
+    "published": false,
+    "consent_confirmed": false,
+    "name": "REPLACE WITH ARTIST NAME",
+    "category": "photography",
+    "city": {
+      "en": "Montréal",
+      "fr": "Montréal",
+      "fa": "مونترآل"
+    },
+    "bio": {
+      "en": "Short introduction approved by the artist.",
+      "fr": "Courte présentation approuvée par l’artiste.",
+      "fa": "معرفی کوتاهی که هنرمند تأیید کرده است."
+    },
+    "instagram": "https://www.instagram.com/REPLACE_ME/",
+    "website": "",
+    "image": "",
+    "image_alt": {
+      "en": "",
+      "fr": "",
+      "fa": ""
+    }
+  }
+]
