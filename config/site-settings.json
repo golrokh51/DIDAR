@@ -126,6 +126,10 @@
             "page": "voices"
           },
           {
+            "label": "Services",
+            "page": "services"
+          },
+          {
             "label": "À Montréal",
             "page": "cityguide"
           }
@@ -218,6 +222,9 @@
       "fr": "events/",
       "fa": "fa/events/"
     },
+    "services": {
+      "fr": "services/"
+    }
     "cityguide": {
       "en": "en/city-guide/",
       "fr": "city-guide/",
