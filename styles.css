@@ -1408,37 +1408,3 @@ html[lang="fr"] .acronym {
   outline: 3px solid var(--orange);
   outline-offset: 3px;
 }
-
-/* DIDAR: unified shared dropdown layout in all three languages. */
-.site-header .main-nav .nav-dropdown{position:relative;}
-.site-header .main-nav .nav-dropdown>summary{
-  display:inline-flex;align-items:center;gap:5px;list-style:none;cursor:pointer;
-  font-weight:650;font-size:.84rem;color:var(--ink);white-space:nowrap;
-}
-.site-header .main-nav .nav-dropdown>summary::-webkit-details-marker{display:none;}
-.site-header .main-nav .nav-dropdown>summary:hover{color:var(--orange-dark);}
-.site-header .main-nav .nav-dropdown-menu a{display:block;text-decoration:none;
-  padding:10px 12px;border-radius:8px;font-weight:650;font-size:.88rem;color:var(--ink);}
-.site-header .main-nav .nav-dropdown-menu a:hover{background:var(--teal-soft);}
-.site-header .mobile-nav-heading{display:block;padding:11px 14px 4px;
-  font-size:.76rem;font-weight:800;color:var(--muted);}
-.site-header a:focus-visible,.site-header summary:focus-visible{
-  outline:3px solid var(--orange);outline-offset:3px;
-}
-html[lang="fa"] .site-header .main-nav,html[lang="fa"] .site-header .mobile-navigation nav{
-  direction:rtl;text-align:right;
-}
-
-/* Ensure the Persian mobile menu works on EVERY Persian subpage, including
-   pages that do not import persian-enhancements.css. */
-@media(max-width:1100px){
- html[lang="fa"] .site-header nav.main-nav{display:none!important;}
- html[lang="fa"] .site-header details.mobile-navigation{display:block!important;position:relative;}
- html[lang="fa"] .site-header .nav-area{flex-direction:row;align-items:center;direction:ltr;}
- html[lang="fa"] .site-header details.mobile-navigation[open]>nav{
-  position:absolute;display:grid;top:calc(100% + 8px);right:0;left:auto;
-  min-width:225px;max-width:min(90vw,340px);max-height:65vh;overflow-y:auto;z-index:120;
-  padding:10px;border:1px solid #dce5e4;border-radius:12px;background:#fff;
-  box-shadow:0 12px 30px rgba(3,56,75,.16);
- }
-}
