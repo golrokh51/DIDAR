@@ -256,6 +256,11 @@
       "fr": "support/",
       "en": "support/",
       "fa": "support/"
+    },
+    "thanks": {
+      "en": "en/thanks/",
+      "fr": "en/thanks/",
+      "fa": "en/thanks/"
     }
   },
   "languages": {

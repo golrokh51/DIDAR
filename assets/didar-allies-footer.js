@@ -131,11 +131,29 @@
       languageBar.setAttribute('aria-label', cfg.languages?.[lang]?.switch_label || 'Languages');
       const buttons = [];
       for (const lng of ['fr','en','fa']) {
-        const target = lng === lang ? null : routeFor(key, lng, cfg);
-        const a = el('a', '', cfg.languages?.[lng]?.label || lng.toUpperCase());
-        a.href = lng === lang ? window.location.href : siteURL(target);
-        if (lng === lang) a.setAttribute('aria-current','page');
-        buttons.push(a);
+        const label = cfg.languages?.[lng]?.label || lng.toUpperCase();
+        // Support and Thanks each contain all three languages in one document.
+        const sharedAnchors = key === 'thanks'
+          ? {fr:'#merci',en:'#thank-you',fa:'#sepās'}
+          : key === 'support'
+            ? {fr:'#fr-support',en:'#en-support',fa:'#fa-support'}
+            : null;
+        const route = cfg.pages?.[key]?.[lng];
+        if (sharedAnchors || lng === lang || (typeof route === 'string')) {
+          const a = el('a','',label);
+          a.href = sharedAnchors ? sharedAnchors[lng]
+            : lng === lang ? window.location.href : siteURL(route);
+          if (lng === lang && !sharedAnchors) a.setAttribute('aria-current','page');
+          a.lang = lng;
+          buttons.push(a);
+        } else {
+          const unavailable = el('span','language-unavailable',label);
+          unavailable.title = lang === 'fr' ? 'Traduction non disponible pour cette page'
+            : lang === 'fa' ? 'ترجمهٔ این صفحه در دسترس نیست'
+            : 'Translation not available for this page';
+          unavailable.setAttribute('aria-label', unavailable.title);
+          buttons.push(unavailable);
+        }
       }
       languageBar.replaceChildren(...buttons);
     }
@@ -178,10 +196,17 @@
         mobile.replaceChildren(...nodes);
       }
     }
+    header.addEventListener('keydown', event => {
+      if (event.key === 'Escape') header.querySelectorAll('details[open]').forEach(d => {d.open = false;});
+    });
+    document.addEventListener('click', event => {
+      if (!header.contains(event.target)) header.querySelectorAll('details[open]').forEach(d => {d.open = false;});
+    });
   }
   // Every page carries only <footer id="didar-site-footer"><span id="year" hidden></span></footer>.
   // The entire visible footer is generated here from one JSON file and one public CSV.
   function renderFooter(cfg) {
+    if (document.body.classList.contains('thanks-page')) return null;
     const footer=document.getElementById('didar-site-footer') || document.querySelector('footer');
     if (!footer) return null;
     const org=cfg.organization || {};
@@ -252,6 +277,7 @@
   // Always give the footer meaningful visible content before network requests.
   // A missing config or temporary CSV error must never leave the footer blank.
   function showFallbackFooter() {
+    if (document.body.classList.contains('thanks-page')) return;
     const footer = document.getElementById('didar-site-footer') || document.querySelector('footer');
     if (!footer) return;
     const languageText = {
