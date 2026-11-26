@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ressources pour les nouveaux arrivants et étudiant·es | DIDAR</title>
+<meta name="description" content="Répertoire communautaire DIDAR à Montréal : ressources pour les nouveaux arrivants et les étudiants internationaux. Filtres par université, type de service et admissibilité.">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<link rel="canonical" href="https://didar-mtl.ca/resources/">
+<link rel="alternate" hreflang="fr" href="https://didar-mtl.ca/resources/">
+<link rel="alternate" hreflang="en" href="https://didar-mtl.ca/en/resources/">
+<link rel="alternate" hreflang="fa" href="https://didar-mtl.ca/fa/resources/">
+<link rel="alternate" hreflang="x-default" href="https://didar-mtl.ca/resources/">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/assets/localized-experience.css">
+<link rel="stylesheet" href="/assets/resource-directory.css?v=1">
+<link rel="stylesheet" href="/assets/didar-allies-footer.css">
+<script defer src="/assets/didar-public-csv.js"></script>
+<script defer src="/assets/didar-allies-footer.js"></script>
+<script defer src="/assets/resource-directory.js?v=1"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu principal</a>
+<header class="site-header" id="didar-site-header"></header>
+<main class="rd-page" id="main">
+<div class="container rd-breadcrumb"><a href="/">Accueil</a> / Trouver du soutien à Montréal</div>
+<section class="rd-hero"><div class="container">
+<p class="rd-eyebrow">DIDAR · GUIDE DE RESSOURCES</p>
+<h1>Trouver du soutien à Montréal</h1>
+<p class="rd-intro">Explorez des organismes communautaires et des services universitaires. Choisissez votre situation, puis filtrez par besoin, université ou mot-clé.</p>
+</div></section>
+<section class="container" id="resource-directory" aria-labelledby="directory-title">
+<div class="rd-directory">
+<h2 id="directory-title" style="font-size:1.12rem;margin:0 0 1rem;">Ressources disponibles</h2>
+<div class="rd-audiences" role="group" aria-label="Public visé">
+<button type="button" class="rd-audience" data-resource-audience="newcomers" aria-pressed="true">Nouveaux arrivants</button>
+<button type="button" class="rd-audience" data-resource-audience="students" aria-pressed="false">Étudiant·es internationaux·ales</button>
+</div>
+<div class="rd-filters">
+<div class="rd-field rd-field-search"><label for="rd-search">Rechercher par nom, service ou mot-clé</label><input id="rd-search" type="search" autocomplete="off"></div>
+<div class="rd-field" id="rd-category-wrap"><label for="rd-category">Type de service</label><select id="rd-category"><option value="">Toutes les catégories</option></select></div>
+<div class="rd-field" id="rd-university-wrap" hidden><label for="rd-university">Université</label><select id="rd-university"><option value="">Toutes les universités</option></select></div>
+<div class="rd-field" id="rd-claimant-wrap"><label for="rd-claimant">Admissibilité des demandeurs d’asile</label><select id="rd-claimant"><option value="">Toutes les situations</option><option value="yes">Indiqué comme accessible</option><option value="conditional">Sous conditions</option><option value="unknown">À confirmer</option></select></div>
+</div>
+<p id="rd-notice" class="rd-warning" role="note">Admissibilité variable selon la situation et le programme. Contactez l’organisme pour confirmation.</p>
+<div class="rd-toolbar"><span id="rd-count" class="rd-count" aria-live="polite">…</span><button class="rd-reset" id="rd-reset" type="button">Réinitialiser</button></div>
+<div id="rd-results" class="rd-grid" aria-live="polite"></div>
+</div>
+<p class="rd-endnote">DIDAR rassemble des informations publiques et ne fournit pas de conseils juridiques, médicaux ou réglementés. Pour une urgence, composez le 911.</p>
+</section>
+</main>
+<footer id="didar-site-footer"><span id="year" hidden></span></footer>
+</body></html>

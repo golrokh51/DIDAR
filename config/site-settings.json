@@ -71,6 +71,10 @@
             "page": "voices"
           },
           {
+            "label": "Artists & Creative Initiatives",
+            "page": "creators"
+          },
+          {
             "label": "Around Montréal",
             "page": "cityguide"
           },
@@ -81,6 +85,10 @@
           {
             "label": "Community Moments",
             "page": "moments"
+          },
+          {
+            "label": "Resources for newcomers & students",
+            "page": "resources"
           }
         ]
       },
@@ -134,8 +142,16 @@
             "page": "voices"
           },
           {
+            "label": "Artistes et initiatives créatives",
+            "page": "creators"
+          },
+          {
             "label": "À Montréal",
             "page": "cityguide"
+          },
+          {
+            "label": "Ressources pour nouveaux arrivants et étudiants",
+            "page": "resources"
           }
         ]
       },
@@ -189,8 +205,16 @@
             "page": "voices"
           },
           {
+            "label": "هنرمندان و ابتکارهای خلاق",
+            "page": "creators"
+          },
+          {
             "label": "در مونترآل",
             "page": "cityguide"
+          },
+          {
+            "label": "منابع تازه‌واردان و دانشجویان",
+            "page": "resources"
           }
         ]
       },
@@ -231,9 +255,9 @@
       "fa": "fa/events/"
     },
     "services": {
-      "en": "services/",
       "fr": "services/",
-      "fa": "services/"
+      "en": "en/services/",
+      "fa": "fa/services/"
     },
     "services_workshops": {
       "fr": "services/workshops/",
@@ -249,11 +273,6 @@
       "fr": "services/digital-support/",
       "en": "en/services/digital-support/",
       "fa": "fa/services/digital-support/"
-    },
-    "services_creative_support": {
-      "fr": "services/creative-support/",
-      "en": "en/services/creative-support/",
-      "fa": "fa/services/creative-support/"
     },
     "cityguide": {
       "en": "en/city-guide/",
@@ -298,6 +317,31 @@
       "en": "en/thanks/",
       "fr": "en/thanks/",
       "fa": "en/thanks/"
+    },
+    "services_courses": {
+      "fr": "services/courses/",
+      "en": "en/services/courses/",
+      "fa": "fa/services/courses/"
+    },
+    "services_nonprofit_digital": {
+      "fr": "services/nonprofit-digital/",
+      "en": "en/services/nonprofit-digital/",
+      "fa": "fa/services/nonprofit-digital/"
+    },
+    "services_creative_support": {
+      "fr": "services/creative-support/",
+      "en": "en/services/creative-support/",
+      "fa": "fa/services/creative-support/"
+    },
+    "creators": {
+      "fr": "creators/",
+      "en": "en/creators/",
+      "fa": "fa/creators/"
+    },
+    "resources": {
+      "fr": "resources/",
+      "en": "en/resources/",
+      "fa": "fa/resources/"
     }
   },
   "languages": {

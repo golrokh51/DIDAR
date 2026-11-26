@@ -1,0 +1,4 @@
+{
+  "public_csv_url": "",
+  "note": "If publishing a public Google Sheet CSV later, insert the public HTTPS CSV URL. Local CSV remains fallback."
+}
