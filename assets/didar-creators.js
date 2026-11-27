@@ -13,24 +13,24 @@
   const texts = {
     fr: {
       all: 'Tous', visual_art: 'Peinture et arts visuels', photography: 'Photographie',
-      handmade: 'Artisanat et création', creative_business: 'Petites entreprises créatives',
-      other: 'Autres créations', website: 'Site web', instagram: 'Instagram',
+      handmade: 'Artisanat et créations faites à la main', textile: 'Arts textiles et mode', creative_business: 'Petites entreprises créatives',
+      other: 'Autres créations', website: 'Site web', instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube',
       no_result: 'Aucun profil dans cette catégorie',
       load_error: 'La galerie est momentanément indisponible. Réessayez plus tard.',
       photos: 'Photos'
     },
     en: {
       all: 'All', visual_art: 'Painting & visual arts', photography: 'Photography',
-      handmade: 'Crafts & handmade', creative_business: 'Creative small businesses',
-      other: 'Other creative work', website: 'Website', instagram: 'Instagram',
+      handmade: 'Handmade crafts & artisan creations', textile: 'Textile arts & fashion', creative_business: 'Creative small businesses',
+      other: 'Other creative work', website: 'Website', instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube',
       no_result: 'No profiles in this category yet',
       load_error: 'The gallery is temporarily unavailable. Please try again later.',
       photos: 'Photos'
     },
     fa: {
       all: 'همه', visual_art: 'نقاشی و هنرهای تجسمی', photography: 'عکاسی',
-      handmade: 'صنایع‌دستی و آثار دست‌ساز', creative_business: 'کسب‌وکارهای کوچک خلاق',
-      other: 'دیگر هنرها', website: 'وب‌سایت', instagram: 'اینستاگرام',
+      handmade: 'صنایع‌دستی و آثار دست‌ساز', textile: 'هنرهای نساجی و مد', creative_business: 'کسب‌وکارهای کوچک خلاق',
+      other: 'دیگر هنرها', website: 'وب‌سایت', instagram: 'اینستاگرام', facebook: 'فیس‌بوک', youtube: 'یوتیوب',
       no_result: 'در این دسته هنوز پروفایلی نیست',
       load_error: 'گالری موقتاً در دسترس نیست. لطفاً بعداً دوباره تلاش کنید.',
       photos: 'تصاویر'
@@ -53,8 +53,7 @@
       return u.protocol === 'https:' && !u.username && !u.password ? u.href : null;
     } catch { return null; }
   };
-  // The creator ID alone determines image locations. The CSV image column
-  // is intentionally NOT used for either the cover or the gallery.
+  // Restrict public image paths to the current creator’s resized local files.
   const validCreatorId = value => {
     const id = String(value || '').trim();
     return /^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$/.test(id) ? id : null;
@@ -72,32 +71,42 @@
     const id = validCreatorId(profile.id);
     let cover = null;
     let galleryFallback = null;
-
-    if (id) {
-      // By convention, -0 is the profile cover; -1, -2, ... are gallery photos.
-      cover = document.createElement('img');
-      cover.src = `/assets/creators/${encodeURIComponent(id)}/${encodeURIComponent(id)}-0.jpeg`;
-      cover.alt = localized(profile.image_alt) || profile.name;
-      cover.loading = 'lazy';
-      cover.decoding = 'async';
-      cover.addEventListener('error', () => {
-        // If there is no -0 cover, use the first successfully discovered gallery photo.
-        if (galleryFallback && cover.src !== new URL(galleryFallback, location.href).href) {
-          cover.src = galleryFallback;
-        } else {
-          cover.remove();
-        }
-      });
+    let coverFailed = false;
+    const showCover = (src, alt) => {
+      if (!src) return;
+      if (!cover) {
+        cover = document.createElement('img');
+        cover.loading = 'lazy';
+        cover.decoding = 'async';
+        cover.addEventListener('error', () => {
+          coverFailed = true;
+          if (galleryFallback && cover.getAttribute('src') !== galleryFallback) {
+            showCover(galleryFallback, localized(profile.image_alt) || profile.name);
+          } else {
+            cover.remove();
+          }
+        });
+      }
+      coverFailed = false;
+      cover.alt = alt;
+      cover.src = src;
       visual.append(cover);
+    };
+    if (id) {
+      const filename = profile.profile_image;
+      // Never use a Google Drive URL or an original/private image as a cover.
+      if (filename === `${id}-profile.jpg` || filename === `${id}-0.jpeg`) {
+        showCover(`/assets/creators/${encodeURIComponent(id)}/${encodeURIComponent(filename)}`, profile.name);
+      }
     }
 
     const body = node('div', 'creator-card-content');
     body.append(node('p', 'creator-category', texts[profile.category] || texts.other),
       node('h3', '', profile.name));
     if (localized(profile.city)) body.append(node('p', 'creator-location', localized(profile.city)));
-    if (localized(profile.bio)) body.append(node('p', 'creator-description', localized(profile.bio)));
+    if (localized(profile.bio)) body.append(node('p', 'creator-description', localized(profile.bio).replace(/<br\s*\/?\s*>/gi, '\n')));
     const links = node('div', 'creator-links');
-    for (const [key, label] of [['instagram', texts.instagram], ['website', texts.website]]) {
+    for (const [key, label] of [['instagram', texts.instagram], ['facebook', texts.facebook], ['youtube', texts.youtube], ['website', texts.website]]) {
       const url = validLink(profile[key]);
       if (!url) continue;
       const a = node('a', '', label + ' ↗');
@@ -108,16 +117,15 @@
     }
     if (links.childElementCount) body.append(links);
 
-    // Reserve space for discovered photos without putting their paths in the CSV.
-    // The module is imported here in the shared JS: no changes to any index.html.
-    if (id) {
+    // Use only gallery filenames explicitly listed in the public CSV, in CSV order.
+    if (id && profile.image) {
       const section = node('section', 'creator-gallery-section');
       const title = node('h4', 'creator-gallery-heading', texts.photos);
       const gallery = node('div', 'creator-gallery-container');
       section.append(title, gallery);
       body.append(section);
-      import('/assets/didar-creator-gallery.js')
-        .then(({ renderCreatorGallery }) => renderCreatorGallery(gallery, id))
+      import('/assets/didar-creator-gallery.js?v=20261127b')
+        .then(({ renderCreatorGallery }) => renderCreatorGallery(gallery, id, profile.image, { name: profile.name, alt: localized(profile.image_alt) }))
         .then(photos => {
           if (!gallery.isConnected) return;
           if (!photos.length) {
@@ -126,9 +134,8 @@
           }
           title.textContent = `${texts.photos} (${photos.length})`;
           galleryFallback = photos[0];
-          if (cover && !cover.isConnected) {
-            cover.src = galleryFallback;
-            visual.append(cover);
+          if (!cover || coverFailed || !cover.isConnected) {
+            showCover(galleryFallback, localized(profile.image_alt) || profile.name);
           }
         })
         .catch(error => {
@@ -174,23 +181,48 @@
   }
 
   const isYes = v => ['yes', 'true', '1', 'oui'].includes(String(v || '').trim().toLowerCase());
-  const categoryValues = new Set(['visual_art', 'photography', 'handmade', 'creative_business', 'other']);
+  const categoryValues = new Set(['visual_art', 'photography', 'handmade', 'textile', 'creative_business', 'other']);
+  const categoryAliases = new Map([
+    ['handmade crafts & artisan creations', 'handmade'],
+    ['artisanat et créations faites à la main', 'handmade'],
+    ['textile arts & fashion', 'textile'],
+    ['arts textiles et mode', 'textile'],
+    ['painting & visual arts', 'visual_art'],
+    ['peinture et arts visuels', 'visual_art'],
+    ['photographie', 'photography'],
+    ['crafts & handmade', 'handmade'],
+    ['artisanat et création', 'handmade'],
+    ['creative small businesses', 'creative_business'],
+    ['petites entreprises créatives', 'creative_business'],
+    ['other creative work', 'other'],
+    ['autres créations', 'other']
+  ]);
+  function normalizeCategory(value) {
+    const parts = String(value || '').normalize('NFC').toLowerCase().split('/').map(x => x.trim());
+    for (const part of parts) {
+      if (categoryValues.has(part)) return part;
+      if (categoryAliases.has(part)) return categoryAliases.get(part);
+    }
+    return 'other';
+  }
   const fromCSV = row => {
     if (!isYes(row.published) || !isYes(row.consent_confirmed)) return null;
     const name = String(row.name || '').trim();
     if (!name) return null;
-    const category = String(row.category || '').trim().toLowerCase();
+    const category = normalizeCategory(row.category);
     const orderString = String(row.sort_order || '').trim();
     const order = /^\d+$/.test(orderString) ? Number(orderString) : 999999;
     const field = (base) => ({ fr: row[base + '_fr'] || '', en: row[base + '_en'] || '', fa: row[base + '_fa'] || '' });
     return {
       id: String(row.id || '').trim(),
       name,
-      category: categoryValues.has(category) ? category : 'other',
+      category,
       city: field('city'),
       bio: field('bio'),
       image_alt: field('image_alt'),
-      instagram: row.instagram || '', website: row.website || '', image: row.image || '',
+      instagram: row.instagram || '', facebook: row.facebook || '', youtube: row.youtube || '',
+      website: row.website || '', image: String(row.image || '').trim(),
+      profile_image: String(row['profile-image'] || row.profile_image || '').trim(),
       sort_order: order
     };
   };

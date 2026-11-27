@@ -1,14 +1,5 @@
-/**
- * DIDAR creator galleries for static hosting (including GitHub Pages).
- * Images are discovered by probing <id>-1.jpeg, <id>-2.jpeg, ...
- * No image paths, count, or gallery column are required in creators CSV.
- * Use the exported functions from the EXISTING creator-rendering JavaScript.
- */
-
+/** DIDAR creator galleries. Public image filenames are supplied by the CSV. */
 const ROOT = '/assets/creators/';
-const EXTENSIONS = ['jpeg', 'jpg', 'png', 'webp', 'avif'];
-const MAX_IMAGE_NUMBER = 80;
-const STOP_AFTER_MISSING = 2;
 const imageCache = new Map();
 
 const localizedLabels = {
@@ -40,43 +31,24 @@ async function imageExists(url) {
   }
 }
 
-/**
- * Return creator image paths in descending numbered order (newest first).
- * Files should follow the pattern DCR-000001-1.jpeg, DCR-000001-2.jpeg, ...
- */
-export async function listCreatorImages(creatorId) {
+/** Return available public gallery images in the exact order given in the CSV. */
+export async function listCreatorImages(creatorId, imageField = '') {
   const id = safeCreatorId(creatorId);
-  if (imageCache.has(id)) return imageCache.get(id);
-
-  const loading = (async () => {
-    const urls = [];
-    let missing = 0;
-    for (let number = 1; number <= MAX_IMAGE_NUMBER && missing < STOP_AFTER_MISSING; number += 1) {
-      let matchedUrl = null;
-      for (const extension of EXTENSIONS) {
-        const url = `${ROOT}${encodeURIComponent(id)}/${encodeURIComponent(id)}-${number}.${extension}`;
-        if (await imageExists(url)) {
-          matchedUrl = url;
-          break;
-        }
-      }
-      if (matchedUrl) {
-        urls.push(matchedUrl);
-        missing = 0;
-      } else {
-        missing += 1;
-      }
-    }
-    return urls.reverse();
-  })();
-
-  imageCache.set(id, loading);
-  try {
-    return await loading;
-  } catch (error) {
-    imageCache.delete(id);
-    throw error;
+  const entries = String(imageField || '').split('|').map(value => value.trim()).filter(Boolean);
+  // Accept only matching creator IDs, resized gallery filenames, and legacy numbered photos.
+  // In particular, never expose -org files, profile files, external URLs or traversal paths.
+  const valid = entries.filter(name => {
+    if (!name.startsWith(`${id}-`)) return false;
+    const suffix = name.slice(id.length + 1);
+    return /^photo-0[1-8]\.jpg$/.test(suffix) || /^[1-9]\d*\.(jpeg|jpg|png|webp|avif)$/.test(suffix);
+  });
+  const urls = [...new Set(valid)].slice(0, 8).map(name => `${ROOT}${encodeURIComponent(id)}/${encodeURIComponent(name)}`);
+  const key = JSON.stringify([id, urls]);
+  if (!imageCache.has(key)) {
+    imageCache.set(key, Promise.all(urls.map(async url => await imageExists(url) ? url : null))
+      .then(results => results.filter(Boolean)));
   }
+  return imageCache.get(key);
 }
 
 function ensureStyles() {
@@ -101,12 +73,13 @@ function ensureStyles() {
 }
 
 /** Render a lightbox gallery inside a container element already created by the creator page. */
-export async function renderCreatorGallery(container, creatorId) {
+export async function renderCreatorGallery(container, creatorId, imageField, options = {}) {
   if (!(container instanceof HTMLElement)) throw new TypeError('Pass an HTML container element');
   const id = safeCreatorId(creatorId);
   const text = labels();
   container.textContent = text.loading;
-  const photos = await listCreatorImages(id);
+  const photos = await listCreatorImages(id, imageField);
+  const photoAlt = index => `${options.alt || options.name || id} — ${index + 1}`;
   container.replaceChildren();
   if (!photos.length) return photos;
 
@@ -147,7 +120,7 @@ export async function renderCreatorGallery(container, creatorId) {
   function show(index) {
     activeIndex = (index + photos.length) % photos.length;
     mainImage.src = photos[activeIndex];
-    mainImage.alt = `${id} — ${activeIndex + 1}/${photos.length}`;
+    mainImage.alt = photoAlt(activeIndex);
     count.textContent = `${activeIndex + 1} / ${photos.length}`;
   }
   previous.addEventListener('click', () => show(activeIndex - 1));
@@ -166,7 +139,7 @@ export async function renderCreatorGallery(container, creatorId) {
     button.setAttribute('aria-label', `${text.open} ${index + 1}`);
     const img = document.createElement('img');
     img.src = src;
-    img.alt = `${id} — ${index + 1}`;
+    img.alt = photoAlt(index);
     img.loading = 'lazy';
     img.className = 'didar-creator-gallery__image';
     button.appendChild(img);
@@ -179,6 +152,9 @@ export async function renderCreatorGallery(container, creatorId) {
 
 export function clearCreatorImageCache(creatorId) {
   if (creatorId === undefined) imageCache.clear();
-  else imageCache.delete(safeCreatorId(creatorId));
+  else {
+    const id = safeCreatorId(creatorId);
+    for (const key of imageCache.keys()) if (JSON.parse(key)[0] === id) imageCache.delete(key);
+  }
 }
 

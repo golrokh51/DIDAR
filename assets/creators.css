@@ -38,3 +38,6 @@ html[lang="fa"] .creator-page .creator-category{letter-spacing:0;text-transform:
 .creator-card .didar-creator-gallery__button{min-width:0}
 .creator-card .didar-creator-dialog{max-width:min(96vw,1100px)}
 @media(max-width:480px){.creator-card .didar-creator-gallery{gap:.45rem}}
+
+/* Keep line breaks from the multilingual CSV biographies. */
+.creator-description{white-space:pre-line;overflow-wrap:anywhere}
