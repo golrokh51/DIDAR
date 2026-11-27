@@ -50,3 +50,22 @@ html[lang="fa"] .creator-page .creator-category{letter-spacing:0;text-transform:
 
 /* Keep line breaks from the multilingual CSV biographies. */
 .creator-description{white-space:pre-line;overflow-wrap:anywhere}
+
+/* Profile photos and logos: display the entire image, never crop.
+   Scoped to the profile header; gallery thumbnails are unaffected. */
+.creator-page .creator-card > .creator-image {
+    overflow: hidden;
+    background: #fff;
+}
+.creator-page .creator-card > .creator-image > img {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: #fff;
+}
