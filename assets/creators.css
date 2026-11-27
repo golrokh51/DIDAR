@@ -14,7 +14,16 @@
 .creator-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;min-height:150px}
 .creator-card{min-width:0;border-radius:21px;background:#fff;border:1px solid var(--line);overflow:hidden;box-shadow:0 4px 15px rgba(3,56,75,.035)}
 .creator-image{display:grid;place-items:center;aspect-ratio:1.45;background:linear-gradient(125deg,var(--teal-soft),var(--orange-soft));position:relative;color:var(--teal);font:700 4rem Georgia,serif}
-.creator-image img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.creator-image img{
+    display:block;
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+    background:#fff;
+}
 .creator-card-content{padding:1.2rem 1.4rem 1.45rem}
 .creator-card h3{font-size:1.22rem;margin:.2rem 0 .55rem}
 .creator-card p{font-size:.95rem;line-height:1.65;color:var(--text)}
