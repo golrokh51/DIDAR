@@ -124,7 +124,7 @@
       const gallery = node('div', 'creator-gallery-container');
       section.append(title, gallery);
       body.append(section);
-      import('/assets/didar-creator-gallery.js?v=20261127b')
+      import('/assets/didar-creator-gallery.js?v=20261128-gallery')
         .then(({ renderCreatorGallery }) => renderCreatorGallery(gallery, id, profile.image, { name: profile.name, alt: localized(profile.image_alt) }))
         .then(photos => {
           if (!gallery.isConnected) return;

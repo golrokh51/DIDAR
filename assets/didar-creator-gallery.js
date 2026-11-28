@@ -40,9 +40,9 @@ export async function listCreatorImages(creatorId, imageField = '') {
   const valid = entries.filter(name => {
     if (!name.startsWith(`${id}-`)) return false;
     const suffix = name.slice(id.length + 1);
-    return /^photo-0[1-8]\.jpg$/.test(suffix) || /^[1-9]\d*\.(jpeg|jpg|png|webp|avif)$/.test(suffix);
+    return /^photo-(?:0[1-9]|[1-9]\d+)\.jpg$/.test(suffix) || /^[1-9]\d*\.(jpeg|jpg|png|webp|avif)$/.test(suffix);
   });
-  const urls = [...new Set(valid)].slice(0, 8).map(name => `${ROOT}${encodeURIComponent(id)}/${encodeURIComponent(name)}`);
+  const urls = [...new Set(valid)].map(name => `${ROOT}${encodeURIComponent(id)}/${encodeURIComponent(name)}`);
   const key = JSON.stringify([id, urls]);
   if (!imageCache.has(key)) {
     imageCache.set(key, Promise.all(urls.map(async url => await imageExists(url) ? url : null))
